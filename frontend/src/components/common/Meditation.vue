@@ -11,7 +11,13 @@
       </q-img>  
     </q-card>
     <!-- 콘텐츠 메인 카테고리 card -->
-    
+    <q-card class="my-card">
+      <q-img style="height: 11vh;" src="https://cdn.quasar.dev/img/parallax2.jpg">
+        <div class="vertical-middle float-left transparent">
+          <p class="q-ma-none q-pa-none text-subtitle2 text-bold">Contents</p>
+        </div>
+      </q-img>  
+    </q-card>
   </div>
 </template>
 
