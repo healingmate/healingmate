@@ -11,13 +11,14 @@
       </q-img>  
     </q-card>
     <!-- 콘텐츠 메인 카테고리 card -->
-    <q-card class="my-card">
-      <q-img style="height: 11vh;" src="https://cdn.quasar.dev/img/parallax2.jpg">
-        <div class="vertical-middle float-left transparent">
-          <p class="q-ma-none q-pa-none text-subtitle2 text-bold">Contents</p>
-        </div>
-      </q-img>  
+    <q-card class="my-card row items-center bg-primary">
+      <div class="col-4 transparent justify-center q-ml-lg text-subtitle2 text-bold">Contents</div>
+      <q-img class="col-6" style="height: 13vh;" src="https://cdn.quasar.dev/img/parallax2.jpg" />
     </q-card>
+    <!-- 키워드 -->
+    <q-chip outline square color="indigo-9" text-color="white">
+      # 생활
+    </q-chip>
   </div>
 </template>
 
