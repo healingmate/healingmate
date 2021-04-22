@@ -4,7 +4,7 @@
       <q-btn class="back" round icon="more_vert" @click="onClick" />
     </div>
     <div v-else>
-      <Menu :isOpened="true" @doClose="onClose" />
+      <Menu :isOpened="true" @doClose="onClose" :flag="flag" />
     </div>
   </div>
 </template>
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       isOpened: false,
+      flag: 1,
     };
   },
 

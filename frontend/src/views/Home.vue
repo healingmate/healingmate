@@ -14,7 +14,7 @@
     ></iframe>
     <iframe width="300" height="300" src="https://www.instagram.com/p/CN6XiZElT4X/embed" frameborder="0"></iframe>
     <div>
-      <MoreButton />
+      <KebabButton />
       <GoBack />
       <Notification />
       <BottomNav />
@@ -27,7 +27,7 @@ import { getGoodWords } from '../api/index.js';
 import GoBack from '@/components/common/GoBack.vue';
 import BottomNav from '@/components/common/BottomNav.vue';
 import Notification from '@/components/common/Notification.vue';
-import MoreButton from '@/components/common/MoreButton.vue';
+import KebabButton from '@/components/common/KebabButton.vue';
 
 export default {
   name: 'Home',
@@ -35,7 +35,7 @@ export default {
     GoBack,
     BottomNav,
     Notification,
-    MoreButton,
+    KebabButton,
   },
   created() {
     getGoodWords()
