@@ -14,7 +14,9 @@
     ></iframe>
     <iframe width="300" height="300" src="https://www.instagram.com/p/CN6XiZElT4X/embed" frameborder="0"></iframe>
     <div>
+      <MoreButton />
       <GoBack />
+      <Notification />
       <BottomNav />
     </div>
   </div>
@@ -24,12 +26,16 @@
 import { getGoodWords } from '../api/index.js';
 import GoBack from '@/components/common/GoBack.vue';
 import BottomNav from '@/components/common/BottomNav.vue';
+import Notification from '@/components/common/Notification.vue';
+import MoreButton from '@/components/common/MoreButton.vue';
 
 export default {
   name: 'Home',
   components: {
     GoBack,
     BottomNav,
+    Notification,
+    MoreButton,
   },
   created() {
     getGoodWords()

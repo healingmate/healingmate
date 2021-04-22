@@ -1,16 +1,14 @@
 <template>
   <div>
-    <q-btn class="back" round icon="arrow_back_ios" @click="goBack" />
-    <q-btn class="back" round icon="arrow_back_ios_new" @click="goBack" />
+    <q-btn class="back" round icon="notifications_none" @click="onClick" />
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    goBack() {
+    onClick() {
       console.log('clicked');
-      this.$router.go(-1);
     },
   },
 };
@@ -20,7 +18,7 @@ export default {
 .back {
   background-color: transparent;
 
-  padding-left: 10px;
+  margin: auto;
   /* backface-visibility: visible; */
 }
 </style>
