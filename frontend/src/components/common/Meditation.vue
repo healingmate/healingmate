@@ -19,6 +19,17 @@
     <q-chip outline square color="indigo-9" text-color="white">
       # 생활
     </q-chip>
+    <!-- 기본 버튼 -->
+    <q-btn
+      size="22px"
+      class="q-px-xl q-py-sm"
+      color="green-6"
+    >
+      <div>
+        <div>💻</div>
+        <div class="text-caption text-bold">취업</div>
+      </div>
+    </q-btn>
   </div>
 </template>
 
