@@ -1,6 +1,7 @@
 package com.mallang.healingmate.article.domain;
 
 import com.mallang.healingmate.account.domain.Account;
+import com.mallang.healingmate.emoji.domain.AccountArticleEmojis;
 import com.mallang.healingmate.image.domain.ArticleImages;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,14 +37,17 @@ public class Article {
     @Lob
     private String content;
 
-    @Embedded
-    ArticleImages articleImages;
-
     @CreationTimestamp
     private LocalDateTime createDate;
 
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
+    @Embedded
+    private ArticleImages articleImages;
+
+    @Embedded
+    private AccountArticleEmojis accountArticleEmojis;
 
     @Builder
     public Article(Account account, String content) {

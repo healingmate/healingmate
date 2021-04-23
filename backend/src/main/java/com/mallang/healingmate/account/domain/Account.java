@@ -62,12 +62,6 @@ public class Account {
     @Embedded
     private AccountHealingContents accountHealingContents;
 
-    @Embedded
-    private AccountBansFrom accountBansFrom;
-
-    @Embedded
-    private AccountBansTo accountBansTo;
-
     @Builder
     public Account(UserRole role, String userId, String password, String nickname, Image image, Integer birthYear, Integer score) {
         this.role = role;
