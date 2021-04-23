@@ -1,4 +1,4 @@
-package com.mallang.healingmate.account.domain;
+package com.mallang.healingmate.healingcontent.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 내가 차단한 사람들
- * com.mallang.healingmate.account.domain
- * AccountBansFrom.java
- * @date    2021-04-22 오후 6:42
+ * com.mallang.healingmate.healingcontents.domain
+ * AccountHealingContents.java
+ * @date    2021-04-22 오후 2:24
  * @author  서범석, 이아영
  *
  * @변경이력
@@ -24,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Embeddable
-public class AccountBansFrom {
-    @OneToMany(mappedBy = "banFrom", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<AccountBan> accountBansFrom = new ArrayList<>();
+public class AccountHealingContents {
+    @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<AccountHealingContent> accountHealingContents = new ArrayList<>();
 }
