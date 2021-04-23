@@ -1,6 +1,6 @@
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
-import Component3 from '@/components/common/Meditation.vue'
+import Component3 from '@/views/common/Component3.vue'
 
 export default [
   {
