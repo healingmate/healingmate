@@ -2,13 +2,13 @@
   <div>
     <!-- 기본 버튼 -->
     <q-btn
-      size="22px"
+      :size="entity.size"
       class="q-px-xl q-py-sm"
-      color="green-6"
+      :color="entity.color"
     >
       <div>
-        <div>💻</div>
-        <div class="text-caption text-bold">취업</div>
+        <div>{{ entity.icon }}</div>
+        <div class="text-caption text-bold">{{ entity.title }}</div>
       </div>
     </q-btn>
   </div>
@@ -16,7 +16,9 @@
 
 <script>
 export default {
-
+  props: {
+    entity: Object,
+  },
 }
 </script>
 
