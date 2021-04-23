@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-lg">
-    <contents-card></contents-card>
+    <contents-card :entity="contents"></contents-card>
     <base-button :entity="button"></base-button>
     <contents-category :entity="category"></contents-category>
     <base-keyword :entity="keyword"></base-keyword>
@@ -28,6 +28,11 @@ export default {
   },
   data() {
     return {
+      contents: {
+        category: '유튜브',
+        title: '힐링 콘텐츠',
+        youtube: 'https://www.youtube.com/embed/k3_tw44QsZQ?rel=0'
+      },
       button: {
         icon: '💻',
         title: '취업',

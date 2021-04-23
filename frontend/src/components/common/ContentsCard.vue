@@ -4,13 +4,13 @@
     <q-video
       :ratio="16/9"
       class="rounded-borders"
-      src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0"
+      :src="entity.youtube"
     />
     <div class="items-center q-mt-xs">
       <q-chip class="text-caption" color="indigo-9" text-color="white">
-        유튜브
+        {{ entity.category }}
       </q-chip>
-      <p class="inline-block text-subtitle2 text-bold q-py-xs q-ma-none">힐링 콘텐츠</p>
+      <p class="inline-block text-subtitle2 text-bold q-py-xs q-ma-none">{{ entity.title }}</p>
       <q-icon class="cursor-pointer float-right" name="bookmark_border" size="sm" color="indigo-9"></q-icon>
     </div>
   </div>
@@ -18,7 +18,9 @@
 
 <script>
 export default {
-
+  props: {
+    entity: Object,
+  },
 }
 </script>
 
