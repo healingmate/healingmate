@@ -11,7 +11,13 @@
         {{ entity.category }}
       </q-chip>
       <p class="inline-block text-subtitle2 text-bold q-py-xs q-ma-none">{{ entity.title }}</p>
-      <q-icon class="cursor-pointer float-right" name="bookmark_border" size="sm" color="indigo-9"></q-icon>
+      <q-icon 
+        class="cursor-pointer float-right" 
+        :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
+        size="sm" 
+        color="indigo-9"
+        @click="checkbookmarked"
+      ></q-icon>
     </div>
   </div>
 </template>
@@ -21,6 +27,11 @@ export default {
   props: {
     entity: Object,
   },
+  methods: {
+    checkbookmarked() {
+      this.entity.bookmarked = !this.entity.bookmarked;
+    }
+  }
 }
 </script>
 

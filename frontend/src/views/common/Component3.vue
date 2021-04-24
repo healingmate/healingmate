@@ -31,7 +31,8 @@ export default {
       contents: {
         category: '유튜브',
         title: '힐링 콘텐츠',
-        youtube: 'https://www.youtube.com/embed/k3_tw44QsZQ?rel=0'
+        youtube: 'https://www.youtube.com/embed/k3_tw44QsZQ?rel=0',
+        bookmarked: false,
       },
       button: {
         icon: '💻',
