@@ -13,12 +13,11 @@
       allowfullscreen
     ></iframe>
     <iframe width="300" height="300" src="https://www.instagram.com/p/CN6XiZElT4X/embed" frameborder="0"></iframe>
-    <div>
-      <KebabButton />
-      <GoBack />
-      <Notification />
-      <BottomNav />
-    </div>
+    <div></div>
+    <KebabButton />
+    <GoBack />
+    <BottomNav />
+    <Notification />
   </div>
 </template>
 
