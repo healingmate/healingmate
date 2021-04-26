@@ -11,19 +11,41 @@
         frameborder="0"
         allowfullscreen
       ></iframe> -->
+      <!-- Youtube -->
       <q-img 
+        v-if="entity.category === '유튜브'"
         class="rounded-borders"
         :src="'https://img.youtube.com/vi/' + thumbnail + '/mqdefault.jpg'"
       >
         <div class="absolute-full flex flex-center">
-          <a :href="entity.contents">
+          <!-- <a :href="entity.contents">
             <q-icon
               class="text-white"
               name="play_circle"
               size="md"
             ></q-icon>
-          </a>  
+          </a>   -->
+          <q-icon
+            class="text-white"
+            name="play_circle"
+            size="md"
+            @click="showVideo"
+          ></q-icon>
         </div>
+        <q-icon 
+          class="cursor-pointer float-left q-ma-xs" 
+          :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
+          size="sm" 
+          color="white"
+          @click="checkbookmarked"
+        ></q-icon>
+      </q-img>
+      <!-- GIPHY 이미지 -->
+      <q-img 
+        v-else
+        class="rounded-borders"
+        :src="entity.contents"
+      >
         <q-icon 
           class="cursor-pointer float-left q-ma-xs" 
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
@@ -54,12 +76,16 @@ export default {
   },
   data() {
     return {
+      open: false,
       thumbnail: this.entity.contents.split('/').reverse()[0]
     }
   },
   methods: {
     checkbookmarked() {
       this.entity.bookmarked = !this.entity.bookmarked;
+    },
+    showVideo() {
+      this.open = true;
     }
   }
 }
