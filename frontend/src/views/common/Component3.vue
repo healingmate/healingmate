@@ -31,10 +31,8 @@ export default {
       contents: {
         category: '유튜브',
         title: '힐링 콘텐츠',
-        // contents: "https://www.instagram.com/p/CN6XiZElT4X/embed",
-        youtube: 'https://www.youtube.com/embed/k3_tw44QsZQ?rel=0?modestbranding=0?autoplay=1',
         // contents: 'https://media.giphy.com/media/iDJXOU0SWNCPEsa5EL/giphy.gif',
-        contents: "https://youtu.be/_gB-TMGfa-o",
+        contents: "https://youtu.be/k3_tw44QsZQ",
         bookmarked: false,
       },
       button: {

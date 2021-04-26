@@ -2,15 +2,6 @@
   <!-- 콘텐츠 card -->
   <div style="width: 45vw; relative-position">
     <div>
-      <!-- <iframe
-        id="iframe"
-        width="100%"
-        height="100vh"
-        style="border-radius: 10px;"
-        :src="entity.contents"
-        frameborder="0"
-        allowfullscreen
-      ></iframe> -->
       <!-- Youtube -->
       <q-img 
         v-if="entity.category === '유튜브'"
@@ -18,15 +9,8 @@
         :src="'https://img.youtube.com/vi/' + thumbnail + '/mqdefault.jpg'"
       >
         <div class="absolute-full flex flex-center">
-          <!-- <a :href="entity.contents">
-            <q-icon
-              class="text-white"
-              name="play_circle"
-              size="md"
-            ></q-icon>
-          </a>   -->
           <q-icon
-            class="text-white"
+            class="text-white cursor-pointer"
             name="play_circle"
             size="md"
             @click="showVideo"
@@ -55,17 +39,39 @@
         ></q-icon>
       </q-img>
     </div>
-    <!-- <q-video
-      :ratio="16/9"
-      class="rounded-borders"
-      :src="entity.youtube"
-    /> -->
     <div class="items-center q-mt-xs">
       <q-chip class="text-caption" color="indigo-9" text-color="white">
         {{ entity.category }}
       </q-chip>
       <p class="inline-block text-caption text-bold q-pa-xs q-ma-none">{{ entity.title }}</p>
     </div>
+    <!-- Youtube 개별 재생-->
+    <q-dialog v-model="open">
+      <div 
+        class="relative"
+        width="100%"
+        height="200%" 
+        style="background-color: transparent;"
+      >
+        <!-- 유튜브 개별 재생 종료 버튼 -->
+        <q-btn 
+          class="absolute" 
+          style="top: 13vh; left: 46vw;" 
+          round 
+          color="white"
+          text-color="black" 
+          icon="close" 
+          @click="open = false"
+        />
+        <iframe
+          class="absolute-center"
+          style="border-radius: 10px;"
+          :src="'https://www.youtube.com/embed/' + thumbnail + '?rel=0?modestbranding=0'"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </q-dialog>
   </div>
 </template>
 
