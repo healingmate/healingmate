@@ -38,7 +38,7 @@ export default {
       button: {
         icon: '💻',
         title: '취업',
-        size: '22px',
+        size: '18px',
         color: 'green-6'
       },
       category: {
