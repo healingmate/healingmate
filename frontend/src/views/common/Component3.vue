@@ -6,7 +6,7 @@
     <contents-category :entity="category"></contents-category>
     <base-keyword :entity="keyword"></base-keyword>
     <contents-meditation :entity="meditation"></contents-meditation>
-    <notification :entity="noti"></notification>
+    <account-notification :entity="noti"></account-notification>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import ContentsButton from '@/components/common/ContentsButton';
 import ContentsCategory from '@/components/common/ContentsCategory';
 import BaseKeyword from '@/components/common/BaseKeyword';
 import ContentsMeditation from '@/components/common/ContentsMeditation';
-import Notification from '@/components/common/Notification';
+import AccountNotification from '@/components/common/AccountNotification';
 
 export default {
   components: {
@@ -27,7 +27,7 @@ export default {
     ContentsCategory,
     BaseKeyword,
     ContentsMeditation,
-    Notification,
+    AccountNotification,
   },
   data() {
     return {
