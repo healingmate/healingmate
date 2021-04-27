@@ -3,6 +3,7 @@
     <!-- 콘텐츠 메인 페이지 카테고리 -->
     <div v-for="(item, index) in entity" :key="index">
       <q-card 
+        @click="goToDetail(index)"
         class="my-card row items-center q-mb-md" 
         :style="{ 'border-radius': '10px', 'background': item.color }"
       >
@@ -22,8 +23,13 @@
 
 export default {
   props: {
-    entity: Object,
+    entity: Array,
   },
+  methods: {
+    goToDetail(index) {
+      this.$router.push(`/healingcontents/${this.entity[index].address}`);
+    }
+  }
 }
 </script>
 

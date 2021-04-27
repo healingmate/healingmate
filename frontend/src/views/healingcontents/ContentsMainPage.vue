@@ -23,12 +23,14 @@ export default {
     return {
       category: [
         {
+          address: 'healing',
           title: 'Contents',
           img: 'contents.png',
           color: '#F2BAB7',
           font_color: 'black'
         },
         {
+          address: 'asmr',
           title: 'ASMR',
           img: 'asmr.png',
           color: '#00295A',
@@ -36,6 +38,7 @@ export default {
 
         },
         {
+          address: 'meditation',
           title: 'Meditaion',
           img: 'meditation.png',
           color: '#5A3272',
