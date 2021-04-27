@@ -35,17 +35,25 @@ export default {
         contents: "https://youtu.be/k3_tw44QsZQ",
         bookmarked: false,
       },
-      button: {
-        icon: '💻',
-        title: '취업',
-        size: '18px',
-        color: 'green-6'
-      },
-      category: {
-        title: 'Contents',
-        img: 'https://cdn.quasar.dev/img/parallax2.jpg',
-        color: 'blue'
-      },
+      button: [
+        {
+          icon: '💻',
+          title: '취업',
+          size: '20px',
+          color: '#55A822',
+          width: '40vw',
+          height: '15vh',
+        },
+      ], 
+      category: [
+        {
+          address: 'healing',
+          title: 'Contents',
+          img: 'contents.png',
+          color: '#F2BAB7',
+          font_color: 'black'
+        }
+      ],
       keyword: {
         keyword: '취업',
         click: false,
