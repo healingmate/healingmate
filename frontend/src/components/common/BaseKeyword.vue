@@ -1,9 +1,23 @@
 <template>
   <div>
     <!-- 키워드 -->
-    <q-chip class="text-caption text-bold" outline square color="indigo-9" text-color="white">
-      # {{ entity.keyword }}
-    </q-chip>
+    <q-badge 
+      v-if="!entity.click"
+      class="cursor-pointer text-caption text-bold q-px-sm" 
+      outline 
+      color="indigo-9" 
+      text-color="white"
+      @click="toggleKeyword"
+      :label="'# ' + entity.keyword"
+    />
+    <q-badge
+      v-else
+      class="cursor-pointer text-caption text-bold q-px-sm" 
+      color="indigo-9" 
+      text-color="white"
+      @click="toggleKeyword"
+      :label="'# ' + entity.keyword"
+    />
   </div>
 </template>
 
@@ -12,6 +26,11 @@ export default {
   props: {
     entity: Object,
   },
+  methods: {
+    toggleKeyword() {
+      this.entity.click = !this.entity.click;
+    }
+  }
 }
 </script>
 

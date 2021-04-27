@@ -47,7 +47,8 @@ export default {
         color: 'blue'
       },
       keyword: {
-        keyword: '취업'
+        keyword: '취업',
+        click: false,
       },
       meditation: {
         time: 11,
