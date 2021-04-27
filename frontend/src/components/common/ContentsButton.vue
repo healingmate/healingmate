@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="flex row wrap justify-between">
     <!-- 기본 버튼 -->
-    <div v-for="(item, index) in entity" :key="index">
+    <div class="inline-block q-mb-md" v-for="(item, index) in entity" :key="index">
       <q-card
         class="q-px-xl q-py-sm"
         :style="{ 

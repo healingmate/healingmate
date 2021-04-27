@@ -2,6 +2,7 @@
   <div class="q-pa-lg">
     <contents-card :entity="contents"></contents-card>
     <base-button :entity="button"></base-button>
+    <contents-button :entity="asmr"></contents-button>
     <contents-category :entity="category"></contents-category>
     <base-keyword :entity="keyword"></base-keyword>
     <contents-meditation :entity="meditation"></contents-meditation>
@@ -11,7 +12,8 @@
 
 <script>
 import ContentsCard from '@/components/common/ContentsCard';
-import BaseButton from '@/components/common/BaseButton.vue';
+import BaseButton from '@/components/common/BaseButton';
+import ContentsButton from '@/components/common/ContentsButton';
 import ContentsCategory from '@/components/common/ContentsCategory';
 import BaseKeyword from '@/components/common/BaseKeyword';
 import ContentsMeditation from '@/components/common/ContentsMeditation';
@@ -21,6 +23,7 @@ export default {
   components: {
     ContentsCard,
     BaseButton,
+    ContentsButton,
     ContentsCategory,
     BaseKeyword,
     ContentsMeditation,
@@ -45,6 +48,16 @@ export default {
           height: '15vh',
         },
       ], 
+      asmr: [
+        {
+          icon: '🌿',
+          title: '숲소리',
+          font_color: 'white',
+          color: '#2F6673',
+          width: '40vw',
+          height: '25vh',
+        }
+      ],
       category: [
         {
           address: 'healing',
