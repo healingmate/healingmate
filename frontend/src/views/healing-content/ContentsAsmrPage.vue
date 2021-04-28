@@ -1,37 +1,44 @@
 <template>
-  <div class="q-pa-lg flex row wrap justify-between">
-    <contents-button 
-      v-for="(item, index) in contents" 
-      :key="index" 
-      :entity="item"
-    ></contents-button>
-    <!-- 연습 -->
-    <!-- <div>
-      <audio controls src="/wind.MP3"> Your user agent does not support the HTML5 Audio element. </audio>
-    </div> -->
-    <!-- <div class="music-player"> -->
-    <!-- <audio
-      ref="audio"
-      :src="require('@/assets/asmr/wind.MP3')"
-      preload
-      loop
-      id="audio"
-      type="mpeg"
-    ></audio> -->
-  <!-- </div> -->
+  <div>
+    <the-image-header class="relative" background-image="test.png" label="ASMR"></the-image-header>
+    <!-- TODO : 이전 페이지 이동 버튼 넣기-->
+    <div class="q-pa-lg flex row wrap justify-between">
+      <contents-button 
+        v-for="(asmr, index) in asmrList" 
+        :key="index" 
+        :entity="asmr"
+      ></contents-button>
+      <!-- 연습 -->
+      <!-- <div>
+        <audio controls src="/wind.MP3"> Your user agent does not support the HTML5 Audio element. </audio>
+      </div> -->
+      <!-- <div class="music-player"> -->
+      <!-- <audio
+        ref="audio"
+        :src="require('@/assets/asmr/wind.MP3')"
+        preload
+        loop
+        id="audio"
+        type="mpeg"
+      ></audio> -->
+    <!-- </div> -->
+    </div>
   </div>
 </template>
 
 <script>
+import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsButton from '@/components/healing-content/ContentsButton';
 
 export default {
   components: {
+    TheImageHeader,
     ContentsButton,
   },
+  
   data() {
     return {
-      contents: [
+      asmrList: [
         {
           icon: '🌂',
           title: '빗소리',
