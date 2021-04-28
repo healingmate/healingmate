@@ -9,12 +9,16 @@
       <p class="q-mb-none">당신을 위한</p>
       <p class="q-mb-none">힐링콘텐츠 :)</p>
     </div>
-    <contents-category :entity="category"></contents-category>
+    <contents-category 
+      v-for="(item, index) in category" 
+      :key="index" 
+      :entity="item"
+    ></contents-category>
   </div>
 </template>
 
 <script>
-import ContentsCategory from '@/components/common/ContentsCategory';
+import ContentsCategory from '@/components/healing-content/ContentsCategory';
 export default {
   components: {
     ContentsCategory,

@@ -1,6 +1,10 @@
 <template>
-  <div class="q-pa-lg">
-    <contents-button :entity="contents"></contents-button>
+  <div class="q-pa-lg flex row wrap justify-between">
+    <contents-button 
+      v-for="(item, index) in contents" 
+      :key="index" 
+      :entity="item"
+    ></contents-button>
     <!-- 연습 -->
     <!-- <div>
       <audio controls src="/wind.MP3"> Your user agent does not support the HTML5 Audio element. </audio>
@@ -19,7 +23,7 @@
 </template>
 
 <script>
-import ContentsButton from '@/components/common/ContentsButton';
+import ContentsButton from '@/components/healing-content/ContentsButton';
 
 export default {
   components: {

@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import ContentsCard from '@/components/common/ContentsCard';
+import ContentsCard from '@/components/healing-content/ContentsCard';
 import BaseCardButton from '@/components/common/BaseCardButton';
-import ContentsButton from '@/components/common/ContentsButton';
-import ContentsCategory from '@/components/common/ContentsCategory';
+import ContentsButton from '@/components/healing-content/ContentsButton';
+import ContentsCategory from '@/components/healing-content/ContentsCategory';
 import BaseKeyword from '@/components/common/BaseKeyword';
-import ContentsMeditation from '@/components/common/ContentsMeditation';
-import AccountNotification from '@/components/common/AccountNotification';
+import ContentsMeditation from '@/components/healing-content/ContentsMeditation';
+import AccountNotification from '@/components/account/AccountNotification';
 
 export default {
   components: {
@@ -38,35 +38,29 @@ export default {
         contents: "https://youtu.be/k3_tw44QsZQ",
         bookmarked: false,
       },
-      button: [
-        {
-          icon: '💻',
-          title: '취업',
-          size: '20px',
-          color: '#55A822',
-          width: '40vw',
-          height: '15vh',
-        },
-      ], 
-      asmr: [
-        {
-          icon: '🌿',
-          title: '숲소리',
-          font_color: 'white',
-          color: '#2F6673',
-          width: '40vw',
-          height: '25vh',
-        }
-      ],
-      category: [
-        {
-          address: 'contents',
-          title: 'Contents',
-          img: 'contents.png',
-          color: '#F2BAB7',
-          font_color: 'black'
-        }
-      ],
+      button: {
+        icon: '💻',
+        title: '취업',
+        size: '20px',
+        color: '#55A822',
+        width: '40vw',
+        height: '15vh',
+      },
+      asmr: {
+        icon: '🌿',
+        title: '숲소리',
+        font_color: 'white',
+        color: '#2F6673',
+        width: '40vw',
+        height: '25vh',
+      },
+      category:{
+        address: 'contents',
+        title: 'Contents',
+        img: 'contents.png',
+        color: '#F2BAB7',
+        font_color: 'black'
+      },
       keyword: {
         keyword: '취업',
         click: false,
