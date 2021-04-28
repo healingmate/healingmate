@@ -1,35 +1,58 @@
 <template>
-  <div>
-    <!-- 기본 버튼 -->
-    <div v-for="(item, index) in entity" :key="index">
-      <q-btn
-        :size="item.size"
-        class="q-px-xl q-py-sm"
-        text-color="white"
-        :style="{ 
-          'width': item.width,
-          'height': item.height,
-          'border-radius': '10px', 
-          'background': item.color 
-        }"
-      >
-        <div>
-          <div>{{ item.icon }}</div>
-          <div class="text-caption text-bold">{{ item.title }}</div>
-        </div>
-      </q-btn>
-    </div>
-  </div>
+  <q-btn
+    v-if="icon"
+    :style="`background: ${backGroundColor}; color: ${textColor}; height: 44px; width: ${width}; margin-bottom: 20px;`"
+    size="1rem"
+    :label="label" 
+    :icon="icon"
+  />
+  <q-btn
+    v-else
+    :style="`background: ${backGroundColor}; color: ${textColor}; height: 44px; width: ${width}; margin-bottom: 20px;`"
+    size="1rem"
+    :label="label" 
+  />
 </template>
 
 <script>
 export default {
-  props: {
-    entity: Array,
-  },
+	name: 'BaseButton',
+	// components: {},
+	// filters: {},
+	props: {
+		backGroundColor: {
+			type: String,
+			default: '#545FD6'
+		},
+		textColor: {
+			type: String,
+			default: '#ffffff'
+		},
+		label: {
+			type: String,
+			default: null,
+		},
+    icon: {
+      type: String,
+      default: null,
+    },
+    width: {
+      type: String,
+      default: '100%'
+    }
+	},
+	// data() {},
+	// computed: {},
+	// watch: {},
+	// created() {},
+	// mounted() {},
+	// updated() {},
+	// methods: {},
 }
 </script>
 
-<style scoped>
-
+<style>
+.q-btn--rectangle {
+  border-radius: 14px !important;
+}    
 </style>

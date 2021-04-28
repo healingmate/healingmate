@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-lg">
     <contents-card :entity="contents"></contents-card>
-    <base-button :entity="button"></base-button>
+    <base-card-button :entity="button"></base-card-button>
     <contents-button :entity="asmr"></contents-button>
     <contents-category :entity="category"></contents-category>
     <base-keyword :entity="keyword"></base-keyword>
@@ -12,7 +12,7 @@
 
 <script>
 import ContentsCard from '@/components/common/ContentsCard';
-import BaseButton from '@/components/common/BaseButton';
+import BaseCardButton from '@/components/common/BaseCardButton';
 import ContentsButton from '@/components/common/ContentsButton';
 import ContentsCategory from '@/components/common/ContentsCategory';
 import BaseKeyword from '@/components/common/BaseKeyword';
@@ -22,7 +22,7 @@ import AccountNotification from '@/components/common/AccountNotification';
 export default {
   components: {
     ContentsCard,
-    BaseButton,
+    BaseCardButton,
     ContentsButton,
     ContentsCategory,
     BaseKeyword,

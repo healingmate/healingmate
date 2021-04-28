@@ -1,10 +1,10 @@
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Component3 from '@/views/common/Component3.vue'
-import HealingContents from '@/views/healingcontents/ContentsMainPage.vue'
-import Contents from '@/views/healingcontents/ContentsHealingPage.vue'
-import Asmr from '@/views/healingcontents/ContentsAsmrPage.vue'
-import Meditation from '@/views/healingcontents/ContentsMeditationPage.vue'
+import HealingContent from '@/views/healing-content/ContentsMainPage.vue'
+import Contents from '@/views/healing-content/ContentsHealingPage.vue'
+import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
+import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
 
 export default [
   {
@@ -18,22 +18,22 @@ export default [
     component: About
   },
   {
-    path: '/healingcontents/main',
-    name: 'healingcontents',
-    component: HealingContents
+    path: '/healing-content/main',
+    name: 'healing-content',
+    component: HealingContent
   },
   {
-    path: '/healingcontents/contents',
+    path: '/healing-content/contents',
     name: 'contents',
     component: Contents
   },
   {
-    path: '/healingcontents/asmr',
+    path: '/healing-content/asmr',
     name: 'asmr',
     component: Asmr
   },
   {
-    path: '/healingcontents/meditation',
+    path: '/healing-content/meditation',
     name: 'meditation',
     component: Meditation
   },

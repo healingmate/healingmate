@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     goToDetail(index) {
-      this.$router.push(`/healingcontents/${this.entity[index].address}`);
+      this.$router.push(`/healing-content/${this.entity[index].address}`);
     }
   }
 }
