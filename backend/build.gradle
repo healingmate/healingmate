@@ -14,6 +14,12 @@ configurations {
 	}
 }
 
+jar{
+	manifest {
+		attributes 'Main-Class' : 'HealingMateApplication'
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -47,6 +53,9 @@ dependencies {
 	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	// slf4j
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 }
 
 test {

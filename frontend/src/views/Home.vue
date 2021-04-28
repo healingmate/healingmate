@@ -44,6 +44,24 @@
       />
     </ArticleCarousel>
     <q-separator />
+    <h1>컴포넌트 화면</h1>
+    <q-btn color="primary" icon="check" label="OK" />
+    <h3>퀘이사도 불러왔읍니당</h3>
+    <iframe
+      width="300"
+      height="300"
+      src="https://www.youtube.com/embed/fMNgy1JNz6A"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+    <iframe width="300" height="300" src="https://www.instagram.com/p/CN6XiZElT4X/embed" frameborder="0"></iframe>
+    <div></div>
+    <KebabButton />
+    <GoBack />
+    <BottomNav />
+    <Notification />
   </div>
 </template>
 
@@ -55,7 +73,12 @@ import BaseButton from "@/components/common/BaseButton"
 import BaseProfileCard from "@/components/common/BaseProfileCard"
 import ArticleCarousel from "@/components/article/ArticleCarousel"
 import ArticleCarouselItem from "@/components/article/ArticleCarouselItem"
+import GoBack from '@/components/common/GoBack.vue';
+import BottomNav from '@/components/common/BottomNav.vue';
+import Notification from '@/components/common/Notification.vue';
+import KebabButton from '@/components/common/KebabButton.vue';
 import { validation } from "@/mixins/validation"
+import { getGoodWords } from '../api/index.js';
 
 export default {
   name: 'Home',
@@ -67,6 +90,10 @@ export default {
     BaseProfileCard,
     ArticleCarousel,
     ArticleCarouselItem,
+    GoBack,
+    BottomNav,
+    Notification,
+    KebabButton,
   },
   // filters: {},
   mixins: [validation],
@@ -85,9 +112,18 @@ export default {
   },
   // computed: {},
   // watch: {},
-  // created() {},
+  created() {
+    getGoodWords()
+      .then(function(response) {
+        console.log('호출 후: ', response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
   // mounted() {},
   // updated() {},
   // methods: {},
-}
+};
+>>>>>>> 593adca5788137221138b67fd84713124bdc8cc7
 </script>
