@@ -1,7 +1,7 @@
 <template>
   <!-- 콘텐츠 메인 페이지 카테고리 -->
     <q-card 
-      @click="goToDetail()"
+      @click="goToDetail"
       class="my-card row entitys-center q-mb-md" 
       :style="{ 'border-radius': '10px', 'background': entity.color }"
     >

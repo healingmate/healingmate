@@ -5,6 +5,7 @@ import HealingContent from '@/views/healing-content/ContentsMainPage.vue'
 import Contents from '@/views/healing-content/ContentsHealingPage.vue'
 import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
 import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
+import Profile from '@/views/user/UserProfilePage.vue'
 
 export default [
   {
@@ -36,6 +37,11 @@ export default [
     path: '/healing-content/meditation',
     name: 'meditation',
     component: Meditation
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile
   },
   {
     path: '/component3',
