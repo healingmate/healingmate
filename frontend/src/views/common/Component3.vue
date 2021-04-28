@@ -69,6 +69,8 @@ export default {
         time: 11,
         title: '아침 명상',
         background_img: 'https://cdn.quasar.dev/img/parallax2.jpg',
+        width: '100%',
+        height: '27vh',
       },
       noti: {
         username: '하이하이',
