@@ -125,5 +125,4 @@ export default {
   // updated() {},
   // methods: {},
 };
->>>>>>> 593adca5788137221138b67fd84713124bdc8cc7
 </script>
