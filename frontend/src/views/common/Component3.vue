@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-lg">
     <contents-card :entity="contents"></contents-card>
-    <base-card-button :entity="button"></base-card-button>
+    <bamboo-card-button :entity="button"></bamboo-card-button>
     <contents-button :entity="asmr"></contents-button>
     <contents-category :entity="category"></contents-category>
     <base-keyword :entity="keyword"></base-keyword>
@@ -12,7 +12,7 @@
 
 <script>
 import ContentsCard from '@/components/healing-content/ContentsCard';
-import BaseCardButton from '@/components/common/BaseCardButton';
+import BambooCardButton from '@/components/bamboo/BambooCardButton';
 import ContentsButton from '@/components/healing-content/ContentsButton';
 import ContentsCategory from '@/components/healing-content/ContentsCategory';
 import BaseKeyword from '@/components/common/BaseKeyword';
@@ -22,7 +22,7 @@ import AccountNotification from '@/components/account/AccountNotification';
 export default {
   components: {
     ContentsCard,
-    BaseCardButton,
+    BambooCardButton,
     ContentsButton,
     ContentsCategory,
     BaseKeyword,
