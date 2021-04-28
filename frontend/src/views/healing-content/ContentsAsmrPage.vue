@@ -35,7 +35,6 @@ export default {
     TheImageHeader,
     ContentsButton,
   },
-  
   data() {
     return {
       asmrList: [

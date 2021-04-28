@@ -1,6 +1,6 @@
 <template>
   <!-- 콘텐츠 card -->
-  <div style="width: 45vw; relative-position">
+  <div style="width: 42vw; relative-position">
     <div>
       <!-- Youtube -->
       <q-img 
@@ -39,7 +39,7 @@
         ></q-icon>
       </q-img>
     </div>
-    <div class="items-center q-mt-xs">
+    <div class="items-center q-mt-xs q-mb-md">
       <q-chip class="text-caption" color="indigo-9" text-color="white">
         {{ entity.category }}
       </q-chip>
