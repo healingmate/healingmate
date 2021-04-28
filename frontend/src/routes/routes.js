@@ -2,7 +2,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Component3 from '@/views/common/Component3.vue'
 import HealingContents from '@/views/healingcontents/ContentsMainPage.vue'
-import Healing from '@/views/healingcontents/ContentsHealingPage.vue'
+import Contents from '@/views/healingcontents/ContentsHealingPage.vue'
 import Asmr from '@/views/healingcontents/ContentsAsmrPage.vue'
 import Meditation from '@/views/healingcontents/ContentsMeditationPage.vue'
 
@@ -23,9 +23,9 @@ export default [
     component: HealingContents
   },
   {
-    path: '/healingcontents/healing',
-    name: 'healing',
-    component: Healing
+    path: '/healingcontents/contents',
+    name: 'contents',
+    component: Contents
   },
   {
     path: '/healingcontents/asmr',

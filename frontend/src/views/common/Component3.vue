@@ -60,7 +60,7 @@ export default {
       ],
       category: [
         {
-          address: 'healing',
+          address: 'contents',
           title: 'Contents',
           img: 'contents.png',
           color: '#F2BAB7',
