@@ -6,7 +6,6 @@
     <!-- TODO : 사이즈 조절  -->
     <notification class="absolute-right q-mr-xl q-mt-md text-white"></notification>
     <!-- 사용자 프로필 -->
-    <!-- TODO : click-->
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
       @click.native="goToProfile"

@@ -79,8 +79,9 @@
           width="9rem" 
           icon="pause"
         ></base-button>
-        <audio src="">
-          
+        <!-- 명상 음악 -->
+        <audio v-if="play === true" autoplay>
+          <source src="@/assets/audios/meditation/afternoon.mp3">
         </audio>
       </q-card>
     </q-dialog>
