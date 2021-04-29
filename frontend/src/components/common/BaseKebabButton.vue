@@ -4,16 +4,16 @@
       <q-btn class="back" round icon="more_vert" @click="onClick" />
     </div>
     <div v-else>
-      <Menu :isOpened="true" @doClose="onClose" :flag="flag" />
+      <BaseMenu :isOpened="true" @doClose="onClose" :flag="flag" />
     </div>
   </div>
 </template>
 
 <script>
-import Menu from '@/components/common/Menu.vue';
+import BaseMenu from '@/components/common/BaseMenu.vue';
 export default {
   components: {
-    Menu,
+    BaseMenu,
   },
   data() {
     return {
