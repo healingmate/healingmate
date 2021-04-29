@@ -4,6 +4,7 @@
     :style="`background: ${backGroundColor}; color: ${textColor}; height: 44px; width: ${width}; margin-bottom: 20px;`"
     size="1rem"
     :label="label" 
+		:disable="disable"
     :icon="icon"
   />
   <q-btn
@@ -11,6 +12,7 @@
     :style="`background: ${backGroundColor}; color: ${textColor}; height: 44px; width: ${width}; margin-bottom: 20px;`"
     size="1rem"
     :label="label" 
+		:disable="disable"
   />
 </template>
 
@@ -39,7 +41,11 @@ export default {
     width: {
       type: String,
       default: '100%'
-    }
+    },
+		disable: {
+			type: Boolean,
+			default: false,
+		}
 	},
 	// data() {},
 	// computed: {},

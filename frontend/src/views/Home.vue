@@ -28,17 +28,13 @@ export default {
 	},
 	// filters: {},
   // mixins: [],
-	// props: {},
+	props: {
+		isNight: Boolean
+	},
 	// data() {
 	//   return {}
 	// },
-	computed: {
-		// 현재 시간이 낮인지 밤인지 구하는 boolean 타입의 isNight 밤이면 true 낮이면 false
-		isNight() {
-			const hour = new Date().getHours();
-			return 18 <= hour || hour <= 6
-		}
-	},
+	// computed: {},
 	// watch: {},
 	// created() {},
 	// mounted() {},

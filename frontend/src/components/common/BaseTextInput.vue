@@ -1,13 +1,16 @@
 <template>
   <div>
 		<p :style="`color: ${color}; font-size: 1rem;`">{{label}}</p>
-    <q-input 
-			:readonly="type === 'birthYear'" 
+    <q-input
+			v-model="text"
+			ref="input"
+			:readonly="readonly"
 			outlined
-			v-model="text" 
-			:dense="true" 
-			:type="type" 
+			bg-color="white"
+			:dense="true"
+			:type="type"
 			:rules="rules"
+			@input="emitInputData()"
 		> 
 			<template 
 				v-if="type === 'birthYear'" 
@@ -22,11 +25,12 @@
 						ref="qDateProxy" 
 					>
             <q-date
-							@navigation="onDateNavigation"
-							minimal
 							v-model="text"
+							minimal
 							default-year-month="2002/01"
 							default-view="Years"
+							@navigation="onDateNavigation"
+							@input="emitInputData()"
 						/>
           </q-popup-proxy>
         </q-icon>
@@ -57,7 +61,11 @@ export default {
 		rules: {
 			type: Array,
 			default: null,
-		}
+		},
+		readonly: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data() {
 		return {
@@ -70,9 +78,15 @@ export default {
 	// mounted() {},
 	// updated() {},
 	methods: {
+		// 달력 선택시 연도를 선택하자 마자 캘린더를 꺼버리는 함수
 		onDateNavigation(data) {
 			this.text = data.year
+			this.emitInputData()
 			this.$refs.qDateProxy.hide()
+		},
+		emitInputData() {
+			this.$emit('onInputValue', this.text)
+			this.$emit('onValidate', this.$refs.input)
 		}
 	},
 }
