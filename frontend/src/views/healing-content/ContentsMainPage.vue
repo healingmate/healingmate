@@ -9,7 +9,7 @@
     <!-- TODO : click-->
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
-      :click="goToProfile"
+      @click.native="goToProfile"
     ></base-avatar>
     <div class="q-pa-lg">
       <!-- 타이틀 -->

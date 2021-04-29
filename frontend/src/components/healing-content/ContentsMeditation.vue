@@ -61,8 +61,27 @@
         >
           {{ entity.explanation }}
         </q-card-section>
-        <base-button v-if="play === false" @click.native="playMusic" style="bottom: 20vh; left: 50%; transform: translateX(-50%);" back-ground-color="#244684" label="PLAY" width="9rem" icon="play_arrow"></base-button>
-        <base-button v-else @click.native="playMusic" style="bottom: 20vh; left: 50%; transform: translateX(-50%);" back-ground-color="#244684" label="PLAYING" width="9rem" icon="pause"></base-button>
+        <base-button 
+          v-if="play === false" 
+          @click.native="playMusic" 
+          style="bottom: 20vh; left: 50%; transform: translateX(-50%);" 
+          back-ground-color="#244684" 
+          label="PLAY" 
+          width="9rem" 
+          icon="play_arrow"
+        ></base-button>
+        <base-button 
+          v-else 
+          @click.native="playMusic" 
+          style="bottom: 20vh; left: 50%; transform: translateX(-50%);" 
+          back-ground-color="#244684" 
+          label="PLAYING" 
+          width="9rem" 
+          icon="pause"
+        ></base-button>
+        <audio src="">
+          
+        </audio>
       </q-card>
     </q-dialog>
   </div>
