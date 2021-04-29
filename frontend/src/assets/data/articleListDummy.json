@@ -1,0 +1,114 @@
+{
+  "content": [
+    {
+      "user": {
+        "userId": "user1",
+        "profileImagePath": "https://cdn.quasar.dev/img/avatar.png",
+        "nickname": "동해물과",
+        "keyword": [
+          "가족", "학업"
+        ]
+      },
+      "content": "동해물과 백두산이 마르고asdfasdfasdf 닳도록 동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록",
+      "isSelf": false,
+      "createdDate": "2020/12/34",
+      "updatedDate": "2020/12/34",
+      "likedEmoji": "SMILE",
+      "emojiCount": {
+        "SMILE" : 3, 
+        "GRINNING" : 3,
+        "LOVELY" : 1,
+        "AMAZED" : 0, 
+        "CRYING" : 5
+      },
+      "articleImages":[
+        "https://placeimg.com/200/200/any?1",
+        "https://placeimg.com/200/200/any?2",
+        "https://placeimg.com/200/200/any?3",
+        "https://placeimg.com/200/200/any?4",
+        "https://placeimg.com/200/200/any?5",
+        "https://placeimg.com/200/200/any?6"
+      ]
+    },
+    {
+      "user": {
+        "userId": "user2",
+        "profileImagePath": "https://cdn.quasar.dev/img/avatar.png",
+        "nickname": "백두산",
+        "keyword": [
+          "가족", "학업"
+        ]
+      },
+      "content": "",
+      "isSelf": true,
+      "createdDate": "2020/12/34",
+      "updatedDate": "2020/12/34",
+      "likedEmoji": "GRINNING",
+      "emojiCount": {
+        "SMILE" : 3, 
+        "GRINNING" : 3,
+        "LOVELY" : 1,
+        "AMAZED" : 0, 
+        "CRYING" : 5
+      },
+      "articleImages":[
+        "https://placeimg.com/200/200/any?1"
+      ]
+    },
+    {
+      "user": {
+        "userId": "user3",
+        "profileImagePath": "https://cdn.quasar.dev/img/avatar.png",
+        "nickname": "마르고",
+        "keyword": [
+          "가족"
+        ]
+      },
+      "content": "동해물과 백두산이 마르고 닳도록 동해물과",
+      "isSelf": false,
+      "createdDate": "2020/12/34",
+      "updatedDate": "2020/12/34",
+      "likedEmoji": "SMILE",
+      "emojiCount": {
+        "SMILE" : 3, 
+        "GRINNING" : 3,
+        "LOVELY" : 1,
+        "AMAZED" : 0, 
+        "CRYING" : 5
+      },
+      "articleImages":[
+      ]
+    },
+    {
+      "user": {
+        "userId": "user4",
+        "profileImagePath": "https://cdn.quasar.dev/img/avatar.png",
+        "nickname": "하느님이",
+        "keyword": [
+          "가족", "학업"
+        ]
+      },
+      "content": "동해물과 백두산이 마르고 닳도록 동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록동해물과 백두산이 마르고 닳도록",
+      "isSelf": false,
+      "createdDate": "2020/12/34",
+      "updatedDate": "2020/12/34",
+      "likedEmoji": null,
+      "emojiCount": {
+        "SMILE" : 3, 
+        "GRINNING" : 3,
+        "LOVELY" : 1,
+        "AMAZED" : 0, 
+        "CRYING" : 5
+      },
+      "articleImages":[
+        "https://placeimg.com/200/200/any?1",
+        "https://placeimg.com/200/200/any?2",
+        "https://placeimg.com/200/200/any?3",
+        "https://placeimg.com/200/200/any?4",
+        "https://placeimg.com/200/200/any?5",
+        "https://placeimg.com/200/200/any?6"
+      ]
+    }
+  ],
+  "last": false
+}

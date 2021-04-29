@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <router-view/>
+  <div class="row justify-center">
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <router-view/>
+    </div>
   </div>
 </template>
 
