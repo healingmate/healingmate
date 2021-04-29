@@ -7,7 +7,6 @@
 			v-model="text" 
 			:dense="true" 
 			:type="type" 
-			style="margin-bottom: 20px;"
 			:rules="rules"
 		> 
 			<template 
