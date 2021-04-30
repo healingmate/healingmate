@@ -1,11 +1,9 @@
 package com.mallang.healingmate.emoji.service;
 
 import com.mallang.healingmate.account.domain.Account;
+import com.mallang.healingmate.account.repository.AccountRepository;
 import com.mallang.healingmate.article.domain.Article;
-import com.mallang.healingmate.article.dto.ArticleRequest;
-import com.mallang.healingmate.article.service.AccountRepository;
 import com.mallang.healingmate.article.service.ArticleRepository;
-import com.mallang.healingmate.common.exception.BusinessException;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmoji;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmojiMapper;
 import com.mallang.healingmate.emoji.domain.Emoji;

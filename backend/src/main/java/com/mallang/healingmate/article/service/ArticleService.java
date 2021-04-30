@@ -1,6 +1,7 @@
 package com.mallang.healingmate.article.service;
 
 import com.mallang.healingmate.account.domain.Account;
+import com.mallang.healingmate.account.repository.AccountRepository;
 import com.mallang.healingmate.article.domain.Article;
 import com.mallang.healingmate.article.dto.ArticleRequest;
 import lombok.AccessLevel;
