@@ -11,7 +11,7 @@
       >
         {{ entity.title }}
       </div>
-      <q-img class="col-6" style="height: 13vh;" :src="require(`@/assets/images/${ entity.img }`)" />
+      <q-img class="col-6" style="height: 13vh;" :src="require(`@/assets/images/category/${ entity.img }`)" />
     </q-card>
 </template>
 
