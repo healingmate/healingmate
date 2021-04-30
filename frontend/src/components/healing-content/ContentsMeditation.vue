@@ -81,7 +81,7 @@
         ></base-button>
         <!-- 명상 음악 -->
         <audio v-if="play === true" autoplay>
-          <source src="@/assets/audios/meditation/afternoon.mp3">
+          <source :src="require(`@/assets/audios/meditation/${entity.audio}`)">
         </audio>
       </q-card>
     </q-dialog>
