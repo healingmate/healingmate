@@ -3,7 +3,6 @@ import ProjectComponentsPage from '../views/ProjectComponentsPage.vue'
 import AccountSignUpFirstPage from '@/views/account/AccountSignUpFirstPage'
 import AccountSignUpSecondPage from '@/views/account/AccountSignUpSecondPage'
 import AccountSignInPage from '@/views/account/AccountSignInPage'
-import Component3 from '@/views/common/Component3.vue'
 import HealingContent from '@/views/healing-content/ContentsMainPage.vue'
 import Contents from '@/views/healing-content/ContentsHealingPage.vue'
 import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
@@ -67,9 +66,4 @@ export default [
     name: 'Profile',
     component: Profile
   },
-  {
-    path: '/component3',
-    name: 'Component3',
-    component: Component3
-  }
 ]
