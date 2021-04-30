@@ -1,0 +1,33 @@
+const mainData = [
+  {
+    id: 1,
+    time: 11,
+    title: '아침 명상',
+    background_img: 'morning.jpg',
+    audio: 'wedding.mp3',
+    explanation: '편안한 자세로 아침명상을 즐겨보세요:) 고요한 아침의 소리를 들으면 마음이 차분해지는 것을 느낄 수 있습니다.',
+    width: '100%',
+    height: '27vh',
+  },
+  {
+    id: 2,
+    time: 11,
+    title: '오후 명상',
+    background_img: 'afternoon.jpg',
+    audio: 'afternoon.mp3',
+    explanation: '나른한 오후, 명상을 통해 마음을 정리해보는 시간을 가져보세요. 차분한 오후에 어울리는 따뜻한 명상 음악 어떠신가요?',
+    width: '100%',
+    height: '27vh',
+  },
+  {
+    id: 3,
+    time: 11,
+    title: '저녁 명상',
+    background_img: 'night.jpg',
+    audio: 'afternoon.mp3',
+    explanation: '오늘 하루도 수고 많으셨어요:) 하루를 정리하며 명상 어떠신가요?',
+    width: '100%',
+    height: '27vh',
+  },
+];
+export { mainData };
