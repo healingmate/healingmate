@@ -8,6 +8,7 @@
         class="rounded-borders"
         :src="'https://img.youtube.com/vi/' + thumbnail + '/mqdefault.jpg'"
       >
+      {{ thumbnail }}
         <div class="absolute-full flex flex-center">
           <q-icon
             class="text-white cursor-pointer"
@@ -46,24 +47,30 @@
       <p class="inline-block text-caption text-bold q-pa-xs q-ma-none">{{ entity.title }}</p>
     </div>
     <!-- Youtube 개별 재생-->
-    <q-dialog v-model="open">
-      <!-- 유튜브 개별 재생 종료 버튼 -->
-      <q-btn 
-        class="absolute" 
-        style="top: 13vh; left: 46vw;" 
-        round 
-        color="white"
-        text-color="black" 
-        icon="close" 
-        @click="open = false"
-      />
-      <iframe
-        class="absolute-center"
-        style="border-radius: 10px;"
-        :src="'https://www.youtube.com/embed/' + thumbnail + '?rel=0?modestbranding=0'"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
+    <q-dialog 
+      v-model="open" 
+      class="relative">
+      <div 
+        style="background-color: transparent;"
+      >
+        <!-- 유튜브 개별 재생 종료 버튼 -->
+        <q-btn 
+          class="absolute" 
+          style="top: 13vh; left: 46vw;" 
+          round 
+          color="white"
+          text-color="black" 
+          icon="close" 
+          @click="open = false"
+        />
+        <iframe
+          class="absolute-center"
+          style="border-radius: 10px;"
+          :src="'https://www.youtube.com/embed/' + thumbnail + '?rel=0?modestbranding=0'"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
     </q-dialog>
   </div>
 </template>
@@ -76,7 +83,8 @@ export default {
   data() {
     return {
       open: false,
-      thumbnail: this.entity.contents.split('/').reverse()[0]
+      // thumbnail: this.entity.contents.split('/').reverse()[0]
+      thumbnail: this.entity.contents.split('https://youtu.be/')[1]
     }
   },
   methods: {

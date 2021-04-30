@@ -1,6 +1,11 @@
 <template>
   <div>
-    <the-image-header class="relative" style="background-color: #00295A; height: 17vh;" background-image="asmr-contents-header.png" label="ASMR"></the-image-header>
+    <the-image-header 
+      class="relative" 
+      style="background-color: #00295A; height: 17vh;" 
+      background-image="asmr-contents-header.png" 
+      label="ASMR"
+    ></the-image-header>
     <!-- TODO : 이전 페이지 이동 버튼 넣기-->
     <div class="q-pa-lg flex row wrap justify-between">
       <contents-asmr 

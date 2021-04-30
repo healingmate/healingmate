@@ -1,6 +1,11 @@
 <template>
   <div>
-    <the-image-header class="relative" style="background-color: #5A3272; height: 17vh;" background-image="meditation-contents-header.png" label="Meditation"></the-image-header>
+    <the-image-header 
+      class="relative" 
+      style="background-color: #5A3272; height: 17vh;" 
+      background-image="meditation-contents-header.png" 
+      label="Meditation"
+    ></the-image-header>
     <div class="q-pa-lg">
       <!-- 추천 명상 part -->
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">
