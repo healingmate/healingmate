@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * com.mallang.healingmate.emoji.domain
  * AccountArticleEmojiMapper.java
- * @date    2021-04-29 오후 9:44
+ * @date    2021-04-29 오후 10:05
  * @author  서범석
  *
  * @변경이력
