@@ -6,9 +6,8 @@
       <q-img 
         v-if="entity.category === '유튜브'"
         class="rounded-borders"
-        :src="'https://img.youtube.com/vi/' + thumbnail + '/mqdefault.jpg'"
+        :src="`https://img.youtube.com/vi/${ entity.contents }/mqdefault.jpg`"
       >
-      {{ thumbnail }}
         <div class="absolute-full flex flex-center">
           <q-icon
             class="text-white cursor-pointer"
@@ -66,7 +65,7 @@
         <iframe
           class="absolute-center"
           style="border-radius: 10px;"
-          :src="'https://www.youtube.com/embed/' + thumbnail + '?rel=0?modestbranding=0'"
+          :src="`https://www.youtube.com/embed/${ entity.contents }?rel=0?modestbranding=0`"
           frameborder="0"
           allowfullscreen
         ></iframe>
@@ -83,8 +82,6 @@ export default {
   data() {
     return {
       open: false,
-      // thumbnail: this.entity.contents.split('/').reverse()[0]
-      thumbnail: this.entity.contents.split('https://youtu.be/')[1]
     }
   },
   methods: {

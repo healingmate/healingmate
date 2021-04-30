@@ -67,31 +67,31 @@ export default {
         {
           category: 'GIF',
           title: 'Laughing',
-          contents: 'https://media3.giphy.com/media/3oEjHI8WJv4x6UPDB6/200.webp',
+          contents: 'https://media.giphy.com/media/3oEjHI8WJv4x6UPDB6/giphy.gif',
           bookmarked: false,
         },
         {
           category: '유튜브',
           title: '힐링 콘텐츠1',
-          contents: "https://youtu.be/77jy6yVLSH8",
+          contents: "77jy6yVLSH8",
           bookmarked: false,
         },
         {
           category: 'GIF',
           title: 'Laughing',
-          contents: 'https://media3.giphy.com/media/3EjqRNFJmn0C4/200w.webp',
+          contents: 'https://media.giphy.com/media/l0ExayQDzrI2xOb8A/giphy.gif',
           bookmarked: false,
         },
         {
           category: '유튜브',
           title: '힐링 콘텐츠2',
-          contents: "https://youtu.be/8YX57oN1814",
+          contents: "8YX57oN1814",
           bookmarked: false,
         },
         {
           category: '유튜브',
           title: '힐링 콘텐츠3',
-          contents: "https://youtu.be/b-amjUifQqw",
+          contents: "b-amjUifQqw",
           bookmarked: false,
         },
         {
@@ -109,13 +109,13 @@ export default {
         {
           category: '유튜브',
           title: '힐링 콘텐츠4',
-          contents: "https://youtu.be/WXkJJaCNshY",
+          contents: "WXkJJaCNshY",
           bookmarked: false,
         },
         {
           category: '유튜브',
           title: '힐링 콘텐츠5',
-          contents: "https://youtu.be/3AQ2f2A6R4s",
+          contents: "3AQ2f2A6R4s",
           bookmarked: false,
         },
         {
