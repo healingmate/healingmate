@@ -1,12 +1,12 @@
 <template>
   <!-- 콘텐츠 card -->
-  <div style="width: 45vw; relative-position">
+  <div style="width: 42vw; relative-position">
     <div>
       <!-- Youtube -->
       <q-img 
         v-if="entity.category === '유튜브'"
         class="rounded-borders"
-        :src="'https://img.youtube.com/vi/' + thumbnail + '/mqdefault.jpg'"
+        :src="`https://img.youtube.com/vi/${ entity.contents }/mqdefault.jpg`"
       >
         <div class="absolute-full flex flex-center">
           <q-icon
@@ -39,18 +39,17 @@
         ></q-icon>
       </q-img>
     </div>
-    <div class="items-center q-mt-xs">
+    <div class="items-center q-mt-xs q-mb-md">
       <q-chip class="text-caption" color="indigo-9" text-color="white">
         {{ entity.category }}
       </q-chip>
       <p class="inline-block text-caption text-bold q-pa-xs q-ma-none">{{ entity.title }}</p>
     </div>
     <!-- Youtube 개별 재생-->
-    <q-dialog v-model="open">
+    <q-dialog 
+      v-model="open" 
+      class="relative">
       <div 
-        class="relative"
-        width="100%"
-        height="200%" 
         style="background-color: transparent;"
       >
         <!-- 유튜브 개별 재생 종료 버튼 -->
@@ -66,7 +65,7 @@
         <iframe
           class="absolute-center"
           style="border-radius: 10px;"
-          :src="'https://www.youtube.com/embed/' + thumbnail + '?rel=0?modestbranding=0'"
+          :src="`https://www.youtube.com/embed/${ entity.contents }?rel=0?modestbranding=0`"
           frameborder="0"
           allowfullscreen
         ></iframe>
@@ -83,7 +82,6 @@ export default {
   data() {
     return {
       open: false,
-      thumbnail: this.entity.contents.split('/').reverse()[0]
     }
   },
   methods: {
