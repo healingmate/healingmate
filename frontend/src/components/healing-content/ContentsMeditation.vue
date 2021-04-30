@@ -13,7 +13,7 @@
       <!-- @click="goToDetail(entity.id)" -->
       <q-img
         style="width=100%; height: 100%; border-radius: 10px;"
-        :src="require(`@/assets/images/music-background/${ entity.background_img }`)"
+        :src="require(`@/assets/images/meditation/${ entity.background_img }`)"
       >
         <div class="absolute-bottom text-right transparent" style="padding-right: 10px; padding-bottom: 5px;">
           <p class="q-ma-none text-caption text-blue-grey-2">{{ entity.time }} min</p>
@@ -30,7 +30,7 @@
     >
       <q-card class="text-white">
         <q-img
-          :src="require(`@/assets/images/music-background/${ entity.background_img }`)"
+          :src="require(`@/assets/images/meditation/${ entity.background_img }`)"
           style="filter: brightness(50%);"
           width="100%"
           height="100%">
@@ -42,7 +42,7 @@
           color="white"
           text-color="black" 
           icon="close" 
-          @click="open = false"
+          @click="[open = false, play = false]"
         />
         <q-card-section 
           class="absolute text-center" 

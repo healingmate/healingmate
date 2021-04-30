@@ -47,30 +47,23 @@
     </div>
     <!-- Youtube 개별 재생-->
     <q-dialog v-model="open">
-      <div 
-        class="relative"
-        width="100%"
-        height="200%" 
-        style="background-color: transparent;"
-      >
-        <!-- 유튜브 개별 재생 종료 버튼 -->
-        <q-btn 
-          class="absolute" 
-          style="top: 13vh; left: 46vw;" 
-          round 
-          color="white"
-          text-color="black" 
-          icon="close" 
-          @click="open = false"
-        />
-        <iframe
-          class="absolute-center"
-          style="border-radius: 10px;"
-          :src="'https://www.youtube.com/embed/' + thumbnail + '?rel=0?modestbranding=0'"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-      </div>
+      <!-- 유튜브 개별 재생 종료 버튼 -->
+      <q-btn 
+        class="absolute" 
+        style="top: 13vh; left: 46vw;" 
+        round 
+        color="white"
+        text-color="black" 
+        icon="close" 
+        @click="open = false"
+      />
+      <iframe
+        class="absolute-center"
+        style="border-radius: 10px;"
+        :src="'https://www.youtube.com/embed/' + thumbnail + '?rel=0?modestbranding=0'"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
     </q-dialog>
   </div>
 </template>

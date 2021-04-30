@@ -33,7 +33,7 @@
     >
       <q-card class="text-white">
         <q-img
-          :src="require(`@/assets/images/music-background/${ entity.background_img }`)"
+          :src="require(`@/assets/images/asmr/${ entity.background_img }`)"
           style="filter: brightness(50%);"
           width="100%"
           height="100%">
@@ -45,7 +45,7 @@
           color="white"
           text-color="black" 
           icon="close" 
-          @click="open = false"
+          @click="[open = false, play = false]"
         />
         <q-card-section 
           class="absolute text-center" 
