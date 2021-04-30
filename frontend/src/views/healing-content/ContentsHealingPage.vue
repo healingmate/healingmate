@@ -1,6 +1,6 @@
 <template>
   <div>
-    <the-image-header class="relative" background-image="test.png" label="Contents"></the-image-header>
+    <the-image-header class="relative" style="background-color: #F2BAB7; height: 17vh;" background-image="healing-contents-header.png" label="Contents"></the-image-header>
     <!-- TODO : 이전 페이지 이동 버튼 넣기-->
     <!-- TODO : 전체 버튼 배치 -->
     <div class="inline-block absolute-right q-mr-lg q-pa-none cursor-pointer" style="margin-top: 6rem">
