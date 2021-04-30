@@ -38,10 +38,10 @@ public class Article {
     private String content;
 
     @CreationTimestamp
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
 
     @UpdateTimestamp
-    private LocalDateTime updateDate;
+    private LocalDateTime updatedDate;
 
     @Embedded
     private ArticleImages articleImages;
@@ -54,4 +54,9 @@ public class Article {
         this.account = account;
         this.content = content;
     }
+
+    public void update(String content){
+        this.content = content;
+    }
+
 }
