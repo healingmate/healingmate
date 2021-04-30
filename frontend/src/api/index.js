@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+// TODO: axios 뼈대 잡기
 const config = {
   baseUrl: 'https://api.adviceslip.com/advice', // 기본적으로 중복되는 url 주소 부분
 };

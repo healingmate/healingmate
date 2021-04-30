@@ -7,12 +7,13 @@
 			class="layered-image"
 		>
 
-		<p v-if="isNight" class="home_saying home--night-font-color">오늘 하루도 고생했어요.</p>
-		<p v-else class="home_saying home--day-font-color">오늘 하루도 힘내세요.</p>
+		<div class="p-y-28 absolute" style="bottom: 130px; width: 100%">
+			<BaseTextInput :color="isNight ? '#ffffff' : '#000000'" label="아이디" :rules="[required(), minLength(5), maxLength(16), alphabetNumber()]"/>
+			<BaseTextInput :color="isNight ? '#ffffff' : '#000000'" label="비밀번호" type="password" :rules="[required(), minLength(8), maxLength(16)]"/>
+		</div>
 
-		<div class="absolute p-y-28" style="bottom: 20px; width: 100%;">
-			<BaseButton back-ground-color="#545FD6" label="로그인" @click.native="onSignInButton"/>
-			<BaseButton back-ground-color="#ffffff" text-color="#545FD6" label="회원가입" @click.native="onSignUpButton"/>
+		<div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
+			<BaseButton back-ground-color="#545FD6" label="다음" />
 		</div>
 
 	</div>
@@ -20,14 +21,18 @@
 
 <script>
 import BaseButton from '@/components/common/BaseButton'
+import BaseTextInput from "@/components/common/BaseTextInput"
+
+import { validation } from "@/mixins/validation"
 
 export default {
-	name: 'Home',
+	name: 'AccountSignInPage',
 	components: {
 		BaseButton,
+		BaseTextInput,
 	},
 	// filters: {},
-  // mixins: [],
+  mixins: [validation],
 	props: {
 		isNight: Boolean
 	},
