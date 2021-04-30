@@ -62,10 +62,10 @@
     <contents-card :entity="contents"></contents-card>
     <q-separator />
     <h4>힐링 콘텐츠 버튼</h4>
-    <base-card-button :entity="button"></base-card-button>
+    <bamboo-card-button :entity="button"></bamboo-card-button>
     <q-separator />
     <h4>힐링 콘텐츠 ASMR</h4>
-    <contents-button :entity="asmr"></contents-button>
+    <contents-asmr :entity="asmr"></contents-asmr>
     <q-separator />
     <h4>힐링 콘텐츠 카테고리</h4>
     <contents-category :entity="category"></contents-category>
@@ -94,8 +94,8 @@ import Notification from '@/components/common/Notification.vue';
 import KebabButton from '@/components/common/KebabButton.vue';
 
 import ContentsCard from '@/components/healing-content/ContentsCard';
-import BaseCardButton from '@/components/common/BaseCardButton';
-import ContentsButton from '@/components/healing-content/ContentsButton';
+import BambooCardButton from '@/components/bamboo/BambooCardButton';
+import ContentsAsmr from '@/components/healing-content/ContentsAsmr';
 import ContentsCategory from '@/components/healing-content/ContentsCategory';
 import BaseKeyword from '@/components/common/BaseKeyword';
 import ContentsMeditation from '@/components/healing-content/ContentsMeditation';
@@ -122,8 +122,8 @@ export default {
     KebabButton,
 
     ContentsCard,
-    BaseCardButton,
-    ContentsButton,
+    BambooCardButton,
+    ContentsAsmr,
     ContentsCategory,
     BaseKeyword,
     ContentsMeditation,
