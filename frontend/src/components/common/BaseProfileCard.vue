@@ -2,12 +2,12 @@
   <q-item style="padding: 0;">
 
 		<q-item-section avatar>
-			<BaseAvatar />
+			<BaseAvatar :profile-image-path="user.profileImagePath" />
 		</q-item-section>
 
 		<q-item-section>
 			<q-item-label lines="2" style="font-weight: bold; font-size: 1rem">
-				{{ nickname }} <span v-if="isNotification" style="color: #959595; font-weight: bold;">님이 당신의 글에 반응을 남겼습니다.</span>
+				{{ user.nickname }} <span v-if="isNotification" style="color: #959595; font-weight: bold;">님이 당신의 글에 반응을 남겼습니다.</span>
 			</q-item-label>
 			<q-item-label caption lines="1" style="font-weight: bold; font-size: 14px">
 				{{ caption }}
@@ -32,8 +32,8 @@ export default {
 	// filters: {},
   // mixins: [],
 	props: {
-		nickname: {
-			type: String,
+		user: {
+			type: Object,
 			default: null
 		},
 		caption: {
@@ -63,11 +63,11 @@ export default {
 
 <style>
 .q-item__section--avatar {
-    color: inherit;
-    min-width: 0;
+	color: inherit;
+	min-width: 0 !important;
 }
 
 .q-item__section--side {
-	padding-right: 12px;
+	padding-right: 12px !important;
 }
 </style>
