@@ -1,0 +1,15 @@
+div p {
+  margin-bottom: 10px;
+}
+
+.p-y-28 {
+  padding: 0 28px;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}

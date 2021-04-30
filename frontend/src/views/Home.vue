@@ -1,29 +1,79 @@
 <template>
-  <div class="home">
-    <h1>컴포넌트 화면</h1>
-    <q-btn color="primary" icon="check" label="OK"/>
-    <h3>퀘이사도 불러왔읍니당</h3>
-    <iframe width="300" height="300" src="https://www.youtube.com/embed/fMNgy1JNz6A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <iframe width="300" height="300" src="https://www.instagram.com/p/CN6XiZElT4X/embed" frameborder="0"></iframe>
-  </div>
+  <div :class="isNight ? 'home home--night-backgound-color' : 'home home--day-backgroud-color'">
+		<img 
+			:src="require(isNight ? '@/assets/images/image-header/night_1x1.jpg' : '@/assets/images/image-header/day_1x1.jpg')" 
+			alt="사진을 불러오지 못했어요." 
+			style="width: 100%;"
+			class="layered-image"
+		>
+
+		<p v-if="isNight" class="home_saying home--night-font-color">오늘 하루도 고생했어요.</p>
+		<p v-else class="home_saying home--day-font-color">오늘 하루도 힘내세요.</p>
+
+		<div class="absolute p-y-28" style="bottom: 20px; width: 100%;">
+			<BaseButton back-ground-color="#545FD6" label="로그인" @click.native="onSignInButton"/>
+			<BaseButton back-ground-color="#ffffff" text-color="#545FD6" label="회원가입" @click.native="onSignUpButton"/>
+		</div>
+
+	</div>
 </template>
 
 <script>
-import { getGoodWords } from '../api/index.js';
+import BaseButton from '@/components/common/BaseButton'
 
 export default {
-  name: 'Home',
-  components: {
-  },
-  created() {
-    getGoodWords()
-    .then(function(response) {
-      console.log('호출 후: ', response);
-    })
-    .catch(function(error) { 
-      console.log(error);
-    });
-  }
-
+	name: 'Home',
+	components: {
+		BaseButton,
+	},
+	// filters: {},
+  // mixins: [],
+	props: {
+		isNight: Boolean
+	},
+	// data() {
+	//   return {}
+	// },
+	// computed: {},
+	// watch: {},
+	// created() {},
+	// mounted() {},
+	// updated() {},
+	methods: {
+		onSignInButton() {
+			this.$router.push({name: 'AccountSignInPage'})
+		},
+		onSignUpButton() {
+			this.$router.push({name: 'AccountSignUpFirstPage'})
+		},
+	},
 }
 </script>
+
+<style scoped`>
+.home { 
+	height: 100vh;
+}
+
+.home_saying {
+	text-align: center; 
+	font-size: 24px;
+	font-weight: 300;
+}
+
+.home--night-backgound-color {
+	background-color: #000934;
+}
+
+.home--night-font-color {
+	color: #ffffff;
+}
+
+.home--day-backgroud-color {
+	background-color: #FFD89D;
+}
+
+.home--day-font-color {
+	color: #000000;
+}
+</style>
