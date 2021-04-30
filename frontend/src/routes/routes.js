@@ -7,6 +7,7 @@ import HealingContent from '@/views/healing-content/ContentsMainPage.vue'
 import Contents from '@/views/healing-content/ContentsHealingPage.vue'
 import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
 import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
+import PageNotFoundPage from '@/views/common/PageNotFoundPage'
 // import MeditationDetail from '@/views/healing-content/ContentsMusicPage.vue'
 import Profile from '@/views/user/UserProfilePage.vue'
 
@@ -65,5 +66,9 @@ export default [
     path: '/profile',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '*',
+    component: PageNotFoundPage
   },
 ]

@@ -36,7 +36,7 @@
 				@click.native="onSignUpButton()" 
 			/>
 			<p style="text-align: center; padding:0; magin: 0; font-size: 12px">
-				힐링메이트 계정을 생성하시면 힐링메이트 <span style="text-decoration: underline;">이용약관</span> 및 
+				힐링메이트 계정을 생성하시면 힐링메이트 <span style="text-decoration: underline;">이용약관</span> 및 <br>
 				<span style="text-decoration: underline;">개인정보보호정책</span>에 동의하는 것으로 간주합니다.
 			</p>
 		</div>
@@ -48,7 +48,9 @@
 import TheImageHeader from '@/components/common/TheImageHeader'
 import BaseButton from "@/components/common/BaseButton"
 import BaseTextInput from "@/components/common/BaseTextInput"
+import { signUp } from "@/api/account"
 
+import VueCookies from 'vue-cookies';
 import { validation } from "@/mixins/validation"
 
 export default {
@@ -103,9 +105,27 @@ export default {
 			// TODO: 동기식으로 서버에 요청을 보내 userID가 중복인지 확인 해야함
 			// else if() {}  
 			else {
-				// TODO: 입력 값 유효성 검증 후 브라우저 또는 vuex에 해당 정보를 저장 한 후 이동 해야함
+				const addtionalInformationList = VueCookies.get('addtional-information').split('-')
+
+				const param = {
+					'userId': this.userId,
+					'password': this.password,
+					'nickname': addtionalInformationList[0],
+					'birthYear': addtionalInformationList[1],
+				}
+
+				signUp(param)
+				.then(res => {
+					console.log(res)
+				})
+				.catch(err => {
+					console.log(err)
+				})
+				
+				VueCookies.remove('addtional-information')
+				console.log(param)
+
 				// TODO: 서버에 회원가입 요청 해야함
-				console.log(this.userId, this.password, this.confirmPassword)
 			}
 		},
 	}

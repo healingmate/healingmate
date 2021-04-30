@@ -4,7 +4,7 @@
     <the-image-header class="relative" background-image="contents-main.png"></the-image-header>
     <!-- 알람-->
     <!-- TODO : 사이즈 조절  -->
-    <notification class="absolute-right q-mr-xl q-mt-md text-white"></notification>
+    <the-notification class="absolute-right q-mr-xl q-mt-md text-white"></the-notification>
     <!-- 사용자 프로필 -->
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
@@ -30,13 +30,13 @@
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsCategory from '@/components/healing-content/ContentsCategory';
 import BaseAvatar from '@/components/common/BaseAvatar';
-import Notification from '@/components/common/Notification';
+import TheNotification from '@/components/common/TheNotification';
 export default {
   components: {
     TheImageHeader,
     ContentsCategory,
     BaseAvatar,
-    Notification,
+    TheNotification,
   },
   data() {
     return {

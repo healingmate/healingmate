@@ -47,16 +47,16 @@
     </ArticleCarousel>
     <q-separator />
     <h4>케밥버튼</h4>
-    <KebabButton />
+    <BaseKebabButton />
     <q-separator />
     <h4>뒤로가기 버튼</h4>
-    <GoBack />
+    <TheGoBackButton />
     <q-separator />
     <h4>바텀 네비게이션 바</h4>
-    <BottomNav />
+    <TheBottomNavigationBar />
     <q-separator />
     <h4>알림 버튼</h4>
-    <Notification />
+    <TheNotification />
     <q-separator />
     <h4>힐링 콘텐츠 카드</h4>
     <contents-card :entity="contents"></contents-card>
@@ -88,10 +88,10 @@ import ArticleCard from "@/components/article/ArticleCard"
 import ArticleCarousel from "@/components/article/ArticleCarousel"
 import ArticleCarouselItem from "@/components/article/ArticleCarouselItem"
 
-import GoBack from '@/components/common/GoBack.vue';
-import BottomNav from '@/components/common/BottomNav.vue';
-import Notification from '@/components/common/Notification.vue';
-import KebabButton from '@/components/common/KebabButton.vue';
+import TheGoBackButton from '@/components/common/TheGoBackButton.vue';
+import TheBottomNavigationBar from '@/components/common/TheBottomNavigationBar.vue';
+import TheNotification from '@/components/common/TheNotification.vue';
+import BaseKebabButton from '@/components/common/BaseKebabButton.vue';
 
 import ContentsCard from '@/components/healing-content/ContentsCard';
 import BambooCardButton from '@/components/bamboo/BambooCardButton';
@@ -101,7 +101,6 @@ import BaseKeyword from '@/components/common/BaseKeyword';
 import ContentsMeditation from '@/components/healing-content/ContentsMeditation';
 
 import { validation } from "@/mixins/validation"
-import { getGoodWords } from '../api/index.js';
 
 import articleListPage from "@/assets/data/articleListDummy.json"
 
@@ -116,10 +115,10 @@ export default {
     ArticleCarousel,
     ArticleCarouselItem,
 
-    GoBack,
-    BottomNav,
-    Notification,
-    KebabButton,
+    TheGoBackButton,
+    TheBottomNavigationBar,
+    TheNotification,
+    BaseKebabButton,
 
     ContentsCard,
     BambooCardButton,
@@ -190,15 +189,7 @@ export default {
   },
   // computed: {},
   // watch: {},
-  created() {
-    getGoodWords()
-      .then(function(response) {
-        console.log('호출 후: ', response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  },
+  // created() {},
   // mounted() {},
   // updated() {},
   // methods: {},
