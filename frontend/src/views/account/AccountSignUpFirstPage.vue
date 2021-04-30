@@ -38,6 +38,7 @@ import TheImageHeader from '@/components/common/TheImageHeader'
 import BaseButton from "@/components/common/BaseButton"
 import BaseTextInput from "@/components/common/BaseTextInput"
 
+import VueCookies from 'vue-cookies';
 import { validation } from "@/mixins/validation"
 
 export default {
@@ -85,6 +86,10 @@ export default {
 			else {
 				// TODO: 입력 값 유효성 검증 후 브라우저 또는 vuex에 해당 정보를 저장 한 후 이동 해야함
 				console.log(this.nickname, this.birthYear)
+				// 현재 페이지의 데이터가 다음 회원가입 페이지에 넘어가야 함으로 쿠키에 이 정보를 저장한다. (페이스북 참고)
+				// 왜 {HttpOnly: true} 이걸 넣어줘야 브라우저를 종료하면 쿠키가 날아갈까...이상하다...
+				VueCookies.set("addtional-information", this.nickname + '-' + this.birthYear, {HttpOnly: true})
+
 				this.$router.push({name: 'AccountSignUpSecondPage'})
 			}
 		},

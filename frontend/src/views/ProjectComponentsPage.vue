@@ -101,7 +101,6 @@ import BaseKeyword from '@/components/common/BaseKeyword';
 import ContentsMeditation from '@/components/healing-content/ContentsMeditation';
 
 import { validation } from "@/mixins/validation"
-import { getGoodWords } from '../api/index.js';
 
 import articleListPage from "@/assets/data/articleListDummy.json"
 
@@ -190,15 +189,7 @@ export default {
   },
   // computed: {},
   // watch: {},
-  created() {
-    getGoodWords()
-      .then(function(response) {
-        console.log('호출 후: ', response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  },
+  // created() {},
   // mounted() {},
   // updated() {},
   // methods: {},

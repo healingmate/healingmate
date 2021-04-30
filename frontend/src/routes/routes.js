@@ -8,6 +8,7 @@ import HealingContent from '@/views/healing-content/ContentsMainPage.vue'
 import Contents from '@/views/healing-content/ContentsHealingPage.vue'
 import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
 import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
+import PageNotFoundPage from '@/views/common/PageNotFoundPage'
 
 export default [
   {
@@ -59,5 +60,9 @@ export default [
     path: '/component3',
     name: 'Component3',
     component: Component3
-  }
+  },
+  {
+    path: '*',
+    component: PageNotFoundPage
+  },
 ]

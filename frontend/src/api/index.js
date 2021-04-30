@@ -1,37 +1,22 @@
 import axios from 'axios';
-// TODO: axios 뼈대 잡기
-const config = {
-  baseUrl: 'https://api.adviceslip.com/advice', // 기본적으로 중복되는 url 주소 부분
-};
+import VueCookies from 'vue-cookies';
 
-// 2. API 함수들을 정리
-function getGoodWords() {
-  return axios.get(`${config.baseUrl}`); // 나머지 주소
+// base url 설정
+const BASE_URL = process.env.VUE_APP_DEVELOPMENT_SERVER_URL
+
+function getInstence() {
+  // 토큰이 필요하건 필요하지 않건 일단 Authoriztion에 실어서 보낼것임 왜냐면 인증이 필요한 서비스는 back에서 토큰을 확인해볼거니까
+  
+  // 세션쿠키에서 accessToken을 꺼내온다
+  const token = VueCookies.get('accessToken')
+
+  return axios.create({
+    baseURL: BASE_URL,
+    headers: {
+      "Content-type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+  });
 }
 
-export { getGoodWords };
-
-// import axios from 'axios';
-// // import { API_BASE_URL } from '../config';
-
-// function createInstance() {
-//   const instance = axios.create({
-//     baseURL: 'https://i4b107.p.ssafy.io:8080',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
-//   return instance;
-// }
-// function createMultipartInstance() {
-//   const instance = axios.create({
-//     baseURL: 'https://i4b107.p.ssafy.io:8080',
-//     headers: {
-//       // 'Content-Type': false,
-//       // 'Content-Type': 'multipart/form-data',
-//     },
-//   });
-//   return instance;
-// }
-
-// export { createInstance, createMultipartInstance };
+export { getInstence };
