@@ -20,5 +20,8 @@ export const validation =  {
     passwordConfirm(password) {
       return val => val === password || '비밀번호가 일치하지 않습니다.'
     },
+    age() {
+      return val => val <= new Date().getFullYear() || '출생년도가 올바르지 않습니다.'
+    },
   }
 }
