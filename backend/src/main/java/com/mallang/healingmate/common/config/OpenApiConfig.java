@@ -3,8 +3,10 @@ package com.mallang.healingmate.common.config;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import io.swagger.v3.oas.models.Components;
@@ -31,18 +33,20 @@ import java.util.List;
         scheme = "bearer"
 )
 @Component
+@Configuration
 public class OpenApiConfig {
 
     @Bean
     public OpenAPI openAPI(@Value("${springdoc.version}") String appVersion) {
         Info info = new Info().title("HealingMate").version(appVersion)
                 .description("HealingMate 서비스를 위한 웹 애플리케이션 API입니다.")
-                .termsOfService("http://swagger.io/terms/")
+                .termsOfService("https://swagger.io/terms/")
                 .contact(new Contact().name("uykgnod").url("https://www.notion.so/15edfa1444d64a1ab7a3d30d9a046563").email("uykgnod1@gmail.com"))
                 .license(new License().name("Apache License Version 2.0").url("http://www.apache.org/licenses/LICENSE-2.0"));
 
 
         return new OpenAPI()
+                .addServersItem(new Server().url("/"))
                 .components(new Components())
                 .info(info);
     }
