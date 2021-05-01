@@ -46,7 +46,6 @@ public class OpenApiConfig {
 
 
         return new OpenAPI()
-                .addServersItem(new Server().url("/"))
                 .components(new Components())
                 .info(info);
     }
