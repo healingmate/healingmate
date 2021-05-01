@@ -16,6 +16,14 @@ import io.swagger.v3.oas.models.info.License;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * com.mallang.healingmate.common.config
+ * OpenApiConfig.java
+ * @date    2021-05-01 오후 8:39
+ * @author  이아영
+ *
+ * @변경이력
+ **/
 
 @io.swagger.v3.oas.annotations.security.SecurityScheme(
         name = "Authorization",

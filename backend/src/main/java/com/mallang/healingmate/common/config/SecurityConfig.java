@@ -17,6 +17,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * com.mallang.healingmate.common.config
+ * SecurityConfig.java
+ * @date    2021-05-01 오후 8:40
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
