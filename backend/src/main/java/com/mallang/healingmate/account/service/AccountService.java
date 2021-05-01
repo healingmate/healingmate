@@ -10,6 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * com.mallang.healingmate.account.service
+ * AccountService.java
+ * @date    2021-05-01 오후 8:33
+ * @author  이아영
+ *
+ * @변경이력
+ **/
 
 @RequiredArgsConstructor
 @Service

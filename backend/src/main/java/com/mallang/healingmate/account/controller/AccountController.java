@@ -18,6 +18,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * com.mallang.healingmate.account.controller
+ * AccountController.java
+ * @date    2021-04-28 오전 10:00
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Tag(name = "Account",description = "사용자 API")
 @RestController
 @RequiredArgsConstructor
@@ -33,7 +42,7 @@ public class AccountController {
     }
 
     @GetMapping("/{nickname}/exists")
-    @Operation(summary = "닉네임 중복 체크", security = @SecurityRequirement(name = "Authorization"))
+    @Operation(summary = "닉네임 중복 체크")
     public ResponseEntity<Boolean> checkDuplicateNickname(@PathVariable String nickname){
         Boolean result = accountService.checkDuplicateNickname(nickname);
         return ResponseEntity.ok().body(result);

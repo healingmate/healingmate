@@ -12,6 +12,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**
+ * com.mallang.healingmate.account.dto.request
+ * SignupRequest.java
+ * @date    2021-05-01 오후 8:33
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Schema(description = "회원 가입 요청")

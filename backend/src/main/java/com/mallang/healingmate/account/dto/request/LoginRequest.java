@@ -8,6 +8,15 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * com.mallang.healingmate.account.dto.request
+ * LoginRequest.java
+ * @date    2021-05-01 오후 8:33
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Schema(description = "로그인 요청")

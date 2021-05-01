@@ -10,6 +10,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+/**
+ * com.mallang.healingmate.common.security
+ * TokenProvider.java
+ * @date    2021-05-01 오후 8:40
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
