@@ -27,26 +27,24 @@ import java.util.List;
  * @변경이력
  **/
 
-@io.swagger.v3.oas.annotations.security.SecurityScheme(
-        name = "Authorization",
-        type = SecuritySchemeType.HTTP,
-        scheme = "bearer"
-)
+
 @Component
-@Configuration
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI openAPI(@Value("${springdoc.version}") String appVersion) {
+    public OpenAPI openAPI(@Value("${springdoc.version}") String appVersion, @Value("${server.servlet.context-path}") String contextPath) {
         Info info = new Info().title("HealingMate").version(appVersion)
                 .description("HealingMate 서비스를 위한 웹 애플리케이션 API입니다.")
                 .termsOfService("https://swagger.io/terms/")
                 .contact(new Contact().name("uykgnod").url("https://www.notion.so/15edfa1444d64a1ab7a3d30d9a046563").email("uykgnod1@gmail.com"))
                 .license(new License().name("Apache License Version 2.0").url("http://www.apache.org/licenses/LICENSE-2.0"));
 
+        Components components = new Components().addSecuritySchemes("Authorization",new SecurityScheme().name("Authorization").type(SecurityScheme.Type.HTTP).scheme("bearer"));
+
 
         return new OpenAPI()
-                .components(new Components())
+                .addServersItem(new Server().url(contextPath))
+                .components(components)
                 .info(info);
     }
 }
