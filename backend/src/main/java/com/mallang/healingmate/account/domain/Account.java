@@ -1,12 +1,10 @@
 package com.mallang.healingmate.account.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mallang.healingmate.healingcontent.domain.AccountHealingContents;
 import com.mallang.healingmate.image.domain.Image;
 import com.mallang.healingmate.keyword.domain.AccountKeywords;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -32,7 +30,7 @@ public class Account {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UserRole role = UserRole.ROLE_USER;
+    private UserRole role;
 
     @Column(unique = true)
     private String userId;
@@ -51,10 +49,10 @@ public class Account {
     private Integer score;
 
     @CreationTimestamp
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
 
     @UpdateTimestamp
-    private LocalDateTime updateDate;
+    private LocalDateTime updatedDate;
 
     @Embedded
     private AccountKeywords accountKeywords;
@@ -71,5 +69,9 @@ public class Account {
         this.image = image;
         this.birthYear = birthYear;
         this.score = score;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }
