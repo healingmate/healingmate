@@ -30,9 +30,10 @@ export default {
 
 <style>
 #bottom-nav {
-  position: absolute;
+  position: fixed;
   background-color: #244684;
   width: 100%;
+  bottom: 0;
 }
 .q-tab {
   color: #7b9ad3;
