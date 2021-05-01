@@ -23,4 +23,10 @@ public class AuthResponse {
     public AuthResponse(String accessToken) {
         this.accessToken = accessToken;
     }
+
+    //        @Builder
+////    public AuthResponse(String accessToken, String refreshToken) {
+////        this.accessToken = accessToken;
+////        this.refreshToken = refreshToken;
+////    }
 }

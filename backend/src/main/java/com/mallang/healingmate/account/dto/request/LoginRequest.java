@@ -17,16 +17,16 @@ import javax.validation.constraints.NotBlank;
  * @변경이력
  **/
 
+@Schema(description = "로그인 요청")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Schema(description = "로그인 요청")
 public class LoginRequest {
-    @Schema(description = "회원 아이디")
+    @Schema(description = "회원 아이디", example = "abcde1234")
     @Length(min = 5, max = 16, message = "아이디는 5자 이상 16자 이하로 입력해주세요.")
     @NotBlank
     private String userId;
 
-    @Schema(description = "회원 비밀번호")
+    @Schema(description = "회원 비밀번호", example = "abcde1234")
     @Length(min = 8, max = 16, message = "비밀번호는 8자 이상 16자 이하로 입력해주세요.")
     @NotBlank
     private String password;
