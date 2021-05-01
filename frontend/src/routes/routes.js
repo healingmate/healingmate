@@ -33,29 +33,33 @@ export default [
     component: AccountSignUpSecondPage
   },
   {
-    path: '/account/sign-In',
+    path: '/account/sign-in',
     name: 'AccountSignInPage',
     component: AccountSignInPage
   },
   {
     path: '/healing-content/main',
     name: 'Healing-content',
-    component: HealingContent
+    component: HealingContent,
+    meta: {authRequired: true}
   },
   {
     path: '/healing-content/contents',
     name: 'Contents',
-    component: Contents
+    component: Contents,
+    meta: {authRequired: true}
   },
   {
     path: '/healing-content/asmr',
     name: 'Asmr',
-    component: Asmr
+    component: Asmr,
+    meta: {authRequired: true}
   },
   {
     path: '/healing-content/meditation',
     name: 'Meditation',
-    component: Meditation
+    component: Meditation,
+    meta: {authRequired: true}
   },
   // {
   //   path: '/healing-content/meditation/:id',
@@ -65,7 +69,8 @@ export default [
   {
     path: '/profile',
     name: 'Profile',
-    component: Profile
+    component: Profile,
+    meta: {authRequired: true}
   },
   {
     path: '*',
