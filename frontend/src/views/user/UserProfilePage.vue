@@ -20,6 +20,7 @@
     >
       {{ user.username }}
     </div>
+    <!-- 키워드 -->
     <div 
       class="inline-block absolute" 
       style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
@@ -28,8 +29,50 @@
         v-for="(keyword, index) in user.keywordList" 
         :key="index" 
         :entity="keyword"
+        @click.native="toggleKeyword"
       >
       </base-keyword>
+    </div>
+    <!-- 버튼 -->
+    <div 
+      class="flex justify-center q-pt-lg q-mt-xl"
+    >
+      <q-btn 
+        v-if="postButton"
+        class="text-caption text-weight-bold"
+        style="width: 40vw; background: #244684; color: white;" 
+        label="Post" 
+        @click="selectButton"
+      />
+      <q-btn 
+        v-else
+        flat 
+        class="text-caption text-weight-bold"
+        style="width: 40vw; color: #244684" 
+        label="Post" 
+        @click="selectButton"
+      /><q-btn 
+        v-if="bookmarkButton"
+        class="text-caption text-weight-bold"
+        style="width: 40vw; background: #244684; color: white;" 
+        label="Bookmark" 
+        @click="selectButton"
+      />
+      <q-btn 
+        v-else
+        flat 
+        class="text-caption text-weight-bold"
+        style="width: 40vw; color: #244684" 
+        label="Bookmark" 
+        @click="selectButton"
+      />
+    </div>
+    <!-- post -->
+    <div v-if="postButton" class="q-mt-lg">
+      <p class="text-center">작성한 post가 없습니다.</p>
+    </div>
+    <div v-if="bookmarkButton" class="q-mt-lg">
+      <p class="text-center">저장한 북마크가 없습니다.</p>
     </div>
   </div>
 </template>
@@ -58,7 +101,18 @@ export default {
           click: false,
           }, 
         ],
-      }
+      },
+      postButton: true,
+      bookmarkButton: false,
+    }
+  },
+  methods: {
+    toggleKeyword() {
+      this.entity.click = !this.entity.click;
+    },
+    selectButton() {
+      this.postButton = !this.postButton;
+      this.bookmarkButton = !this.bookmarkButton;
     }
   }
 }

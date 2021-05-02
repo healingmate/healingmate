@@ -26,11 +26,11 @@ export default {
   props: {
     entity: Object,
   },
-  methods: {
-    toggleKeyword() {
-      this.entity.click = !this.entity.click;
-    }
-  }
+  // methods: {
+  //   toggleKeyword() {
+  //     this.entity.click = !this.entity.click;
+  //   }
+  // }
 }
 </script>
 
