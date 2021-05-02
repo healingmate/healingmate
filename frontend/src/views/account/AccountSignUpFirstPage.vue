@@ -37,6 +37,7 @@
 import TheImageHeader from '@/components/common/TheImageHeader'
 import BaseButton from "@/components/common/BaseButton"
 import BaseTextInput from "@/components/common/BaseTextInput"
+import { nicknameCheck } from "@/api/account"
 
 // import VueCookies from 'vue-cookies';
 import { validation } from "@/mixins/validation"
@@ -85,9 +86,22 @@ export default {
 			// else if() {}  
 			else {
 				// 현재 페이지의 데이터가 다음 회원가입 페이지에 넘어가야 함으로 쿠키에 이 정보를 저장한다. (페이스북 참고)
-				this.$q.cookies.set('addtional-information', this.nickname + '-' + this.birthYear)
-
-				this.$router.push({name: 'AccountSignUpSecondPage'})
+				nicknameCheck(this.nickname)
+				.then((res) => {
+					if (res.data) {
+						this.$q.notify({
+							position: 'top',
+							color: 'negative',
+							message: '이미 사용중인 닉네임입니다.'
+						})
+					} else {
+						this.$q.cookies.set('addtional-information', this.nickname + '-' + this.birthYear)
+						this.$router.push({name: 'AccountSignUpSecondPage'})
+					}
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
 			}
 		},
 	},

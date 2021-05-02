@@ -6,9 +6,15 @@ import { getCookie } from '@/utils/cookies'
 const BASE_URL = process.env.VUE_APP_DEVELOPMENT_SERVER_URL
 
 // 토큰이 필요하건 필요하지 않건 일단 Authoriztion에 실어서 보낼것임 왜냐면 인증이 필요한 서비스는 back에서 토큰을 확인해볼거니까
-function getInstence() {
+function getInstence(validateRequired = true) {
   // 토큰 유효성을 검사.
-  store.dispatch('checkTokenValidation')
+
+  // 현재 토큰이 유효한지 검사하기위한 코드
+  // 대부분의 요청에는 토큰 유효성 검사가 필요하지만 refresh-token과 같은 요청은 무한루프가 발생할수 있어 추가함. 
+  // ex) 토큰 만료 -> 재요청 -> 토큰검사 -> 토큰 만료 -> 재요청 ...
+  if (validateRequired) {
+    store.dispatch('checkTokenValidation')
+  }
   
   // 세션쿠키에서 accessToken을 꺼내온다.
   const token = getCookie('access_token')

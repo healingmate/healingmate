@@ -3,8 +3,8 @@
     <h3>컴포넌트 화면</h3>
     <q-separator />
     <h4>이미지 헤더</h4>
-    <TheImageHeader background-image="night_16x9.png" color="#131034" />
-    <TheImageHeader background-image="day_16x9.png" label="Meditation" />
+    <TheImageHeader background-image="night_16x9.jpg" color="#131034" />
+    <TheImageHeader background-image="day_16x9.jpg" label="Meditation" />
     <q-separator />
     <h4>아바타</h4>
     <BaseAvatar />

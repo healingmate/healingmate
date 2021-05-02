@@ -15,27 +15,31 @@ export default [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {anonymRequired: true}
   },
   {
     path: '/about',
     name: 'About',
-    component: ProjectComponentsPage
+    component: ProjectComponentsPage,
   },
   {
     path: '/account/sign-up/first',
     name: 'AccountSignUpFirstPage',
-    component: AccountSignUpFirstPage
+    component: AccountSignUpFirstPage,
+    meta: {anonymRequired: true}
   },
   {
     path: '/account/sign-up/second',
     name: 'AccountSignUpSecondPage',
-    component: AccountSignUpSecondPage
+    component: AccountSignUpSecondPage,
+    meta: {anonymRequired: true}
   },
   {
     path: '/account/sign-in',
     name: 'AccountSignInPage',
-    component: AccountSignInPage
+    component: AccountSignInPage,
+    meta: {anonymRequired: true}
   },
   {
     path: '/healing-content/main',

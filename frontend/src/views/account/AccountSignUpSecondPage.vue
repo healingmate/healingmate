@@ -108,26 +108,35 @@ export default {
 				// const addtionalInformationList = VueCookies.get('addtional-information').split('-')
 				const addtionalInformationList = this.$q.cookies.get('addtional-information').split('-')
 
+				// 회원가입을 하기 위한 정보
 				const param = {
 					'userId': this.userId,
 					'password': this.password,
 					'nickname': addtionalInformationList[0],
 					'birthYear': addtionalInformationList[1],
 				}
-
+				
 				signUp(param)
 				.then(() => {
 					// 회원가입 부가정보에 대한 쿠키 삭제
 					this.$q.cookies.remove('addtional-information')
 					// 토큰 획득을 위해 obtainToken action 실행 
-					this.$store.dispatch('obtainToken', this.userId, this.password)
+					
+					// 로그인을 하기위한 정보
+					const param = {
+						'userId' : this.userId,
+						'password' : this.password
+					}
+
+					this.$store.dispatch('obtainToken', param)
 				})
 				.catch(err => {
-					console.log(err)
+					this.$q.notify({
+						position: 'top',
+						color: 'negative',
+						message: err.response.data.message
+					})
 				})
-				
-
-				// TODO: 서버에 회원가입 요청 해야함
 			}
 		},
 	}

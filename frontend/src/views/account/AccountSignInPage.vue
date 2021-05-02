@@ -24,7 +24,7 @@
 		</div>
 
 		<div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
-			<BaseButton back-ground-color="#545FD6" label="다음" @click="onSignInButton"/>
+			<BaseButton back-ground-color="#545FD6" label="다음" @click.native="onSignInButton()"/>
 		</div>
 
 	</div>
@@ -60,7 +60,13 @@ export default {
 	// updated() {},
 	methods: {
 		onSignInButton() {
-			this.$store.dispatch('obtainToken', this.userId, this.password)
+
+			const param = {
+				'userId' : this.userId,
+				'password' : this.password
+			}
+
+			this.$store.dispatch('obtainToken', param)
 		},
 	},
 }
