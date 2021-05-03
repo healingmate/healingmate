@@ -24,12 +24,12 @@
         auto-close
       >
         <q-list style="min-width: 120px">
-          <q-item clickable>
+          <q-item clickable @click="goToUpdateInfoPage">
             <q-item-section>
               <q-icon name="tune" class="text-caption"> 기본정보수정</q-icon>
             </q-item-section>
           </q-item>
-          <q-item clickable>
+          <q-item clickable @click="goToUpdataPasswordPage">
             <q-item-section>
               <q-icon name="lock" class="text-caption"> 비밀번호변경</q-icon>
             </q-item-section>
@@ -208,6 +208,12 @@ export default {
     selectButton() {
       this.postButton = !this.postButton;
       this.bookmarkButton = !this.bookmarkButton;
+    },
+    goToUpdateInfoPage() {
+      this.$router.push('/profile');
+    },
+    goToUpdatePasswordPage() {
+      this.$router.push('/profile');
     }
   }
 }
