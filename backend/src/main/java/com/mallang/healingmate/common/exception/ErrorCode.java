@@ -9,6 +9,7 @@ import lombok.Getter;
  * @author  이아영
  *
  * @변경이력
+ * 21-05-02 Entity관련 에러코드 추가
  **/
 
 @Getter
@@ -21,7 +22,11 @@ public enum ErrorCode {
     AUTH_ERROR(400, "AU_001", "인증 관련 오류가 발생했습니다."),
     DUPLICATED_USERID(409, "AU_002", "이미 존재하는 아이디입니다."),
     DUPLICATED_NICKNAME(409, "AU_003", "이미 존재하는 닉네임입니다."),
-    BAD_LOGIN(400, "AU_004", "올바르지 않은 아이디 또는 패스워드입니다.");
+    BAD_LOGIN(400, "AU_004", "올바르지 않은 아이디 또는 패스워드입니다."),
+
+    ENTITY_NOT_FOUND(404, "EN_001", "Entity를 찾을 수 없습니다"),
+    DUPLICATED_ENTITY(409, "EN_002", "이미 존재하는 Entity입니다"),
+    UNAUTHORIZED_ACCOUNT(403, "EN_003", "해당 Entity를 수정 또는 삭제할 권한이 없습니다");
 
     private final int status;
     private final String code;
