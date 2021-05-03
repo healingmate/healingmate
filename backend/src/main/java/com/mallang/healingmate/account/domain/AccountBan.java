@@ -6,6 +6,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * com.mallang.healingmate.account.domain
+ * Account.java
+ *
+ * @author 서범석, 이아영
+ * @date 2021-04-21 오후 2:19
+ * @변경이력
+ **/
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
