@@ -6,6 +6,37 @@
       background-image="contents-main.png"
       label="profile"
     ></the-image-header>
+    <!-- 수정 버튼 -->
+    <!-- TODO : 공통컴포넌트 커스텀 방법 -->
+    <!-- <base-kebab-button
+      class="absolute"
+      style="top: 2vh; right: 15px; color: white;"
+    ></base-kebab-button> -->
+    <!-- 콘텐츠 카테고리 버튼 배치 -->
+    <q-btn 
+      class="absolute"
+      style="top: 2vh; right: 15px; color: white;" 
+      icon="more_vert" 
+    >
+      <q-menu
+        transition-show="flip-right"
+        transition-hide="flip-left"
+        auto-close
+      >
+        <q-list style="min-width: 120px">
+          <q-item clickable>
+            <q-item-section>
+              <q-icon name="tune" class="text-caption"> 기본정보수정</q-icon>
+            </q-item-section>
+          </q-item>
+          <q-item clickable>
+            <q-item-section>
+              <q-icon name="lock" class="text-caption"> 비밀번호변경</q-icon>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-menu>
+    </q-btn>
     <!-- 프로필(아바타) 이미지 -->
     <q-img
       :src="user.avatar"
@@ -100,6 +131,7 @@ import BaseKeyword from '@/components/common/BaseKeyword';
 import ArticleCard from '@/components/article/ArticleCard.vue';
 import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
+// import BaseKebabButton from '@/components/common/BaseKebabButton.vue';
 
 export default {
   components: {
@@ -107,6 +139,7 @@ export default {
     BaseKeyword,
     ArticleCard,
     ContentsCard,
+    // BaseKebabButton,
   },
   data() {
     return {
