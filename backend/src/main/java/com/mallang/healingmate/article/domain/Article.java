@@ -3,10 +3,7 @@ package com.mallang.healingmate.article.domain;
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmojis;
 import com.mallang.healingmate.image.domain.ArticleImages;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,7 +18,6 @@ import java.time.LocalDateTime;
  *
  * @변경이력
  **/
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity

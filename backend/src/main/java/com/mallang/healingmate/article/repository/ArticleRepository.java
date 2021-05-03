@@ -2,7 +2,6 @@ package com.mallang.healingmate.article.repository;
 
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.article.domain.Article;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
