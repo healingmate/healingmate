@@ -3,6 +3,8 @@ import ProjectComponentsPage from '../views/ProjectComponentsPage.vue'
 import AccountSignUpFirstPage from '@/views/account/AccountSignUpFirstPage'
 import AccountSignUpSecondPage from '@/views/account/AccountSignUpSecondPage'
 import AccountSignInPage from '@/views/account/AccountSignInPage'
+import ArticleFeedPage from '@/views/article/ArticleFeedPage'
+import ArticleCreatePage from '@/views/article/ArticleCreatePage'
 import HealingContent from '@/views/healing-content/ContentsMainPage.vue'
 import Contents from '@/views/healing-content/ContentsHealingPage.vue'
 import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
@@ -40,6 +42,18 @@ export default [
     name: 'AccountSignInPage',
     component: AccountSignInPage,
     meta: {anonymRequired: true}
+  },
+  {
+    path: '/articles',
+    name: 'ArticleFeedPage',
+    component: ArticleFeedPage,
+    meta: {authRequired: true}
+  },
+  {
+    path: '/article/create',
+    name: 'ArticleCreatePage',
+    component: ArticleCreatePage,
+    meta: {authRequired: true}
   },
   {
     path: '/healing-content/main',
