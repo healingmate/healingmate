@@ -18,7 +18,7 @@ export default {
       
       // 클라이언트에 토큰저장이 완료되면 아티클 메인 피드로 이동한다.
       // TODO: 아티클 페이지가 생기면 그쪽으로 이동해야함
-      router.push({name: 'Healing-content'})
+      router.push({name: 'ArticleFeedPage'})
     })
     .catch(() => {
       // 서버에 해당 아이디와 비밀번호로 인증이 실패한 경우
