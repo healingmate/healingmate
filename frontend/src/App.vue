@@ -1,6 +1,11 @@
 <template>
   <div class="row justify-center">
     <div class="col-xs-12 col-sm-6 col-md-4" style="height: 100vh; position: relative;">
+      <!-- 테스트용 로그아웃 버튼 시작 -->
+      <div v-if="this.$store.state.accessToken" style="position: absolute; left: 100px; z-index: 3;">
+        <q-btn color="primary" label="테스트용 로그아웃 버튼" @click="onClick" />
+      </div>
+      <!-- 테스트용 로그아웃 버튼 끝 -->
       <router-view :is-night="isNight" />
     </div>
   </div>
@@ -27,7 +32,11 @@ export default {
   // created() {},
   // mounted() {},
   // updated() {},
-  // methods: {},
+  methods: {
+    onClick() {
+      this.$store.dispatch('removeToken');
+    },
+  },
 };
 </script>
 

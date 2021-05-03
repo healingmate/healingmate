@@ -5,13 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-dev": "cp ./.env.development ./.env && vue-cli-service build",
+    "build-prod": "cp ./.env.production ./.env && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "dat.gui": "^0.7.7",
+    "jwt-decode": "^3.1.2",
     "quasar": "^1.0.0",
     "stats.js": "^0.17.0",
     "three": "^0.128.0",
