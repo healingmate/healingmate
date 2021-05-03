@@ -11,6 +11,7 @@ import PageNotFoundPage from '@/views/common/PageNotFoundPage';
 // import MeditationDetail from '@/views/healing-content/ContentsMusicPage.vue'
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
+import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
 import Profile from '@/views/user/UserProfilePage.vue';
 
 export default [
@@ -83,13 +84,19 @@ export default [
     path: '/bamboo/main',
     name: 'BambooEnterPage',
     component: BambooEnterPage,
-    meta: { authRequired: true },
+    // meta: { authRequired: true },
   },
   {
     path: '/bamboo/category',
     name: 'BambooCategoryPage',
     component: BambooCategoryPage,
-    meta: { authRequired: true },
+    // meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/type',
+    name: 'BambooTypeSelectPage',
+    component: BambooTypeSelectPage,
+    // meta: { authRequired: true },
   },
   {
     path: '*',
