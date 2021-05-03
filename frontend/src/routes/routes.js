@@ -1,4 +1,5 @@
 import Home from '../views/Home.vue';
+import Bamboo from '@/views/bamboo/Bamboo.vue';
 import ProjectComponentsPage from '../views/ProjectComponentsPage.vue';
 import AccountSignUpFirstPage from '@/views/account/AccountSignUpFirstPage';
 import AccountSignUpSecondPage from '@/views/account/AccountSignUpSecondPage';
@@ -24,9 +25,10 @@ export default [
     component: ProjectComponentsPage,
   },
   {
-    path: '/temp',
-    name: 'Temp',
-    component: Temp,
+    path: '/bamboo',
+    name: 'Bamboo',
+    component: Bamboo,
+    meta: { authRequired: true },
   },
   {
     path: '/account/sign-up/first',
