@@ -29,7 +29,7 @@
         v-for="(keyword, index) in user.keywordList" 
         :key="index" 
         :entity="keyword"
-        @click.native="toggleKeyword"
+        @click.native="toggleKeyword(keyword)"
       >
       </base-keyword>
     </div>
@@ -93,13 +93,13 @@ export default {
         username: '말랑말랑',
         keywordList: [
           {
-          keyword: '취업',
-          click: false,
+            keyword: '취업',
+            click: false,
           }, 
           {
-          keyword: '생활',
-          click: false,
-          }, 
+            keyword: '생활',
+            click: false,
+          }
         ],
       },
       postButton: true,
@@ -107,8 +107,9 @@ export default {
     }
   },
   methods: {
-    toggleKeyword() {
-      this.entity.click = !this.entity.click;
+    toggleKeyword(keyword) {
+      console.log(keyword)
+      keyword.click = !keyword.click;
     },
     selectButton() {
       this.postButton = !this.postButton;

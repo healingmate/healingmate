@@ -2,12 +2,11 @@
   <div class="inline-block q-mt-md">
     <!-- 키워드 -->
     <q-badge 
-      v-if="!entity.click"
+      v-if="entity.click === false"
       class="cursor-pointer text-caption text-bold q-px-sm q-mr-xs" 
       outline 
       color="indigo-9" 
       text-color="white"
-      @click="toggleKeyword"
       :label="'# ' + entity.keyword"
     />
     <q-badge
@@ -15,7 +14,6 @@
       class="cursor-pointer text-caption text-bold q-px-sm q-mr-xs" 
       color="indigo-9" 
       text-color="white"
-      @click="toggleKeyword"
       :label="'# ' + entity.keyword"
     />
   </div>
@@ -26,11 +24,6 @@ export default {
   props: {
     entity: Object,
   },
-  // methods: {
-  //   toggleKeyword() {
-  //     this.entity.click = !this.entity.click;
-  //   }
-  // }
 }
 </script>
 
