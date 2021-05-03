@@ -1,19 +1,15 @@
 <template>
-  <div :class="isNight ? 'home home--night-backgound-color' : 'home home--day-backgroud-color'">
-    <img
-      :src="require(isNight ? '@/assets/images/image-header/night_1x1.jpg' : '@/assets/images/image-header/day_1x1.jpg')"
-      alt="사진을 불러오지 못했어요."
-      style="width: 100%;"
-      class="layered-image"
-    />
+  <div :class="'home home--night-backgound-color'">
+    <img :src="require('@/assets/images/image-header/bamboo-main.jpg')" alt="사진을 불러오지 못했어요." style="width: 100%;" />
+
     <div class="home_saying home--night-font-color p-y-28">
       <p class="home_saying home--night-font-color" style="font-size: 40px">Bamboo Forest</p>
       <p class="home_saying home--night-font-color" style="text-align: right; font-size: 15px">고민을 나누는 익명의 공간</p>
     </div>
-    <div class="absolute p-y-28" style="bottom: 20px; width: 100%;">
-      <BaseButton style="padding: 0 28px;" back-ground-color="#ffffff" text-color="#244684" label="입장하기" @click.native="onEnterButton" />
+    <div class="p-y-28" style="margin-top: 30px;">
+      <BaseButton back-ground-color="#ffffff" text-color="#244684" label="입장하기" @click.native="onEnterButton" />
     </div>
-    <TheBottomNavigationBar style="width: 100%;" />
+    <TheBottomNavigationBar :width="width" />
   </div>
 </template>
 
@@ -32,9 +28,11 @@ export default {
   props: {
     isNight: Boolean,
   },
-  // data() {
-  //   return {}
-  // },
+  data() {
+    return {
+      width: '100%',
+    };
+  },
   // computed: {},
   // watch: {},
   // created() {},
@@ -60,7 +58,7 @@ export default {
 }
 
 .home--night-backgound-color {
-  background-color: #000934;
+  background-color: #171e3a;
 }
 
 .home--night-font-color {
