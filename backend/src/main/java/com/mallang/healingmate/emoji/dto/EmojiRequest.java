@@ -1,8 +1,7 @@
 package com.mallang.healingmate.emoji.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mallang.healingmate.emoji.domain.Emoji;
-import lombok.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
 /**
  * com.mallang.healingmate.emoji.dto
@@ -11,14 +10,11 @@ import lombok.*;
  * @author  서범석
  *
  * @변경이력
+ * 21-05-02 필요없는 lombok annotation 제거
  **/
-
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Schema(description = "emoji 등록 요청")
 @Getter
-@Setter
 public class EmojiRequest {
-    private Emoji emojiType;
+    @Schema(description = "등록할 emoji 정보", example = "AMAZED")
+    private String emoji;
 }
