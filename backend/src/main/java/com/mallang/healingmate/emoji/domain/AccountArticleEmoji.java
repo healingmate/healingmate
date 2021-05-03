@@ -3,6 +3,7 @@ package com.mallang.healingmate.emoji.domain;
 
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.article.domain.Article;
+import com.mallang.healingmate.emoji.dto.EmojiRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,8 +47,13 @@ public class AccountArticleEmoji {
         this.emoji = emoji;
     }
 
-    public void update(Emoji emoji){
+    public AccountArticleEmoji(Emoji emoji, Article article, Account account) {
         this.emoji = emoji;
+        this.article = article;
+        this.account = account;
     }
 
+    public void update(EmojiRequest emojiRequest) {
+        this.emoji = Emoji.valueOf(emojiRequest.getEmoji());
+    }
 }

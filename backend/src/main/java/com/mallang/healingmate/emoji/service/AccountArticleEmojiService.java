@@ -1,14 +1,16 @@
 package com.mallang.healingmate.emoji.service;
 
 import com.mallang.healingmate.account.domain.Account;
-import com.mallang.healingmate.account.repository.AccountRepository;
 import com.mallang.healingmate.article.domain.Article;
-import com.mallang.healingmate.article.service.ArticleRepository;
+import com.mallang.healingmate.article.repository.ArticleRepository;
+import com.mallang.healingmate.common.exception.EntityException;
+import com.mallang.healingmate.common.exception.ErrorCode;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmoji;
-import com.mallang.healingmate.emoji.domain.AccountArticleEmojiMapper;
 import com.mallang.healingmate.emoji.domain.Emoji;
+import com.mallang.healingmate.emoji.dto.EmojiRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,79 +25,79 @@ import java.util.Optional;
  * @변경이력
  **/
 
+@Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
+@Transactional
 public class AccountArticleEmojiService {
-    private final AccountRepository accountRepository;
     private final ArticleRepository articleRepository;
     private final AccountArticleEmojiRepository accountArticleEmojiRepository;
-    private final AccountArticleEmojiMapper accountArticleEmojiMapper;
-    @Transactional
-    public void createEmoji(Emoji emoji, Long articleId, Account account){
+
+
+    public void saveEmoji(EmojiRequest emojiRequest, Long articleId, Account account){
         Optional<Article> articleOptional = articleRepository.findById(articleId);
         if(!articleOptional.isPresent()){
-            // TODO : Exception 적용하기
-            System.out.println("유효하지 않은 게시글 입니다");
-            return;
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
         }
+
         Article article = articleOptional.get();
+//        try {
+//            ;
+//        }catch(Exception e){
+//            log.error("");
+//            throw new EntityException(ErrorCode.INVALID_INPUT_VALUE);
+//        }
+
+//        emojiRequest.getEmoji().
 
         Optional<AccountArticleEmoji> accountArticleEmojiOptional = accountArticleEmojiRepository.findByArticleAndAccount(article, account);
         if(accountArticleEmojiOptional.isPresent()){
-            // TODO : Exception 적용하기
-            System.out.println("이미 emoji를 남긴 게시글 입니다");
-            return;
+            log.error("Entity alreadyExists");
+            throw new EntityException(ErrorCode.DUPLICATED_ENTITY);
         }
-
-        AccountArticleEmoji accountArticleEmoji = accountArticleEmojiMapper.from(emoji, article, account);
-        accountArticleEmojiRepository.save(accountArticleEmoji);
+        accountArticleEmojiRepository.save(new AccountArticleEmoji(Emoji.valueOf(emojiRequest.getEmoji()), article, account));
     }
 
-    @Transactional
-    public void updateEmoji(Emoji emoji, Long articleId, Account account){
-
+    public void updateEmoji(EmojiRequest emojiRequest, Long articleId, Account account){
         Optional<Article> articleOptional = articleRepository.findById(articleId);
         if(!articleOptional.isPresent()){
-            // TODO : Exception 적용하기
-            System.out.println("유효하지 않은 게시글 입니다");
-            return;
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
         }
         Article article = articleOptional.get();
 
         Optional<AccountArticleEmoji> accountArticleEmojiOptional =
                 accountArticleEmojiRepository.findByArticleAndAccount(article, account);
         if(!accountArticleEmojiOptional.isPresent()) {
-            // TODO : Exception 적용하기
-            System.out.println("등록된 emoji를 찾을 수 없습니다");
-            return;
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
         }
 
         AccountArticleEmoji accountArticleEmoji = accountArticleEmojiOptional.get();
 
-        accountArticleEmoji.update(emoji);
+        accountArticleEmoji.update(emojiRequest);
     }
 
-    @Transactional
     public void deleteEmoji(Long articleId, Account account){
-
         Optional<Article> articleOptional = articleRepository.findById(articleId);
         if(!articleOptional.isPresent()){
-            // TODO : Exception 적용하기
-            System.out.println("유효하지 않은 게시글 입니다");
-            return;
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
         }
         Article article = articleOptional.get();
 
         Optional<AccountArticleEmoji> accountArticleEmojiOptional =
                 accountArticleEmojiRepository.findByArticleAndAccount(article, account);
         if(!accountArticleEmojiOptional.isPresent()) {
-            // TODO : Exception 적용하기
-            System.out.println("등록된 emoji를 찾을 수 없습니다");
-            return;
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
         }
 
         AccountArticleEmoji accountArticleEmoji = accountArticleEmojiOptional.get();
 
         accountArticleEmojiRepository.delete(accountArticleEmoji);
     }
+
+
 }
