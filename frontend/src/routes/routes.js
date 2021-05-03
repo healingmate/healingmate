@@ -10,6 +10,8 @@ import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
 import PageNotFoundPage from '@/views/common/PageNotFoundPage'
 // import MeditationDetail from '@/views/healing-content/ContentsMusicPage.vue'
 import Profile from '@/views/user/UserProfilePage.vue'
+import UpdateInformation from '@/views/user/UserProfileUpdatePage.vue'
+import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
 
 export default [
   {
@@ -74,6 +76,18 @@ export default [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    meta: {authRequired: true}
+  },
+  {
+    path: '/update-information',
+    name: 'UpdateInformation',
+    component: UpdateInformation,
+    meta: {authRequired: true}
+  },
+  {
+    path: '/update-password',
+    name: 'UpdatePassword',
+    component: UpdatePassword,
     meta: {authRequired: true}
   },
   {
