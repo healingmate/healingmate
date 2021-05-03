@@ -1,7 +1,11 @@
 <template>
   <div>
     <!-- 상단 뒷배경 -->
-    <the-image-header class="relative" background-image="contents-main.png"></the-image-header>
+    <the-image-header 
+      class="relative" 
+      background-image="contents-main.png"
+      brightness="60"
+    ></the-image-header>
     <!-- 알람-->
     <!-- TODO : 사이즈 조절  -->
     <the-notification class="absolute-right q-mr-xl q-mt-md text-white"></the-notification>

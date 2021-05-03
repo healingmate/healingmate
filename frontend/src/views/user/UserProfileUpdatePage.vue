@@ -4,6 +4,7 @@
       class="relative" 
       background-image="contents-main.png"
       label="profile setting"
+      brightness="60"
     ></the-image-header>
     <!-- 프로필(아바타) 이미지 -->
     <q-img

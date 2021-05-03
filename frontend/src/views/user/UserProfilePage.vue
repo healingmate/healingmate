@@ -5,6 +5,7 @@
       class="relative" 
       background-image="contents-main.png"
       label="profile"
+      brightness="60"
     ></the-image-header>
     <!-- 수정 버튼 -->
     <!-- TODO : 공통컴포넌트 커스텀 방법 -->
@@ -49,6 +50,7 @@
     <div
       class="text-subtitle2 text-weight-bold q-pt-xl text-center"
     >
+      <!-- TODO : vuex에 저장된 이름으로 변경 -->
       {{ user.username }}
     </div>
     <!-- 키워드 -->
