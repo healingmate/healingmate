@@ -1,6 +1,6 @@
 <template>
   <!-- 콘텐츠 card -->
-  <div style="width: 42vw; relative-position">
+  <div style="width: 41vw; relative-position">
     <div>
       <!-- Youtube -->
       <q-img 
