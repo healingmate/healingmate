@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style scoped`>
+<style scoped>
 .home { 
 	height: 100vh;
 }

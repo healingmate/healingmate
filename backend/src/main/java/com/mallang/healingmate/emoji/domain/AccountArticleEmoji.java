@@ -4,6 +4,7 @@ package com.mallang.healingmate.emoji.domain;
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.article.domain.Article;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +35,19 @@ public class AccountArticleEmoji {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @ManyToOne
-    @JoinColumn(name = "emoji_id")
+    @Enumerated(EnumType.STRING)
     private Emoji emoji;
+
+    @Builder
+    public AccountArticleEmoji(Long id, Account account, Article article, Emoji emoji) {
+        this.id = id;
+        this.account = account;
+        this.article = article;
+        this.emoji = emoji;
+    }
+
+    public void update(Emoji emoji){
+        this.emoji = emoji;
+    }
+
 }
