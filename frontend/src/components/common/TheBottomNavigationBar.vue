@@ -1,27 +1,20 @@
 <template>
-  <div class="q-pa-md">
-    <!-- <q-layout view="lHh lpr lFf" container style="height: 400px" class="shadow-2 rounded-borders">
-      <div class="nav">
-        <q-footer bordered class="bg-white text-primary">
-          <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
-            <q-tab name="feeds" label="Feeds" icon="chat" />
-            <q-tab name="matching" label="Matching" icon="pets" />
-            <q-tab name="contents" label="Contents" icon="dynamic_feed" />
-          </q-tabs>
-        </q-footer>
-      </div>
-    </q-layout> -->
-
-    <q-tabs bordered no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
-      <q-tab name="feeds" label="Feeds" icon="chat" />
-      <q-tab name="matching" label="Matching" icon="pets" />
-      <q-tab name="contents" label="Contents" icon="dynamic_feed" />
-    </q-tabs>
-  </div>
+  <q-tabs id="nav" class="text-grey" bordered no-caps active-color="white" indicator-color="transparent" v-model="tab">
+    <q-tab name="feeds" label="Feeds" icon="chat" />
+    <q-tab name="matching" label="Matching" icon="pets" />
+    <q-tab name="contents" label="Contents" icon="dynamic_feed" />
+  </q-tabs>
 </template>
 
 <script>
 export default {
+  name: 'TheBottomNavigationBar',
+  props: {
+    width: {
+      type: String,
+      default: '100%',
+    },
+  },
   data() {
     return {
       tab: 'images',
@@ -31,7 +24,14 @@ export default {
 </script>
 
 <style>
-.nav {
-  position: absolute;
+#nav {
+  position: fixed;
+  width: 100%;
+  background-color: #244684;
+  bottom: 0;
+  z-index: 100;
+}
+.q-tab {
+  color: #7b9ad3;
 }
 </style>
