@@ -1,10 +1,10 @@
 <template>
   <div>
     <the-image-header 
-      class="relative" 
-      style="background-color: #5A3272; height: 17vh;" 
+      style="background-color: #5A3272;" 
       background-image="meditation-contents-header.png" 
       label="Meditation"
+      :brightness="50"
     ></the-image-header>
     <div class="q-pa-lg">
       <!-- 추천 명상 part -->

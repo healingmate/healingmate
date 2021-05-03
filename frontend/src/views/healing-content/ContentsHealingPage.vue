@@ -1,10 +1,10 @@
 <template>
   <div>
     <the-image-header 
-      class="relative" 
-      style="background-color: #F2BAB7; height: 17vh;" 
+      style="background-color: #F2BAB7;" 
       background-image="healing-contents-header.png" 
       label="Contents"
+      :brightness="50"
     ></the-image-header>
     <!-- TODO : 이전 페이지 이동 버튼 넣기-->
     <!-- 콘텐츠 카테고리 버튼 배치 -->

@@ -1,10 +1,10 @@
 <template>
   <div>
     <the-image-header 
-      class="relative" 
-      style="background-color: #00295A; height: 17vh;" 
+      style="background-color: #00295A;" 
       background-image="asmr-contents-header.png" 
       label="ASMR"
+      :brightness="50"
     ></the-image-header>
     <!-- TODO : 이전 페이지 이동 버튼 넣기-->
     <div 
