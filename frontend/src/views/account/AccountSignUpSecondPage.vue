@@ -50,7 +50,7 @@ import BaseButton from "@/components/common/BaseButton"
 import BaseTextInput from "@/components/common/BaseTextInput"
 import { signUp } from "@/api/account"
 
-import VueCookies from 'vue-cookies';
+// import VueCookies from 'vue-cookies';
 import { validation } from "@/mixins/validation"
 
 export default {
@@ -105,27 +105,38 @@ export default {
 			// TODO: 동기식으로 서버에 요청을 보내 userID가 중복인지 확인 해야함
 			// else if() {}  
 			else {
-				const addtionalInformationList = VueCookies.get('addtional-information').split('-')
+				// const addtionalInformationList = VueCookies.get('addtional-information').split('-')
+				const addtionalInformationList = this.$q.cookies.get('addtional-information').split('-')
 
+				// 회원가입을 하기 위한 정보
 				const param = {
 					'userId': this.userId,
 					'password': this.password,
 					'nickname': addtionalInformationList[0],
 					'birthYear': addtionalInformationList[1],
 				}
-
+				
 				signUp(param)
-				.then(res => {
-					console.log(res)
+				.then(() => {
+					// 회원가입 부가정보에 대한 쿠키 삭제
+					this.$q.cookies.remove('addtional-information')
+					// 토큰 획득을 위해 obtainToken action 실행 
+					
+					// 로그인을 하기위한 정보
+					const param = {
+						'userId' : this.userId,
+						'password' : this.password
+					}
+
+					this.$store.dispatch('obtainToken', param)
 				})
 				.catch(err => {
-					console.log(err)
+					this.$q.notify({
+						position: 'top',
+						color: 'negative',
+						message: err.response.data.message
+					})
 				})
-				
-				VueCookies.remove('addtional-information')
-				console.log(param)
-
-				// TODO: 서버에 회원가입 요청 해야함
 			}
 		},
 	}

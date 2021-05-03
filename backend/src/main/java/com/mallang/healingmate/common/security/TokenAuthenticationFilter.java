@@ -15,6 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * com.mallang.healingmate.common.security
+ * TokenAuthenticationFilter.java
+ * @date    2021-05-01 오후 8:40
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Slf4j
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {

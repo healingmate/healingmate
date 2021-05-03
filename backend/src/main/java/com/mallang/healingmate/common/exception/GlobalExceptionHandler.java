@@ -10,6 +10,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+/**
+ * com.mallang.healingmate.common.exception
+ * BusinessException.java
+ * @date    2021-04-26 오후 2:45
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {

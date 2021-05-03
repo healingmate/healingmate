@@ -12,6 +12,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * com.mallang.healingmate.common.exception
+ * BusinessException.java
+ * @date    2021-04-26 오후 2:45
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ErrorResponse {

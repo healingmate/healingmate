@@ -8,12 +8,23 @@
 		>
 
 		<div class="p-y-28 absolute" style="bottom: 130px; width: 100%">
-			<BaseTextInput :color="isNight ? '#ffffff' : '#000000'" label="아이디" :rules="[required(), minLength(5), maxLength(16), alphabetNumber()]"/>
-			<BaseTextInput :color="isNight ? '#ffffff' : '#000000'" label="비밀번호" type="password" :rules="[required(), minLength(8), maxLength(16)]"/>
+			<BaseTextInput 
+				:color="isNight ? '#ffffff' : '#000000'" 
+				label="아이디" 
+				:rules="[required(), minLength(5), maxLength(16), alphabetNumber()]"
+				@onInputValue="text => userId = text"
+			/>
+			<BaseTextInput 
+				:color="isNight ? '#ffffff' : '#000000'" 
+				label="비밀번호" 
+				type="password" 
+				:rules="[required(), minLength(8), maxLength(16)]"
+				@onInputValue="text => password = text"
+			/>
 		</div>
 
 		<div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
-			<BaseButton back-ground-color="#545FD6" label="다음" />
+			<BaseButton back-ground-color="#545FD6" label="다음" @click.native="onSignInButton()"/>
 		</div>
 
 	</div>
@@ -36,9 +47,12 @@ export default {
 	props: {
 		isNight: Boolean
 	},
-	// data() {
-	//   return {}
-	// },
+	data() {
+		return {
+			userId: null,
+			password: null,
+		}
+	},
 	// computed: {},
 	// watch: {},
 	// created() {},
@@ -46,10 +60,13 @@ export default {
 	// updated() {},
 	methods: {
 		onSignInButton() {
-			this.$router.push({name: 'AccountSignInPage'})
-		},
-		onSignUpButton() {
-			this.$router.push({name: 'AccountSignUpFirstPage'})
+
+			const param = {
+				'userId' : this.userId,
+				'password' : this.password
+			}
+
+			this.$store.dispatch('obtainToken', param)
 		},
 	},
 }

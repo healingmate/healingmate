@@ -1,25 +1,25 @@
 <template>
-  <div>
-    <div v-if="!isOpened">
-      <q-btn class="back" round icon="more_vert" @click="onClick" />
-    </div>
-    <div v-else>
-      <BaseMenu :isOpened="true" @doClose="onClose" :flag="flag" />
-    </div>
-  </div>
+  <q-btn :size="`${size}rem`" flat icon="more_vert">
+    <q-menu transition-show="flip-right" transition-hide="flip-left" auto-close>
+      <q-list style="min-width: 100px">
+        <slot />
+      </q-list>
+    </q-menu>
+  </q-btn>
 </template>
 
 <script>
-import BaseMenu from '@/components/common/BaseMenu.vue';
 export default {
-  components: {
-    BaseMenu,
+  name: 'BaseKebabButton',
+  props: {
+    size: {
+      type: Number,
+      default: 1.5,
+    },
   },
+  components: {},
   data() {
-    return {
-      isOpened: false,
-      flag: 1,
-    };
+    return {};
   },
 
   methods: {

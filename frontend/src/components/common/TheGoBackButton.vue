@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <q-btn class="back" round icon="arrow_back_ios" @click="goBack" />
-    <q-btn class="back" round icon="arrow_back_ios_new" @click="goBack" />
-  </div>
+  <q-icon :size="`${size}rem`" name="arrow_back_ios_new" @click="goBack" />
 </template>
 
 <script>
 export default {
+  name: 'TheGoBackButton',
+  props: {
+    size: {
+      type: Number,
+      default: 1.5,
+    },
+  },
   methods: {
     goBack() {
       console.log('clicked');
