@@ -7,7 +7,10 @@
       label="ASMR"
     ></the-image-header>
     <!-- TODO : 이전 페이지 이동 버튼 넣기-->
-    <div class="q-pa-lg flex row wrap justify-between">
+    <div 
+      class="q-pa-lg flex justify-between"
+      style="max-width: 100%;"
+    >
       <contents-asmr 
         v-for="(asmr, index) in asmrList" 
         :key="index" 

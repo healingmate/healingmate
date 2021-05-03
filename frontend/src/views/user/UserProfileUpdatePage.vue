@@ -17,6 +17,7 @@
     <!-- 닉네임 변경 -->
     <base-text-input class="p-y-28 q-mt-xl" color="#244684" label="닉네임" :rules="[required(), minLength(2), maxLength(10), korean()]">
     </base-text-input>
+    <!-- 키워드 선택 -->
     <div class="p-y-28 q-mt-sm">
       <p style="color: #244684; font-size: 1rem;">키워드</p>
       <base-keyword 
@@ -27,6 +28,14 @@
       >
       </base-keyword>
     </div>
+    <!-- 제출 버튼 -->
+    <div class="absolute-bottom p-y-28 q-mb-lg">
+      <base-button 
+        back-ground-color="#244684" 
+        text-color="white" 
+        label="수정완료"
+      ></base-button>
+    </div>
   </div>
 </template>
 
@@ -34,6 +43,7 @@
 import TheImageHeader from '@/components/common/TheImageHeader';
 import BaseTextInput from '@/components/common/BaseTextInput';
 import BaseKeyword from '@/components/common/BaseKeyword';
+import BaseButton from '@/components/common/BaseButton';
 import { validation } from "@/mixins/validation"
 
 export default {
@@ -41,6 +51,7 @@ export default {
     TheImageHeader,
     BaseTextInput,
     BaseKeyword,
+    BaseButton,
   },
   mixins: [validation],
 
