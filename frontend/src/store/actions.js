@@ -41,6 +41,7 @@ export default {
       return true
     })
     .catch(() => {
+      commit('removeToken')
       return false
     })
   },
