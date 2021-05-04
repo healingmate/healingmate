@@ -6,7 +6,8 @@
       label="Contents"
       :brightness="50"
     ></the-image-header>
-    <!-- TODO : 이전 페이지 이동 버튼 넣기-->
+    <!-- 이전 페이지 이동 -->
+    <the-go-back-button></the-go-back-button>
     <!-- 콘텐츠 카테고리 버튼 배치 -->
     <q-btn 
       flat 
@@ -54,12 +55,14 @@
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsCard from '@/components/healing-content/ContentsCard';
+import TheGoBackButton from '@/components/common/TheGoBackButton';
 import { data } from '@/assets/data/HealingContents.js';
 
 export default {
   components: {
     TheImageHeader,
     ContentsCard,
+    TheGoBackButton,
   },
   data() {
     return {

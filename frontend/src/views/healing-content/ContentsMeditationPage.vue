@@ -6,6 +6,8 @@
       label="Meditation"
       :brightness="50"
     ></the-image-header>
+    <!-- 이전 페이지 이동 -->
+    <the-go-back-button></the-go-back-button>
     <div class="q-pa-lg">
       <!-- 추천 명상 part -->
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">
@@ -55,6 +57,7 @@
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsMeditation from '@/components/healing-content/ContentsMeditation';
 import ArticleCarousel from '@/components/article/ArticleCarousel.vue';
+import TheGoBackButton from '@/components/common/TheGoBackButton';
 import { mainData } from '@/assets/data/MeditationMainContents.js';
 import { data } from '@/assets/data/MeditationContents.js';
 
@@ -63,6 +66,7 @@ export default {
     TheImageHeader,
     ContentsMeditation,
     ArticleCarousel,
+    TheGoBackButton,
   },
   props: {
     // 캐러셀 한 슬라이드에 보여줄 아이템의 수

@@ -7,6 +7,8 @@
       label="profile"
       brightness="60"
     ></the-image-header>
+    <!-- 이전 페이지 이동 -->
+    <the-go-back-button></the-go-back-button>
     <!-- 수정 버튼 -->
     <!-- TODO : 공통컴포넌트 커스텀 방법 -->
     <!-- <base-kebab-button
@@ -132,6 +134,7 @@ import BaseKeyword from '@/components/common/BaseKeyword';
 import ArticleCard from '@/components/article/ArticleCard.vue';
 import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
+import TheGoBackButton from '@/components/common/TheGoBackButton';
 // import BaseKebabButton from '@/components/common/BaseKebabButton.vue';
 
 export default {
@@ -140,6 +143,7 @@ export default {
     BaseKeyword,
     ArticleCard,
     ContentsCard,
+    TheGoBackButton,
     // BaseKebabButton,
   },
   data() {

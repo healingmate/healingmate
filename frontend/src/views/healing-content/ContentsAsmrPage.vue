@@ -6,7 +6,8 @@
       label="ASMR"
       :brightness="50"
     ></the-image-header>
-    <!-- TODO : 이전 페이지 이동 버튼 넣기-->
+    <!-- 이전 페이지 이동 -->
+    <the-go-back-button></the-go-back-button>
     <div 
       class="q-pa-lg flex justify-between"
       style="max-width: 100%;"
@@ -23,12 +24,14 @@
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsAsmr from '@/components/healing-content/ContentsAsmr';
+import TheGoBackButton from '@/components/common/TheGoBackButton';
 import { data } from '@/assets/data/AsmrContents.js';
 
 export default {
   components: {
     TheImageHeader,
     ContentsAsmr,
+    TheGoBackButton,
   },
   data() {
     return {
