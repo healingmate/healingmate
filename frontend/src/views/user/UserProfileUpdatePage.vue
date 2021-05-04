@@ -4,7 +4,7 @@
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
       label="profile setting"
-      brightness="60"
+      :brightness="60"
     ></the-image-header>
     <!-- 뒤로 가기 버튼 -->
     <the-go-back-button
@@ -20,7 +20,14 @@
       style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px;"
     />
     <!-- 닉네임 변경 -->
-    <base-text-input class="p-y-28 q-mt-xl" color="#244684" label="닉네임" :rules="[required(), minLength(2), maxLength(10), korean()]">
+    <base-text-input 
+      class="p-y-28 q-mt-xl" 
+      color="#244684" 
+      label="닉네임" 
+      v-model="user.username"
+      @onInputValue="inputNickname"
+      :rules="[required(), minLength(2), maxLength(10), korean()]"
+    >
     </base-text-input>
     <!-- 키워드 선택 -->
     <div class="p-y-28 q-mt-sm">
@@ -34,7 +41,7 @@
       </base-keyword>
     </div>
     <!-- 제출 버튼 -->
-    <div class="absolute-bottom p-y-28 q-mb-lg">
+    <div class="absolute-bottom p-y-28 q-mb-lg"  @click="updateProfile">
       <base-button 
         back-ground-color="#244684" 
         text-color="white" 
@@ -119,7 +126,6 @@ export default {
   },
   methods: {
     toggleKeyword(keyword) {
-      console.log(keyword)
       keyword.click = !keyword.click;
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
@@ -139,13 +145,36 @@ export default {
             }
           }
         } else {
-          // TODO : alert 디자인
-          alert('키워드는 최대 3개까지 선택할 수 있습니다.')
+          this.$q.notify({
+            position: 'top',
+            color: 'negative',
+            message: '키워드는 최대 3개까지 선택할 수 있습니다.'
+          })
           keyword.click = !keyword.click
         }
       }
-      console.log(this.selectedKeyword)
     },
+    inputNickname(input) {
+      this.user.username = input
+    },
+    updateProfile() {
+      if (!this.user.username) {
+        this.$q.notify({
+          position: 'top',
+          color: 'negative',
+          message: '닉네임을 입력해주세요.'
+        })
+        return
+      } 
+      if (this.selectedKeyword.length < 1) {
+        this.$q.notify({
+          position: 'top',
+          color: 'negative',
+          message: '키워드를 한 개 이상 선택해주세요'
+        })
+        return
+      } 
+    }
   }
 }
 </script>

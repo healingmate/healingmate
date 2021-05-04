@@ -12,7 +12,7 @@
       :size="1.2"
     ></the-go-back-button>
     <!-- 수정 버튼 -->
-    <!-- TODO : 공통컴포넌트 커스텀 방법 -->
+    <!-- TODO : 프로필 사용자 본인만 해당 버튼을 확인할 수 있다. -->
     <base-kebab-button
       class="absolute"
       :size="0.8"
