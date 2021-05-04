@@ -3,7 +3,7 @@
     <!-- TODO : font-size 조절 -->
     <the-image-header 
       class="relative" 
-      background-image="contents-main.png"
+      :background-image="isNight ? 'night.jpg' : 'day.jpg'"
       label="profile"
       brightness="60"
     ></the-image-header>
@@ -16,7 +16,7 @@
       style="top: 2vh; right: 15px; color: white;"
     ></base-kebab-button> -->
     <!-- 콘텐츠 카테고리 버튼 배치 -->
-    <q-btn 
+    <!-- <q-btn 
       class="absolute"
       style="top: 2vh; right: 15px; color: white;" 
       icon="more_vert" 
@@ -39,7 +39,7 @@
           </q-item>
         </q-list>
       </q-menu>
-    </q-btn>
+    </q-btn> -->
     <!-- 프로필(아바타) 이미지 -->
     <q-img
       :src="user.avatar"
@@ -145,6 +145,11 @@ export default {
     ContentsCard,
     TheGoBackButton,
     // BaseKebabButton,
+  },
+  props: {
+    isNight:{
+      isNight: Boolean
+    }
   },
   data() {
     return {

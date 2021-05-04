@@ -3,7 +3,7 @@
     <!-- 상단 뒷배경 -->
     <the-image-header 
       class="relative" 
-      background-image="contents-main.png"
+      :background-image="isNight ? 'night.jpg' : 'day.jpg'"
       :brightness="60"
     ></the-image-header>
     <!-- 알람-->
@@ -50,6 +50,11 @@ export default {
     BaseAvatar,
     TheNotification,
     TheBottomNavigationBar
+  },
+  props: {
+    isNight:{
+      isNight: Boolean
+    }
   },
   data() {
     return {

@@ -2,7 +2,7 @@
   <div>
     <the-image-header 
       class="relative" 
-      background-image="contents-main.png"
+      :background-image="isNight ? 'night.jpg' : 'day.jpg'"
       label="profile setting"
       brightness="60"
     ></the-image-header>
@@ -55,7 +55,11 @@ export default {
     BaseButton,
   },
   mixins: [validation],
-
+  props: {
+    isNight:{
+      isNight: Boolean
+    }
+  },
   data() {
     return {
       selectedKeyword: [],
