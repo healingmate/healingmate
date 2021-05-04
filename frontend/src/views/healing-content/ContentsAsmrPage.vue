@@ -7,7 +7,9 @@
       :brightness="50"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->
-    <the-go-back-button></the-go-back-button>
+    <the-go-back-button
+      :size="1.2"
+    ></the-go-back-button>
     <div 
       class="q-pa-lg flex justify-between"
       style="max-width: 100%;"

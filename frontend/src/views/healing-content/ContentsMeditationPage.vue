@@ -7,7 +7,9 @@
       :brightness="50"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->
-    <the-go-back-button></the-go-back-button>
+    <the-go-back-button
+      :size="1.2"
+    ></the-go-back-button>
     <div class="q-pa-lg">
       <!-- 추천 명상 part -->
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">

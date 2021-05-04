@@ -5,41 +5,34 @@
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
       label="profile"
-      brightness="60"
+      :brightness="60"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->
-    <the-go-back-button></the-go-back-button>
+    <the-go-back-button
+      :size="1.2"
+    ></the-go-back-button>
     <!-- 수정 버튼 -->
     <!-- TODO : 공통컴포넌트 커스텀 방법 -->
-    <!-- <base-kebab-button
+    <base-kebab-button
       class="absolute"
+      :size="0.8"
       style="top: 2vh; right: 15px; color: white;"
-    ></base-kebab-button> -->
-    <!-- 콘텐츠 카테고리 버튼 배치 -->
-    <!-- <q-btn 
-      class="absolute"
-      style="top: 2vh; right: 15px; color: white;" 
-      icon="more_vert" 
     >
-      <q-menu
-        transition-show="flip-right"
-        transition-hide="flip-left"
-        auto-close
-      >
-        <q-list style="min-width: 120px">
-          <q-item clickable @click="goToUpdateInfoPage">
-            <q-item-section>
-              <q-icon name="tune" class="text-caption"> 기본정보수정</q-icon>
-            </q-item-section>
-          </q-item>
-          <q-item clickable @click="goToUpdatePasswordPage">
-            <q-item-section>
-              <q-icon name="lock" class="text-caption"> 비밀번호변경</q-icon>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-menu>
-    </q-btn> -->
+      <base-menu 
+        @click.native="goToUpdateInfoPage" 
+        v-if="true" 
+        icon="tune"
+        text="기본정보수정"
+        style="width: 140px;"
+      ></base-menu>
+      <base-menu 
+        @click.native="goToUpdatePasswordPage" 
+        v-if="true"
+        icon="lock" 
+        text="비밀번호변경"
+        style="width: 140px;"
+      ></base-menu>
+    </base-kebab-button>
     <!-- 프로필(아바타) 이미지 -->
     <q-img
       :src="user.avatar"
@@ -135,7 +128,8 @@ import ArticleCard from '@/components/article/ArticleCard.vue';
 import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
-// import BaseKebabButton from '@/components/common/BaseKebabButton.vue';
+import BaseKebabButton from '@/components/common/BaseKebabButton';
+import BaseMenu from '@/components/common/BaseMenu';
 
 export default {
   components: {
@@ -144,7 +138,8 @@ export default {
     ArticleCard,
     ContentsCard,
     TheGoBackButton,
-    // BaseKebabButton,
+    BaseKebabButton,
+    BaseMenu,
   },
   props: {
     isNight:{
@@ -221,9 +216,11 @@ export default {
       this.bookmarkButton = !this.bookmarkButton;
     },
     goToUpdateInfoPage() {
+      console.log('정보수정페이지로 이동')
       this.$router.push('/update-information');
     },
     goToUpdatePasswordPage() {
+      console.log('비밀번호수정페이지로 이동')
       this.$router.push('/update-password');
     }
   }

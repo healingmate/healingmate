@@ -6,6 +6,10 @@
       label="profile setting"
       brightness="60"
     ></the-image-header>
+    <!-- 뒤로 가기 버튼 -->
+    <the-go-back-button
+      :size="1.2"
+    ></the-go-back-button>
     <!-- 프로필(아바타) 이미지 -->
     <q-img
       :src="user.avatar"
@@ -45,6 +49,7 @@ import TheImageHeader from '@/components/common/TheImageHeader';
 import BaseTextInput from '@/components/common/BaseTextInput';
 import BaseKeyword from '@/components/common/BaseKeyword';
 import BaseButton from '@/components/common/BaseButton';
+import TheGoBackButton from '@/components/common/TheGoBackButton';
 import { validation } from "@/mixins/validation"
 
 export default {
@@ -53,6 +58,7 @@ export default {
     BaseTextInput,
     BaseKeyword,
     BaseButton,
+    TheGoBackButton,
   },
   mixins: [validation],
   props: {
