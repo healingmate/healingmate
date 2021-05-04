@@ -1,31 +1,39 @@
 <template>
   <q-item clickable style="padding: 0;">
-    <q-item-section style="text-align: center;">
-      <q-icon :name="kebabIcon[0]" class="text-caption" style="padding-left: 10px;">{{ kebabIcon[1] }}</q-icon>
+    <q-item-section avatar>
+      <q-icon :name="icon" class="" style="padding-left: 14px; font-size: 12px;"/>
     </q-item-section>
+      <q-item-section style="text-align:center;">{{text}}</q-item-section>
   </q-item>
 </template>
 
 <script>
+
 export default {
-  name: 'BaseMenu',
-  data() {
-    return {
-      menuState: true,
-    };
-  },
-  props: {
-    kebabIcon: {
-      type: Array,
+	name: 'BaseMenu',
+	// components: {},
+	// filters: {},
+  // mixins: [],
+	props: {
+    icon: {
+      type: String,
+      default: null,
+    },
+    text: {
+      type: String,
       default: null,
     },
   },
-  methods: {
-    onClick() {
-      console.log('메뉴 열린 후에 클릭 동작');
-    },
-  },
-};
+	// data() {
+	//   return {}
+	// },
+	// computed: {},
+	// watch: {},
+	// created() {},
+	// mounted() {},
+	// updated() {},
+	// methods: {},
+}
 </script>
 
 <style></style>
