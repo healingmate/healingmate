@@ -4,11 +4,13 @@
     <the-image-header 
       class="relative" 
       background-image="contents-main.png"
-      brightness="60"
+      :brightness="60"
     ></the-image-header>
     <!-- 알람-->
-    <!-- TODO : 사이즈 조절  -->
-    <the-notification class="absolute-right q-mr-xl q-mt-md text-white"></the-notification>
+    <the-notification 
+      class="absolute-right q-pr-md q-mr-xl q-mt-md text-white"
+      style="top: 0.7rem;"
+    ></the-notification>
     <!-- 사용자 프로필 -->
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
@@ -27,6 +29,10 @@
         :entity="category"
       ></contents-category>
     </div>
+    <!-- 내비게이션 바 -->
+    <the-bottom-navigation-bar 
+      style="position: fixed; bottom: 0; width: 100%;" 
+    ></the-bottom-navigation-bar>
   </div>
 </template>
 
@@ -35,12 +41,15 @@ import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsCategory from '@/components/healing-content/ContentsCategory';
 import BaseAvatar from '@/components/common/BaseAvatar';
 import TheNotification from '@/components/common/TheNotification';
+import TheBottomNavigationBar from '@/components/common/TheBottomNavigationBar';
+
 export default {
   components: {
     TheImageHeader,
     ContentsCategory,
     BaseAvatar,
     TheNotification,
+    TheBottomNavigationBar
   },
   data() {
     return {
