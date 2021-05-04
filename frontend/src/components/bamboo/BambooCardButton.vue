@@ -3,7 +3,7 @@
   <q-btn
     :size="entity.size"
     class="q-px-xl q-py-sm"
-    text-color="white"
+    :text-color="entity.textColor"
     :style="{
       width: entity.width,
       height: entity.height,

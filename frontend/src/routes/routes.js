@@ -90,6 +90,7 @@ export default [
     path: '/bamboo/category',
     name: 'BambooCategoryPage',
     component: BambooCategoryPage,
+    props: true,
     // meta: { authRequired: true },
   },
   {

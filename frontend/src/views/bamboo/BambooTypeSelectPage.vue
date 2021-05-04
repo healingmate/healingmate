@@ -8,7 +8,7 @@
       </div>
     </div>
     <div>
-      <BambooCardButton :text-color="textColor" v-for="(card, index) in typeCards" :key="index" :entity="card" @click.native="onSelectType(card)" style="border-width: thick; border-style: solid;" />
+      <BambooCardButton v-for="(card, index) in typeCards" :key="index" :entity="card" @click.native="onSelectType(card)" :id="`${card.isSelected ? 'selected' : 'non-selected'}`" />
     </div>
     <div>
       <BaseButton back-ground-color="#244684" text-color="#FFFFFF" label="참여하기" @click.native="onClickSelectButton" />
@@ -24,12 +24,14 @@ import { Notify } from 'quasar';
 
 export default {
   name: 'BamboTypeSelectPage',
+  props: {
+    category: Object,
+  },
   data() {
     return {
-      textColor: '#244684',
       typeCards: [
         {
-          id: 1,
+          id: 0,
           icon: '👨',
           title: '1 대 1',
           size: '3',
@@ -38,10 +40,10 @@ export default {
           borderColor: '#244684',
           textColor: '#244684',
           color: '#white',
-          selectedCategory: false,
+          isSelected: false,
         },
         {
-          id: 2,
+          id: 1,
           icon: '👬',
           title: '단체',
           size: '3',
@@ -49,11 +51,11 @@ export default {
           height: '207px',
           borderColor: '#244684',
           textColor: '#244684',
-          color: 'white',
-          selectedCategory: false,
+          color: '#white',
+          isSelected: true,
         },
       ],
-      myType: [],
+      myType: 1,
     };
   },
   components: {
@@ -63,7 +65,12 @@ export default {
   },
   methods: {
     onSelectType(card) {
-      console.log(card);
+      card.isSelected = !card.isSelected;
+
+      if (card.isSelected === true) {
+        this.myType = card.id;
+      }
+      console.log(this.myType);
     },
     onClickSelectButton() {
       if (this.myType.length === 0) {
@@ -74,11 +81,25 @@ export default {
         });
       } else {
         console.log(this.myType, '선택함', 'axios보내기');
-        // this.$router.push({ name: BambooTypeSelectPageVue, params: this.myType });
       }
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+#selected {
+  color: white;
+  background-color: #244684;
+  border-color: #244684;
+  border-style: solid;
+  border-width: medium;
+}
+#non-selected {
+  color: #244684;
+  background-color: white;
+  border-color: #244684;
+  border-style: solid;
+  border-width: medium;
+}
+</style>

@@ -6,7 +6,13 @@
       <p class="q-mb-none">선택해주세요 😊</p>
     </div>
     <div>
-      <BambooCardButton v-for="(card, index) in categoryCards" :key="index" :entity="card" @click.native="onSelectCategory(card)" style="border-width: thick; border-style: solid;" />
+      <BambooCardButton
+        v-for="(card, index) in categoryCards"
+        :key="index"
+        :entity="card"
+        @click.native="onSelectCategory(card)"
+        :style="`border-color: black; border-width: medium; border-style: ${card.selectedCategory ? 'solid' : 'none'};`"
+      />
     </div>
     <div>
       <BaseButton back-ground-color="#244684" text-color="#FFFFFF" label="선택하기" @click.native="onClickSelectButton" />
@@ -18,103 +24,104 @@
 import TheGoBackButton from '@/components/common/TheGoBackButton.vue';
 import BambooCardButton from '@/components/bamboo/BambooCardButton.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
-import BambooTypeSelectPage from './BambooTypeSelectPage.vue';
 import { Notify } from 'quasar';
 
+import categoryData from '@/assets/data/bambooCategory.json';
 export default {
   name: 'BambooCategoryPage',
   data() {
     return {
-      categoryCards: [
-        {
-          id: 1,
-          icon: '🌂',
-          title: '취업',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#55A822',
-          selectedCategory: false,
-        },
-        {
-          id: 2,
-          icon: '🌂',
-          title: '학업/진로',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#C34159',
-          selectedCategory: false,
-        },
-        {
-          id: 3,
-          icon: '🌂',
-          title: '가족',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#DC972F',
-          selectedCategory: false,
-        },
-        {
-          id: 4,
-          icon: '🌂',
-          title: '대인관계',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#242E90',
-          selectedCategory: false,
-        },
-        {
-          id: 5,
-          icon: '🌂',
-          title: '생활정보',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#E7899A',
-          selectedCategory: false,
-        },
-        {
-          id: 6,
-          icon: '🌂',
-          title: '성격',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#565768',
-          selectedCategory: false,
-        },
-        {
-          id: 7,
-          icon: '🌂',
-          title: '직장',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#287FAF',
-          selectedCategory: false,
-        },
-        {
-          id: 8,
-          icon: '🌂',
-          title: '학교',
-          size: '3',
-          width: '139px',
-          height: '95px',
-          borderColor: 'white',
-          color: '#8B31C1',
-          selectedCategory: false,
-        },
-      ],
+      // categoryCards: [
+      //   {
+      //     id: 1,
+      //     icon: '🌂',
+      //     title: '취업',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#55A822',
+      //     selectedCategory: false,
+      //   },
+      //   {
+      //     id: 2,
+      //     icon: '🌂',
+      //     title: '학업/진로',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#C34159',
+      //     selectedCategory: false,
+      //   },
+      //   {
+      //     id: 3,
+      //     icon: '🌂',
+      //     title: '가족',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#DC972F',
+      //     selectedCategory: false,
+      //   },
+      //   {
+      //     id: 4,
+      //     icon: '🌂',
+      //     title: '대인관계',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#242E90',
+      //     selectedCategory: false,
+      //   },
+      //   {
+      //     id: 5,
+      //     icon: '🌂',
+      //     title: '생활정보',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#E7899A',
+      //     selectedCategory: false,
+      //   },
+      //   {
+      //     id: 6,
+      //     icon: '🌂',
+      //     title: '성격',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#565768',
+      //     selectedCategory: false,
+      //   },
+      //   {
+      //     id: 7,
+      //     icon: '🌂',
+      //     title: '직장',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#287FAF',
+      //     selectedCategory: false,
+      //   },
+      //   {
+      //     id: 8,
+      //     icon: '🌂',
+      //     title: '학교',
+      //     size: '3',
+      //     width: '139px',
+      //     height: '95px',
+      //     borderColor: 'white',
+      //     color: '#8B31C1',
+      //     selectedCategory: false,
+      //   },
+      // ],
+      categoryCards: categoryData.content,
       myCategory: [],
     };
   },
@@ -125,13 +132,15 @@ export default {
   },
   methods: {
     onSelectCategory(card) {
+      //  삼항연산자로
       card.selectedCategory = !card.selectedCategory;
-      if (card.selectedCategory === true) {
-        card.borderColor = 'black';
-      } else {
-        card.borderColor = 'white';
-      }
-      console.log(card.selectedCategory);
+
+      // if (card.selectedCategory === true) {
+      //   card.borderColor = 'black';
+      // } else {
+      //   card.borderColor = 'white';
+      // }
+      console.log(card);
     },
     onClickSelectButton() {
       for (let i = 0; i <= 7; i++) {
@@ -149,7 +158,7 @@ export default {
         });
       } else {
         console.log(this.myCategory, '선택함', 'axios보내기');
-        this.$router.push({ name: BambooTypeSelectPage, params: this.myCategory });
+        this.$router.push({ name: 'BambooTypeSelectPage', params: { myCategory: this.myCategory } });
       }
     },
   },
