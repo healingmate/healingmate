@@ -33,11 +33,11 @@ public class AccountUpdateRequest {
     @NotBlank
     String nickname;
 
-    @Schema(description = "회원 프로필 이미지", example = "RABIT")
+    @Schema(description = "회원 프로필 이미지", example = "RABBIT")
     @NotBlank
     String profileImage;
 
-    @Schema(description = "회원 키워드", example = "['취업','학업/진로','가족']")
+    @Schema(description = "회원 키워드", example = "[\"취업\",\"학업/진로\",\"가족\"]")
     List<String> keywords = new LinkedList<>();
 
     public Account toAccount() {
