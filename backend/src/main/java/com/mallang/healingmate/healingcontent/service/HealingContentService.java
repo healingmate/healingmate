@@ -6,16 +6,25 @@ import com.mallang.healingmate.common.exception.ErrorCode;
 import com.mallang.healingmate.healingcontent.Repository.AccountHealingContentRepository;
 import com.mallang.healingmate.healingcontent.Repository.HealingContentRepository;
 import com.mallang.healingmate.healingcontent.domain.AccountHealingContent;
+import com.mallang.healingmate.healingcontent.domain.AccountHealingContents;
 import com.mallang.healingmate.healingcontent.domain.HealingContent;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+
+/**
+ * com.mallang.healingmate.healingcontent.service
+ * HealingContentService.java
+ * @date    2021-05-05 오후 9:09
+ * @author  서범석
+ *
+ * @변경이력
+ **/
 
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
@@ -26,7 +35,7 @@ public class HealingContentService {
     private final AccountHealingContentRepository accountHealingContentRepository;
     private final HealingContentRepository healingContentRepository;
 
-    public ResponseEntity<Void> saveHealingContent(Long contentId, Account account) {
+    public void saveHealingContentBookmark(Long contentId, Account account) {
         Optional<HealingContent> healingContentOptional = healingContentRepository.findById(contentId);
         if(!healingContentOptional.isPresent()){
             log.error("Entity not found");
@@ -37,6 +46,23 @@ public class HealingContentService {
             throw new EntityException(ErrorCode.DUPLICATED_ENTITY);
         }
         accountHealingContentRepository.save(new AccountHealingContent(account, healingContentOptional.get()));
-        return ResponseEntity.noContent().build();
+    }
+
+    public List<HealingContent> findHealingContentBookmarks(Account account) {
+        return AccountHealingContents.toHealingContents(accountHealingContentRepository.findAllByAccount(account));
+    }
+
+    public void deleteHealingContentBookmark(Long contentId, Account account) {
+        Optional<HealingContent> healingContentOptional = healingContentRepository.findById(contentId);
+        if(!healingContentOptional.isPresent()){
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
+        }
+        Optional<AccountHealingContent> accountHealingContentOptional = accountHealingContentRepository.findByHealingContentAndAccount(healingContentOptional.get(), account);
+        if(!accountHealingContentOptional.isPresent()){
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
+        }
+        accountHealingContentRepository.delete(accountHealingContentOptional.get());
     }
 }
