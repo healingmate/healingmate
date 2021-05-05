@@ -11,14 +11,73 @@
       :size="1.2"
     ></the-go-back-button>
     <!-- 프로필(아바타) 이미지 -->
-    <q-img
-      :src="user.avatar"
+    <div 
       class="absolute"
-      spinner-color="white"
-      width="6rem"
-      height="6rem"
-      style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px;"
-    />
+      style="top: 17vh; left: 50%; transform: translateX(-50%);"
+    >
+      <q-img
+        :src="user.avatar"
+        class="relative"
+        spinner-color="white"
+        width="6rem"
+        height="6rem"
+        style="border-radius: 10px;"
+      />
+      <!-- 프로필 이미지 or 캐릭터 선택 버튼 -->
+      <q-btn 
+        round 
+        text-color="indigo-9" 
+        color="white"
+        icon="edit" 
+        class="absolute"
+        style="top: 10vh; right: -3vw;"
+        @click="chooseCharacter"
+      />
+    </div>
+    <!-- 프로필 이미지 or 캐릭터 선택 페이지 -->
+    <q-dialog 
+      v-model="open" 
+      :maximized="maximizedToggle"
+      class="relative"
+    >
+      <q-card class="text-white" style="background-color: transparent;">
+        <q-btn
+          class="absolute" 
+          style="top: 13vh; left: 50%; transform: translateX(-50%);" 
+          round 
+          color="white"
+          text-color="black" 
+          icon="close" 
+          @click="open = false"
+        />
+        <q-card-section 
+          class="absolute text-center" 
+          style="width: 70vw; height: 50vh; top: 28vh; left: 50%; transform: translateX(-50%);"
+        >
+        <!-- TODO : index 넘기는 방법 -->
+          <article-carousel :number="1" :pageChange="pageChange" class="q-mb-xl">
+            <div v-for="index in 8" :key="index">
+              <q-img :src="require('@/assets/images/character/unnamed.png')">
+              </q-img>
+              <p class="q-mt-md text-weight-bold text-h6">고양이</p>
+            </div>
+          </article-carousel>
+          <!-- <div>
+            <q-img :src="require('@/assets/images/character/unnamed.png')">
+            </q-img>
+            <p class="q-mt-md text-weight-bold text-h6">고양이</p>
+          </div> -->
+        </q-card-section>
+        <!-- 프로필 이미지 or 캐릭터 선택 완료 버튼 -->
+        <div class="absolute-bottom p-y-28 q-mb-lg">
+          <base-button 
+            back-ground-color="#244684" 
+            text-color="white" 
+            label="선택완료"
+          ></base-button>
+        </div>
+      </q-card>
+    </q-dialog>
     <!-- 닉네임 변경 -->
     <base-text-input 
       class="p-y-28 q-mt-xl" 
@@ -57,6 +116,7 @@ import BaseTextInput from '@/components/common/BaseTextInput';
 import BaseKeyword from '@/components/common/BaseKeyword';
 import BaseButton from '@/components/common/BaseButton';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
+import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from "@/mixins/validation"
 
 export default {
@@ -66,15 +126,22 @@ export default {
     BaseKeyword,
     BaseButton,
     TheGoBackButton,
+    ArticleCarousel,
   },
   mixins: [validation],
   props: {
     isNight:{
       isNight: Boolean
-    }
+    },
+    number: {
+			type: Number,
+			default: 1
+		},
   },
   data() {
     return {
+      open: false,
+      maximizedToggle: true,
       selectedKeyword: [],
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
@@ -122,6 +189,12 @@ export default {
           }, 
         ],
       },
+    }
+  },
+  computed: {
+    pageChange(index) {
+      // return index
+      return console.log(index)
     }
   },
   methods: {
@@ -174,7 +247,11 @@ export default {
         })
         return
       } 
-    }
+      this.$router.push('/profile');
+    },
+    chooseCharacter() {
+      this.open = true;
+    },
   }
 }
 </script>
