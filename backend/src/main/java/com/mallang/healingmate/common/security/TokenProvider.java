@@ -2,6 +2,7 @@ package com.mallang.healingmate.common.security;
 
 import com.mallang.healingmate.account.domain.UserAccount;
 import com.mallang.healingmate.common.config.AppProperties;
+import com.mallang.healingmate.common.util.RedisUtil;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +14,9 @@ import java.util.Date;
 /**
  * com.mallang.healingmate.common.security
  * TokenProvider.java
- * @date    2021-05-01 오후 8:40
- * @author  이아영
  *
+ * @author 이아영
+ * @date 2021-05-01 오후 8:40
  * @변경이력
  **/
 
@@ -25,13 +26,14 @@ import java.util.Date;
 public class TokenProvider {
 
     private final AppProperties appProperties;
+    private final RedisUtil redisUtil;
 
-    public String createToken(Authentication authentication){
+    public String createAccessToken(Authentication authentication) {
         UserAccount userAccount = (UserAccount) authentication.getPrincipal();
 
         Date now = new Date();
-        Date expiryDate = new Date((now.getTime()+appProperties.getAuth().getTokenExpirationMsec()));
-        log.info("expiryDate: "+expiryDate.toString());
+        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getAccessTokenExpirationMsec());
+        log.debug("expiryDate: " + expiryDate.toString());
 
         return Jwts.builder()
                 .setSubject(userAccount.getUsername())
@@ -41,7 +43,25 @@ public class TokenProvider {
                 .compact();
     }
 
-    public String getUserIdFromToken(String token){
+    public String createRefreshToken(Authentication authentication) {
+        UserAccount userAccount = (UserAccount) authentication.getPrincipal();
+
+        Date now = new Date();
+        Date expiryDate = new Date((now.getTime() + appProperties.getAuth().getRefreshTokenExpirationMsec()));
+        log.debug("expiryDate: " + expiryDate.toString());
+
+        String refreshToken = Jwts.builder()
+                .setIssuedAt(new Date())
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
+                .compact();
+
+        redisUtil.setDataExpire(userAccount.getUsername(), refreshToken, appProperties.getAuth().getRefreshTokenExpirationMsec() / 1000);
+
+        return refreshToken;
+    }
+
+    public String getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(appProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
@@ -50,21 +70,25 @@ public class TokenProvider {
         return claims.getSubject();
     }
 
-    public boolean validateToken(String authToken){
-        try{
+    public boolean validateToken(String authToken) {
+        try {
             Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
             return true;
-        } catch (SignatureException e){
+        } catch (SignatureException e) {
             log.error("Invalid JWT signature");
-        } catch (MalformedJwtException e){
-            log.error("Invalid JWT token");
-        } catch (ExpiredJwtException e){
-            log.error("Expired JWT token");
-        } catch (UnsupportedJwtException e){
-            log.error("Unsupported JWT token");
-        } catch (IllegalArgumentException e){
+        } catch (MalformedJwtException e) {
+            log.error("Invalid JWT");
+        } catch (ExpiredJwtException e) {
+            log.error("Expired JWT");
+        } catch (UnsupportedJwtException e) {
+            log.error("Unsupported JWT");
+        } catch (IllegalArgumentException e) {
             log.error("JWT claims string is empty");
         }
-        return  false;
+        return false;
+    }
+
+    public boolean validateRefreshToken(String refreshToken, String userId) {
+        return refreshToken.equals(redisUtil.getData(userId));
     }
 }
