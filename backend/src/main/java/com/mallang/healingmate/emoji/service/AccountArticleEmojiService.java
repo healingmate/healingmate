@@ -8,6 +8,7 @@ import com.mallang.healingmate.common.exception.ErrorCode;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmoji;
 import com.mallang.healingmate.emoji.domain.Emoji;
 import com.mallang.healingmate.emoji.dto.EmojiRequest;
+import com.mallang.healingmate.emoji.repository.AccountArticleEmojiRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,18 +43,10 @@ public class AccountArticleEmojiService {
         }
 
         Article article = articleOptional.get();
-//        try {
-//            ;
-//        }catch(Exception e){
-//            log.error("");
-//            throw new EntityException(ErrorCode.INVALID_INPUT_VALUE);
-//        }
-
-//        emojiRequest.getEmoji().
 
         Optional<AccountArticleEmoji> accountArticleEmojiOptional = accountArticleEmojiRepository.findByArticleAndAccount(article, account);
         if(accountArticleEmojiOptional.isPresent()){
-            log.error("Entity alreadyExists");
+            log.error("Entity already exists");
             throw new EntityException(ErrorCode.DUPLICATED_ENTITY);
         }
         accountArticleEmojiRepository.save(new AccountArticleEmoji(Emoji.valueOf(emojiRequest.getEmoji()), article, account));

@@ -1,4 +1,4 @@
-package com.mallang.healingmate.emoji.service;
+package com.mallang.healingmate.emoji.repository;
 
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.article.domain.Article;

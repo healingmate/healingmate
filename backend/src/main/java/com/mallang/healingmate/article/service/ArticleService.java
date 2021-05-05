@@ -14,7 +14,7 @@ import com.mallang.healingmate.common.exception.EntityException;
 import com.mallang.healingmate.common.exception.ErrorCode;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmoji;
 import com.mallang.healingmate.emoji.domain.Emoji;
-import com.mallang.healingmate.emoji.service.AccountArticleEmojiRepository;
+import com.mallang.healingmate.emoji.repository.AccountArticleEmojiRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class ArticleService {
     public void updateArticle(String content, Long articleId, Account account) {
         Optional<Article> articleOptional = articleRepository.findById(articleId);
         if (!articleOptional.isPresent()) {
-            log.error("Entity not Found");
+            log.error("Entity not found");
             throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
         }
         Article article = articleOptional.get();
