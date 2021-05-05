@@ -74,7 +74,7 @@ public class ArticleService {
             while (saveCnt < images.length) {
                 Long id = articleRepository.findTopByOrderByIdDesc().isPresent() ? articleRepository.findTopByOrderByIdDesc().get().getId() : 1L;
 
-                String folderPath = baseFilePath + "\\" + account.getId() + "\\article-images\\";
+                String folderPath = baseFilePath + account.getId() + "\\article-images\\";
                 String imagePath = id + "_" + images[saveCnt].getOriginalFilename();
                 try {
                     File folder = new File(folderPath);
