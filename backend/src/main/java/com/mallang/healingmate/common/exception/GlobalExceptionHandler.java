@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException e) {
         log.warn(e.getMessage(), e);
-        ErrorResponse response = ErrorResponse.of(ErrorCode.AUTH_ERROR);
+        ErrorResponse response = ErrorResponse.of(ErrorCode.AUTHENTICATION_ERROR);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
