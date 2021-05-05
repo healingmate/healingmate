@@ -50,7 +50,7 @@ router.beforeEach(function (to, from, next) {
         })
     
         next({
-          name: 'Healing-content'
+          name: 'ArticleFeedPage'
         })
       } else {
         // 유효성 검사에 실패한 경우 로그인 페이지 진입

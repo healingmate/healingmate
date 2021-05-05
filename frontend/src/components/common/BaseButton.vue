@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .q-btn--rectangle {
   border-radius: 14px !important;
 }    

@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     goBack() {
-      console.log('clicked');
       this.$router.go(-1);
     },
   },
