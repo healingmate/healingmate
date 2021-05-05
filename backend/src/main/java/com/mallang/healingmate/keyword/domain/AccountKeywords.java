@@ -1,5 +1,6 @@
 package com.mallang.healingmate.keyword.domain;
 
+import com.mallang.healingmate.account.domain.Account;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,11 @@ import java.util.List;
 public class AccountKeywords {
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AccountKeyword> accountKeywords = new ArrayList<>();
+
+    public void add(AccountKeyword accountKeyword){
+        accountKeywords.add(accountKeyword);
+    }
+    public void clear(){
+        accountKeywords.clear();
+    }
 }
