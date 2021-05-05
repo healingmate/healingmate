@@ -12,9 +12,9 @@ import javax.persistence.*;
 /**
  * com.mallang.healingmate.keyword.domain
  * AccountKeyword.java
- * @date    2021-04-21 오후 4:05
- * @author  서범석, 이아영
  *
+ * @author 서범석, 이아영
+ * @date 2021-04-21 오후 4:05
  * @변경이력
  **/
 
@@ -27,10 +27,25 @@ public class AccountKeyword {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name = "account_id")
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name="keyword_id")
+    @JoinColumn(name = "keyword_id")
     private Keyword keyword;
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public void setKeyword(Keyword keyword) {
+        this.keyword = keyword;
+    }
+
+    public static AccountKeyword associate(Account account, Keyword keyword) {
+        AccountKeyword accountKeyword = new AccountKeyword();
+        accountKeyword.setAccount(account);
+        accountKeyword.setKeyword(keyword);
+        return accountKeyword;
+    }
 }
