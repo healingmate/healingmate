@@ -50,26 +50,40 @@
           icon="close" 
           @click="open = false"
         />
+        <q-img>
+
+        </q-img>
         <q-card-section 
           class="absolute text-center" 
-          style="width: 70vw; height: 50vh; top: 28vh; left: 50%; transform: translateX(-50%);"
+          style="width: 70vw; height: 50vh; top: 25vh; left: 50%; transform: translateX(-50%);"
         >
-        <!-- TODO : index 넘기는 방법 -->
-          <article-carousel :number="1" :pageChange="pageChange" class="q-mb-xl">
-            <div v-for="index in 8" :key="index">
-              <q-img :src="require('@/assets/images/character/unnamed.png')">
-              </q-img>
-              <p class="q-mt-md text-weight-bold text-h6">고양이</p>
-            </div>
-          </article-carousel>
-          <!-- <div>
-            <q-img :src="require('@/assets/images/character/unnamed.png')">
-            </q-img>
-            <p class="q-mt-md text-weight-bold text-h6">고양이</p>
-          </div> -->
+          <q-img 
+            :src="
+              selectedCharacter.image
+              ? require(`@/assets/images/character/${ selectedCharacter.image }`)
+              : require('@/assets/images/character/unnamed.png')
+          ">
+          </q-img>
         </q-card-section>
+        <!-- TODO : index 넘기는 방법 -->
+        <article-carousel 
+          :number="3" 
+          :pageChange="pageChange" 
+          class="absolute q-mb-xl"
+          style="width: 87vw; height: 60vh; top: 67vh; left: 50%; transform: translateX(-50%);"
+        >
+          <div 
+            v-for="(character, index) in characterList" 
+            :key="index"
+            @click="selectCharacter(character)"
+          >
+            <q-img :src="require(`@/assets/images/character/${ character.image }`)">
+            </q-img>
+            <!-- <p class="q-mt-md text-weight-bold text-h6">{{ character.name }}</p> -->
+          </div>
+        </article-carousel>
         <!-- 프로필 이미지 or 캐릭터 선택 완료 버튼 -->
-        <div class="absolute-bottom p-y-28 q-mb-lg">
+        <div class="absolute-bottom p-y-28 q-mb-lg" @click="updateCharacter">
           <base-button 
             back-ground-color="#244684" 
             text-color="white" 
@@ -143,6 +157,7 @@ export default {
       open: false,
       maximizedToggle: true,
       selectedKeyword: [],
+      selectedCharacter: [],
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
@@ -189,6 +204,38 @@ export default {
           }, 
         ],
       },
+      characterList: [
+        {
+          id: 1,
+          name: '???',
+          image: 'unnamed.png',
+          profile: 'unnamed.png',
+        },
+        {
+          id: 2,
+          name: '금붕어',
+          image: 'goldenfish.png',
+          profile: 'goldenfish.png',
+        },
+        {
+          id: 3,
+          name: '펭귄',
+          image: 'penguin.png',
+          profile: 'penguin.png',
+        },
+        {
+          id: 4,
+          name: '사자',
+          image: 'lion.png',
+          profile: 'lion.png',
+        },
+        {
+          id: 5,
+          name: '소',
+          image: 'cow.png',
+          profile: 'cow.png',
+        },
+      ]
     }
   },
   computed: {
@@ -252,6 +299,17 @@ export default {
     chooseCharacter() {
       this.open = true;
     },
+    selectCharacter(character) {
+      this.selectedCharacter = character
+      console.log(this.selectedCharacter)
+      // const selected = index.document.getElementsByClassName('active');
+      // console.log(selected)
+    },
+    updateCharacter() {
+      // 이미지 변경
+      this.user.avatar = require(`@/assets/images/character/${ this.selectedCharacter.image }`)
+      this.open = false;
+    }
   }
 }
 </script>
