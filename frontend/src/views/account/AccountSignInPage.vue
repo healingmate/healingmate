@@ -7,6 +7,8 @@
 			class="layered-image"
 		>
 
+		<TheGoBackButton />
+		
 		<div class="p-y-28 absolute" style="bottom: 130px; width: 100%">
 			<BaseTextInput 
 				:color="isNight ? '#ffffff' : '#000000'" 
@@ -31,6 +33,7 @@
 </template>
 
 <script>
+import TheGoBackButton from "@/components/common/TheGoBackButton"
 import BaseButton from '@/components/common/BaseButton'
 import BaseTextInput from "@/components/common/BaseTextInput"
 
@@ -39,6 +42,7 @@ import { validation } from "@/mixins/validation"
 export default {
 	name: 'AccountSignInPage',
 	components: {
+		TheGoBackButton,
 		BaseButton,
 		BaseTextInput,
 	},

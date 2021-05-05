@@ -2,6 +2,8 @@
   <div>
 		<TheImageHeader :background-image="isNight ? 'night_16x9.jpg' : 'day_16x9.jpg'"/>
 
+		<TheGoBackButton />
+
 		<div class="p-y-28">
 			<BaseTextInput 
 				color="#545FD6" 
@@ -46,6 +48,7 @@
 
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader'
+import TheGoBackButton from "@/components/common/TheGoBackButton"
 import BaseButton from "@/components/common/BaseButton"
 import BaseTextInput from "@/components/common/BaseTextInput"
 import { signUp } from "@/api/account"
@@ -57,6 +60,7 @@ export default {
 	name: 'AccountSignUpSecondPage',
 	components: {
 		TheImageHeader,
+		TheGoBackButton,
 		BaseButton,
 		BaseTextInput,
 	},
