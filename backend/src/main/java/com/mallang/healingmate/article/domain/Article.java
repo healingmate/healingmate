@@ -2,8 +2,12 @@ package com.mallang.healingmate.article.domain;
 
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmojis;
+import com.mallang.healingmate.image.domain.ArticleImage;
 import com.mallang.healingmate.image.domain.ArticleImages;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -40,11 +44,12 @@ public class Article {
     private LocalDateTime updatedDate;
 
     @Embedded
-    private ArticleImages articleImages;
+    private ArticleImages articleImages = ArticleImages.empty();
 
     @Embedded
     private AccountArticleEmojis accountArticleEmojis;
 
+    // TODO: Article Builder
     @Builder
     public Article(Account account, String content) {
         this.account = account;
@@ -53,6 +58,10 @@ public class Article {
 
     public void update(String content){
         this.content = content;
+    }
+
+    public void addArticleImages(ArticleImage articleImage){
+        this.articleImages.add(articleImage);
     }
 
 }

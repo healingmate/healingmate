@@ -3,6 +3,7 @@ package com.mallang.healingmate.article.dto.response;
 import com.mallang.healingmate.article.domain.Article;
 import com.mallang.healingmate.emoji.domain.Emoji;
 import com.mallang.healingmate.image.domain.ArticleImages;
+import com.mallang.healingmate.image.domain.Image;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,12 @@ import java.util.List;
  * @author  서범석
  *
  * @변경이력
- * 21-05-03 emoji관련 컬럼 추가
+ * 21-05-03
+ * emoji관련 컬럼 추가
+ *
+ * 21-05-06
+ * articleImages의 반환값을 RestAPI에 맞추어 String[]으로 바꿈
+ *
  **/
 @Getter
 @Setter
@@ -31,10 +37,10 @@ public class ArticleResponse {
     private EmojiCount emojiCount;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
-    private ArticleImages articleImages;
+    private List<String> articleImages;
 
     @Builder
-    public ArticleResponse(AccountResponse accountResponse, String content, boolean isSelf, Emoji likedEmoji, EmojiCount emojiCount, LocalDateTime createdDate, LocalDateTime updateDate, ArticleImages articleImages) {
+    public ArticleResponse(AccountResponse accountResponse, String content, boolean isSelf, Emoji likedEmoji, EmojiCount emojiCount, LocalDateTime createdDate, LocalDateTime updateDate, List<String> articleImages) {
         this.accountResponse = accountResponse;
         this.content = content;
         this.isSelf = isSelf;
@@ -51,10 +57,10 @@ public class ArticleResponse {
                 .content(article.getContent())
                 .createdDate(article.getCreatedDate())
                 .updateDate(article.getUpdatedDate())
-                .articleImages(article.getArticleImages())
                 .build();
     }
 
+    // TODO: listOf의 대안 찾기
     public static List<ArticleResponse> listOf(List<Article> articles){
         List<ArticleResponse> articleResponses = new ArrayList<>();
 

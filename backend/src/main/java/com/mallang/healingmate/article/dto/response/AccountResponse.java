@@ -26,7 +26,7 @@ public class AccountResponse
     public static AccountResponse of(Account account){
         return AccountResponse.builder()
                 .userId(account.getUserId())
-//                TODO: 각 유저의 프로필 사진 저장하기!
+//                TODO: 유저의 프로필기능 추가 후 입력
 //                .profileImagePath(account.getImage().getPath())
                 .nickname(account.getNickname())
                 // TODO: 키워드는 keyword쪽에 string[]으로 만드는 메서드 구현해주기

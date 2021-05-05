@@ -2,10 +2,12 @@ package com.mallang.healingmate.article.repository;
 
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.article.domain.Article;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * com.mallang.healingmate.article.service
@@ -19,5 +21,7 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    List<Article> findAllByAccountNotIn(List<Account> banToByBanFrom, Pageable pageable);
+    Page<Article> findAllByAccountNotIn(List<Account> banToByBanFrom, Pageable pageable);
+
+    Optional<Article> findTopByOrderByIdDesc();
 }

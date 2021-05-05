@@ -13,9 +13,9 @@ import java.util.List;
  * @author  서범석
  *
  * @변경이력
+ * 21-05-05 BanFrom을 accountId로 찾아보려고 시도하다가 account로 수정
  **/
 
 public interface AccountBanRepository extends JpaRepository<AccountBan, Long> {
-//    List<AccountBan> findByBanFrom(Long accountId);
     List<AccountBan> findByBanFrom(Account account);
 }

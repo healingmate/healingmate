@@ -24,6 +24,7 @@ import javax.validation.Valid;
  *
  * @author 서범석
  * @date 2021-04-29 오후 2:25
+ *
  * @변경이력
  **/
 
@@ -48,8 +49,7 @@ public class ArticleController {
     @Operation(summary = "게시글 전체 조회", description = "전체 게시글을 조회합니다", security = @SecurityRequirement(name = "Authorization"))
     private ResponseEntity<EntireArticleResponse> findArticle(
             @Parameter(hidden = true) @CurrentAccount Account account,
-            @RequestParam(value="page") Integer page, @RequestParam(value="size") Integer size)
-    {
+            @RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         EntireArticleResponse entireArticleResponse = articleService.findAllArticles(page, size, account);
         return ResponseEntity.ok(entireArticleResponse);
     }
