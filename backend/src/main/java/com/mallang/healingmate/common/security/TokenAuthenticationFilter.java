@@ -1,7 +1,17 @@
 package com.mallang.healingmate.common.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mallang.healingmate.account.dto.request.LoginRequest;
+import com.mallang.healingmate.account.dto.request.RefreshRequest;
+import com.mallang.healingmate.account.dto.response.AuthResponse;
+import com.mallang.healingmate.account.dto.response.RefreshResponse;
+import com.mallang.healingmate.common.exception.AuthException;
+import com.mallang.healingmate.common.exception.ErrorCode;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +28,9 @@ import java.io.IOException;
 /**
  * com.mallang.healingmate.common.security
  * TokenAuthenticationFilter.java
- * @date    2021-05-01 오후 8:40
- * @author  이아영
  *
+ * @author 이아영
+ * @date 2021-05-01 오후 8:40
  * @변경이력
  **/
 
@@ -29,8 +39,13 @@ import java.io.IOException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
-
     private final CustomUserDetailsService customUserDetailsService;
+
+    @Value("${app.token.authorizationHeader}")
+    private String authorizationHeader;
+
+    @Value("${app.token.bearerPrefix}")
+    private String bearerPrefix;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -48,12 +63,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             log.error("Could not set user authentication in security context", e);
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 
+    // Request Header에서 토큰 정보 꺼내오기
     private String getJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
+        String bearerToken = request.getHeader(authorizationHeader);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(bearerPrefix)) {
             return bearerToken.substring(7);
         }
         return null;

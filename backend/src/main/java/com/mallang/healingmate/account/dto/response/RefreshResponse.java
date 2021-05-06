@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * com.mallang.healingmate.account.dto.response
- * AuthResponse.java
- * @date    2021-05-01 오후 8:33
+ * RefreshResponse.java
+ * @date    2021-05-03 오전 2:58
  * @author  이아영
  *
  * @변경이력
@@ -16,13 +16,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AuthResponse {
+public class RefreshResponse {
     private String accessToken;
-    private String refreshToken;
 
     @Builder
-    public AuthResponse(String accessToken, String refreshToken) {
+    public RefreshResponse(String accessToken) {
         this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
     }
 }
