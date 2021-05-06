@@ -26,12 +26,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "healing-contents", description = "힐링 콘텐츠 관련 컨트롤러")
 @RestController
-@RequestMapping("/healing-content/content")
+@RequestMapping("/healing-content")
 public class HealingContentController {
 
     private final HealingContentService healingContentService;
 
-    @PostMapping("/bookmark/{contentId}")
+    @PostMapping("/content/bookmark/{contentId}")
     @Operation(summary = "힐링 콘텐츠 북마킹", description = "힐링 콘텐츠를 북마킹한다", security = @SecurityRequirement(name = "Authorization"))
     private ResponseEntity<Void> saveHealingContentBookmark(@PathVariable Long contentId, @Parameter(hidden = true) @CurrentAccount Account account){
         healingContentService.saveHealingContentBookmark(contentId, account);
@@ -39,13 +39,13 @@ public class HealingContentController {
     }
 
     
-    @GetMapping("/bookmarks")
+    @GetMapping("/content/bookmarks")
     @Operation(summary = "사용자가 북마크한 힐링 콘텐츠 조회 ", description = "사용자가 북마크한 힐링 콘텐츠만 가져온다", security = @SecurityRequirement(name = "Authorization"))
     private ResponseEntity<List<HealingContent>> findHealingContent(@Parameter(hidden = true) @CurrentAccount Account account){
         return ResponseEntity.ok(healingContentService.findHealingContentBookmarks(account));
     }
     
-    @DeleteMapping("/bookmark/{contentId}")
+    @DeleteMapping("/content/bookmark/{contentId}")
     @Operation(summary = "힐링 콘텐츠 북마킹 제거 ", description = "사용자가 북마크한 힐링 콘텐츠를 제거한다", security = @SecurityRequirement(name = "Authorization"))
     private ResponseEntity<Void> deleteHealingContentBookmark(@PathVariable Long contentId, @Parameter(hidden = true) @CurrentAccount Account account){
         healingContentService.deleteHealingContentBookmark(contentId, account);
