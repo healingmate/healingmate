@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/accounts/login", "/accounts/refresh-token", "/accounts").permitAll()
                 .antMatchers(HttpMethod.GET, "/accounts/{nickname}/exists").permitAll()
                 .antMatchers(HttpMethod.PATCH,"/accounts/**").hasRole("USER")
-                .antMatchers("/articles/**").hasRole("USER")
+                .antMatchers("/articles/**", "/healing-content/content/**").hasRole("USER")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

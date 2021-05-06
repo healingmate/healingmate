@@ -2,6 +2,7 @@ package com.mallang.healingmate.healingcontent.domain;
 
 import com.mallang.healingmate.account.domain.Account;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,4 +32,10 @@ public class AccountHealingContent {
     @ManyToOne
     @JoinColumn(name = "healing_content_id")
     private HealingContent healingContent;
+
+    @Builder
+    public AccountHealingContent(Account account, HealingContent healingContent) {
+        this.account = account;
+        this.healingContent = healingContent;
+    }
 }
