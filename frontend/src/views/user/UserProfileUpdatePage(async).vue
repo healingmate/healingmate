@@ -103,7 +103,6 @@
       label="닉네임" 
       v-model="user.username"
       @onInputValue="inputNickname"
-      @onValidate="reference => nicknameReference = reference"
       :rules="[required(), minLength(2), maxLength(10), korean()]"
     >
     </base-text-input>
@@ -138,7 +137,6 @@ import TheGoBackButton from '@/components/common/TheGoBackButton';
 import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
 import { nicknameCheck, modifyAccount } from '@/api/account';
-import { Notify } from 'quasar'
 
 export default {
   components: {
@@ -162,7 +160,6 @@ export default {
   data() {
     return {
       open: false,
-      nicknameReference: null,
       maximizedToggle: true,
       selectedKeyword: [],
       selectedCharacter: [],
@@ -180,37 +177,37 @@ export default {
           }, 
           {
             id: 2,
-            keyword: '학업/진로',
+            keyword: '가족',
             click: false,
           }, 
           {
             id: 3,
-            keyword: '가족',
+            keyword: '학업/진로',
             click: false,
           },
           {
             id: 4,
-            keyword: '대인관계',
+            keyword: '성격고민',
             click: false,
           },
           {
             id: 5,
-            keyword: '생활정보',
+            keyword: '직장',
             click: false,
           }, 
           {
             id: 6,
-            keyword: '성격',
+            keyword: '학교',
             click: false,
           },
           {
             id: 7,
-            keyword: '직장',
+            keyword: '대인관계',
             click: false,
           },
           {
             id: 8,
-            keyword: '학교',
+            keyword: '생활정보',
             click: false,
           }, 
         ],
@@ -219,42 +216,22 @@ export default {
         {
           id: 1,
           image: 'unnamed.png',
-          name: 'RABBIT',
         },
         {
           id: 2,
           image: 'goldenfish.png',
-          name: 'FOX',
         },
         {
           id: 3,
           image: 'penguin.png',
-          name: 'PENGUIN'
         },
         {
           id: 4,
           image: 'lion.png',
-          name: 'LION'
         },
         {
           id: 5,
           image: 'cow.png',
-          name: 'WOLF'
-        },
-        {
-          id: 6,
-          image: 'penguin.png',
-          name: 'KANGAROO'
-        },
-        {
-          id: 7,
-          image: 'lion.png',
-          name: 'CAT'
-        },
-        {
-          id: 8,
-          image: 'cow.png',
-          name: 'DOG'
         },
       ]
     }
@@ -264,7 +241,7 @@ export default {
       keyword.click = !keyword.click;
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
-          this.selectedKeyword.push(keyword.keyword)
+          this.selectedKeyword.push(keyword)
         } else {
           for (let i = 0; i < this.selectedKeyword.length; i++) {
             if (this.selectedKeyword[i].id === keyword.id) {
@@ -292,15 +269,25 @@ export default {
     inputNickname(input) {
       this.user.username = input
     },
-    updateProfile() {
-      if (!this.nicknameReference.validate()) {
-				this.$q.notify({
-					position: 'top',
+    async updateProfile() {
+      if (!this.user.username) {
+        this.$q.notify({
+          position: 'top',
           color: 'negative',
-          message: this.nicknameReference.computedErrorMessage,
+          message: '닉네임을 입력해주세요.'
         })
         return
-			}
+      } else {
+        const response  = await nicknameCheck(this.user.username);
+        if (response.data) {
+          this.$q.notify({
+            position: 'top',
+            color: 'negative',
+            message: '이미 사용중인 닉네임입니다.'
+          })
+          return
+        }
+      }
       if (this.selectedKeyword.length < 1) {
         this.$q.notify({
           position: 'top',
@@ -309,37 +296,30 @@ export default {
         })
         return
       } 
-      nicknameCheck(this.user.username)
-      .then((res) => {
-        if (res.data) {
-          this.$q.notify({
-            position: 'top',
-            color: 'negative',
-            message: '이미 사용중인 닉네임입니다.'
-          }) 
-        } else {
-          const param = {
-            'nickname': this.user.username,
-            'profileImage': this.user.avatar.name,
-            'keywords': this.selectedKeyword,
-          }
-          modifyAccount(param) 
-          .then(() => {
-            Notify.create({
-              position: 'top',
-              color: 'primary',
-              message: '프로필이 수정되었습니다.'
-            })
-            this.$router.push('/profile');
-          })
-          .catch(err => {
-            console.log(err.response)
-          })
-        }
-      })
-      .catch(err => {
-        console.log(err.response)
-      })
+      try {
+        // console.log(this.user.username, this.user.avatar.image, this.selectedKeyword)
+        // TODO : params 넘기기
+        let { data } = await modifyAccount({
+            'nickname': '안녕하세요오',
+            'profileImage': 'DOG',
+            'keywords': ['취업', '학업/진로']
+          // param: {
+          //   // nickname: this.user.username,
+          //   // profileImage: this.user.avatar.image,
+          //   // keywords: this.selectedKeyword,
+          //   'nickname': '안녕하세요오',
+          //   'profileImage': 'RABBIT',
+          //   'keywords': ['취업', '학업/진로']
+          // }
+        });
+        this.user.username = data.nickname;
+        this.user.avatar.image = data.profileImage;
+        this.selectedKeyword = data.keywords;
+        alert('프로필 수정 완료');
+        // this.$router.push('/profile');
+      } catch (error) {
+        alert(error);
+      }
     },
     chooseCharacter() {
       this.open = true;

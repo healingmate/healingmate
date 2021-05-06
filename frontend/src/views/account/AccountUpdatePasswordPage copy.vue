@@ -17,7 +17,6 @@
       color="#244684" 
       label="기존 비밀번호" 
       @onInputValue="text => password = text"
-      @onValidate="reference => passwordReference = reference"
       type="password" 
       :rules="[required(), minLength(8), maxLength(16)]"
     >
@@ -91,20 +90,30 @@ export default {
   },
   methods: {
     changePassword() {
-      if (!this.passwordReference.validate()) {
-				this.$q.notify({
-					position: 'top',
-					color: 'negative',
-					message: this.passwordReference.computedErrorMessage,
-				})
-			} 
-      else if (!this.confirmPasswordReference.validate()) {
-				this.$q.notify({
-					position: 'top',
-					color: 'negative',
-					message: this.confirmPasswordReference.computedErrorMessage,
-				})
-			} 
+      if (!this.password) {
+        this.$q.notify({
+          position: 'top',
+          color: 'negative',
+          message: '기존 비밀번호를 입력해주세요.'
+        })
+        return
+      } 
+      if (!this.newPassword) {
+        this.$q.notify({
+          position: 'top',
+          color: 'negative',
+          message: '새로운 비밀번호를 입력해주세요'
+        })
+        return
+      } 
+      if (!this.confirmPassword) {
+        this.$q.notify({
+          position: 'top',
+          color: 'negative',
+          message: '새로운 비밀번호를 다시 입력해주세요'
+        })
+        return
+      } 
       this.$router.push('/profile');
     }
   }
