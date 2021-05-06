@@ -65,12 +65,12 @@ public class ArticleService {
     private final ArticleImageRepository articleImageRepository;
 
     public void saveArticle(ArticleRequest articleRequest, Account account) {
-        Article article = articleRequest.to(articleRequest, account);
+        Article article = articleRequest.to(account);
 
         if (articleRequest.getImages() != null && articleRequest.getImages().length != 0) {
             MultipartFile[] images = articleRequest.getImages();
             if (images.length > 5) log.warn("amount of images is over 5. only first 5 images will be saved");
-            int saveCnt = 0;
+            Integer saveCnt = 0;
             while (saveCnt < images.length) {
                 Long id = articleRepository.findTopByOrderByIdDesc().isPresent() ? articleRepository.findTopByOrderByIdDesc().get().getId() : 1L;
 
@@ -140,7 +140,7 @@ public class ArticleService {
         articleRepository.delete(article);
     }
 
-    public EntireArticleResponse findAllArticles(int page, int size, Account account) {
+    public EntireArticleResponse findAllArticles(Integer page, Integer size, Account account) {
         // 페이징을 구현하기 위한 Pageable객체 생성
         Pageable pageable = PageRequest.of(page, size);
         List<AccountBan> accountBans = accountBanRepository.findByBanFrom(account);

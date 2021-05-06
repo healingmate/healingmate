@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * com.mallang.healingmate.image.repository
  * ArticleImageRepository.java
- * @date    2021-05-06 오전 5:49
+ * @date    2021-05-06 오후 3:02
  * @author  서범석
  *
  * @변경이력

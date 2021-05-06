@@ -30,13 +30,14 @@ import java.util.List;
 @Setter
 
 public class ArticleResponse {
+    // accountResponse -> user
     private AccountResponse accountResponse;
     private String content;
-    private boolean isSelf;
+    private Boolean isSelf;
     private Emoji likedEmoji;
     private EmojiCount emojiCount;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+    private String createdDate;
+    private String updateDate;
     private List<String> articleImages;
 
     @Builder
@@ -46,8 +47,8 @@ public class ArticleResponse {
         this.isSelf = isSelf;
         this.likedEmoji = likedEmoji;
         this.emojiCount = emojiCount;
-        this.createdDate = createdDate;
-        this.updateDate = updateDate;
+        this.createdDate = createdDate.toString();
+        this.updateDate = updateDate.toString();
         this.articleImages = articleImages;
     }
 

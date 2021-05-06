@@ -27,10 +27,10 @@ public class ArticleRequest {
     @Schema(description = "게시글 내용", example = "게시글입니다")
     private String content;
 
-    public Article to(ArticleRequest articleRequest, Account account) {
+    public Article to(Account account) {
         return Article.builder()
                 .account(account)
-                .content(articleRequest.getContent())
+                .content(content)
                 .build();
     }
 }

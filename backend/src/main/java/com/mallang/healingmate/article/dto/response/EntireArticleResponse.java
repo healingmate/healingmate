@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 public class EntireArticleResponse {
     private List<ArticleResponse> ArticleResponses;
-    private boolean isLast;
+    private Boolean isLast;
 
     @Builder
     public EntireArticleResponse(List<ArticleResponse> articleResponses, boolean isLast) {
