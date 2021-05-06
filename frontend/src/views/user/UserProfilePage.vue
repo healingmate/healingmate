@@ -50,6 +50,17 @@
     </div>
     <!-- 키워드 -->
     <div 
+      v-if="user.keywordList.length === 0"
+      class="inline-block absolute" 
+      style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
+    >
+      <base-keyword 
+        :entity="noKeyword"
+      >
+      </base-keyword>
+    </div>
+    <div 
+      v-else
       class="inline-block absolute" 
       style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
     >
@@ -162,6 +173,10 @@ export default {
             click: false,
           }
         ],
+      },
+      noKeyword: {
+        keyword: '선택한 키워드가 없어요',
+        click: false,
       },
       postButton: true,
       bookmarkButton: false,
