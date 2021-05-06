@@ -26,7 +26,9 @@ public enum ErrorCode {
     BAD_LOGIN(400, "AU_005", "올바르지 않은 아이디 또는 패스워드입니다."),
     BAD_REFRESH(400,"AU_006","올바르지 않은 Refresh Token 입니다."),
     INCORRECT_PASSWORD(400,"AU_007","비밀번호가 올바르지 않습니다."),
-    INCORRECT_KEYWORD(400,"AU_008","올바르지 않은 키워드가 있습니다."),
+
+    INCORRECT_KEYWORD(400,"KW_001","올바르지 않은 키워드가 있습니다."),
+    INCORRECT_KEYWORD_LENGTH(400,"KW_002","키워드는 최대 3개까지 입력 가능합니다."),
 
     ENTITY_NOT_FOUND(404, "EN_001", "Entity를 찾을 수 없습니다"),
     DUPLICATED_ENTITY(409, "EN_002", "이미 존재하는 Entity입니다"),

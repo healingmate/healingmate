@@ -1,6 +1,8 @@
 package com.mallang.healingmate.account.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mallang.healingmate.article.domain.AccountArticles;
+import com.mallang.healingmate.article.domain.Article;
 import com.mallang.healingmate.healingcontent.domain.AccountHealingContents;
 import com.mallang.healingmate.image.domain.Image;
 import com.mallang.healingmate.keyword.domain.AccountKeyword;
@@ -62,6 +64,9 @@ public class Account {
     @Embedded
     private AccountHealingContents accountHealingContents;
 
+    @Embedded
+    private AccountArticles accountArticles;
+
     @Builder
     public Account(UserRole role, String userId, String password, String nickname, ProfileImage profileImage, Integer birthYear, Integer score) {
         this.role = role;
@@ -77,10 +82,6 @@ public class Account {
         this.password = password;
     }
 
-    public void setAccountKeywords(AccountKeywords accountKeywords) {
-        this.accountKeywords = accountKeywords;
-    }
-
     public void update(Account requestAccount, List<Keyword> keywords) {
         updateAccountKeywords(keywords);
 
@@ -93,5 +94,9 @@ public class Account {
         for (Keyword keyword : keywords) {
             accountKeywords.add(AccountKeyword.associate(this, keyword));
         }
+    }
+
+    public List<String> getKeywords() {
+        return accountKeywords.getKeywords();
     }
 }

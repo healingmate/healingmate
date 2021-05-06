@@ -4,7 +4,7 @@ import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.account.domain.AccountBan;
 import com.mallang.healingmate.article.domain.Article;
 import com.mallang.healingmate.article.dto.request.ArticleRequest;
-import com.mallang.healingmate.article.dto.response.AccountResponse;
+import com.mallang.healingmate.account.dto.response.AccountResponse;
 import com.mallang.healingmate.article.dto.response.ArticleResponse;
 import com.mallang.healingmate.article.dto.response.EmojiCount;
 import com.mallang.healingmate.article.dto.response.EntireArticleResponse;

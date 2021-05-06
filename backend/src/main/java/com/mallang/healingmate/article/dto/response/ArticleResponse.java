@@ -1,9 +1,8 @@
 package com.mallang.healingmate.article.dto.response;
 
+import com.mallang.healingmate.account.dto.response.AccountResponse;
 import com.mallang.healingmate.article.domain.Article;
 import com.mallang.healingmate.emoji.domain.Emoji;
-import com.mallang.healingmate.image.domain.ArticleImages;
-import com.mallang.healingmate.image.domain.Image;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
