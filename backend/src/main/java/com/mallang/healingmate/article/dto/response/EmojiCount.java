@@ -14,18 +14,18 @@ import lombok.Builder;
 
 public class EmojiCount {
     @JsonProperty
-    private int smile;
+    private Integer smile;
     @JsonProperty
-    private int crying;
+    private Integer crying;
     @JsonProperty
-    private int lovely;
+    private Integer lovely;
     @JsonProperty
-    private int grinning;
+    private Integer grinning;
     @JsonProperty
-    private int amazed;
+    private Integer amazed;
 
     @Builder
-    public EmojiCount(int smile, int crying, int lovely, int grinning, int amazed) {
+    public EmojiCount(Integer smile, Integer crying, Integer lovely, Integer grinning, Integer amazed) {
         this.smile = smile;
         this.crying = crying;
         this.lovely = lovely;
