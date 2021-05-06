@@ -29,9 +29,9 @@ import javax.validation.Valid;
 /**
  * com.mallang.healingmate.account.controller
  * AccountController.java
- * @date 2021-04-28 오전 10:00
- * @author 이아영
  *
+ * @author 이아영
+ * @date 2021-04-28 오전 10:00
  * @변경이력
  **/
 
@@ -90,8 +90,8 @@ public class AccountController {
             @ApiResponse(responseCode = "204", description = "회원 정보 수정 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
             @ApiResponse(responseCode = "400", description = "요청 값이 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<Void> updateAccount(@Valid @RequestBody AccountUpdateRequest accountUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account){
-        accountService.updateAccount(accountUpdateRequest,account);
+    public ResponseEntity<Void> updateAccount(@Valid @RequestBody AccountUpdateRequest accountUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
+        accountService.updateAccount(accountUpdateRequest, account);
         return ResponseEntity.noContent().build();
     }
 
@@ -100,8 +100,17 @@ public class AccountController {
             @ApiResponse(responseCode = "204", description = "비밀번호 변경 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
             @ApiResponse(responseCode = "400", description = "비밀번호가 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<Void> updatePassword(@Valid @RequestBody PasswordUpdateRequest passwordUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account){
-        accountService.updatePassword(passwordUpdateRequest,account);
+    public ResponseEntity<Void> updatePassword(@Valid @RequestBody PasswordUpdateRequest passwordUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
+        accountService.updatePassword(passwordUpdateRequest, account);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping
+    @Operation(summary = "회원 탈퇴", description = "헤더에서 정보를 받아 회원을 탈퇴시킨다.", security = @SecurityRequirement(name = "Authorization"), responses = {
+            @ApiResponse(responseCode = "204", description = "회원 탈퇴 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
+    })
+    public ResponseEntity<Void> deleteAccount(@Parameter(hidden = true) @CurrentAccount Account account){
+        accountService.deleteAccount(account);
         return ResponseEntity.noContent().build();
     }
 }
