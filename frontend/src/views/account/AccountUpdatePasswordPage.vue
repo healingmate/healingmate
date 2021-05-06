@@ -60,7 +60,9 @@ import TheImageHeader from '@/components/common/TheImageHeader';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseTextInput from "@/components/common/BaseTextInput"
 import BaseButton from '@/components/common/BaseButton';
-import { validation } from "@/mixins/validation"
+import { validation } from "@/mixins/validation";
+import { updatePassword } from '@/api/account';
+import { Notify } from 'quasar'
 
 export default {
   components: {
@@ -97,6 +99,7 @@ export default {
 					color: 'negative',
 					message: this.passwordReference.computedErrorMessage,
 				})
+        return
 			} 
       else if (!this.confirmPasswordReference.validate()) {
 				this.$q.notify({
@@ -104,8 +107,25 @@ export default {
 					color: 'negative',
 					message: this.confirmPasswordReference.computedErrorMessage,
 				})
-			} 
-      this.$router.push('/profile');
+        return
+			} else {
+        const param = {
+          'password': this.password,
+          'newPassword': this.newPassword,
+        }
+        updatePassword(param)
+        .then(() => {
+            Notify.create({
+              position: 'top',
+              color: 'primary',
+              message: '비밀번호가 수정되었습니다.'
+            })
+            this.$router.push('/profile');
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      }  
     }
   }
 }
