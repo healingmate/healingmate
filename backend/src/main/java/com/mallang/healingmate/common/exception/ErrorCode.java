@@ -28,7 +28,7 @@ public enum ErrorCode {
     INCORRECT_PASSWORD(400,"AU_007","비밀번호가 올바르지 않습니다."),
     INCORRECT_KEYWORD(400,"AU_008","올바르지 않은 키워드가 있습니다."),
 
-    ENTITY_NOT_FOUND(404, "EN_001", "Entity를 찾을 수 없습니다");
+    ENTITY_NOT_FOUND(404, "EN_001", "Entity를 찾을 수 없습니다"),
     DUPLICATED_ENTITY(409, "EN_002", "이미 존재하는 Entity입니다"),
     UNAUTHORIZED_ACCOUNT(403, "EN_003", "해당 Entity를 수정 또는 삭제할 권한이 없습니다");
 
