@@ -2,6 +2,7 @@ package com.mallang.healingmate.article.domain;
 
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.emoji.domain.AccountArticleEmojis;
+import com.mallang.healingmate.image.domain.ArticleImage;
 import com.mallang.healingmate.image.domain.ArticleImages;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,7 +22,6 @@ import java.time.LocalDateTime;
  *
  * @변경이력
  **/
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -44,11 +44,12 @@ public class Article {
     private LocalDateTime updatedDate;
 
     @Embedded
-    private ArticleImages articleImages;
+    private ArticleImages articleImages = ArticleImages.empty();
 
     @Embedded
     private AccountArticleEmojis accountArticleEmojis;
 
+    // TODO: Article Builder
     @Builder
     public Article(Account account, String content) {
         this.account = account;
@@ -57,6 +58,10 @@ public class Article {
 
     public void update(String content){
         this.content = content;
+    }
+
+    public void addArticleImages(ArticleImage articleImage){
+        this.articleImages.add(articleImage);
     }
 
 }

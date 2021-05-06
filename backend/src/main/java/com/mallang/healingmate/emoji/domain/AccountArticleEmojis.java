@@ -11,6 +11,15 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * com.mallang.healingmate.emoji.domain
+ * AccountArticleEmojis.java
+ * @date    2021-05-04 오전 5:44
+ * @author  서범석
+ *
+ * @변경이력
+ **/
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Embeddable
