@@ -2,6 +2,7 @@ package com.mallang.healingmate.image.domain;
 
 import com.mallang.healingmate.article.domain.Article;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,11 +25,17 @@ public class ArticleImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")
     private Image image;
+
+    @Builder
+    public ArticleImage(Article article, Image image) {
+        this.article = article;
+        this.image = image;
+    }
 }

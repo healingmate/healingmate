@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * com.mallang.healingmate.healingcontents.domain
@@ -26,4 +27,9 @@ import java.util.List;
 public class AccountHealingContents {
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AccountHealingContent> accountHealingContents = new ArrayList<>();
+
+    public static List<HealingContent> toHealingContents(List<AccountHealingContent> accountHealingContents) {
+        return accountHealingContents.stream().map(accountHealingContent -> accountHealingContent.getHealingContent())
+                .collect(Collectors.toList());
+    }
 }
