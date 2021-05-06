@@ -1,8 +1,12 @@
 package com.mallang.healingmate.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mallang.healingmate.account.domain.Account;
+import com.mallang.healingmate.account.domain.UserAccount;
+import com.mallang.healingmate.account.dto.response.AccountResponse;
 import com.mallang.healingmate.account.dto.response.AuthResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.http11.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -15,9 +19,9 @@ import java.io.IOException;
 /**
  * com.mallang.healingmate.common.security
  * LoginSuccessHandler.java
- * @date    2021-05-01 오후 8:40
- * @author  이아영
  *
+ * @author 이아영
+ * @date 2021-05-01 오후 8:40
  * @변경이력
  **/
 
@@ -30,6 +34,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        new ObjectMapper().writeValue(response.getWriter(), new AuthResponse(tokenProvider.createAccessToken(authentication),tokenProvider.createRefreshToken(authentication)));
+
+        UserAccount userAccount = (UserAccount) authentication.getPrincipal();
+        Account account = userAccount.getAccount();
+        AccountResponse accountResponse = AccountResponse.of(account);
+
+        new ObjectMapper().writeValue(response.getWriter(), new AuthResponse(tokenProvider.createAccessToken(authentication), tokenProvider.createRefreshToken(authentication), accountResponse));
     }
 }
