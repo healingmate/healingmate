@@ -20,7 +20,7 @@
 import TheGoBackButton from '@/components/common/TheGoBackButton.vue';
 import BambooCardButton from '@/components/bamboo/BambooCardButton.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
-import { Notify } from 'quasar';
+// import { Notify } from 'quasar';
 
 export default {
   name: 'BamboTypeSelectPage',
@@ -65,23 +65,24 @@ export default {
   },
   methods: {
     onSelectType(card) {
-      card.isSelected = !card.isSelected;
-
-      if (card.isSelected === true) {
-        this.myType = card.id;
+      if (card.id === 0) {
+        if (this.typeCards[0].isSelected !== true) {
+          this.typeCards[0].isSelected = true;
+          this.typeCards[1].isSelected = false;
+          this.myType = 0;
+        }
+      } else {
+        if (this.typeCards[1].isSelected !== true) {
+          this.typeCards[1].isSelected = true;
+          this.typeCards[0].isSelected = false;
+          this.myType = 1;
+        }
       }
+
       console.log(this.myType);
     },
     onClickSelectButton() {
-      if (this.myType.length === 0) {
-        Notify.create({
-          position: 'top',
-          color: 'negative',
-          message: '상담 규모를 선택해주세요',
-        });
-      } else {
-        console.log(this.myType, '선택함', 'axios보내기');
-      }
+      console.log(this.typeCards[this.myType]);
     },
   },
 };
