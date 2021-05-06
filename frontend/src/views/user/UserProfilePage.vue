@@ -43,7 +43,7 @@
       style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px;"
     />
     <div
-      class="text-subtitle2 text-weight-bold q-pt-xl text-center"
+      class="text-subtitle2 text-weight-bold q-pt-lg text-center"
     >
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
       {{ user.username }}

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- TODO : 상단 헤더 길이 조정 -->
     <the-image-header 
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
@@ -86,11 +85,6 @@ export default {
 			confirmPasswordReference: null,
     }
   },
-  computed: {
-    checkForm() {
-      return this.newPassword === this.confirmPassword
-    }
-  },
   methods: {
     changePassword() {
       if (!this.passwordReference.validate()) {
@@ -108,7 +102,14 @@ export default {
 					message: this.confirmPasswordReference.computedErrorMessage,
 				})
         return
-			} else {
+			} else if ( this.password === this.newPassword ) {
+        this.$q.notify({
+					position: 'top',
+					color: 'negative',
+					message: '기존 비밀번호와 다른 비밀번호를 입력해주세요'
+				})
+        return
+      } else {
         const param = {
           'password': this.password,
           'newPassword': this.newPassword,
@@ -124,6 +125,12 @@ export default {
         })
         .catch(err => {
           console.log(err.response)
+          this.$q.notify({
+            position: 'top',
+            color: 'negative',
+            message: '현재 비밀번호가 일치하지 않습니다.',
+          })
+          return
         })
       }  
     }
