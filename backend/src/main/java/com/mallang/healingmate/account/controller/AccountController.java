@@ -106,7 +106,7 @@ public class AccountController {
     }
 
     @DeleteMapping
-    @Operation(summary = "회원 탈퇴", description = "헤더에서 정보를 받아 회원을 탈퇴시킨다.", security = @SecurityRequirement(name = "Authorization"), responses = {
+    @Operation(summary = "회원 탈퇴(모든 기능 구현 완료 후 구현 예정)", description = "헤더에서 정보를 받아 회원을 탈퇴시킨다.", security = @SecurityRequirement(name = "Authorization"), responses = {
             @ApiResponse(responseCode = "204", description = "회원 탈퇴 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
     })
     public ResponseEntity<Void> deleteAccount(@Parameter(hidden = true) @CurrentAccount Account account){
