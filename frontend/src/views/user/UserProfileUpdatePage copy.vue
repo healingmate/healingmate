@@ -136,7 +136,7 @@ import BaseButton from '@/components/common/BaseButton';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
-import { nicknameCheck } from '@/api/account';
+import { nicknameCheck, modifyAccount, } from '@/api/account';
 
 export default {
   components: {
@@ -278,15 +278,22 @@ export default {
         })
         return
       } else {
-        const response  = await nicknameCheck(this.user.username);
-        if (response.data) {
-          this.$q.notify({
-            position: 'top',
-            color: 'negative',
-            message: '이미 사용중인 닉네임입니다.'
-          })
-          return
-        }
+        nicknameCheck(this.user.username)
+        // console.log('닉네임 중복 체크')
+        // console.log(this.user.username)
+        .then((res) => {
+          console.log('여기까지 왔나요?')
+					if (res.data) {
+						this.$q.notify({
+							position: 'top',
+							color: 'negative',
+							message: '이미 사용중인 닉네임입니다.'
+						})
+					} 
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
       }
       if (this.selectedKeyword.length < 1) {
         this.$q.notify({
@@ -296,8 +303,17 @@ export default {
         })
         return
       } 
-      console.log('수정완료')
-      // this.$router.push('/profile');
+      try {
+        await modifyAccount({
+          nickname: this.user.username,
+          profileImage: this.user.avatar.image,
+          keywords: this.selectedKeyword,
+        });
+        alert('프로필 수정 완료');
+        this.$router.push('/profile');
+      } catch (error) {
+        alert(error);
+      }
     },
     chooseCharacter() {
       this.open = true;

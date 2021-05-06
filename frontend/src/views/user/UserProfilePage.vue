@@ -78,7 +78,7 @@
       <q-btn 
         v-if="postButton"
         class="text-caption text-weight-bold"
-        style="width: 42vw; background: #244684; color: white;" 
+        style="width: 42vw; border-radius: 10px; background: #244684; color: white;" 
         label="Post" 
         @click="selectButton"
       />
@@ -92,7 +92,7 @@
       /><q-btn 
         v-if="bookmarkButton"
         class="text-caption text-weight-bold"
-        style="width: 42vw; background: #244684; color: white;" 
+        style="width: 42vw; border-radius: 10px; background: #244684; color: white;" 
         label="Bookmark" 
         @click="selectButton"
       />
