@@ -10,7 +10,9 @@ import com.mallang.healingmate.account.dto.response.RefreshResponse;
 import com.mallang.healingmate.account.repository.AccountRepository;
 import com.mallang.healingmate.common.config.AppProperties;
 import com.mallang.healingmate.common.exception.AuthException;
+import com.mallang.healingmate.common.exception.EntityException;
 import com.mallang.healingmate.common.exception.ErrorCode;
+import com.mallang.healingmate.common.exception.InputValueException;
 import com.mallang.healingmate.common.security.CustomUserDetailsService;
 import com.mallang.healingmate.common.security.TokenProvider;
 import com.mallang.healingmate.keyword.domain.Keyword;
@@ -28,8 +30,10 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Random;
 
@@ -116,6 +120,9 @@ public class AccountService {
     public void updateAccount(AccountUpdateRequest accountUpdateRequest, Account account) {
         Account updateAccount = findAccount(account.getUserId());
         Account requestAccount = accountUpdateRequest.toAccount();
+        if (accountUpdateRequest.getKeywords().size() > 3) {
+            throw new InputValueException(ErrorCode.INCORRECT_KEYWORD_LENGTH);
+        }
         List<Keyword> keywords = keywordRepository.findByKeywordIn(accountUpdateRequest.getKeywords());
         // 서로 개수가 맞지않으면, 올바르지 않은 키워드가 있다는 의미
         if (accountUpdateRequest.getKeywords().size() != keywords.size()) {
@@ -137,8 +144,13 @@ public class AccountService {
     private Account findAccount(String userId) {
         return accountRepository.findByUserId(userId)
                 .orElseThrow(() -> {
-                    // TODO: exception 나중에 변경
-                    return new AuthException(ErrorCode.ENTITY_NOT_FOUND);
+                    return new EntityException(ErrorCode.ENTITY_NOT_FOUND);
                 });
+    }
+
+    public void deleteAccount(Account account) {
+        // TODO : account 삭제시 같이 삭제해야할 것들
+        // accountkeyword, accountban, article, accountArticleEmoji, 그거에 해당하는 이미지 폴더, AccountHealingContent, articleImage, image
+        accountRepository.delete(account);
     }
 }
