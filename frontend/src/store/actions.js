@@ -35,15 +35,18 @@ export default {
       'refreshToken': getCookie('refresh_token')
     }
 
-    await refreshToken(param)
+    const isRefreshed = await refreshToken(param)
     .then(res => {
       commit('refreshToken', res.data.accessToken)
+      // console.log("리프레시 토큰 정상 발급완료", res.data.accessToken)
       return true
     })
     .catch(() => {
       commit('removeToken')
       return false
     })
+
+    return isRefreshed
   },
   removeToken({ commit }){
     commit('removeToken')
@@ -57,23 +60,23 @@ export default {
       if(token){
         const decoded = jwt_decode(token);
         const exp = decoded.exp
-
-        if(exp -(Date.now()/1000) > 0){
+        
+        if( exp -(Date.now()/1000) > 0){
           // accessToken이 아직 만료되지 않은경우
-          console.log("accessToken이 아직 만료되지 않은경우")
+          // console.log("accessToken이 아직 만료되지 않은경우")
           return true
         } else {
           // 토큰 만료되었을 때
-          console.log("토큰 만료되었을 때")
+          // console.log("토큰 만료되었을 때")
           return await this.dispatch('refreshToken')
         }
       }
-      console.log("토큰을 발급받지 않은 상태")
+      // console.log("토큰을 발급받지 않은 상태")
       // 토큰을 발급받지 않은 상태
       return false
     } catch(err) {
       // "정상적이지 않은 토큰/ 이상한 모양의 조작된 토큰"
-      console.log("정상적이지 않은 토큰/ 이상한 모양의 조작된 토큰")
+      // console.log("정상적이지 않은 토큰/ 이상한 모양의 조작된 토큰")
       return await this.dispatch('refreshToken')
     }
   },
