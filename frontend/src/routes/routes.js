@@ -1,5 +1,6 @@
 import Home from '../views/Home.vue';
 import Bamboo from '@/views/bamboo/Bamboo.vue';
+import Blockland from '@/views/bamboo/Blockland.vue';
 import ProjectComponentsPage from '../views/ProjectComponentsPage.vue';
 import AccountSignUpFirstPage from '@/views/account/AccountSignUpFirstPage';
 import AccountSignUpSecondPage from '@/views/account/AccountSignUpSecondPage';
@@ -28,7 +29,13 @@ export default [
     path: '/bamboo',
     name: 'Bamboo',
     component: Bamboo,
-    meta: { authRequired: true },
+    // meta: { authRequired: true },
+  },
+  {
+    path: '/blockland',
+    name: 'Blockland',
+    component: Blockland,
+    // meta: { authRequired: true },
   },
   {
     path: '/account/sign-up/first',

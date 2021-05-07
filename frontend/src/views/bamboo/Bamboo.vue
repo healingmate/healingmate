@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="scene-container" ref="sceneContainer" @click="onDocumentMouseDown">temp</div>
-    <!-- <viewport /> -->
   </div>
 </template>
 
@@ -9,7 +8,7 @@
 // import ViewPort from '@/components/common/ViewPort.vue';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js';
 import * as dat from 'dat.gui';
@@ -38,6 +37,10 @@ export default {
   },
   methods: {
     init() {
+      // create scene
+      this.scene = new THREE.Scene();
+      this.scene.background = new THREE.Color('skyblue');
+
       // Loader
       const gltfLoader = new GLTFLoader();
       gltfLoader.load(
@@ -79,12 +82,17 @@ export default {
         undefined
       );
 
-      const fbxLoader = new FBXLoader();
-      fbxLoader.load('/three-assets/casa.fbx', (fbx) => {
-        const fbxObject = fbx;
-        console.log(fbxObject, 'fbx');
-        this.scene.add(fbxObject);
-      });
+      const glbLoader = new GLTFLoader();
+      glbLoader.load(
+        '/three-assets/town.glb',
+        (glb) => {
+          const glbObject = glb.scene;
+          console.log(glbObject, 'glb');
+          this.scene.add(glbObject);
+        },
+        undefined,
+        undefined
+      );
 
       // debug
       const gui = new dat.GUI();
@@ -105,62 +113,52 @@ export default {
       // add camera
       const fov = 60; // Field of view
       const aspect = this.container.clientWidth / this.container.clientHeight;
-      const near = 0.001; // the near clipping plane
+      const near = 1; // the near clipping plane
       const far = 10000; // the far clipping plane
 
-      const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-      camera.position.set(330, 50, 100);
-      gui
-        .add(camera.position, 'x')
-        .min(-1000)
-        .max(1000)
-        .step(0.1);
-      gui
-        .add(camera.position, 'y')
-        .min(-1000)
-        .max(1000)
-        .step(0.1);
-      gui
-        .add(camera.position, 'z')
-        .min(-1000)
-        .max(1000)
-        .step(0.1);
-      this.camera = camera;
+      this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+      this.camera.position.set(330, 50, 100);
+      // gui
+      //   .add(camera.position, 'x')
+      //   .min(-1000)
+      //   .max(1000)
+      //   .step(0.1);
+      // gui
+      //   .add(camera.position, 'y')
+      //   .min(-1000)
+      //   .max(1000)
+      //   .step(0.1);
+      // gui
+      //   .add(camera.position, 'z')
+      //   .min(-1000)
+      //   .max(1000)
+      //   .step(0.1);
+      // this.camera = camera;
 
       // Base camera
 
-      // create scene
-      this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color('skyblue');
-
       // add lights
-      const ambientLight = new THREE.HemisphereLight(
-        0xffffff, // bright sky color
-        0x222222, // dim ground color
-        1 // intensity
-      );
-      const mainLight = new THREE.DirectionalLight(0xffffff, 4.0);
-      mainLight.castShadow = true;
-      // mainLight.position.set(-250, 800, -850);
-      mainLight.position.set(1, 1, 1).normalize();
-      mainLight.target.position.set(-550, 40, -450);
+      const ambient = new THREE.AmbientLight(0x404040);
+      this.scene.add(ambient);
 
-      // <-- add mainLight shadow
-      mainLight.shadow.bias = -0.004;
-      mainLight.shadow.mapSize.width = 2048;
-      mainLight.shadow.mapSize.height = 2048;
+      const light = new THREE.DirectionalLight(0xaaaaaa);
+      light.position.set(30, 100, 40);
+      light.target.position.set(0, 0, 0);
 
-      this.scene.add(ambientLight, mainLight);
-      this.scene.add(mainLight.target);
+      light.castShadow = true;
 
-      const cam = mainLight.shadow.camera;
-      cam.near = 1;
-      cam.far = 2000;
-      cam.left = -1500;
-      cam.right = 1500;
-      cam.top = 1500;
-      cam.bottom = -1500;
-      // -->
+      const lightSize = 500;
+      light.shadow.camera.near = 1;
+      light.shadow.camera.far = 500;
+      light.shadow.camera.left = light.shadow.camera.bottom = -lightSize;
+      light.shadow.camera.right = light.shadow.camera.top = lightSize;
+
+      light.shadow.bias = 0.0039;
+      light.shadow.mapSize.width = 1024;
+      light.shadow.mapSize.height = 1024;
+
+      this.sun = light;
+      this.scene.add(light);
 
       // gui
       //   .add(camera.position, 'x')
@@ -180,22 +178,6 @@ export default {
 
       // Geometry
       // var geometry = new THREE.BoxBufferGeometry(20, 20, 20);
-      // for (var i = 0; i < 1000; i++) {
-      //   var grey = Math.random();
-      //   var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: new THREE.Color(grey, grey, grey) }));
-      //   object.position.x = Math.random() * 800 - 400;
-      //   object.position.y = Math.random() * 800 - 400;
-      //   object.position.z = Math.random() * 800 - 400;
-
-      //   object.rotation.x = Math.random() * 2 * Math.PI;
-      //   object.rotation.y = Math.random() * 2 * Math.PI;
-      //   object.rotation.z = Math.random() * 2 * Math.PI;
-
-      //   object.scale.x = Math.random() + 0.5;
-      //   object.scale.y = Math.random() + 0.5;
-      //   object.scale.z = Math.random() + 0.5;
-      //   this.scene.add(object);
-      // }
 
       // add controls
       this.controls = new OrbitControls(this.camera, this.container);
@@ -279,6 +261,7 @@ export default {
     },
     animate() {
       requestAnimationFrame(this.animate);
+      this.controls.update();
       this.render();
     },
     render() {
