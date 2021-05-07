@@ -44,11 +44,11 @@ public class AccountArticleEmojiService {
                 }
         );
 
-//        AccountArticleEmoji accountArticleEmoji = accountArticleEmojiRepository.findByArticleAndAccount(article, account).orElseThrow(() -> {
-//            log.error("Entity already exists");
-//            throw new EntityException((ErrorCode.DUPLICATED_ENTITY));
-//        });
-
+        Optional<AccountArticleEmoji> accountArticleEmojiOptional = accountArticleEmojiRepository.findByArticleAndAccount(article, account);
+        if(accountArticleEmojiOptional.isPresent()) {
+            log.error("Entity already exists");
+            throw new EntityException((ErrorCode.DUPLICATED_ENTITY));
+        }
         article.addAccountArticleEmojis(account, Emoji.valueOf(emojiRequest.getEmoji()));
     }
 
