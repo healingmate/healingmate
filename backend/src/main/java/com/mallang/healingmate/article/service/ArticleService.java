@@ -45,9 +45,7 @@ import java.util.stream.Collectors;
  *
  * @author 서범석
  * @date 2021-04-29 오전 2:51
- *
- * @변경이력
- * 21-05-06
+ * @변경이력 21-05-06
  * 모든 메서드 1차 기능 확인 완료 ( 유저 프로필, 키워드 적용해서 기능테스트 필요 )
  **/
 @Slf4j
@@ -75,8 +73,8 @@ public class ArticleService {
             while (saveCnt < images.length) {
                 Long id = articleRepository.findTopByOrderByIdDesc().isPresent() ? articleRepository.findTopByOrderByIdDesc().get().getId() : 1L;
 
-                String folderPath = baseFilePath + account.getId() + "\\article-images\\";
-                String imagePath = id + "_" + images[saveCnt].getOriginalFilename();
+                String folderPath = baseFilePath + account.getId() + "/article-images/";
+                String imagePath = id + "_" + saveCnt;
                 try {
                     File folder = new File(folderPath);
                     folder.mkdirs();
@@ -87,8 +85,8 @@ public class ArticleService {
                     // TODO : 파일 저장 실패 exception
                     return;
                 }
-                Image image = Image.builder().path(account.getId() + "\\article-images\\" + imagePath).build();
-                article.addArticleImages(new ArticleImage(article, image));
+                Image image = Image.builder().path(account.getId() + "/article-images/" + imagePath).build();
+                article.addArticleImages(image);
                 saveCnt++;
             }
         }
