@@ -184,44 +184,13 @@ export default {
       bookmarkButton: false,
       articleList: articleListPage.content,
       contentList: data,
-      bookmarkedList: [
-        // {
-        //   category: 'GIF',
-        //   title: 'Laughing',
-        //   contents: 'https://media.giphy.com/media/3oEjHI8WJv4x6UPDB6/giphy.gif',
-        //   bookmarked: true,
-        // },
-        // {
-        //   category: '유튜브',
-        //   title: '힐링 콘텐츠1',
-        //   contents: "77jy6yVLSH8",
-        //   bookmarked: true,
-        // },
-        // {
-        //   category: 'GIF',
-        //   title: 'Laughing',
-        //   contents: 'https://media.giphy.com/media/l0ExayQDzrI2xOb8A/giphy.gif',
-        //   bookmarked: true,
-        // },
-        // {
-        //   category: '유튜브',
-        //   title: '힐링 콘텐츠2',
-        //   contents: "8YX57oN1814",
-        //   bookmarked: true,
-        // },
-        // {
-        //   category: '유튜브',
-        //   title: '힐링 콘텐츠3',
-        //   contents: "b-amjUifQqw",
-        //   bookmarked: true,
-        // },
-        // {
-        //   category: 'GIF',
-        //   title: 'Smile',
-        //   contents: 'https://media.giphy.com/media/QLvRBqfLXCphu/giphy.gif',
-        //   bookmarked: true,
-        // },
-      ]
+      bookmarkedList: []
+    }
+  },
+  watch: {
+    bookmarkedList() {
+      console.log('변화')
+      // window.location.reload();
     }
   },
   methods: {
@@ -254,7 +223,6 @@ export default {
           }
         }
       }
-      // this.bookmarkedList = response.data
     })
     .catch(err => {
       console.log(err.response)

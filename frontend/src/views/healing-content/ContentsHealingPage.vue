@@ -100,10 +100,13 @@ export default {
   created() {
     getBookmarkedContents() 
     .then((response) => {
-      for (var i=0; i < response.data.length; i++) {
-        this.bookmarkedList.push(response.data[i].id)
+      for (var i = 0; i < response.data.length; i++) {
+        for (var j = 0; j < this.contents.length; j++) {
+          if (this.contents[j].id === response.data[i].id) {
+            this.contents[j].bookmarked = true;
+          }
+        }
       }
-      console.log(this.bookmarkedList)
     })
     .catch(err => {
       console.log(err.response)

@@ -85,20 +85,13 @@ export default {
   data() {
     return {
       open: false,
-      // bookmarkedList: [],
     }
   },
   methods: {
-    // checkbookmarked() {
-    //   this.entity.bookmarked = !this.entity.bookmarked;
-    // },
-    // TODO
-    // api 연결 version
     checkbookmarked(contentId) {
       if (this.entity.bookmarked === false) {
         bookmarkContent(contentId)
-        .then((response) => {
-          console.log(response)
+        .then(() => {
           this.entity.bookmarked = true;
         })
         .catch(err => {
@@ -106,8 +99,7 @@ export default {
         })
       } else {
         deleteBookmarkContent(contentId)
-        .then((response) => {
-          console.log(response)
+        .then(() => {
           this.entity.bookmarked = false;
         })
         .catch(err => {
