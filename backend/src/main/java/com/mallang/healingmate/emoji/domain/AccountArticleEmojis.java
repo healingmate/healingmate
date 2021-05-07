@@ -1,5 +1,6 @@
 package com.mallang.healingmate.emoji.domain;
 
+import com.mallang.healingmate.account.domain.Account;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,9 @@ import java.util.List;
 /**
  * com.mallang.healingmate.emoji.domain
  * AccountArticleEmojis.java
- * @date    2021-05-04 오전 5:44
- * @author  서범석
  *
+ * @author 서범석
+ * @date 2021-05-04 오전 5:44
  * @변경이력
  **/
 
@@ -26,4 +27,12 @@ import java.util.List;
 public class AccountArticleEmojis {
     @OneToMany(mappedBy = "article", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     List<AccountArticleEmoji> accountArticleEmojis = new ArrayList<>();
+
+    public static AccountArticleEmojis empty() {
+        return new AccountArticleEmojis();
+    }
+
+    public void add(AccountArticleEmoji accountArticleEmoji) {
+        this.accountArticleEmojis.add(accountArticleEmoji);
+    }
 }

@@ -73,7 +73,7 @@ public class ArticleService {
                 Long id = articleRepository.findTopByOrderByIdDesc().isPresent() ? articleRepository.findTopByOrderByIdDesc().get().getId() : 1L;
 
                 String folderPath = baseFilePath + account.getId() + "/article-images/";
-                String imagePath = id + "_" + images[saveCnt].getOriginalFilename();
+                String imagePath = id + "_" + saveCnt;
                 try {
                     File folder = new File(folderPath);
                     folder.mkdirs();

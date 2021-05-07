@@ -11,9 +11,9 @@ import javax.persistence.*;
 /**
  * com.mallang.healingmate.image.domain
  * ArticleImage.java
- * @date    2021-04-22 오후 2:24
- * @author  서범석, 이아영
  *
+ * @author 서범석, 이아영
+ * @date 2021-04-22 오후 2:24
  * @변경이력
  **/
 
@@ -37,5 +37,9 @@ public class ArticleImage {
     public ArticleImage(Article article, Image image) {
         this.article = article;
         this.image = image;
+    }
+
+    public static ArticleImage associate(Article article, Image image) {
+        return ArticleImage.builder().article(article).image(image).build();
     }
 }
