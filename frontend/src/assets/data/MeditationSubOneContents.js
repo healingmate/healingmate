@@ -1,4 +1,4 @@
-const data = [
+const subOneData = [
   {
     id: 4,
     time: 2,
@@ -60,4 +60,4 @@ const data = [
     height: '18vh',
   },
 ];
-export { data };
+export { subOneData };

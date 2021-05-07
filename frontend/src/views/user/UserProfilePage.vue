@@ -47,7 +47,8 @@
     >
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
       <!-- {{ user.username }} -->
-      {{ $store.state.nickname }}
+      <!-- {{ $store.state.nickname }} -->
+      {{ this.cookies }}
     </div>
     <!-- 키워드 -->
     <div 
@@ -163,6 +164,7 @@ export default {
   data() {
     return {
       // TODO : 백엔드 api 연결
+      cookies: '',
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
@@ -188,12 +190,12 @@ export default {
       bookmarkedList: []
     }
   },
-  watch: {
-    bookmarkedList() {
-      console.log('변화')
-      // window.location.reload();
-    }
-  },
+  // watch: {
+  //   bookmarkedList() {
+  //     console.log('변화')
+  //     // window.location.reload();
+  //   }
+  // },
   methods: {
     // toggleKeyword(keyword) {
     //   console.log(keyword)
@@ -228,6 +230,11 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
+    this.cookies = this.$q.cookies.get('additional-information')
+    console.log(this.cookies)
+    // console.log(value)
+    // this.cookies = value
+
   }
 }
 </script>

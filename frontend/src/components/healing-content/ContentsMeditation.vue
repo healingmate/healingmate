@@ -10,7 +10,6 @@
       }"
       @click="goToDetail"
     >
-      <!-- @click="goToDetail(entity.id)" -->
       <q-img
         style="width=100%; height: 100%; border-radius: 10px;"
         :src="require(`@/assets/images/meditation/${ entity.background_img }`)"
@@ -22,7 +21,6 @@
       </q-img>  
     </q-card>
     <!-- 음악 재생 -->
-    <!-- <contents-music v-model="open" :entity="entity"></contents-music> -->
     <q-dialog 
       v-model="open" 
       :maximized="maximizedToggle"
@@ -46,7 +44,7 @@
         />
         <q-card-section 
           class="absolute text-center" 
-          style="width: 200px; top: 25vh; left: 50%; transform: translateX(-50%);"
+          style="width: 250px; top: 25vh; left: 50%; transform: translateX(-50%);"
         >
           <div class="text-blue-grey-12">
             {{ entity.time }} min
