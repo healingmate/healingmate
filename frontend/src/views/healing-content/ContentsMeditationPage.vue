@@ -29,7 +29,7 @@
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">
         상황별 명상
       </div>
-      <article-carousel :number="2.1" class="q-mb-xl">
+      <article-carousel :number="2" class="q-mb-xl">
         <contents-meditation 
           v-for="(Meditation, index) in MeditationList" 
           :key="index"

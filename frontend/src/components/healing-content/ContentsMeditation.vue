@@ -16,7 +16,7 @@
         :src="require(`@/assets/images/meditation/${ entity.background_img }`)"
       >
         <div class="absolute-bottom text-right transparent" style="padding-right: 10px; padding-bottom: 5px;">
-          <p class="q-ma-none text-caption text-blue-grey-2">{{ entity.time }} min</p>
+          <p class="q-ma-none text-caption text-blue-grey-1">{{ entity.time }} min</p>
           <p class="q-ma-none text-bold" style="font-size: 0.rem;">{{ entity.title }}</p>
         </div>
       </q-img>  

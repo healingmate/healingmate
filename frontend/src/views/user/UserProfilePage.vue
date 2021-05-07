@@ -46,7 +46,8 @@
       class="text-subtitle2 text-weight-bold q-pt-lg text-center"
     >
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
-      {{ user.username }}
+      <!-- {{ user.username }} -->
+      {{ $store.state.nickname }}
     </div>
     <!-- 키워드 -->
     <div 

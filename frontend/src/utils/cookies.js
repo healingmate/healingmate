@@ -14,8 +14,21 @@ function getCookie(name) {
   document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/";
 }
 
+function saveUserNicknameToCookie(value) {
+  document.cookie = `nickname=${value}`;
+}
+
+function getUserNicknameFromCookie() {
+  return document.cookie.replace(
+    /(?:(?:^|.*;\s*)nickname\s*=\s*([^;]*).*$)|^.*$/,
+    '$1',
+  );
+}
+
 export {
   setCookie,
   getCookie,
   deleteCookie,
+  saveUserNicknameToCookie,
+  getUserNicknameFromCookie,
 };
