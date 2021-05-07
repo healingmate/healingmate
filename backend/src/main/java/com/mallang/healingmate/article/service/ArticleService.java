@@ -68,6 +68,7 @@ public class ArticleService {
         Article article = articleRequest.to(account);
 
         if (articleRequest.getImages() != null && articleRequest.getImages().length != 0) {
+
             MultipartFile[] images = articleRequest.getImages();
             if (images.length > 5) log.warn("amount of images is over 5. only first 5 images will be saved");
             Integer saveCnt = 0;

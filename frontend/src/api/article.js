@@ -1,7 +1,7 @@
 import { getInstence } from "./index";
 
 function postArticle(param) {
- const instance = getInstence();
+ const instance = getInstence({ isMultiPart: true });
  return instance.post('/articles', param)
 }
 
