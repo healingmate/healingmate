@@ -1,6 +1,7 @@
 package com.mallang.healingmate.emoji.service;
 
 import com.mallang.healingmate.account.domain.Account;
+import com.mallang.healingmate.account.repository.AccountRepository;
 import com.mallang.healingmate.article.domain.Article;
 import com.mallang.healingmate.article.repository.ArticleRepository;
 import com.mallang.healingmate.common.exception.EntityException;
@@ -20,9 +21,9 @@ import java.util.Optional;
 /**
  * com.mallang.healingmate.emoji.service
  * AccountArticleEmojiService.java
- * @date    2021-04-29 오후 3:02
- * @author  서범석
  *
+ * @author 서범석
+ * @date 2021-04-29 오후 3:02
  * @변경이력
  **/
 
@@ -33,64 +34,48 @@ import java.util.Optional;
 public class AccountArticleEmojiService {
     private final ArticleRepository articleRepository;
     private final AccountArticleEmojiRepository accountArticleEmojiRepository;
+    private final AccountRepository accountRepository;
 
+    public void saveEmoji(EmojiRequest emojiRequest, Long articleId, Account account) {
+        Article article = articleRepository.findById(articleId).orElseThrow(
+                () -> {
+                    log.error("Entity not found");
+                    return new EntityException(ErrorCode.ENTITY_NOT_FOUND);
+                }
+        );
 
-    public void saveEmoji(EmojiRequest emojiRequest, Long articleId, Account account){
-        Optional<Article> articleOptional = articleRepository.findById(articleId);
-        if(!articleOptional.isPresent()){
-            log.error("Entity not found");
-            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
-        }
+//        AccountArticleEmoji accountArticleEmoji = accountArticleEmojiRepository.findByArticleAndAccount(article, account).orElseThrow(() -> {
+//            log.error("Entity already exists");
+//            throw new EntityException((ErrorCode.DUPLICATED_ENTITY));
+//        });
 
-        Article article = articleOptional.get();
-
-        Optional<AccountArticleEmoji> accountArticleEmojiOptional = accountArticleEmojiRepository.findByArticleAndAccount(article, account);
-        if(accountArticleEmojiOptional.isPresent()){
-            log.error("Entity already exists");
-            throw new EntityException(ErrorCode.DUPLICATED_ENTITY);
-        }
-        accountArticleEmojiRepository.save(new AccountArticleEmoji(Emoji.valueOf(emojiRequest.getEmoji()), article, account));
+        article.addAccountArticleEmojis(account, Emoji.valueOf(emojiRequest.getEmoji()));
     }
 
-    public void updateEmoji(EmojiRequest emojiRequest, Long articleId, Account account){
-        Optional<Article> articleOptional = articleRepository.findById(articleId);
-        if(!articleOptional.isPresent()){
-            log.error("Entity not found");
-            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
-        }
-        Article article = articleOptional.get();
-
-        Optional<AccountArticleEmoji> accountArticleEmojiOptional =
-                accountArticleEmojiRepository.findByArticleAndAccount(article, account);
-        if(!accountArticleEmojiOptional.isPresent()) {
-            log.error("Entity not found");
-            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
-        }
-
-        AccountArticleEmoji accountArticleEmoji = accountArticleEmojiOptional.get();
+    public void updateEmoji(EmojiRequest emojiRequest, Long articleId, Account account) {
+        Article article = findArticle(articleId);
+        AccountArticleEmoji accountArticleEmoji = findAccountArticleEmoji(article, account);
 
         accountArticleEmoji.update(emojiRequest);
     }
 
-    public void deleteEmoji(Long articleId, Account account){
-        Optional<Article> articleOptional = articleRepository.findById(articleId);
-        if(!articleOptional.isPresent()){
-            log.error("Entity not found");
-            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
-        }
-        Article article = articleOptional.get();
-
-        Optional<AccountArticleEmoji> accountArticleEmojiOptional =
-                accountArticleEmojiRepository.findByArticleAndAccount(article, account);
-        if(!accountArticleEmojiOptional.isPresent()) {
-            log.error("Entity not found");
-            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
-        }
-
-        AccountArticleEmoji accountArticleEmoji = accountArticleEmojiOptional.get();
+    public void deleteEmoji(Long articleId, Account account) {
+        Article article = findArticle(articleId);
+        AccountArticleEmoji accountArticleEmoji = findAccountArticleEmoji(article, account);
 
         accountArticleEmojiRepository.delete(accountArticleEmoji);
     }
 
-
+    public Article findArticle(Long articleId){
+        return articleRepository.findById(articleId).orElseThrow(() -> {
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
+        });
+    }
+    public AccountArticleEmoji findAccountArticleEmoji(Article article, Account account){
+        return accountArticleEmojiRepository.findByArticleAndAccount(article, account).orElseThrow(() -> {
+            log.error("Entity not found");
+            throw new EntityException(ErrorCode.ENTITY_NOT_FOUND);
+        });
+    }
 }
