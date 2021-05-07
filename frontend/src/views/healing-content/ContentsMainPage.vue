@@ -31,7 +31,7 @@
     </div>
     <!-- 내비게이션 바 -->
     <the-bottom-navigation-bar 
-      style="position: fixed; bottom: 0; width: 100%;" 
+      style="position: absolute" 
     ></the-bottom-navigation-bar>
   </div>
 </template>

@@ -141,6 +141,8 @@ import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseKebabButton from '@/components/common/BaseKebabButton';
 import BaseMenu from '@/components/common/BaseMenu';
+import { getBookmarkedContents } from '@/api/healing-content';
+import { data } from '@/assets/data/HealingContents.js';
 
 export default {
   components: {
@@ -181,43 +183,44 @@ export default {
       postButton: true,
       bookmarkButton: false,
       articleList: articleListPage.content,
+      contentList: data,
       bookmarkedList: [
-        {
-          category: 'GIF',
-          title: 'Laughing',
-          contents: 'https://media.giphy.com/media/3oEjHI8WJv4x6UPDB6/giphy.gif',
-          bookmarked: true,
-        },
-        {
-          category: '유튜브',
-          title: '힐링 콘텐츠1',
-          contents: "77jy6yVLSH8",
-          bookmarked: true,
-        },
-        {
-          category: 'GIF',
-          title: 'Laughing',
-          contents: 'https://media.giphy.com/media/l0ExayQDzrI2xOb8A/giphy.gif',
-          bookmarked: true,
-        },
-        {
-          category: '유튜브',
-          title: '힐링 콘텐츠2',
-          contents: "8YX57oN1814",
-          bookmarked: true,
-        },
-        {
-          category: '유튜브',
-          title: '힐링 콘텐츠3',
-          contents: "b-amjUifQqw",
-          bookmarked: true,
-        },
-        {
-          category: 'GIF',
-          title: 'Smile',
-          contents: 'https://media.giphy.com/media/QLvRBqfLXCphu/giphy.gif',
-          bookmarked: true,
-        },
+        // {
+        //   category: 'GIF',
+        //   title: 'Laughing',
+        //   contents: 'https://media.giphy.com/media/3oEjHI8WJv4x6UPDB6/giphy.gif',
+        //   bookmarked: true,
+        // },
+        // {
+        //   category: '유튜브',
+        //   title: '힐링 콘텐츠1',
+        //   contents: "77jy6yVLSH8",
+        //   bookmarked: true,
+        // },
+        // {
+        //   category: 'GIF',
+        //   title: 'Laughing',
+        //   contents: 'https://media.giphy.com/media/l0ExayQDzrI2xOb8A/giphy.gif',
+        //   bookmarked: true,
+        // },
+        // {
+        //   category: '유튜브',
+        //   title: '힐링 콘텐츠2',
+        //   contents: "8YX57oN1814",
+        //   bookmarked: true,
+        // },
+        // {
+        //   category: '유튜브',
+        //   title: '힐링 콘텐츠3',
+        //   contents: "b-amjUifQqw",
+        //   bookmarked: true,
+        // },
+        // {
+        //   category: 'GIF',
+        //   title: 'Smile',
+        //   contents: 'https://media.giphy.com/media/QLvRBqfLXCphu/giphy.gif',
+        //   bookmarked: true,
+        // },
       ]
     }
   },
@@ -238,6 +241,24 @@ export default {
       console.log('비밀번호수정페이지로 이동')
       this.$router.push('/update-password');
     }
+  },
+  created() {
+    getBookmarkedContents() 
+    .then((response) => {
+      console.log(response)
+      for (var i = 0; i < response.data.length; i++) {
+        for (var j = 0; j < this.contentList.length; j++) {
+          if (this.contentList[j].id === response.data[i].id) {
+            this.contentList[j].bookmarked = true;
+            this.bookmarkedList.push(this.contentList[j]);
+          }
+        }
+      }
+      // this.bookmarkedList = response.data
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
   }
 }
 </script>
