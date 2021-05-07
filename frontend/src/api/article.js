@@ -1,9 +1,35 @@
 import { getInstence } from "./index";
 
-// 사용자 로그인
 function postArticle(param) {
-  const instance = getInstence();
-  return instance.post('/articles', param)
+ const instance = getInstence();
+ return instance.post('/articles', param)
 }
 
-export { postArticle };
+function postEmoji(articleId) {
+ const instance = getInstence();
+ return instance.post(`/articles/${articleId}/emoji`)
+}
+
+function modifyArticle(articleId) {
+ const instance = getInstence();
+ return instance.put(`/articles/${articleId}`)
+}
+
+function modifyEmoji(articleId) {
+ const instance = getInstence();
+ return instance.put(`/articles/${articleId}/emoji`)
+}
+
+function deleteArticle(articleId) {
+ const instance = getInstence();
+ return instance.delete(`/articles/${articleId}`)
+
+}
+
+function deleteEmoji(articleId) {
+ const instance = getInstence();
+ return instance.delete(`/articles/${articleId}/emoji`)
+}
+
+
+export { postArticle, postEmoji, modifyArticle, modifyEmoji ,deleteArticle, deleteEmoji };

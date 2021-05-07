@@ -11,9 +11,11 @@ import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
 import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
 import PageNotFoundPage from '@/views/common/PageNotFoundPage'
 // import MeditationDetail from '@/views/healing-content/ContentsMusicPage.vue'
+import Profile from '@/views/user/UserProfilePage.vue'
+import UpdateInformation from '@/views/user/UserProfileUpdatePage.vue'
+import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
-import Profile from '@/views/user/UserProfilePage.vue';
 
 export default [
   {
@@ -104,6 +106,18 @@ export default [
     name: 'BambooCategoryPage',
     component: BambooCategoryPage,
     meta: { authRequired: true },
+  },
+  {
+    path: '/update-information',
+    name: 'UpdateInformation',
+    component: UpdateInformation,
+    meta: {authRequired: true}
+  },
+  {
+    path: '/update-password',
+    name: 'UpdatePassword',
+    component: UpdatePassword,
+    meta: {authRequired: true}
   },
   {
     path: '*',

@@ -6,6 +6,10 @@
       label="Meditation"
       :brightness="50"
     ></the-image-header>
+    <!-- 이전 페이지 이동 -->
+    <the-go-back-button
+      :size="1.2"
+    ></the-go-back-button>
     <div class="q-pa-lg">
       <!-- 추천 명상 part -->
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">
@@ -55,13 +59,16 @@
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsMeditation from '@/components/healing-content/ContentsMeditation';
 import ArticleCarousel from '@/components/article/ArticleCarousel.vue';
+import TheGoBackButton from '@/components/common/TheGoBackButton';
 import { mainData } from '@/assets/data/MeditationMainContents.js';
+import { data } from '@/assets/data/MeditationContents.js';
 
 export default {
   components: {
     TheImageHeader,
     ContentsMeditation,
     ArticleCarousel,
+    TheGoBackButton,
   },
   props: {
     // 캐러셀 한 슬라이드에 보여줄 아이템의 수
@@ -73,68 +80,7 @@ export default {
   data() {
     return {
       mainMeditationList : mainData,
-      MeditationList : [
-        {
-          id: 1,
-          time: 11,
-          title: '아침 명상',
-          background_img: 'morning.jpg',
-          audio: 'afternoon.mp3',
-          explanation: '편안한 자세로 아침명상을 즐겨보세요:) 고요한 아침의 소리를 들으면 마음이 차분해지는 것을 느낄 수 있습니다.',
-          width: '100%',
-          height: '18vh',
-        },
-        {
-          id: 2,
-          time: 11,
-          title: '오후 명상',
-          background_img: 'afternoon.jpg',
-          audio: 'afternoon.mp3',
-          explanation: '나른한 오후, 명상을 통해 마음을 정리해보는 시간을 가져보세요. 차분한 오후에 어울리는 따뜻한 명상 음악 어떠신가요?',
-          width: '100%',
-          height: '18vh',
-        },
-        {
-          id: 3,
-          time: 11,
-          title: '저녁 명상',
-          background_img: 'night.jpg',
-          audio: 'afternoon.mp3',
-          explanation: '오늘 하루도 수고 많으셨어요:) 하루를 정리하며 명상 어떠신가요?',
-          width: '100%',
-          height: '18vh',
-        },
-        {
-          id: 1,
-          time: 11,
-          title: '아침 명상',
-          background_img: 'morning.jpg',
-          audio: 'afternoon.mp3',
-          explanation: '편안한 자세로 아침명상을 즐겨보세요:) 고요한 아침의 소리를 들으면 마음이 차분해지는 것을 느낄 수 있습니다.',
-          width: '100%',
-          height: '18vh',
-        },
-        {
-          id: 2,
-          time: 11,
-          title: '오후 명상',
-          background_img: 'afternoon.jpg',
-          audio: 'afternoon.mp3',
-          explanation: '나른한 오후, 명상을 통해 마음을 정리해보는 시간을 가져보세요. 차분한 오후에 어울리는 따뜻한 명상 음악 어떠신가요?',
-          width: '100%',
-          height: '18vh',
-        },
-        {
-          id: 3,
-          time: 11,
-          title: '저녁 명상',
-          background_img: 'night.jpg',
-          audio: 'afternoon.mp3',
-          explanation: '오늘 하루도 수고 많으셨어요:) 하루를 정리하며 명상 어떠신가요?',
-          width: '100%',
-          height: '18vh',
-        },
-      ]
+      MeditationList : data
     }
   }
 }
