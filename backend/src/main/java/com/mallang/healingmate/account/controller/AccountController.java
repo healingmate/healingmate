@@ -87,7 +87,7 @@ public class AccountController {
 
     @PatchMapping
     @Operation(summary = "회원 정보 수정", description = "수정할 회원 정보를 받아 수정합니다.", security = @SecurityRequirement(name = "Authorization"), responses = {
-            @ApiResponse(responseCode = "204", description = "회원 정보 수정 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
+            @ApiResponse(responseCode = "204", description = "회원 정보 수정 성공", content = @Content(schema = @Schema(implementation = Void.class))),
             @ApiResponse(responseCode = "400", description = "요청 값이 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<Void> updateAccount(@Valid @RequestBody AccountUpdateRequest accountUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
@@ -97,7 +97,7 @@ public class AccountController {
 
     @PatchMapping("/password")
     @Operation(summary = "비밀번호 수정", description = "현재 비밀번호와 새로운 비밀번호를 받아 변경합니다.", security = @SecurityRequirement(name = "Authorization"), responses = {
-            @ApiResponse(responseCode = "204", description = "비밀번호 변경 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
+            @ApiResponse(responseCode = "204", description = "비밀번호 변경 성공", content = @Content(schema = @Schema(implementation = Void.class))),
             @ApiResponse(responseCode = "400", description = "비밀번호가 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<Void> updatePassword(@Valid @RequestBody PasswordUpdateRequest passwordUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
@@ -107,7 +107,7 @@ public class AccountController {
 
     @DeleteMapping
     @Operation(summary = "회원 탈퇴(모든 기능 구현 완료 후 구현 예정)", description = "헤더에서 정보를 받아 회원을 탈퇴시킨다.", security = @SecurityRequirement(name = "Authorization"), responses = {
-            @ApiResponse(responseCode = "204", description = "회원 탈퇴 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
+            @ApiResponse(responseCode = "204", description = "회원 탈퇴 성공", content = @Content(schema = @Schema(implementation = Void.class))),
     })
     public ResponseEntity<Void> deleteAccount(@Parameter(hidden = true) @CurrentAccount Account account){
         accountService.deleteAccount(account);
