@@ -30,9 +30,11 @@ public enum ErrorCode {
     INCORRECT_KEYWORD(400,"KW_001","올바르지 않은 키워드가 있습니다."),
     INCORRECT_KEYWORD_LENGTH(400,"KW_002","키워드는 최대 3개까지 입력 가능합니다."),
 
-    ENTITY_NOT_FOUND(404, "EN_001", "Entity를 찾을 수 없습니다"),
-    DUPLICATED_ENTITY(409, "EN_002", "이미 존재하는 Entity입니다"),
-    UNAUTHORIZED_ACCOUNT(403, "EN_003", "해당 Entity를 수정 또는 삭제할 권한이 없습니다");
+    HEALING_CONTENT_NOT_FOUND(404, "HC_001", "힐링 콘텐츠를 찾을 수 없습니다."),
+
+    ENTITY_NOT_FOUND(404, "EN_001", "Entity를 찾을 수 없습니다."),
+    DUPLICATED_ENTITY(409, "EN_002", "이미 존재하는 Entity입니다."),
+    UNAUTHORIZED_ACCOUNT(403, "EN_003", "해당 Entity를 수정 또는 삭제할 권한이 없습니다.");
 
 
     private final int status;

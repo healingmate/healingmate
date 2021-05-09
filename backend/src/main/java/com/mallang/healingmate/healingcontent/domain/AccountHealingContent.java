@@ -38,4 +38,11 @@ public class AccountHealingContent {
         this.account = account;
         this.healingContent = healingContent;
     }
+
+    public static AccountHealingContent associate(Account account, HealingContent healingContent) {
+        return AccountHealingContent.builder()
+                .account(account)
+                .healingContent(healingContent)
+                .build();
+    }
 }
