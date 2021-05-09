@@ -139,6 +139,8 @@ import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
 import { nicknameCheck, modifyAccount } from '@/api/account';
 import { Notify } from 'quasar'
+import { saveUserNicknameToCookie, deleteCookie } from '@/utils/cookies';
+
 
 export default {
   components: {
@@ -325,11 +327,15 @@ export default {
           }
           modifyAccount(param) 
           .then(() => {
+            deleteCookie('nickname');
+            saveUserNicknameToCookie(this.user.username);
             Notify.create({
               position: 'top',
               color: 'primary',
               message: '프로필이 수정되었습니다.'
             })
+            // TODO : 프로필 수정 후, 새로고침 안하면 데이터가 바뀌지 않는 문제
+            // location.reload();
             this.$router.push('/profile');
           })
           .catch(err => {
