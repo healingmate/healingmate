@@ -74,7 +74,7 @@ public class ArticleService {
         if (articleRequest.getImages() != null && articleRequest.getImages().length != 0) {
             MultipartFile[] images = articleRequest.getImages();
             if (images.length > 5) {
-                log.warn("Number of images is over 5. Please reduce number of images");
+                log.error("Number of images is over 5. Please reduce number of images");
                 throw new InputValueException(ErrorCode.INCORRECT_IMAGE_LENGTH);
             }
 
@@ -128,11 +128,11 @@ public class ArticleService {
         ArticleImages articleImages = article.getArticleImages();
         List<String> images = articleImages.toImagePaths();
         for (int i = 0; i < articleImages.getArticleImages().size(); i++) {
-            File file = new File(baseFilePath + "\\" + images.get(i));
+            File file = new File(baseFilePath + "/" + images.get(i));
             if (file.exists()) {
                 log.info("Is file deleted? : " + file.delete());
             } else {
-                log.warn("file not exist");
+                log.error("file not exist");
             }
         }
         articleRepository.delete(article);
