@@ -13,16 +13,14 @@ import java.util.List;
 /**
  * com.mallang.healingmate.article.dto
  * ArticleResponse.java
- * @date    2021-04-29 오후 2:46
- * @author  서범석
  *
- * @변경이력
- * 21-05-03
+ * @author 서범석
+ * @date 2021-04-29 오후 2:46
+ * @변경이력 21-05-03
  * emoji관련 컬럼 추가
- *
+ * <p>
  * 21-05-06
  * articleImages의 반환값을 RestAPI에 맞추어 String[]으로 바꿈
- *
  **/
 @Getter
 

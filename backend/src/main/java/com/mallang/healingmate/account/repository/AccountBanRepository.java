@@ -1,4 +1,4 @@
-package com.mallang.healingmate.article.repository;
+package com.mallang.healingmate.account.repository;
 
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.account.domain.AccountBan;

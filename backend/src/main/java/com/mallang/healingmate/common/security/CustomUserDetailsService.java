@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * com.mallang.healingmate.common.security
  * CustomUserDetailsService.java
- * @date    2021-05-01 오후 8:40
- * @author  이아영
  *
+ * @author 이아영
+ * @date 2021-05-01 오후 8:40
  * @변경이력
  **/
 
@@ -28,11 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        Account account = accountRepository.findByUserId(userId).orElseThrow(
-                () -> {
-                    return new UsernameNotFoundException("해당 유저를 찾을 수 없습니다. userId: " + userId);
-                }
-        );
+        Account account = accountRepository.findByUserId(userId).orElseThrow(() -> {
+            return new UsernameNotFoundException("해당 유저를 찾을 수 없습니다. userId: " + userId);
+        });
         return new UserAccount(account);
     }
 }
