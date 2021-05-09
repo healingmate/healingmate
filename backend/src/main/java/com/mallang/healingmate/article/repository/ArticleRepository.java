@@ -20,7 +20,11 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Page<Article> findAllByIdLessThanAndAccountNotInOrderByIdDesc(Long id, List<Account> banToByBanFrom, Pageable pageable);
+    Page<Article> findAllByIdLessThanAndAccountNotInOrderByIdDesc(Long cursorId, List<Account> banToByBanFrom, Pageable pageable);
 
     Page<Article> findAllByAccountNotInOrderByIdDesc(List<Account> accounts, Pageable pageable);
+
+    Page<Article> findAllByOrderByIdDesc(Pageable pageable);
+
+    Page<Article> findAllByIdLessThanOrderByIdDesc(Long cursorId, Pageable pageable);
 }
