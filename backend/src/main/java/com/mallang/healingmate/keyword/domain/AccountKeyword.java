@@ -4,6 +4,7 @@ package com.mallang.healingmate.keyword.domain;
 import com.mallang.healingmate.account.domain.Account;
 import com.mallang.healingmate.keyword.domain.Keyword;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,18 +35,16 @@ public class AccountKeyword {
     @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
-    public void setAccount(Account account) {
+    @Builder
+    public AccountKeyword(Account account, Keyword keyword) {
         this.account = account;
-    }
-
-    public void setKeyword(Keyword keyword) {
         this.keyword = keyword;
     }
 
     public static AccountKeyword associate(Account account, Keyword keyword) {
-        AccountKeyword accountKeyword = new AccountKeyword();
-        accountKeyword.setAccount(account);
-        accountKeyword.setKeyword(keyword);
-        return accountKeyword;
+        return AccountKeyword.builder()
+                .account(account)
+                .keyword(keyword)
+                .build();
     }
 }

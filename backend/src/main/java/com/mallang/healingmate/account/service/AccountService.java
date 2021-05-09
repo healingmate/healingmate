@@ -118,7 +118,9 @@ public class AccountService {
     }
 
     public void updateAccount(AccountUpdateRequest accountUpdateRequest, Account account) {
-        Account updateAccount = findAccount(account.getUserId());
+        // 영속성 유지를 위한 호출
+        account = findAccount(account.getUserId());
+
         Account requestAccount = accountUpdateRequest.toAccount();
         if (accountUpdateRequest.getKeywords().size() > 3) {
             throw new InputValueException(ErrorCode.INCORRECT_KEYWORD_LENGTH);
@@ -129,7 +131,7 @@ public class AccountService {
             throw new AuthException(ErrorCode.INCORRECT_KEYWORD);
         }
 
-        updateAccount.update(requestAccount, keywords);
+        account.update(requestAccount, keywords);
     }
 
     public void updatePassword(PasswordUpdateRequest passwordUpdateRequest, Account account) {

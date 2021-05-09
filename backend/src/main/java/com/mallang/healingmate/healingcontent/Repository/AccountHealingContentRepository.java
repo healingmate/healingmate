@@ -22,4 +22,8 @@ public interface AccountHealingContentRepository extends JpaRepository<AccountHe
     List<AccountHealingContent> findAllByAccount(Account account);
 
     Optional<AccountHealingContent> findByHealingContentAndAccount(HealingContent healingContent, Account account);
+
+    Optional<AccountHealingContent> findByHealingContentIdAndAccountId(Long contentId, Long id);
+
+    void deleteByHealingContentIdAndAccountId(Long contentId, Long id);
 }
