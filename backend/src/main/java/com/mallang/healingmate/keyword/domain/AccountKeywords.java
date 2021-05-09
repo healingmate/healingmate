@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 /**
  * com.mallang.healingmate.keyword.domain
  * AccountKeywords.java
- * @date    2021-04-21 오후 4:05
- * @author  서범석, 이아영
  *
+ * @author 서범석, 이아영
+ * @date 2021-04-21 오후 4:05
  * @변경이력
  **/
 
@@ -26,18 +26,23 @@ import java.util.stream.Collectors;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Embeddable
 public class AccountKeywords {
-    // getKeywords 할 때 LAZY로 인해 Keyword가 영속상태가 되지않아서 오류남. 따라서 EAGER로 변경
+    //
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<AccountKeyword> accountKeywords = new ArrayList<>();
 
-    public void add(AccountKeyword accountKeyword){
+    public static AccountKeywords empty() {
+        return new AccountKeywords();
+    }
+
+    public void add(AccountKeyword accountKeyword) {
         accountKeywords.add(accountKeyword);
     }
-    public void clear(){
+
+    public void clear() {
         accountKeywords.clear();
     }
 
-    public List<String> getKeywords(){
+    public List<String> getKeywords() {
         return accountKeywords.stream()
                 .map(AccountKeyword::getKeyword)
                 .map(Keyword::getKeyword)

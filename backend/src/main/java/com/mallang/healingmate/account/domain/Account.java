@@ -3,7 +3,9 @@ package com.mallang.healingmate.account.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mallang.healingmate.article.domain.AccountArticles;
 import com.mallang.healingmate.article.domain.Article;
+import com.mallang.healingmate.healingcontent.domain.AccountHealingContent;
 import com.mallang.healingmate.healingcontent.domain.AccountHealingContents;
+import com.mallang.healingmate.healingcontent.domain.HealingContent;
 import com.mallang.healingmate.image.domain.Image;
 import com.mallang.healingmate.keyword.domain.AccountKeyword;
 import com.mallang.healingmate.keyword.domain.AccountKeywords;
@@ -59,10 +61,10 @@ public class Account {
     private LocalDateTime updatedDate;
 
     @Embedded
-    private AccountKeywords accountKeywords;
+    private AccountKeywords accountKeywords = AccountKeywords.empty();
 
     @Embedded
-    private AccountHealingContents accountHealingContents;
+    private AccountHealingContents accountHealingContents = AccountHealingContents.empty();
 
     @Embedded
     private AccountArticles accountArticles;
@@ -92,11 +94,19 @@ public class Account {
     public void updateAccountKeywords(List<Keyword> keywords) {
         this.accountKeywords.clear();
         for (Keyword keyword : keywords) {
-            accountKeywords.add(AccountKeyword.associate(this, keyword));
+            this.accountKeywords.add(AccountKeyword.associate(this, keyword));
         }
+    }
+
+    public void addAccountHealingContents(HealingContent healingContent) {
+        this.accountHealingContents.add(AccountHealingContent.associate(this, healingContent));
     }
 
     public List<String> getKeywords() {
         return accountKeywords.getKeywords();
+    }
+
+    public List<Long> getHealingContents() {
+        return accountHealingContents.getHealingContents();
     }
 }
