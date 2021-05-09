@@ -91,6 +91,10 @@ public class Account {
         this.profileImage = requestAccount.profileImage;
     }
 
+    public void evaluate() {
+        this.score++;
+    }
+
     public void updateAccountKeywords(List<Keyword> keywords) {
         this.accountKeywords.clear();
         for (Keyword keyword : keywords) {
