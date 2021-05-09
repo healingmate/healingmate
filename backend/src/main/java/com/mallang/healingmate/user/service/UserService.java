@@ -42,7 +42,7 @@ public class UserService {
         account.addAccountHealingContents(healingContent);
     }
 
-    public List<HealingContent> findHealingContentBookmarks(Account account) {
+    public List<Long> findHealingContentBookmarks(Account account) {
         account = findAccount(account.getUserId());
         return account.getHealingContents();
     }

@@ -106,7 +106,7 @@ public class Account {
         return accountKeywords.getKeywords();
     }
 
-    public List<HealingContent> getHealingContents() {
+    public List<Long> getHealingContents() {
         return accountHealingContents.getHealingContents();
     }
 }

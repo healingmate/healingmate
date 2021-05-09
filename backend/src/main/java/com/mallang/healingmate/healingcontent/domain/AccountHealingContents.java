@@ -50,9 +50,10 @@ public class AccountHealingContents {
                 );
     }
 
-    public List<HealingContent> getHealingContents() {
+    public List<Long> getHealingContents() {
         return accountHealingContents.stream()
                 .map(AccountHealingContent::getHealingContent)
+                .map(HealingContent::getId)
                 .collect(Collectors.toList());
     }
 }
