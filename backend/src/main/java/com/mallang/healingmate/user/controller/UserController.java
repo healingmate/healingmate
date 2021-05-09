@@ -36,13 +36,14 @@ public class UserController {
 
     private final UserService userService;
 
-//    @GetMapping("/user/{userId")
+//    @GetMapping("/user/{userId}")
+
 
 
     @PostMapping("/healing-content/{contentId}")
     @Operation(summary = "힐링 콘텐츠 북마킹", description = "힐링 콘텐츠를 북마킹한다", security = @SecurityRequirement(name = "Authorization"), responses = {
             @ApiResponse(responseCode = "204", description = "힐링 콘텐츠 북마킹 성공"),
-            @ApiResponse(responseCode = "400", description = "비밀번호가 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "올바르지 않은 요청 값", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     private ResponseEntity<Void> saveHealingContentBookmark(@PathVariable Long contentId, @Parameter(hidden = true) @CurrentAccount Account account){
         userService.saveHealingContentBookmark(contentId, account);
@@ -52,7 +53,6 @@ public class UserController {
     @GetMapping("/healing-contents")
     @Operation(summary = "사용자가 북마크한 힐링 콘텐츠 조회 ", description = "사용자가 북마크한 힐링 콘텐츠만 가져온다", security = @SecurityRequirement(name = "Authorization"), responses = {
             @ApiResponse(responseCode = "200", description = "힐링 콘텐츠 북마크 조회 성공", content = @Content(schema = @Schema(implementation = List.class))),
-            @ApiResponse(responseCode = "400", description = "비밀번호가 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     private ResponseEntity<List<Long>> findHealingContentBookmarks(@Parameter(hidden = true) @CurrentAccount Account account){
         List<Long> healingContents = userService.findHealingContentBookmarks(account);
@@ -62,7 +62,7 @@ public class UserController {
     @DeleteMapping("/healing-content/{contentId}")
     @Operation(summary = "힐링 콘텐츠 북마킹 제거 ", description = "사용자가 북마크한 힐링 콘텐츠를 제거한다", security = @SecurityRequirement(name = "Authorization"), responses = {
             @ApiResponse(responseCode = "204", description = "힐링 콘텐츠 북마킹 제거 성공"),
-            @ApiResponse(responseCode = "400", description = "비밀번호가 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "404", description = "올바르지 않은 요청 값", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     private ResponseEntity<Void> deleteHealingContentBookmark(@PathVariable Long contentId, @Parameter(hidden = true) @CurrentAccount Account account){
         userService.deleteHealingContentBookmark(contentId, account);
