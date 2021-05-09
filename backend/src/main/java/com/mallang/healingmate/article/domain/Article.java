@@ -13,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * com.mallang.healingmate.article.domain
@@ -64,4 +65,7 @@ public class Article {
         this.articleImages.add(articleImage);
     }
 
+    public List<String> getImages() {
+        return articleImages.toImagePaths();
+    }
 }

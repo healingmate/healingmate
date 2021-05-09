@@ -8,7 +8,7 @@ import com.mallang.healingmate.account.dto.response.AccountResponse;
 import com.mallang.healingmate.article.dto.response.ArticleResponse;
 import com.mallang.healingmate.article.dto.response.EmojiCount;
 import com.mallang.healingmate.article.dto.response.EntireArticleResponse;
-import com.mallang.healingmate.article.repository.AccountBanRepository;
+import com.mallang.healingmate.account.repository.AccountBanRepository;
 import com.mallang.healingmate.article.repository.ArticleRepository;
 import com.mallang.healingmate.common.exception.EntityException;
 import com.mallang.healingmate.common.exception.ErrorCode;
@@ -168,12 +168,6 @@ public class ArticleService {
             Optional<AccountArticleEmoji> accountArticleEmojiOptional = accountArticleEmojiRepository.findByArticleAndAccount(article, account);
             if (accountArticleEmojiOptional.isPresent()) {
                 articleResponse.setLikedEmoji(accountArticleEmojiOptional.get().getEmoji());
-            }
-            // 해당 게시글의 이미지 정보 반환
-            List<ArticleImage> articleImages = articleImageRepository.findByArticle(article);
-            if (articleImages != null && articleImages.size() > 0) {
-                // TODO : Article와 ArticleImages, 또는 따로 참조하는 Images
-                articleResponse.setArticleImages(ArticleImages.toStrings(articleImages));
             }
             // 해당 글에 남긴 반응 갯수 파악
             articleResponse.setEmojiCount(

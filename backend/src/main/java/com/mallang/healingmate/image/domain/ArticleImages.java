@@ -32,7 +32,7 @@ public class ArticleImages {
     List<ArticleImage> articleImages = new ArrayList<>();
 
     // TODO : 장소 설정
-    public static List<String> toStrings(List<ArticleImage> articleImages) {
+    public List<String> toImagePaths() {
         return articleImages.stream().map(articleImage -> articleImage.getImage().getPath())
                 .collect(Collectors.toList());
     }

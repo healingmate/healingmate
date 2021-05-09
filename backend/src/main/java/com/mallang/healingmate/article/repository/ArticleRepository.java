@@ -23,5 +23,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     Page<Article> findAllByAccountNotIn(List<Account> banToByBanFrom, Pageable pageable);
 
+    Page<Article> findAllByAccountOrderByIdDesc(Account account,Pageable page);
+    Page<Article> findAllByIdLessThanAndAccountOrderByIdDesc(Long cursorId, Account account,Pageable page);
+
     Optional<Article> findTopByOrderByIdDesc();
 }
