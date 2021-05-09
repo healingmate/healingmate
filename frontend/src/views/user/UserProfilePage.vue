@@ -48,7 +48,6 @@
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
       <!-- {{ user.username }} -->
       {{ $store.state.nickname }}
-      <!-- {{ this.cookies }} -->
     </div>
     <!-- 키워드 -->
     <div 
@@ -66,12 +65,19 @@
       class="inline-block absolute" 
       style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
     >
-      <base-keyword 
+      <!-- <base-keyword 
         v-for="(keyword, index) in user.keywordList" 
         :key="index" 
         :entity="keyword"
       >
+      </base-keyword> -->
+      <base-keyword 
+        v-for="(keyword, index) in $store.state.keywords" 
+        :key="index" 
+        :entity="keyword"
+      >
       </base-keyword>
+      <!-- {{ $store.state.keywords }} -->
     </div>
     <!-- 버튼 -->
     <div 

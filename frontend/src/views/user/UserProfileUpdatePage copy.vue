@@ -114,7 +114,7 @@
         v-for="(keyword, index) in user.keywordList" 
         :key="index" 
         :entity="keyword"
-        :check="false"
+        @click.native="toggleKeyword(keyword)"
       >
       </base-keyword>
     </div>
@@ -175,14 +175,46 @@ export default {
         },
         username: '말랑말랑',
         keywordList: [
-          '취업',
-          '학업/진로',
-          '가족',
-          '대인관계',
-          '생활정보',
-          '성격',
-          '직장',
-          '학교', 
+          {
+            id: 1,
+            keyword: '취업',
+            click: false,
+          }, 
+          {
+            id: 2,
+            keyword: '학업/진로',
+            click: false,
+          }, 
+          {
+            id: 3,
+            keyword: '가족',
+            click: false,
+          },
+          {
+            id: 4,
+            keyword: '대인관계',
+            click: false,
+          },
+          {
+            id: 5,
+            keyword: '생활정보',
+            click: false,
+          }, 
+          {
+            id: 6,
+            keyword: '성격',
+            click: false,
+          },
+          {
+            id: 7,
+            keyword: '직장',
+            click: false,
+          },
+          {
+            id: 8,
+            keyword: '학교',
+            click: false,
+          }, 
         ],
       },
       characterList: [
@@ -231,8 +263,7 @@ export default {
   },
   methods: {
     toggleKeyword(keyword) {
-      // // keyword.click = !keyword.click;
-      // check = !check;
+      keyword.click = !keyword.click;
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
           this.selectedKeyword.push(keyword.keyword)
