@@ -6,10 +6,8 @@ import com.mallang.healingmate.article.domain.Article;
 import com.mallang.healingmate.emoji.domain.Emoji;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +23,6 @@ import java.util.List;
  * articleImages의 반환값을 RestAPI에 맞추어 String[]으로 바꿈
  **/
 @Getter
-@Setter
 
 public class ArticleResponse {
     // accountResponse -> user
@@ -53,8 +50,7 @@ public class ArticleResponse {
         this.articleImages = articleImages;
     }
 
-    // TODO: accountResponse는 기존 account와 다른 정보를 담기에 article에서 바로 가져오지 않습니다
-    public static ArticleResponse of(Article article) {
+    public static ArticleResponse of(Article article){
         return ArticleResponse.builder()
                 .articleId(article.getId())
                 .content(article.getContent())
@@ -62,17 +58,6 @@ public class ArticleResponse {
                 .updateDate(article.getUpdatedDate())
                 .articleImages(article.getImages())
                 .build();
-    }
-
-    // TODO: listOf의 대안 찾기
-    public static List<ArticleResponse> listOf(List<Article> articles) {
-        List<ArticleResponse> articleResponses = new ArrayList<>();
-
-        for (Article article : articles) {
-            articleResponses.add(of(article));
-        }
-
-        return articleResponses;
     }
 
     public void setAccountResponse(AccountResponse accountResponse) {

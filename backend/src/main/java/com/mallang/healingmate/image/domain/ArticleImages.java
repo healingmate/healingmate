@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 /**
  * com.mallang.healingmate.image.domain
  * ArticleImages.java
- * @date    2021-04-22 오후 2:24
- * @author  서범석, 이아영
  *
+ * @author 서범석, 이아영
+ * @date 2021-04-22 오후 2:24
  * @변경이력
  **/
 
@@ -31,22 +31,16 @@ public class ArticleImages {
     @OneToMany(mappedBy = "article", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     List<ArticleImage> articleImages = new ArrayList<>();
 
-    // TODO : 장소 설정
     public List<String> toImagePaths() {
         return articleImages.stream().map(articleImage -> articleImage.getImage().getPath())
                 .collect(Collectors.toList());
     }
-    // TODO : 장소 설정
-    public static List<Image> toImages(List<ArticleImage> articleImages) {
-        return articleImages.stream().map(articleImage -> articleImage.getImage())
-                .collect(Collectors.toList());
-    }
 
-    public static ArticleImages empty(){
+    public static ArticleImages empty() {
         return new ArticleImages();
     }
 
-    public void add(ArticleImage articleImage){
+    public void add(ArticleImage articleImage) {
         articleImages.add(articleImage);
     }
 }

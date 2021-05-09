@@ -19,4 +19,5 @@ import java.util.Optional;
 public interface AccountArticleEmojiRepository extends JpaRepository<AccountArticleEmoji, Long> {
     Optional<AccountArticleEmoji> findByArticleAndAccount(Article article, Account account);
     Integer countByArticleAndEmoji(Article article, Emoji emoji);
+    boolean existsByArticleAndAccount(Article article, Account account);
 }

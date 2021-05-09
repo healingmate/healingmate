@@ -1,6 +1,6 @@
 <template>
   <!-- 콘텐츠 card -->
-  <div style="width: 42vw; relative-position">
+  <div style="width: 41vw; relative-position">
     <div>
       <!-- Youtube -->
       <q-img 
@@ -21,7 +21,7 @@
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
-          @click="checkbookmarked"
+          @click="checkbookmarked(entity.id)"
         ></q-icon>
       </q-img>
       <!-- GIPHY 이미지 -->
@@ -35,7 +35,7 @@
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
-          @click="checkbookmarked"
+          @click="checkbookmarked(entity.id)"
         ></q-icon>
       </q-img>
     </div>
@@ -75,6 +75,8 @@
 </template>
 
 <script>
+import { bookmarkContent } from '@/api/healing-content';
+
 export default {
   props: {
     entity: Object,
@@ -85,8 +87,19 @@ export default {
     }
   },
   methods: {
-    checkbookmarked() {
-      this.entity.bookmarked = !this.entity.bookmarked;
+    // checkbookmarked() {
+    //   this.entity.bookmarked = !this.entity.bookmarked;
+    // },
+    // TODO
+    // api 연결 version
+    checkbookmarked(contentId) {
+      bookmarkContent(contentId)
+      .then(() => {
+        this.entity.bookmarked = !this.entity.bookmarked;
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
     },
     showVideo() {
       this.open = true;

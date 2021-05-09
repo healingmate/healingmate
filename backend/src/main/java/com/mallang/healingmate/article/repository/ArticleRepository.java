@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * com.mallang.healingmate.article.service
@@ -20,11 +19,10 @@ import java.util.Optional;
  **/
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-
-    Page<Article> findAllByAccountNotIn(List<Account> banToByBanFrom, Pageable pageable);
+    
+    Page<Article> findAllByAccountNotInOrderByIdDesc(List<Account> accounts, Pageable pageable);
+    Page<Article> findAllByIdLessThanAndAccountNotInOrderByIdDesc(Long id, List<Account> banToByBanFrom, Pageable pageable);
 
     Page<Article> findAllByAccountOrderByIdDesc(Account account,Pageable page);
     Page<Article> findAllByIdLessThanAndAccountOrderByIdDesc(Long cursorId, Account account,Pageable page);
-
-    Optional<Article> findTopByOrderByIdDesc();
 }

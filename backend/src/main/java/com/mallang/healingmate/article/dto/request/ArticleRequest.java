@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * com.mallang.healingmate.article.dto
  * ArticleRequest.java
@@ -25,6 +27,7 @@ public class ArticleRequest {
     @Schema(description = "게시글 이미지")
     private MultipartFile[] images;
     @Schema(description = "게시글 내용", example = "게시글입니다")
+    @NotBlank
     private String content;
 
     public Article to(Account account) {

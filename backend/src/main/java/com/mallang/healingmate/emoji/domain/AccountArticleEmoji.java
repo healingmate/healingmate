@@ -14,9 +14,9 @@ import javax.persistence.*;
 /**
  * com.mallang.healingmate.emoji.domain
  * AccountArticleEmoji.java
- * @date    2021-04-22 오후 5:55
- * @author  서범석, 이아영
  *
+ * @author 서범석, 이아영
+ * @date 2021-04-22 오후 5:55
  * @변경이력
  **/
 
@@ -39,7 +39,6 @@ public class AccountArticleEmoji {
     @Enumerated(EnumType.STRING)
     private Emoji emoji;
 
-    // TODO : AccountArticleEmoji builder()
     @Builder
     public AccountArticleEmoji(Long id, Account account, Article article, Emoji emoji) {
         this.id = id;
@@ -48,13 +47,11 @@ public class AccountArticleEmoji {
         this.emoji = emoji;
     }
 
-    public AccountArticleEmoji(Emoji emoji, Article article, Account account) {
-        this.emoji = emoji;
-        this.article = article;
-        this.account = account;
-    }
-
     public void update(EmojiRequest emojiRequest) {
         this.emoji = Emoji.valueOf(emojiRequest.getEmoji());
+    }
+
+    public static AccountArticleEmoji associate(Account account, Article article, Emoji emoji) {
+        return AccountArticleEmoji.builder().account(account).article(article).emoji(emoji).build();
     }
 }

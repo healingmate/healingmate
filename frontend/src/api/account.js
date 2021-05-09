@@ -36,4 +36,10 @@ function refreshToken(param) {
   return instance.post('/accounts/refresh-token', param)
 }
 
-export { signUp, signIn, nicknameCheck, deleteAccount, modifyAccount, refreshToken };
+// 비밀번호 수정
+function updatePassword(param) {
+  const instance = getInstence();
+  return instance.patch('/accounts/password', param)
+}
+
+export { signUp, signIn, nicknameCheck, deleteAccount, modifyAccount, refreshToken, updatePassword };
