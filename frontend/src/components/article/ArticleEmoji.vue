@@ -11,7 +11,7 @@
 </template>
 
 <script>
-// import { postEmoji, modifyEmoji, deleteEmoji } from '@/api/article'
+import { postEmoji, modifyEmoji, deleteEmoji } from '@/api/article'
 
 
 export default {
@@ -54,6 +54,10 @@ export default {
 	// updated() {},
 	methods: {
 		onPressEmoji() {
+			const param = {
+				'emoji' : this.emoji
+			}
+
 			if (this.currentLikeEmoji) {
 				// 이모지 삭제
 				if( this.currentLikeEmoji === this.emoji) {
@@ -61,14 +65,14 @@ export default {
 					this.currentLikeEmoji = null
 					this.currentlikeCount[this.emoji] -= 1
 					this.$emit('emoji-deleted')
-					// deleteEmoji(this.articleId)
+					deleteEmoji(this.articleId)
 					// 이모지 수정
 				} else {
 					// console.log(this.emoji, "수정")
 					this.currentLikeEmoji = this.emoji
 					this.currentlikeCount[this.emoji] += 1
 					this.$emit('emoji-modified', this.emoji)
-					// modifyEmoji(this.articleId)
+					modifyEmoji(this.articleId, param)
 					// .then(() => {
 					// 	this.$emit('emoji-modified', this.emoji)
 					// })
@@ -79,7 +83,7 @@ export default {
 				this.currentLikeEmoji = this.emoji
 				this.currentlikeCount[this.emoji] += 1
 				this.$emit('emoji-posted', this.emoji)
-				// postEmoji(this.articleId)
+				postEmoji(this.articleId, param)
 			}
 		}
 	},

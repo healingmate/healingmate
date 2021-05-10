@@ -23,6 +23,7 @@
       v-for="(article, index) in articleList" 
       :key="index"
       :article="article"
+      class="p-y-28"
     />
 
     <div class="row justify-right floating-action-button">
@@ -41,8 +42,8 @@ import BaseAvatar from '@/components/common/BaseAvatar';
 import TheNotification from '@/components/common/TheNotification';
 import ArticleCard from '@/components/article/ArticleCard'
 import TheBottomNavigation from '@/components/common/TheBottomNavigationBar'
+import { getArticles } from '@/api/article'
 
-import articleListPage from "@/assets/data/articleListDummy.json"
 
 export default {
 	name: 'ArticleFeedPage',
@@ -62,17 +63,31 @@ export default {
   },
 	data() {
     return {
-      articleList: articleListPage.content,
+      articleList: null,
+      pagingSize: 20,
+			// 게시글을 받아오는 동안 새로운 게시글이 등록되는 문제를 해결하기 위해 현재 불러온 페이지의 마지막 articleId 를 저장한다.
+			pagingCursorId: 0,
     }
 	},
 	// computed: {},
 	// watch: {},
-	// created() {},
+	created() {
+    this.dataFetch()
+  },
 	// mounted() {},
 	// updated() {},
 	methods: {
     onPostButton() {
       this.$router.push({name: 'ArticleCreatePage'})
+    },
+    dataFetch() {      
+      getArticles(this.pagingSize, this.pagingCursorId)
+      .then(res => {
+        this.articleList = res.data.articleResponses
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
     }
   },
 }
