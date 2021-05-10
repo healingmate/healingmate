@@ -46,7 +46,6 @@
       class="text-subtitle2 text-weight-bold q-pt-lg q-mt-sm text-center"
     >
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
-      <!-- {{ user.username }} -->
       {{ $store.state.nickname }}
     </div>
     <!-- 키워드 -->
@@ -63,11 +62,6 @@
         :label="'선택한 키워드가 없어요'"
       />
     </div>
-    <!-- <div 
-      v-else
-      class="inline-block absolute" 
-      style="left: 50%; transform: translateX(-50%); max-width: 120vw;"
-    > -->
     <div 
       v-else 
       class="q-mt-sm"
@@ -81,20 +75,6 @@
         text-color="white"
         :label="'# ' + keyword"
       />
-      <!-- {{ this.$store.state.keywords }} -->
-      <!-- <base-keyword 
-        v-for="(keyword, index) in user.keywordList" 
-        :key="index" 
-        :entity="keyword"
-      >
-      </base-keyword> -->
-      <!-- <base-keyword 
-        v-for="(keyword, index) in $store.state.keywords" 
-        :key="index" 
-        :entity="keyword"
-      >
-      </base-keyword> -->
-      <!-- {{ $store.state.keywords }} -->
     </div>
     <!-- 버튼 -->
     <div 
@@ -159,7 +139,6 @@
 
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
-// import BaseKeyword from '@/components/common/BaseKeyword';
 import ArticleCard from '@/components/article/ArticleCard.vue';
 import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
@@ -167,12 +146,12 @@ import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseKebabButton from '@/components/common/BaseKebabButton';
 import BaseMenu from '@/components/common/BaseMenu';
 import { getBookmarkedContents } from '@/api/healing-content';
+import { getArticleList } from '@/api/user';
 import { data } from '@/assets/data/HealingContents.js';
 
 export default {
   components: {
     TheImageHeader,
-    // BaseKeyword,
     ArticleCard,
     ContentsCard,
     TheGoBackButton,
@@ -192,16 +171,6 @@ export default {
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
-        // keywordList: [
-        //   {
-        //     keyword: '취업',
-        //     click: false,
-        //   }, 
-        //   {
-        //     keyword: '생활',
-        //     click: false,
-        //   }
-        // ],
       },
       noKeyword: {
         keyword: '선택한 키워드가 없어요',
@@ -221,10 +190,6 @@ export default {
   //   }
   // },
   methods: {
-    // toggleKeyword(keyword) {
-    //   console.log(keyword)
-    //   keyword.click = !keyword.click;
-    // },
     selectButton() {
       this.postButton = !this.postButton;
       this.bookmarkButton = !this.bookmarkButton;
@@ -239,6 +204,16 @@ export default {
     }
   },
   created() {
+    // TODO : 글 작성 후 출력양식 맞추기
+    const cursorId = 0
+    const size = 20
+    getArticleList(cursorId, size)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
     getBookmarkedContents() 
     .then((response) => {
       console.log(response)
@@ -254,11 +229,6 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
-    this.cookies = this.$q.cookies.get('additional-information')
-    console.log(this.cookies)
-    // console.log(value)
-    // this.cookies = value
-
   }
 }
 </script>

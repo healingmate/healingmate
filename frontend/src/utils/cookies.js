@@ -14,37 +14,8 @@ function getCookie(name) {
   document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/";
 }
 
-function saveUserNicknameToCookie(value) {
-  document.cookie = `nickname=${value}`;
-}
-
-function getUserNicknameFromCookie() {
-  return document.cookie.replace(
-    /(?:(?:^|.*;\s*)nickname\s*=\s*([^;]*).*$)|^.*$/,
-    '$1',
-  );
-}
-
-function saveUserKeywordsToCookie(value) {
-  // 배열을 쉼표로 구분
-  document.cookie = `keywords=${value.join(',')}`;
-}
-
-function getUserKeywordsFromCookie() {
-  //쉼표로 구분한 데이터를 배열로 분리
-  const res = document.cookie.replace(
-    /(?:(?:^|.*;\s*)keywords\s*=\s*([^;]*).*$)|^.*$/,
-    '$1',
-  );
-  return res ? res.split(',') : [];
-}
-
 export {
   setCookie,
   getCookie,
   deleteCookie,
-  saveUserNicknameToCookie,
-  getUserNicknameFromCookie,
-  saveUserKeywordsToCookie,
-  getUserKeywordsFromCookie,
 };
