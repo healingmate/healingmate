@@ -139,7 +139,7 @@ import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
 import { nicknameCheck, modifyAccount } from '@/api/account';
 import { Notify } from 'quasar'
-import { saveUserNicknameToCookie, saveUserKeywordsToCookie } from '@/utils/cookies';
+// import { saveUserNicknameToCookie, saveUserKeywordsToCookie } from '@/utils/cookies';
 import { keywordList } from '@/assets/data/KeywordList.js';
 import { characterList } from '@/assets/data/CharacterList.js';
 
@@ -246,8 +246,8 @@ export default {
           modifyAccount(param) 
           .then(() => {
             // TODO : 새로운 cookie 저장 방식에 맞춰서 변경 하기  
-            saveUserNicknameToCookie(this.user.username);
-            saveUserKeywordsToCookie(this.selectedKeyword);
+            // saveUserNicknameToCookie(this.user.username);
+            // saveUserKeywordsToCookie(this.selectedKeyword);
             Notify.create({
               position: 'top',
               color: 'primary',
