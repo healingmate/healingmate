@@ -144,16 +144,15 @@ public class ArticleService {
         List<AccountBan> accountBans = accountBanRepository.findByBanFrom(account);
         List<Account> accounts = accountBans.stream().map(accountBan -> accountBan.getBanTo())
                 .collect(Collectors.toList());
-        System.out.println(pageable);
         Page<Article> articlePage = null;
         if(cursorId == 0){
-            if(accounts != null && !accounts.isEmpty()){
+            if(!accounts.isEmpty()){
                 articlePage = articleRepository.findAllByAccountNotInOrderByIdDesc(accounts, pageable);
             }else{
                 articlePage = articleRepository.findAllByOrderByIdDesc(pageable);
             }
         }else{
-            if(accounts != null && !accounts.isEmpty()){
+            if(!accounts.isEmpty()){
                 articlePage = articleRepository.findAllByIdLessThanAndAccountNotInOrderByIdDesc(cursorId, accounts, pageable);
             }else{
                 articlePage = articleRepository.findAllByIdLessThanOrderByIdDesc(cursorId, pageable);
