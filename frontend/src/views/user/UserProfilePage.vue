@@ -43,7 +43,7 @@
       style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px;"
     />
     <div
-      class="text-subtitle2 text-weight-bold q-pt-lg text-center"
+      class="text-subtitle2 text-weight-bold q-pt-lg q-mt-sm text-center"
     >
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
       <!-- {{ user.username }} -->
@@ -52,8 +52,8 @@
     <!-- 키워드 -->
     <div 
       v-if="keywordList.length === 0"
-      class="inline-block absolute" 
-      style="left: 50%; transform: translateX(-50%);"
+      class="q-mt-sm"
+      style="text-align: center;"
     >
       <q-badge 
         class="cursor-pointer text-caption text-bold q-px-sm q-mr-sm" 
@@ -63,10 +63,15 @@
         :label="'선택한 키워드가 없어요'"
       />
     </div>
-    <div 
+    <!-- <div 
       v-else
       class="inline-block absolute" 
-      style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
+      style="left: 50%; transform: translateX(-50%); max-width: 120vw;"
+    > -->
+    <div 
+      v-else 
+      class="q-mt-sm"
+      style="text-align: center;"
     >
       <q-badge 
         v-for="(keyword, index) in keywordList" :key="index"
@@ -93,7 +98,7 @@
     </div>
     <!-- 버튼 -->
     <div 
-      class="flex justify-center q-pt-lg q-mt-xl"
+      class="flex justify-center q-pt-lg q-mt-md"
     >
       <q-btn 
         v-if="postButton"

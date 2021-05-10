@@ -101,11 +101,11 @@
       class="p-y-28 q-mt-xl" 
       color="#244684" 
       label="닉네임" 
-      v-model="user.username"
-      @onInputValue="inputNickname"
+      @onInputValue="text => user.username = text"
       @onValidate="reference => nicknameReference = reference"
       :rules="[required(), minLength(2), maxLength(10), korean()]"
     >
+    <!-- v-model="user.username" -->
     </base-text-input>
     <!-- 키워드 선택 -->
     <div class="p-y-28 q-mt-sm">
@@ -293,8 +293,8 @@ export default {
         }
       }
     },
-    inputNickname(input) {
-      this.user.username = input
+    inputNickname(keyword) {
+      this.user.username = keyword;
     },
     updateProfile() {
       if (!this.nicknameReference.validate()) {
@@ -360,6 +360,18 @@ export default {
     updateCharacter() {
       this.user.avatar = this.selectedCharacter
       this.open = false;
+    }
+  },
+  created() {
+    this.user.username = this.$store.state.nickname;
+    
+    this.selectedKeyword = this.$store.state.keywords
+    for (var i = 0; i < this.user.keywordList.length; i++ ){
+      for (var j = 0; j < this.selectedKeyword.length; j++ ) {
+        if (this.user.keywordList[i].keyword === this.selectedKeyword[j]) {
+          this.user.keywordList[i].click = true;
+        }
+      }
     }
   }
 }
