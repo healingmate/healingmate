@@ -20,6 +20,7 @@ import com.mallang.healingmate.healingcontent.Repository.AccountHealingContentRe
 import com.mallang.healingmate.healingcontent.Repository.HealingContentRepository;
 import com.mallang.healingmate.healingcontent.domain.AccountHealingContent;
 import com.mallang.healingmate.healingcontent.domain.HealingContent;
+import com.mallang.healingmate.user.dto.request.EvaluateRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,20 +56,22 @@ public class UserService {
     private final AccountBanRepository accountBanRepository;
     private final AccountRepository accountRepository;
 
-    public AccountResponse findAccount(String userId, Account account) {
-        account = findAccount(userId);
-        return AccountResponse.of(account);
-    }
-
     public void banAccount(String userId, Account account) {
         Account banFrom = findAccount(account.getUserId());
         Account banTo = findAccount(userId);
         accountBanRepository.save(AccountBan.ban(banFrom, banTo));
     }
 
-    public void evaluateAccount(String userId, Account account) {
-        Account evaluateAccount = findAccount(userId);
-        evaluateAccount.evaluate();
+    public void evaluateAccount(EvaluateRequest evaluateRequest, Account account) {
+        for (String recommandId : evaluateRequest.getRecommand()) {
+            Account recommandAccount = findAccount(recommandId);
+            recommandAccount.evaluate();
+        }
+        for (String banId : evaluateRequest.getBan()) {
+            Account banFrom = findAccount(account.getUserId());
+            Account banTo = findAccount(banId);
+            accountBanRepository.save(AccountBan.ban(banFrom, banTo));
+        }
     }
 
     public void saveHealingContentBookmark(Long contentId, Account account) {
@@ -109,7 +112,7 @@ public class UserService {
 
     }
 
-    public EntireArticleResponse findAccountArticle(String userId, Long cursorId, Integer size, Account account) {
+    public EntireArticleResponse findAccountArticle(Long cursorId, Integer size, Account account) {
         Pageable pageable = PageRequest.of(0, size);
         Page<Article> articlePage = null;
         if (cursorId == 0) {
