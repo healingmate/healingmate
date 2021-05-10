@@ -1,6 +1,7 @@
 package com.mallang.healingmate.account.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,4 +31,17 @@ public class AccountBan {
     @ManyToOne
     @JoinColumn(name = "ban_to")
     private Account banTo;
+
+    @Builder
+    public AccountBan(Account banFrom, Account banTo) {
+        this.banFrom = banFrom;
+        this.banTo = banTo;
+    }
+
+    public static AccountBan ban(Account banFrom, Account banTo) {
+        return AccountBan.builder()
+                .banFrom(banFrom)
+                .banTo(banTo)
+                .build();
+    }
 }

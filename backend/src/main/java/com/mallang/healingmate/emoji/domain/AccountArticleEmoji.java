@@ -39,7 +39,6 @@ public class AccountArticleEmoji {
     @Enumerated(EnumType.STRING)
     private Emoji emoji;
 
-    // TODO : AccountArticleEmoji builder()
     @Builder
     public AccountArticleEmoji(Long id, Account account, Article article, Emoji emoji) {
         this.id = id;

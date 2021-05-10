@@ -40,7 +40,7 @@ public class ArticleController {
 
     @PostMapping
     @Operation(summary = "게시글 등록", description = "content와 images를 입력받아 게시글을 등록합니다.", security = @SecurityRequirement(name = "Authorization"))
-    private ResponseEntity<Void> saveArticle(@ModelAttribute ArticleRequest articleRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
+    private ResponseEntity<Void> saveArticle(@Valid @ModelAttribute ArticleRequest articleRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
         articleService.saveArticle(articleRequest, account);
         return ResponseEntity.noContent().build();
     }
@@ -49,8 +49,8 @@ public class ArticleController {
     @Operation(summary = "게시글 전체 조회", description = "전체 게시글을 조회합니다", security = @SecurityRequirement(name = "Authorization"))
     private ResponseEntity<EntireArticleResponse> findArticle(
             @Parameter(hidden = true) @CurrentAccount Account account,
-            @RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
-        EntireArticleResponse entireArticleResponse = articleService.findAllArticles(page, size, account);
+            @RequestParam(value = "cursorId") Long cursorId, @RequestParam(value = "size") Integer size) {
+        EntireArticleResponse entireArticleResponse = articleService.findAllArticles(cursorId, size, account);
         return ResponseEntity.ok(entireArticleResponse);
     }
 

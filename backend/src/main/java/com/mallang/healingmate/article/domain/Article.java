@@ -18,6 +18,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * com.mallang.healingmate.article.domain
@@ -54,7 +55,6 @@ public class Article {
     @Embedded
     private AccountArticleEmojis accountArticleEmojis = AccountArticleEmojis.empty();
 
-    // TODO: Article Builder
     @Builder
     public Article(Account account, String content) {
         this.account = account;
@@ -71,5 +71,9 @@ public class Article {
 
     public void addAccountArticleEmojis(Account account, Emoji emoji) {
         this.accountArticleEmojis.add(AccountArticleEmoji.associate(account, this, emoji));
+    }
+
+    public List<String> getImages() {
+        return articleImages.toImagePaths();
     }
 }

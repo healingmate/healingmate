@@ -69,7 +69,8 @@ public class AccountController {
     @PostMapping("/login")
     @Operation(summary = "로그인", description = "아이디와 패스워드를 입력해 로그인합니다.", responses = {
             @ApiResponse(responseCode = "200", description = "로그인 성공", content = @Content(schema = @Schema(implementation = AuthResponse.class))),
-            @ApiResponse(responseCode = "401", description = "아이디 또는 패스워드 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "401", description = "아이디 또는 패스워드 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok().build();
@@ -78,7 +79,9 @@ public class AccountController {
     @PostMapping("/refresh-token")
     @Operation(summary = "Access Token 재발급", description = "Access Token과 Refresh Token을 전달받아 Access Token을 재발급합니다.", security = @SecurityRequirement(name = "Authorization"), responses = {
             @ApiResponse(responseCode = "200", description = "Access Token 재발급 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
-            @ApiResponse(responseCode = "400", description = "refresh token 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "400", description = "refresh token 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "401", description = "사용자 인증 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<RefreshResponse> refreshAccessToken(@Valid @RequestBody RefreshRequest refreshRequest, HttpServletRequest request) {
         RefreshResponse refreshResponse = accountService.refreshAccessToken(refreshRequest, request);
@@ -87,8 +90,10 @@ public class AccountController {
 
     @PatchMapping
     @Operation(summary = "회원 정보 수정", description = "수정할 회원 정보를 받아 수정합니다.", security = @SecurityRequirement(name = "Authorization"), responses = {
-            @ApiResponse(responseCode = "204", description = "회원 정보 수정 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
-            @ApiResponse(responseCode = "400", description = "요청 값이 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "204", description = "회원 정보 수정 성공"),
+            @ApiResponse(responseCode = "400", description = "요청 값이 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "401", description = "사용자 인증 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<Void> updateAccount(@Valid @RequestBody AccountUpdateRequest accountUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
         accountService.updateAccount(accountUpdateRequest, account);
@@ -97,8 +102,10 @@ public class AccountController {
 
     @PatchMapping("/password")
     @Operation(summary = "비밀번호 수정", description = "현재 비밀번호와 새로운 비밀번호를 받아 변경합니다.", security = @SecurityRequirement(name = "Authorization"), responses = {
-            @ApiResponse(responseCode = "204", description = "비밀번호 변경 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
-            @ApiResponse(responseCode = "400", description = "비밀번호가 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "204", description = "비밀번호 변경 성공"),
+            @ApiResponse(responseCode = "400", description = "비밀번호가 올바르지 않음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "401", description = "사용자 인증 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<Void> updatePassword(@Valid @RequestBody PasswordUpdateRequest passwordUpdateRequest, @Parameter(hidden = true) @CurrentAccount Account account) {
         accountService.updatePassword(passwordUpdateRequest, account);
@@ -107,7 +114,9 @@ public class AccountController {
 
     @DeleteMapping
     @Operation(summary = "회원 탈퇴(모든 기능 구현 완료 후 구현 예정)", description = "헤더에서 정보를 받아 회원을 탈퇴시킨다.", security = @SecurityRequirement(name = "Authorization"), responses = {
-            @ApiResponse(responseCode = "204", description = "회원 탈퇴 성공", content = @Content(schema = @Schema(implementation = RefreshResponse.class))),
+            @ApiResponse(responseCode = "204", description = "회원 탈퇴 성공"),
+            @ApiResponse(responseCode = "401", description = "사용자 인증 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 오류", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<Void> deleteAccount(@Parameter(hidden = true) @CurrentAccount Account account){
         accountService.deleteAccount(account);
