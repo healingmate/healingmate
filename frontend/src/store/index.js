@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     accessToken: getCookie('access_token') || null,
     refreshToken: getCookie('refresh_token') || null,
+    user: getCookie('user') || null,
   },
   mutations,
   actions,
