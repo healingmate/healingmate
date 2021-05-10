@@ -53,7 +53,7 @@
     <div 
       v-if="keywordList.length === 0"
       class="inline-block absolute" 
-      style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
+      style="left: 50%; transform: translateX(-50%);"
     >
       <q-badge 
         class="cursor-pointer text-caption text-bold q-px-sm q-mr-sm" 
@@ -183,20 +183,20 @@ export default {
     return {
       // TODO : 백엔드 api 연결
       cookies: '',
-      keywordList: this.$store.state.keywords ? ['취업', '학업'] : this.$store.state.keywords,
+      keywordList: this.$store.state.keywords,
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
-        keywordList: [
-          {
-            keyword: '취업',
-            click: false,
-          }, 
-          {
-            keyword: '생활',
-            click: false,
-          }
-        ],
+        // keywordList: [
+        //   {
+        //     keyword: '취업',
+        //     click: false,
+        //   }, 
+        //   {
+        //     keyword: '생활',
+        //     click: false,
+        //   }
+        // ],
       },
       noKeyword: {
         keyword: '선택한 키워드가 없어요',
