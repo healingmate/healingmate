@@ -51,32 +51,44 @@
     </div>
     <!-- 키워드 -->
     <div 
-      v-if="user.keywordList.length === 0"
+      v-if="keywordList.length === 0"
       class="inline-block absolute" 
       style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
     >
-      <base-keyword 
-        :entity="noKeyword"
-      >
-      </base-keyword>
+      <q-badge 
+        class="cursor-pointer text-caption text-bold q-px-sm q-mr-sm" 
+        outline 
+        color="indigo-9" 
+        text-color="white"
+        :label="'선택한 키워드가 없어요'"
+      />
     </div>
     <div 
       v-else
       class="inline-block absolute" 
       style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
     >
+      <q-badge 
+        v-for="(keyword, index) in keywordList" :key="index"
+        class="cursor-pointer text-caption text-bold q-px-sm q-mr-sm" 
+        outline 
+        color="indigo-9" 
+        text-color="white"
+        :label="'# ' + keyword"
+      />
+      <!-- {{ this.$store.state.keywords }} -->
       <!-- <base-keyword 
         v-for="(keyword, index) in user.keywordList" 
         :key="index" 
         :entity="keyword"
       >
       </base-keyword> -->
-      <base-keyword 
+      <!-- <base-keyword 
         v-for="(keyword, index) in $store.state.keywords" 
         :key="index" 
         :entity="keyword"
       >
-      </base-keyword>
+      </base-keyword> -->
       <!-- {{ $store.state.keywords }} -->
     </div>
     <!-- 버튼 -->
@@ -142,7 +154,7 @@
 
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
-import BaseKeyword from '@/components/common/BaseKeyword';
+// import BaseKeyword from '@/components/common/BaseKeyword';
 import ArticleCard from '@/components/article/ArticleCard.vue';
 import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
@@ -155,7 +167,7 @@ import { data } from '@/assets/data/HealingContents.js';
 export default {
   components: {
     TheImageHeader,
-    BaseKeyword,
+    // BaseKeyword,
     ArticleCard,
     ContentsCard,
     TheGoBackButton,
@@ -171,6 +183,7 @@ export default {
     return {
       // TODO : 백엔드 api 연결
       cookies: '',
+      keywordList: this.$store.state.keywords ? ['취업', '학업'] : this.$store.state.keywords,
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
@@ -226,7 +239,7 @@ export default {
       console.log(response)
       for (var i = 0; i < response.data.length; i++) {
         for (var j = 0; j < this.contentList.length; j++) {
-          if (this.contentList[j].id === response.data[i].id) {
+          if (this.contentList[j].id === response.data[i]) {
             this.contentList[j].bookmarked = true;
             this.bookmarkedList.push(this.contentList[j]);
           }

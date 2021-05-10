@@ -102,7 +102,7 @@ export default {
     .then((response) => {
       for (var i = 0; i < response.data.length; i++) {
         for (var j = 0; j < this.contents.length; j++) {
-          if (this.contents[j].id === response.data[i].id) {
+          if (this.contents[j].id === response.data[i]) {
             this.contents[j].bookmarked = true;
           }
         }

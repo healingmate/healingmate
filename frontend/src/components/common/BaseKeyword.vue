@@ -23,7 +23,7 @@
 <script>
 export default {
   props: {
-    entity: String,
+    entity: Object && String,
     check: Boolean,
   },
   methods: {

@@ -111,10 +111,11 @@
     <div class="p-y-28 q-mt-sm">
       <p style="color: #244684; font-size: 1rem;">키워드</p>
       <base-keyword 
-        v-for="(keyword, index) in user.keywordList" 
+        v-for="(keyword, index) in keywordList" 
         :key="index" 
         :entity="keyword"
         :check="false"
+        @click="toggleKeyword(keyword, check)"
       >
       </base-keyword>
     </div>
@@ -168,13 +169,7 @@ export default {
       maximizedToggle: true,
       selectedKeyword: [],
       selectedCharacter: [],
-      user: {
-        avatar: {
-          id: 0,
-          image: 'unnamed.png'
-        },
-        username: '말랑말랑',
-        keywordList: [
+      keywordList: [
           '취업',
           '학업/진로',
           '가족',
@@ -184,6 +179,12 @@ export default {
           '직장',
           '학교', 
         ],
+      user: {
+        avatar: {
+          id: 0,
+          image: 'unnamed.png'
+        },
+        username: '말랑말랑',
       },
       characterList: [
         {
@@ -230,9 +231,10 @@ export default {
     }
   },
   methods: {
-    toggleKeyword(keyword) {
+    toggleKeyword(keyword, check) {
       // // keyword.click = !keyword.click;
-      // check = !check;
+      check = !check;
+      console.log(check)
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
           this.selectedKeyword.push(keyword.keyword)
