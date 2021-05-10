@@ -13,15 +13,15 @@ import lombok.Builder;
  **/
 
 public class EmojiCount {
-    @JsonProperty
+    @JsonProperty("SMILE")
     private Integer smile;
-    @JsonProperty
+    @JsonProperty("CRYING")
     private Integer crying;
-    @JsonProperty
+    @JsonProperty("LOVELY")
     private Integer lovely;
-    @JsonProperty
+    @JsonProperty("GRINNING")
     private Integer grinning;
-    @JsonProperty
+    @JsonProperty("AMAZED")
     private Integer amazed;
 
     @Builder
