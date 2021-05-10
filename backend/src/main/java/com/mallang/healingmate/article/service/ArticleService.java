@@ -10,7 +10,7 @@ import com.mallang.healingmate.article.dto.request.ArticleRequest;
 import com.mallang.healingmate.article.dto.response.ArticleResponse;
 import com.mallang.healingmate.article.dto.response.EmojiCount;
 import com.mallang.healingmate.article.dto.response.EntireArticleResponse;
-import com.mallang.healingmate.article.repository.AccountBanRepository;
+import com.mallang.healingmate.account.repository.AccountBanRepository;
 import com.mallang.healingmate.article.repository.ArticleRepository;
 import com.mallang.healingmate.common.exception.EntityException;
 import com.mallang.healingmate.common.exception.ErrorCode;
