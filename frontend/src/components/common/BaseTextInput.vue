@@ -46,6 +46,7 @@ export default {
 	// components: {},
 	// filters: {},
 	props: {
+		entity: String,
 		color: {
 			type: String,
 			default: null
@@ -69,7 +70,7 @@ export default {
 	},
 	data() {
 		return {
-			text: '',
+			text: this.entity ? this.entity : '',
 		}
 	},
 	// computed: {},

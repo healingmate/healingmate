@@ -101,6 +101,7 @@
       class="p-y-28 q-mt-xl" 
       color="#244684" 
       label="닉네임" 
+      :entity="user.username"
       @onInputValue="text => user.username = text"
       @onValidate="reference => nicknameReference = reference"
       :rules="[required(), minLength(2), maxLength(10), korean()]"
@@ -293,9 +294,6 @@ export default {
         }
       }
     },
-    inputNickname(keyword) {
-      this.user.username = keyword;
-    },
     updateProfile() {
       if (!this.nicknameReference.validate()) {
 				this.$q.notify({
@@ -337,8 +335,7 @@ export default {
               color: 'primary',
               message: '프로필이 수정되었습니다.'
             })
-            // TODO : 프로필 수정 후, 새로고침 안하면 데이터가 바뀌지 않는 문제
-            // location.reload();
+            location.reload();
             // this.$router.push('/profile');
           })
           .catch(err => {
@@ -364,7 +361,8 @@ export default {
   },
   created() {
     this.user.username = this.$store.state.nickname;
-    
+    console.log(this.user.username)
+
     this.selectedKeyword = this.$store.state.keywords
     for (var i = 0; i < this.user.keywordList.length; i++ ){
       for (var j = 0; j < this.selectedKeyword.length; j++ ) {
