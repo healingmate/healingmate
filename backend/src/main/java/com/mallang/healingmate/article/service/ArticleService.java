@@ -72,7 +72,6 @@ public class ArticleService {
 
         // TODO : 이미지 확장자 필터링
         if (articleRequest.getImages() != null && articleRequest.getImages().length != 0) {
-
             MultipartFile[] images = articleRequest.getImages();
             if (images.length > 5) {
                 log.error("Number of images is over 5. Please reduce number of images");
