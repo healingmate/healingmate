@@ -8,16 +8,30 @@ export default {
     state.refreshToken = tokenInformation.refreshToken;
   },
   updateUser(state, userInformation){
-    setCookie('user', JSON.stringify(userInformation)),
-    state.user = userInformation.user;
+    if (userInformation.userId) {
+      setCookie('user_id', (userInformation.userId)),
+      state.userId = userInformation.userId;
+    }
+    setCookie('nickname', (userInformation.nickname)),
+    setCookie('profile_image', (userInformation.profileImage)),
+    setCookie('keyword', (userInformation.keyword)),
+    state.nickname = userInformation.nickname;
+    state.profileImage = userInformation.profileImage;
+    state.keyword = userInformation.keyword;
   },
   removeToken(state){
     deleteCookie('access_token'),
     deleteCookie('refresh_token'),
-    deleteCookie('user'),
+    deleteCookie('user_id'),
+    deleteCookie('nickname'),
+    deleteCookie('profile_image'),
+    deleteCookie('keyword'),
     state.accessToken = null;
     state.refreshToken = null;
-    state.user = null;
+    state.userId = null;
+    state.nickname = null;
+    state.profileImage = null;
+    state.keyword = null;
   },
   refreshToken(state, accessToken){
     setCookie('access_token', accessToken),
