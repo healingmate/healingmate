@@ -15,8 +15,7 @@
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">
         추천명상
       </div>
-      <!-- TODO : dots true 지정 가능하도록 -->
-      <article-carousel :number="1" class="q-mb-xl">
+      <article-carousel :number="1" :dots="true" class="q-mb-xl">
         <contents-meditation 
           v-for="(mainMeditation, index) in mainMeditationList" 
           :key="index"
