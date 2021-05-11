@@ -10,9 +10,9 @@ import Contents from '@/views/healing-content/ContentsHealingPage.vue'
 import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
 import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
 import PageNotFoundPage from '@/views/common/PageNotFoundPage'
-// import MeditationDetail from '@/views/healing-content/ContentsMusicPage.vue'
 import Profile from '@/views/user/UserProfilePage.vue'
 import UpdateInformation from '@/views/user/UserProfileUpdatePage.vue'
+import NotificationPage from '@/views/user/UserNotificationPage.vue';
 import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
@@ -83,12 +83,6 @@ export default [
     component: Meditation,
     meta: { authRequired: true },
   },
-  // {
-  //   path: '/healing-content/meditation/:id',
-  //   name: 'MeditationDetail',
-  //   component: MeditationDetail
-  // },
-
   {
     path: '/profile',
     name: 'Profile',
@@ -117,6 +111,12 @@ export default [
     path: '/update-password',
     name: 'UpdatePassword',
     component: UpdatePassword,
+    meta: {authRequired: true}
+  },
+  {
+    path: '/notification',
+    name: 'NotificationPage',
+    component: NotificationPage,
     meta: {authRequired: true}
   },
   {

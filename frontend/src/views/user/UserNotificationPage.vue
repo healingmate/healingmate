@@ -1,10 +1,10 @@
 <template>
- <div></div>
+  <div>
+    notification page
+  </div>
 </template>
 
 <script>
-
-
 export default {
 
 }

@@ -10,6 +10,7 @@
     <the-notification 
       class="absolute-right q-pr-md q-mr-xl q-mt-md text-white"
       style="top: 0.7rem;"
+      @click.native="goToNotification"
     ></the-notification>
     <!-- 사용자 프로필 -->
     <base-avatar 
@@ -88,6 +89,10 @@ export default {
     goToProfile() {
       console.log('프로필로 이동')
       this.$router.push('/profile');
+    },
+    goToNotification() {
+      console.log('알람창으로 이동')
+      this.$router.push('/notification');
     }
   }
 }
