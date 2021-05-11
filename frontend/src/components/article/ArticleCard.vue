@@ -8,7 +8,6 @@
     <!-- TODO: 해당 글을 쓴 유저가 자신인지 판단하는 로직 추가해야함 -->
       <BaseMenu v-if="false" icon="front_hand" text="차단"/>
       <div v-else>
-        <BaseMenu v-if="true" icon="front_hand" text="수정"/>
         <BaseMenu v-if="true" icon="front_hand" text="삭제" @click.native="onPostDelete"/>
       </div>
     </BaseKebabButton>
@@ -22,7 +21,7 @@
     :number="article.articleImages.length > 1 ? 2 : 1">
     <ArticleCarouselItem 
       v-for="(articleImage, index) in article.articleImages" :key="index" 
-      :article-image="articleImage"
+      :article-image="'https://dev.healingmate.kr/healingmate-image/' + articleImage"
     />
   </ArticleCarousel>
   
@@ -39,7 +38,7 @@
         @emoji-posted="onEmojiPosted"
       />
     </div>
-    <span class="self-center" style="padding-right: 4px; color: #959595;">{{ article.createdDate }}</span>
+    <span class="self-center" style="padding-right: 4px; color: #959595;">{{ article.createdDate | formatDate }}</span>
   </div>
 
  </div>
@@ -53,6 +52,9 @@ import ArticleCardContent from '@/components/article/ArticleCardContent'
 import ArticleCarousel from '@/components/article/ArticleCarousel'
 import ArticleCarouselItem from '@/components/article/ArticleCarouselItem'
 import ArticleEmoji from '@/components/article/ArticleEmoji'
+import { deleteArticle } from '@/api/article'
+import { formatDate } from '@/utils/filters'
+
 
 export default {
 	name: 'ArticleCard',
@@ -65,7 +67,11 @@ export default {
     ArticleCarouselItem,
     ArticleEmoji,
   },
-	// filters: {},
+	filters: {
+    formatDate(value) {
+      return formatDate(value);
+    },
+  },
   // mixins: [],
 	props: {
     article: {
@@ -102,15 +108,24 @@ export default {
       this.currentLikeEmoji = postedEmoji
     },
     onPostDelete() {
-      // TODO: dialog로 바꿔야함
-      this.$q.notify({
-        position: 'top',
-        message: '정말 삭제하시겠어요?',
-        color: 'primary',
-        actions: [
-          { label: '아니오', color: 'white', handler: () => { /* ... */ } },
-          { label: '네', color: 'white', handler: () => { /* ... */ } }
-        ]
+      this.$q.dialog({
+        message: '게시글을 정말 삭제하시겠습니까?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        deleteArticle(this.article.articleId)
+        .then(() => {
+          this.$q.notify({
+            position: 'top',
+            color: 'primary',
+            message: '게시글이 삭제되었습니다..'
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }).onCancel(() => {
+      }).onDismiss(() => {
       })
     },
   },

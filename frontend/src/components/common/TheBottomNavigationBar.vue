@@ -25,7 +25,15 @@ export default {
   },
 	// computed: {},
 	// watch: {},
-	// created() {},
+	created() {
+    if (this.$route.name === 'ArticleFeedPage') {
+      this.tab = 'feed'
+    } else if (this.$route.name === 'BambooEnterPage') {
+      this.tab = 'bamboo'
+    } else if (this.$route.name === 'Healing-content') {
+      this.tab = 'contents'
+    }
+  },
 	// mounted() {},
 	// updated() {},
 	methods: {

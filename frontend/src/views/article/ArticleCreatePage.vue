@@ -50,29 +50,37 @@ export default {
 	// mounted() {},
 	// updated() {},
 	methods: {
-		onPost(aritcleImages) {
+		async onPost(articleImages) {
 			// 작성 게시글의 사진을 FormData에 담아 보냄
-			const formData = new FormData()
-
-			aritcleImages.forEach(image => formData.append('image', image))
-
-			const param = {
-				'images': formData,
-				'content' : this.text
-			}
-			// TODO: 게시글 또는 사진 둘중 하나라도 있어야 POST 요청을 할수 있게 해야 함
-			postArticle(param)
-			.then(() => {
+			if (this.text) {
+				const formData = new FormData()
+				
+				for (const articleImage of articleImages) {
+					formData.append('images', await articleImage.promisedBlob('image/jpeg', 0.8))
+				}
+	
+				formData.append('content', this.text)
+	
+				// TODO: 게시글 또는 사진 둘중 하나라도 있어야 POST 요청을 할수 있게 해야 함
+				postArticle(formData)
+				.then(() => {
+					Notify.create({
+						position: 'top',
+						color: 'primary',
+						message: '힐링 방법이 공유되었습니다.'
+					})
+					this.$router.push({name: 'ArticleFeedPage'})
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
+			} else {
 				Notify.create({
-          position: 'top',
-          color: 'primary',
-          message: '힐링 방법이 공유되었습니다.'
-        })
-				this.$router.push({name: 'ArticleFeedPage'})
-			})
-			.catch(err => {
-				console.log(err.response)
-			})
+					position: 'top',
+					color: 'negative',
+					message: '내용을 입력해주세요.'
+				})
+			}
 		}
 	},
 }
