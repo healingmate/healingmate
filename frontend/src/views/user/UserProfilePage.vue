@@ -43,37 +43,42 @@
       style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px;"
     />
     <div
-      class="text-subtitle2 text-weight-bold q-pt-lg text-center"
+      class="text-subtitle2 text-weight-bold q-pt-lg q-mt-sm text-center"
     >
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
-      {{ user.username }}
+      {{ $store.state.nickname }}
     </div>
     <!-- 키워드 -->
     <div 
-      v-if="user.keywordList.length === 0"
-      class="inline-block absolute" 
-      style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
+      v-if="keywordList.length === 0"
+      class="q-mt-sm"
+      style="text-align: center;"
     >
-      <base-keyword 
-        :entity="noKeyword"
-      >
-      </base-keyword>
+      <q-badge 
+        class="cursor-pointer text-caption text-bold q-px-sm q-mr-sm" 
+        outline 
+        color="indigo-9" 
+        text-color="white"
+        :label="'선택한 키워드가 없어요'"
+      />
     </div>
     <div 
-      v-else
-      class="inline-block absolute" 
-      style="left: 50%; transform: translateX(-50%); max-width: 50vw;"
+      v-else 
+      class="q-mt-sm"
+      style="text-align: center;"
     >
-      <base-keyword 
-        v-for="(keyword, index) in user.keywordList" 
-        :key="index" 
-        :entity="keyword"
-      >
-      </base-keyword>
+      <q-badge 
+        v-for="(keyword, index) in keywordList" :key="index"
+        class="cursor-pointer text-caption text-bold q-px-sm q-mr-sm" 
+        outline 
+        color="indigo-9" 
+        text-color="white"
+        :label="'# ' + keyword"
+      />
     </div>
     <!-- 버튼 -->
     <div 
-      class="flex justify-center q-pt-lg q-mt-xl"
+      class="flex justify-center q-pt-lg q-mt-md"
     >
       <q-btn 
         v-if="postButton"
@@ -134,18 +139,19 @@
 
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
-import BaseKeyword from '@/components/common/BaseKeyword';
 import ArticleCard from '@/components/article/ArticleCard.vue';
 import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseKebabButton from '@/components/common/BaseKebabButton';
 import BaseMenu from '@/components/common/BaseMenu';
+import { getBookmarkedContents } from '@/api/healing-content';
+import { getArticleList } from '@/api/user';
+import { data } from '@/assets/data/HealingContents.js';
 
 export default {
   components: {
     TheImageHeader,
-    BaseKeyword,
     ArticleCard,
     ContentsCard,
     TheGoBackButton,
@@ -160,19 +166,11 @@ export default {
   data() {
     return {
       // TODO : 백엔드 api 연결
+      cookies: '',
+      keywordList: this.$store.state.keywords,
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
-        keywordList: [
-          {
-            keyword: '취업',
-            click: false,
-          }, 
-          {
-            keyword: '생활',
-            click: false,
-          }
-        ],
       },
       noKeyword: {
         keyword: '선택한 키워드가 없어요',
@@ -181,51 +179,17 @@ export default {
       postButton: true,
       bookmarkButton: false,
       articleList: articleListPage.content,
-      bookmarkedList: [
-        {
-          category: 'GIF',
-          title: 'Laughing',
-          contents: 'https://media.giphy.com/media/3oEjHI8WJv4x6UPDB6/giphy.gif',
-          bookmarked: true,
-        },
-        {
-          category: '유튜브',
-          title: '힐링 콘텐츠1',
-          contents: "77jy6yVLSH8",
-          bookmarked: true,
-        },
-        {
-          category: 'GIF',
-          title: 'Laughing',
-          contents: 'https://media.giphy.com/media/l0ExayQDzrI2xOb8A/giphy.gif',
-          bookmarked: true,
-        },
-        {
-          category: '유튜브',
-          title: '힐링 콘텐츠2',
-          contents: "8YX57oN1814",
-          bookmarked: true,
-        },
-        {
-          category: '유튜브',
-          title: '힐링 콘텐츠3',
-          contents: "b-amjUifQqw",
-          bookmarked: true,
-        },
-        {
-          category: 'GIF',
-          title: 'Smile',
-          contents: 'https://media.giphy.com/media/QLvRBqfLXCphu/giphy.gif',
-          bookmarked: true,
-        },
-      ]
+      contentList: data,
+      bookmarkedList: []
     }
   },
+  // watch: {
+  //   bookmarkedList() {
+  //     console.log('변화')
+  //     // window.location.reload();
+  //   }
+  // },
   methods: {
-    // toggleKeyword(keyword) {
-    //   console.log(keyword)
-    //   keyword.click = !keyword.click;
-    // },
     selectButton() {
       this.postButton = !this.postButton;
       this.bookmarkButton = !this.bookmarkButton;
@@ -238,6 +202,33 @@ export default {
       console.log('비밀번호수정페이지로 이동')
       this.$router.push('/update-password');
     }
+  },
+  created() {
+    // TODO : 글 작성 후 출력양식 맞추기
+    const cursorId = 0
+    const size = 20
+    getArticleList(cursorId, size)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+    getBookmarkedContents() 
+    .then((response) => {
+      console.log(response)
+      for (var i = 0; i < response.data.length; i++) {
+        for (var j = 0; j < this.contentList.length; j++) {
+          if (this.contentList[j].id === response.data[i]) {
+            this.contentList[j].bookmarked = true;
+            this.bookmarkedList.push(this.contentList[j]);
+          }
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
   }
 }
 </script>

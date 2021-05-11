@@ -24,7 +24,7 @@ const mainData = [
     time: 11,
     title: '저녁 명상',
     background_img: 'night.jpg',
-    audio: 'afternoon.mp3',
+    audio: 'the-bluest-star.mp3',
     explanation: '오늘 하루도 수고 많으셨어요:) 하루를 정리하며 명상 어떠신가요?',
     width: '100%',
     height: '27vh',

@@ -47,6 +47,7 @@
         v-for="(contents, index) in contentsList" 
         :key="index" 
         :entity="contents"
+        :bookmarkedList="bookmarkedList"
         :contentsCategory="contentsCategory"
       >
       </contents-card>
@@ -60,6 +61,7 @@ import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseMenu from '@/components/common/BaseMenu';
 import { data } from '@/assets/data/HealingContents.js';
+import { getBookmarkedContents } from '@/api/healing-content';
 
 export default {
   components: {
@@ -72,6 +74,7 @@ export default {
     return {
       contentsCategory: '전체',
       contents: data,
+      bookmarkedList: [],
     }
   },
   computed: {
@@ -93,6 +96,21 @@ export default {
         this.contentsCategory = 'GIF'
       }
     }
+  },
+  created() {
+    getBookmarkedContents() 
+    .then((response) => {
+      for (var i = 0; i < response.data.length; i++) {
+        for (var j = 0; j < this.contents.length; j++) {
+          if (this.contents[j].id === response.data[i]) {
+            this.contents[j].bookmarked = true;
+          }
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
   }
 }
 </script>
