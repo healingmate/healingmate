@@ -13,7 +13,7 @@ export default new Vuex.Store({
     userId: getCookie('user_id') || null,
     nickname: getCookie('nickname') || null,
     profileImage: getCookie('profile_image') || null,
-    keywords: getCookie('keywords') || null,
+    keyword: getCookie('keyword') || null,
   },
   mutations,
   actions,

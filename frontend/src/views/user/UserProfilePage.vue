@@ -228,7 +228,7 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
-    const BeforeKeywordList = this.$store.state.keywords;
+    const BeforeKeywordList = this.$store.state.keyword;
     const AfterKeywordList = BeforeKeywordList.split(',');
     this.keywordList = AfterKeywordList;
   }

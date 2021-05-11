@@ -276,7 +276,7 @@ export default {
       }
     }
     this.nickname = this.$store.state.nickname;
-    const BeforeKeywordList = this.$store.state.keywords;
+    const BeforeKeywordList = this.$store.state.keyword;
     console.log(BeforeKeywordList)
     const AfterKeywordList = BeforeKeywordList.split(',');
     this.selectedKeyword = AfterKeywordList;
