@@ -188,6 +188,7 @@ export default {
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
           this.selectedKeyword.push(keyword.keyword)
+          // console.log(this.selectedKeyword)
         } else {
           for (let i = 0; i < this.selectedKeyword.length; i++) {
             if (this.selectedKeyword[i] === keyword.keyword) {
@@ -280,7 +281,8 @@ export default {
   created() {
     this.user.username = this.$store.state.nickname;
 
-    this.selectedKeyword = this.$store.state.keywords
+    this.selectedKeyword = this.$store.state.keyword;
+    console.log(this.selectedKeyword)
     for (var i = 0; i < this.keywordList.length; i++ ){
       for (var j = 0; j < this.selectedKeyword.length; j++ ) {
         if (this.keywordList[i].keyword === this.selectedKeyword[j]) {

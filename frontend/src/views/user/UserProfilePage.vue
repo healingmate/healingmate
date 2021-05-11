@@ -167,7 +167,8 @@ export default {
     return {
       // TODO : 백엔드 api 연결
       cookies: '',
-      keywordList: this.$store.state.keywords,
+      keywordList: '',
+      BeforekeywordList: this.$store.state.keyword,
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
@@ -229,6 +230,9 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
+    const BeforeKeywordList = this.$store.state.keyword;
+    const AfterKeywordList = BeforeKeywordList.split(',');
+    this.keywordList = AfterKeywordList;
   }
 }
 </script>
