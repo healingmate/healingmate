@@ -45,7 +45,6 @@
     <div
       class="text-subtitle2 text-weight-bold q-pt-lg q-mt-sm text-center"
     >
-      <!-- TODO : vuex에 저장된 이름으로 변경 -->
       {{ nickname }}
     </div>
     <!-- 키워드 -->
@@ -202,6 +201,11 @@ export default {
       this.$router.push('/update-password');
     }
   },
+  mounted() {
+    const BeforeKeywordList = this.$store.state.keyword;
+    const AfterKeywordList = BeforeKeywordList.split(',');
+    this.keywordList = AfterKeywordList;
+  },
   created() {
     // TODO : 글 작성 후 출력양식 맞추기
     const cursorId = 0
@@ -228,9 +232,7 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
-    const BeforeKeywordList = this.$store.state.keyword;
-    const AfterKeywordList = BeforeKeywordList.split(',');
-    this.keywordList = AfterKeywordList;
+    this.keywordList = this.$store.state.keyword;
   }
 }
 </script>
