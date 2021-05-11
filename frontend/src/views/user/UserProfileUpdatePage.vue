@@ -174,13 +174,6 @@ export default {
         image: 'unnamed.png',
         name: 'RABBIT',
       },
-      // user: {
-      //   profile_image: {
-      //     id: 0,
-      //     image: 'unnamed.png'
-      //   },
-      //   username: '',
-      // },
       characterList: characterList,
     }
   },
@@ -277,8 +270,7 @@ export default {
     }
     this.nickname = this.$store.state.nickname;
     const BeforeKeywordList = this.$store.state.keyword;
-    console.log(BeforeKeywordList)
-    const AfterKeywordList = BeforeKeywordList.split(',');
+    const AfterKeywordList = BeforeKeywordList.toString().split(',');
     this.selectedKeyword = AfterKeywordList;
     console.log(this.selectedKeyword)
     for (var i = 0; i < this.keywordList.length; i++ ){

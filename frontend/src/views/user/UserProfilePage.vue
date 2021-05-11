@@ -40,7 +40,7 @@
       spinner-color="white"
       width="6rem"
       height="6rem"
-      style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px;"
+      style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px; background-color: #000;"
     />
     <div
       class="text-subtitle2 text-weight-bold q-pt-lg q-mt-sm text-center"
@@ -147,6 +147,7 @@ import BaseMenu from '@/components/common/BaseMenu';
 import { getBookmarkedContents } from '@/api/healing-content';
 import { getArticleList } from '@/api/user';
 import { data } from '@/assets/data/HealingContents.js';
+import { characterList } from '@/assets/data/CharacterList.js';
 
 export default {
   components: {
@@ -171,10 +172,6 @@ export default {
         image: 'unnamed.png',
         name: 'RABBIT',
       },
-      // user: {
-      //   avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
-      //   username: '말랑말랑',
-      // },
       noKeyword: {
         keyword: '선택한 키워드가 없어요',
         click: false,
@@ -237,6 +234,13 @@ export default {
       console.log(err.response)
     })
     this.keywordList = this.$store.state.keyword;
+    const myCharacter = this.$store.state.profileImage
+    console.log(myCharacter)
+    for (var a = 0; a < characterList.length; a++) {
+      if (characterList[a].name === myCharacter) {
+        this.profile_image = characterList[a]
+      }
+    }
   }
 }
 </script>
