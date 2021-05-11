@@ -35,7 +35,7 @@
     </base-kebab-button>
     <!-- 프로필(아바타) 이미지 -->
     <q-img
-      :src="user.avatar"
+      :src="require(`@/assets/images/character/${ profile_image.image }`)"
       class="absolute"
       spinner-color="white"
       width="6rem"
@@ -166,10 +166,15 @@ export default {
     return {
       nickname: this.$store.state.nickname,
       keywordList: '',
-      user: {
-        avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
-        username: '말랑말랑',
+      profile_image: {
+        id: 1,
+        image: 'unnamed.png',
+        name: 'RABBIT',
       },
+      // user: {
+      //   avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
+      //   username: '말랑말랑',
+      // },
       noKeyword: {
         keyword: '선택한 키워드가 없어요',
         click: false,
@@ -202,8 +207,7 @@ export default {
     }
   },
   mounted() {
-    const BeforeKeywordList = this.$store.state.keyword;
-    const AfterKeywordList = BeforeKeywordList.split(',');
+    const AfterKeywordList = this.keywordList.toString().split(',');
     this.keywordList = AfterKeywordList;
   },
   created() {

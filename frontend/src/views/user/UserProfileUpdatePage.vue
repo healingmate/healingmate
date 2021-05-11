@@ -138,7 +138,6 @@ import TheGoBackButton from '@/components/common/TheGoBackButton';
 import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
 import { nicknameCheck } from '@/api/account';
-// import { Notify } from 'quasar'
 import { keywordList } from '@/assets/data/KeywordList.js';
 import { characterList } from '@/assets/data/CharacterList.js';
 
@@ -269,7 +268,8 @@ export default {
     }
   },
   created() {
-    const myCharacter = this.$store.state.profile_image
+    const myCharacter = this.$store.state.profileImage
+    console.log(myCharacter)
     for (var a = 0; a < characterList.length; a++) {
       if (characterList[a].name === myCharacter) {
         this.profile_image = characterList[a]
