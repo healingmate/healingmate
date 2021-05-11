@@ -46,6 +46,7 @@ export default {
 	// components: {},
 	// filters: {},
 	props: {
+		entity: String,
 		color: {
 			type: String,
 			default: null
@@ -69,13 +70,15 @@ export default {
 	},
 	data() {
 		return {
-			text: '',
+			text: this.entity ? this.entity : '',
 		}
 	},
 	// computed: {},
 	// watch: {},
 	// created() {},
-	// mounted() {},
+	mounted() {
+		this.$emit('onValidate', this.$refs.input)
+	},
 	// updated() {},
 	methods: {
 		// 달력 선택시 연도를 선택하자 마자 캘린더를 꺼버리는 함수

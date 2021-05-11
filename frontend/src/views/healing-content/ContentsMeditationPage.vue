@@ -29,9 +29,9 @@
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">
         상황별 명상
       </div>
-      <article-carousel :number="2.1" class="q-mb-xl">
+      <article-carousel :number="2" class="q-mb-xl">
         <contents-meditation 
-          v-for="(Meditation, index) in MeditationList" 
+          v-for="(Meditation, index) in MeditationSubOneList" 
           :key="index"
           :entity="Meditation"
           class="q-mr-sm"
@@ -42,9 +42,9 @@
       <div class="text-subtitle2 text-weight-bold q-mb-sm q-ml-xs">
         기분별 명상
       </div>
-      <article-carousel :number="2.1" class="q-mb-xl">
+      <article-carousel :number="2" class="q-mb-xl">
         <contents-meditation 
-          v-for="(Meditation, index) in MeditationList" 
+          v-for="(Meditation, index) in MeditationSubTwoList" 
           :key="index"
           :entity="Meditation"
           class="q-mr-sm"
@@ -61,7 +61,8 @@ import ContentsMeditation from '@/components/healing-content/ContentsMeditation'
 import ArticleCarousel from '@/components/article/ArticleCarousel.vue';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import { mainData } from '@/assets/data/MeditationMainContents.js';
-import { data } from '@/assets/data/MeditationContents.js';
+import { subOneData } from '@/assets/data/MeditationSubOneContents.js';
+import { subTwoData } from '@/assets/data/MeditationSubTwoContents.js';
 
 export default {
   components: {
@@ -80,7 +81,8 @@ export default {
   data() {
     return {
       mainMeditationList : mainData,
-      MeditationList : data
+      MeditationSubOneList : subOneData,
+      MeditationSubTwoList : subTwoData
     }
   }
 }

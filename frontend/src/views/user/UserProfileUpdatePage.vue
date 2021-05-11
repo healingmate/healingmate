@@ -101,8 +101,8 @@
       class="p-y-28 q-mt-xl" 
       color="#244684" 
       label="닉네임" 
-      v-model="user.username"
-      @onInputValue="inputNickname"
+      :entity="user.username"
+      @onInputValue="text => user.username = text"
       @onValidate="reference => nicknameReference = reference"
       :rules="[required(), minLength(2), maxLength(10), korean()]"
     >
@@ -111,7 +111,7 @@
     <div class="p-y-28 q-mt-sm">
       <p style="color: #244684; font-size: 1rem;">키워드</p>
       <base-keyword 
-        v-for="(keyword, index) in user.keywordList" 
+        v-for="(keyword, index) in keywordList" 
         :key="index" 
         :entity="keyword"
         @click.native="toggleKeyword(keyword)"
@@ -139,6 +139,9 @@ import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
 import { nicknameCheck, modifyAccount } from '@/api/account';
 import { Notify } from 'quasar'
+// import { saveUserNicknameToCookie, saveUserKeywordsToCookie } from '@/utils/cookies';
+import { keywordList } from '@/assets/data/KeywordList.js';
+import { characterList } from '@/assets/data/CharacterList.js';
 
 export default {
   components: {
@@ -166,108 +169,28 @@ export default {
       maximizedToggle: true,
       selectedKeyword: [],
       selectedCharacter: [],
+      keywordList: keywordList,
       user: {
         avatar: {
           id: 0,
           image: 'unnamed.png'
         },
-        username: '말랑말랑',
-        keywordList: [
-          {
-            id: 1,
-            keyword: '취업',
-            click: false,
-          }, 
-          {
-            id: 2,
-            keyword: '학업/진로',
-            click: false,
-          }, 
-          {
-            id: 3,
-            keyword: '가족',
-            click: false,
-          },
-          {
-            id: 4,
-            keyword: '대인관계',
-            click: false,
-          },
-          {
-            id: 5,
-            keyword: '생활정보',
-            click: false,
-          }, 
-          {
-            id: 6,
-            keyword: '성격',
-            click: false,
-          },
-          {
-            id: 7,
-            keyword: '직장',
-            click: false,
-          },
-          {
-            id: 8,
-            keyword: '학교',
-            click: false,
-          }, 
-        ],
+        username: '',
       },
-      characterList: [
-        {
-          id: 1,
-          image: 'unnamed.png',
-          name: 'RABBIT',
-        },
-        {
-          id: 2,
-          image: 'goldenfish.png',
-          name: 'FOX',
-        },
-        {
-          id: 3,
-          image: 'penguin.png',
-          name: 'PENGUIN'
-        },
-        {
-          id: 4,
-          image: 'lion.png',
-          name: 'LION'
-        },
-        {
-          id: 5,
-          image: 'cow.png',
-          name: 'WOLF'
-        },
-        {
-          id: 6,
-          image: 'penguin.png',
-          name: 'KANGAROO'
-        },
-        {
-          id: 7,
-          image: 'lion.png',
-          name: 'CAT'
-        },
-        {
-          id: 8,
-          image: 'cow.png',
-          name: 'DOG'
-        },
-      ]
+      characterList: characterList,
     }
   },
   methods: {
     toggleKeyword(keyword) {
       keyword.click = !keyword.click;
+      console.log(this.selectedKeyword)
+      console.log(keyword.keyword)
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
           this.selectedKeyword.push(keyword.keyword)
         } else {
           for (let i = 0; i < this.selectedKeyword.length; i++) {
-            if (this.selectedKeyword[i].id === keyword.id) {
+            if (this.selectedKeyword[i] === keyword.keyword) {
               this.selectedKeyword.splice(i, 1)
             }
           }
@@ -275,7 +198,7 @@ export default {
       } else {
         if (!keyword.click) {
           for (let i = 0; i < this.selectedKeyword.length; i++) {
-            if (this.selectedKeyword[i].id === keyword.id) {
+            if (this.selectedKeyword[i] === keyword.keyword) {
               this.selectedKeyword.splice(i, 1)
             }
           }
@@ -288,9 +211,6 @@ export default {
           keyword.click = !keyword.click
         }
       }
-    },
-    inputNickname(input) {
-      this.user.username = input
     },
     updateProfile() {
       if (!this.nicknameReference.validate()) {
@@ -325,12 +245,16 @@ export default {
           }
           modifyAccount(param) 
           .then(() => {
+            // TODO : 새로운 cookie 저장 방식에 맞춰서 변경 하기  
+            // saveUserNicknameToCookie(this.user.username);
+            // saveUserKeywordsToCookie(this.selectedKeyword);
             Notify.create({
               position: 'top',
               color: 'primary',
               message: '프로필이 수정되었습니다.'
             })
-            this.$router.push('/profile');
+            location.reload();
+            // this.$router.push('/profile');
           })
           .catch(err => {
             console.log(err.response)
@@ -351,6 +275,18 @@ export default {
     updateCharacter() {
       this.user.avatar = this.selectedCharacter
       this.open = false;
+    }
+  },
+  created() {
+    this.user.username = this.$store.state.nickname;
+
+    this.selectedKeyword = this.$store.state.keywords
+    for (var i = 0; i < this.keywordList.length; i++ ){
+      for (var j = 0; j < this.selectedKeyword.length; j++ ) {
+        if (this.keywordList[i].keyword === this.selectedKeyword[j]) {
+          this.keywordList[i].click = true;
+        }
+      }
     }
   }
 }

@@ -75,11 +75,12 @@
 </template>
 
 <script>
-import { bookmarkContent } from '@/api/healing-content';
+import { bookmarkContent, deleteBookmarkContent } from '@/api/healing-content';
 
 export default {
   props: {
     entity: Object,
+    bookmarkedList: Array,
   },
   data() {
     return {
@@ -87,24 +88,29 @@ export default {
     }
   },
   methods: {
-    // checkbookmarked() {
-    //   this.entity.bookmarked = !this.entity.bookmarked;
-    // },
-    // TODO
-    // api 연결 version
     checkbookmarked(contentId) {
-      bookmarkContent(contentId)
-      .then(() => {
-        this.entity.bookmarked = !this.entity.bookmarked;
-      })
-      .catch(err => {
-        console.log(err.response)
-      })
+      if (this.entity.bookmarked === false) {
+        bookmarkContent(contentId)
+        .then(() => {
+          this.entity.bookmarked = true;
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      } else {
+        deleteBookmarkContent(contentId)
+        .then(() => {
+          this.entity.bookmarked = false;
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      }
     },
     showVideo() {
       this.open = true;
     }
-  }
+  },
 }
 </script>
 
