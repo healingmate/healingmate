@@ -73,9 +73,11 @@
         :label="'# ' + keyword"
       />
     </div>
+    <!-- 말랑이 추천 수 -->
+    <user-recommend></user-recommend>
     <!-- 버튼 -->
     <div 
-      class="flex justify-center q-pt-lg q-mt-md"
+      class="flex justify-center q-pt-lg q-mt-sm"
     >
       <q-btn 
         v-if="postButton"
@@ -145,6 +147,7 @@ import { getBookmarkedContents } from '@/api/healing-content';
 import { getArticleList } from '@/api/user';
 import { data } from '@/assets/data/HealingContents.js';
 import { characterList } from '@/assets/data/CharacterList.js';
+import UserRecommend from '@/components/user/UserRecommend';
 
 export default {
   components: {
@@ -154,8 +157,10 @@ export default {
     TheGoBackButton,
     BaseKebabButton,
     BaseMenu,
+    UserRecommend
   },
   props: {
+    
     isNight:{
       isNight: Boolean
     }
@@ -180,6 +185,7 @@ export default {
       pagingSize: 5,
       pagingCursorId: 0,
       isLast: false,
+      value: 70,
     }
   },
   mounted() {

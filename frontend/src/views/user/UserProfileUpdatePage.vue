@@ -224,26 +224,37 @@ export default {
         })
         return
       } 
-      nicknameCheck(this.nickname)
-      .then((res) => {
-        if (res.data) {
-          this.$q.notify({
-            position: 'top',
-            color: 'negative',
-            message: '이미 사용중인 닉네임입니다.'
-          }) 
-        } else {
-          const userInformation = {
-            'nickname': this.nickname,
-            'profileImage': this.profile_image.name,
-            'keywords': this.selectedKeyword,
-          }
-          this.$store.dispatch('updateUser', userInformation)
+      if (this.nickname === this.$store.state.nickname) {
+        const userInformation = {
+          'nickname': this.nickname,
+          'profileImage': this.profile_image.name,
+          'keywords': this.selectedKeyword,
         }
-      })
-      .catch(err => {
-        console.log(err.response)
-      })
+        this.$store.dispatch('updateUser', userInformation)
+      } else {
+        nicknameCheck(this.nickname)
+        .then((res) => {
+          if (res.data) {
+            console.log('닉네임 중복여부 체크 결과')
+            console.log(res.data)
+            this.$q.notify({
+              position: 'top',
+              color: 'negative',
+              message: '이미 사용중인 닉네임입니다.'
+            }) 
+          } else {
+            const userInformation = {
+              'nickname': this.nickname,
+              'profileImage': this.profile_image.name,
+              'keywords': this.selectedKeyword,
+            }
+            this.$store.dispatch('updateUser', userInformation)
+          }
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      }
     },
     chooseCharacter() {
       this.open = true;
