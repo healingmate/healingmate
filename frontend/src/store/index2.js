@@ -12,7 +12,7 @@ export default new Vuex.Store({
     refreshToken: getCookie('refresh_token') || null,
     userId: getCookie('user_id') || null,
     nickname: getCookie('nickname') || null,
-    profileImage: getCookie('profile_image') || null,
+    profileImage: getCookie('profileImage') || null,
     keywords: getCookie('keywords') || null,
   },
   mutations,

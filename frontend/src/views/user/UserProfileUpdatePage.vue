@@ -16,7 +16,7 @@
       style="top: 17vh; left: 50%; transform: translateX(-50%);"
     >
       <q-img
-        :src="require(`@/assets/images/character/${ user.avatar.image }`)"
+        :src="require(`@/assets/images/character/${ profile_image.image }`)"
         class="relative"
         spinner-color="white"
         width="6rem"
@@ -101,8 +101,8 @@
       class="p-y-28 q-mt-xl" 
       color="#244684" 
       label="닉네임" 
-      :entity="user.username"
-      @onInputValue="text => user.username = text"
+      :entity="nickname"
+      @onInputValue="text => nickname = text"
       @onValidate="reference => nicknameReference = reference"
       :rules="[required(), minLength(2), maxLength(10), korean()]"
     >
@@ -137,9 +137,8 @@ import BaseButton from '@/components/common/BaseButton';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
-import { nicknameCheck, modifyAccount } from '@/api/account';
-import { Notify } from 'quasar'
-// import { saveUserNicknameToCookie, saveUserKeywordsToCookie } from '@/utils/cookies';
+import { nicknameCheck } from '@/api/account';
+// import { Notify } from 'quasar'
 import { keywordList } from '@/assets/data/KeywordList.js';
 import { characterList } from '@/assets/data/CharacterList.js';
 
@@ -170,13 +169,19 @@ export default {
       selectedKeyword: [],
       selectedCharacter: [],
       keywordList: keywordList,
-      user: {
-        avatar: {
-          id: 0,
-          image: 'unnamed.png'
-        },
-        username: '',
+      nickname: '',
+      profile_image: {
+        id: 1,
+        image: 'unnamed.png',
+        name: 'RABBIT',
       },
+      // user: {
+      //   profile_image: {
+      //     id: 0,
+      //     image: 'unnamed.png'
+      //   },
+      //   username: '',
+      // },
       characterList: characterList,
     }
   },
@@ -230,7 +235,7 @@ export default {
         })
         return
       } 
-      nicknameCheck(this.user.username)
+      nicknameCheck(this.nickname)
       .then((res) => {
         if (res.data) {
           this.$q.notify({
@@ -239,27 +244,12 @@ export default {
             message: '이미 사용중인 닉네임입니다.'
           }) 
         } else {
-          const param = {
-            'nickname': this.user.username,
-            'profileImage': this.user.avatar.name,
+          const userInformation = {
+            'nickname': this.nickname,
+            'profileImage': this.profile_image.name,
             'keywords': this.selectedKeyword,
           }
-          modifyAccount(param) 
-          .then(() => {
-            // TODO : 새로운 cookie 저장 방식에 맞춰서 변경 하기  
-            // saveUserNicknameToCookie(this.user.username);
-            // saveUserKeywordsToCookie(this.selectedKeyword);
-            Notify.create({
-              position: 'top',
-              color: 'primary',
-              message: '프로필이 수정되었습니다.'
-            })
-            location.reload();
-            // this.$router.push('/profile');
-          })
-          .catch(err => {
-            console.log(err.response)
-          })
+          this.$store.dispatch('updateUser', userInformation)
         }
       })
       .catch(err => {
@@ -268,20 +258,28 @@ export default {
     },
     chooseCharacter() {
       this.open = true;
-      this.selectedCharacter = this.user.avatar
+      this.selectedCharacter = this.profile_image
     },
     selectCharacter(character) {
       this.selectedCharacter = character
     },
     updateCharacter() {
-      this.user.avatar = this.selectedCharacter
+      this.profile_image = this.selectedCharacter
       this.open = false;
     }
   },
   created() {
-    this.user.username = this.$store.state.nickname;
-
-    this.selectedKeyword = this.$store.state.keyword;
+    const myCharacter = this.$store.state.profile_image
+    for (var a = 0; a < characterList.length; a++) {
+      if (characterList[a].name === myCharacter) {
+        this.profile_image = characterList[a]
+      }
+    }
+    this.nickname = this.$store.state.nickname;
+    const BeforeKeywordList = this.$store.state.keywords;
+    console.log(BeforeKeywordList)
+    const AfterKeywordList = BeforeKeywordList.split(',');
+    this.selectedKeyword = AfterKeywordList;
     console.log(this.selectedKeyword)
     for (var i = 0; i < this.keywordList.length; i++ ){
       for (var j = 0; j < this.selectedKeyword.length; j++ ) {

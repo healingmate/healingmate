@@ -14,10 +14,10 @@ export default {
     }
     setCookie('nickname', (userInformation.nickname)),
     setCookie('profile_image', (userInformation.profileImage)),
-    setCookie('keyword', (userInformation.keyword)),
+    setCookie('keywords', (userInformation.keyword)),
     state.nickname = userInformation.nickname;
     state.profileImage = userInformation.profileImage;
-    state.keyword = userInformation.keyword;
+    state.keywords = userInformation.keyword;
   },
   removeToken(state){
     deleteCookie('access_token'),
@@ -25,13 +25,13 @@ export default {
     deleteCookie('user_id'),
     deleteCookie('nickname'),
     deleteCookie('profile_image'),
-    deleteCookie('keyword'),
+    deleteCookie('keywords'),
     state.accessToken = null;
     state.refreshToken = null;
     state.userId = null;
     state.nickname = null;
     state.profileImage = null;
-    state.keyword = null;
+    state.keywords = null;
   },
   refreshToken(state, accessToken){
     setCookie('access_token', accessToken),

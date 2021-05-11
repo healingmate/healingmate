@@ -46,7 +46,7 @@
       class="text-subtitle2 text-weight-bold q-pt-lg q-mt-sm text-center"
     >
       <!-- TODO : vuex에 저장된 이름으로 변경 -->
-      {{ $store.state.nickname }}
+      {{ nickname }}
     </div>
     <!-- 키워드 -->
     <div 
@@ -165,10 +165,8 @@ export default {
   },
   data() {
     return {
-      // TODO : 백엔드 api 연결
-      cookies: '',
+      nickname: this.$store.state.nickname,
       keywordList: '',
-      BeforekeywordList: this.$store.state.keyword,
       user: {
         avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
         username: '말랑말랑',
@@ -230,7 +228,7 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
-    const BeforeKeywordList = this.$store.state.keyword;
+    const BeforeKeywordList = this.$store.state.keywords;
     const AfterKeywordList = BeforeKeywordList.split(',');
     this.keywordList = AfterKeywordList;
   }

@@ -35,17 +35,7 @@ export default {
   async updateUser({ commit }, userInformation){
     await modifyAccount(userInformation)
     .then(() => {
-      const param = {
-        'nickname': userInformation['nickname'],
-        'profileImage': userInformation['profileImage'],
-        'keyword': userInformation['keywords']
-      }
-      commit('updateUser', param)
-      Notify.create({
-        position: 'top',
-        color: 'primary',
-        message: '프로필이 수정되었습니다.'
-      })
+      commit('updateUser', userInformation)
       router.push({ name: 'Profile' })
     })
     .catch(err => {
