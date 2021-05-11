@@ -3,7 +3,7 @@
     :items="number"
     :margin="2"
     :nav="false"
-    :dots="false"
+    :dots="dots"
   >
     <slot/>
   </carousel>
@@ -25,6 +25,10 @@ export default {
 			type: Number,
 			default: 4
 		},
+    dots: {
+      type: Boolean,
+      default: false
+    }
   },
   // data() {
   //   return {
