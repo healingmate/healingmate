@@ -2,7 +2,7 @@
   <q-item style="padding: 0;">
 
 		<q-item-section avatar>
-			<BaseAvatar :profile-image-path="user.profileImagePath" />
+			<BaseAvatar :profile-image-path="user.profileImage" />
 		</q-item-section>
 
 		<q-item-section>

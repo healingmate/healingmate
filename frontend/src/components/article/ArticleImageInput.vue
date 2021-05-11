@@ -51,7 +51,7 @@
       <ArticleCarousel v-if="articleImages" :key="rerenderTriggerIndex" :number="5">
         <ArticleCarouselItem
           v-for="(articleImage, index) in articleImages" :key="index" 
-          :article-image="articleImage"
+          :article-image="articleImage.generateDataUrl('image/jpeg', 0.8)"
           :index="index"
           :deletable="true"
           @onDeleteItemIndex="onDeleteItem"
@@ -120,7 +120,7 @@ export default {
       this.$refs.dialog.hide()
     },
     onClickSelect() {
-      this.articleImages.push(this.croppedImage.generateDataUrl('image/jpeg', 0.8))
+      this.articleImages.push(this.croppedImage)
       this.rerenderTriggerIndex += 1
       this.closeDialog()
     },

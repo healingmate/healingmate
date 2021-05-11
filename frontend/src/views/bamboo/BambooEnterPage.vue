@@ -9,7 +9,7 @@
     <div class="p-y-28" style="margin-top: 30px;">
       <BaseButton back-ground-color="#ffffff" text-color="#244684" label="입장하기" @click.native="onEnterButton" />
     </div>
-    <TheBottomNavigationBar :width="width" />
+    <TheBottomNavigationBar style="position: absolute;" />
   </div>
 </template>
 
