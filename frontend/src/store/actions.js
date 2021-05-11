@@ -1,7 +1,7 @@
 import router from '@/routes'
 import jwt_decode from 'jwt-decode'
 import { getCookie } from '@/utils/cookies'
-import { signIn, refreshToken } from "@/api/account"
+import { signIn, refreshToken, modifyAccount } from "@/api/account"
 import { Notify } from 'quasar'
 
 export default {
@@ -14,7 +14,9 @@ export default {
         'accessToken' : res.data.accessToken,
         'refreshToken' : res.data.refreshToken
       }
+
       commit('updateToken', param)
+      commit('updateUser', res.data.user)
       
       // 클라이언트에 토큰저장이 완료되면 아티클 메인 피드로 이동한다.
       // TODO: 아티클 페이지가 생기면 그쪽으로 이동해야함
@@ -28,6 +30,16 @@ export default {
         color: 'negative',
         message: '아이디 또는 비밀번호를 확인해주세요.'
       })
+    })
+  },
+  async updateUser({ commit }, userInformation){
+    await modifyAccount(userInformation)
+    .then(() => {
+      commit('updateUser', userInformation)
+      router.push({ name: 'Profile' })
+    })
+    .catch(err => {
+      console.log(err.response)
     })
   },
   async refreshToken({ commit }){
