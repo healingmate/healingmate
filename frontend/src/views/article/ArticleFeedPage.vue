@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheImageHeader :background-image="isNight ? 'night.jpg' : 'day.jpg'"/>
+    <TheImageHeader :background-image="isNight ? 'night.jpg' : 'day.jpg'" :brightness="60" />
     
     <!-- 알람-->
     <the-notification 

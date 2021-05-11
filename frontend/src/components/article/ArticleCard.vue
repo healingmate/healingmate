@@ -6,10 +6,8 @@
 
     <BaseKebabButton :size="0.8">
     <!-- TODO: 해당 글을 쓴 유저가 자신인지 판단하는 로직 추가해야함 -->
-      <BaseMenu v-if="false" icon="front_hand" text="차단"/>
-      <div v-else>
-        <BaseMenu v-if="true" icon="front_hand" text="삭제" @click.native="onPostDelete"/>
-      </div>
+      <BaseMenu v-if="article.user.userId === this.$store.state.userId" icon="delete_outline" text="삭제" @click.native="onPostDelete" />
+      <BaseMenu v-else icon="remove_circle_outline" text="차단" @click.native="onPostBanUser" />
     </BaseKebabButton>
   
   </div>
@@ -53,6 +51,7 @@ import ArticleCarousel from '@/components/article/ArticleCarousel'
 import ArticleCarouselItem from '@/components/article/ArticleCarouselItem'
 import ArticleEmoji from '@/components/article/ArticleEmoji'
 import { deleteArticle } from '@/api/article'
+import { banUser } from '@/api/user'
 import { formatDate } from '@/utils/filters'
 
 
@@ -111,7 +110,9 @@ export default {
       this.$q.dialog({
         message: '게시글을 정말 삭제하시겠습니까?',
         cancel: true,
-        persistent: true
+        html: true,
+        persistent: true,
+        position: 'bottom',
       }).onOk(() => {
         deleteArticle(this.article.articleId)
         .then(() => {
@@ -128,6 +129,29 @@ export default {
       }).onDismiss(() => {
       })
     },
+    onPostBanUser() {
+      this.$q.dialog({
+        message: '해당 유저와는 서비스 내에서 만날 수 없습니다. <br> 정말 차단하시겠습니까?',
+        cancel: true,
+        html: true,
+        persistent: true,
+        position: 'bottom',
+      }).onOk(() => {
+        banUser(this.article.user.userId)
+        .then(() => {
+          this.$q.notify({
+            position: 'top',
+            color: 'primary',
+            message: '해당 유저가 차단되었습니다.'
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }).onCancel(() => {
+      }).onDismiss(() => {
+      })
+    }
   },
 }
 </script>
