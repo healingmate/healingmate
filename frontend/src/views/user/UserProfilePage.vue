@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- TODO : font-size 조절 -->
     <the-image-header 
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
@@ -12,7 +11,6 @@
       :size="1.2"
     ></the-go-back-button>
     <!-- 수정 버튼 -->
-    <!-- TODO : 프로필 사용자 본인만 해당 버튼을 확인할 수 있다. -->
     <base-kebab-button
       class="absolute"
       :size="0.8"
@@ -139,7 +137,6 @@
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ArticleCard from '@/components/article/ArticleCard.vue';
-// import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseKebabButton from '@/components/common/BaseKebabButton';
@@ -185,29 +182,13 @@ export default {
       isLast: false,
     }
   },
-  // watch: {
-  //   bookmarkedList() {
-  //     console.log('변화')
-  //     // window.location.reload();
-  //   }
-  // },
   mounted() {
     const AfterKeywordList = this.keywordList.toString().split(',');
     this.keywordList = AfterKeywordList;
   },
   created() {
-    // TODO : 글 작성 후 출력양식 맞추기
     window.addEventListener('scroll', this.handleScroll);
     this.loadData()
-    // const cursorId = 0
-    // const size = 20
-    // getArticleList(cursorId, size)
-    // .then((response) => {
-    //   console.log(response)
-    // })
-    // .catch(err => {
-    //   console.log(err.response)
-    // })
     getBookmarkedContents() 
     .then((response) => {
       console.log(response)
@@ -248,9 +229,9 @@ export default {
     loadData() {
       this.$q.loading.show();
       getArticleList(this.pagingCursorId, this.pagingSize)
-      .then(res => {
-        const newData = res.data.articleResponses
-        this.isLast = res.data.isLast 
+      .then(response => {
+        const newData = response.data.articleResponses
+        this.isLast = response.data.isLast 
         this.articleList.push(...newData)
         this.pagingCursorId = newData[newData.length - 1].articleId
       })
