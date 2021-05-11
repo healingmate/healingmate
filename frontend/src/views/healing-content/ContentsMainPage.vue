@@ -15,6 +15,7 @@
     <!-- 사용자 프로필 -->
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
+      :profileImagePath="this.$store.state.profileImage"
       @click.native="goToProfile"
     ></base-avatar>
     <div class="q-pa-lg">

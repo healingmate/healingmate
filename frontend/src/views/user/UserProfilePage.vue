@@ -35,7 +35,7 @@
     </base-kebab-button>
     <!-- 프로필(아바타) 이미지 -->
     <q-img
-      :src="require(`@/assets/images/character/${ profile_image.image }`)"
+      :src="require(`@/assets/images/character/${ profile_image.name }.png`)"
       class="absolute"
       spinner-color="white"
       width="6rem"
@@ -139,7 +139,7 @@
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ArticleCard from '@/components/article/ArticleCard.vue';
-import articleListPage from "@/assets/data/articleListDummy.json"
+// import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseKebabButton from '@/components/common/BaseKebabButton';
@@ -169,7 +169,6 @@ export default {
       keywordList: '',
       profile_image: {
         id: 1,
-        image: 'unnamed.png',
         name: 'RABBIT',
       },
       noKeyword: {
@@ -177,10 +176,13 @@ export default {
         click: false,
       },
       postButton: true,
-      bookmarkButton: false,
-      articleList: articleListPage.content,
       contentList: data,
-      bookmarkedList: []
+      bookmarkButton: false,
+      bookmarkedList: [],
+      articleList: [],
+      pagingSize: 5,
+      pagingCursorId: 0,
+      isLast: false,
     }
   },
   // watch: {
@@ -189,35 +191,23 @@ export default {
   //     // window.location.reload();
   //   }
   // },
-  methods: {
-    selectButton() {
-      this.postButton = !this.postButton;
-      this.bookmarkButton = !this.bookmarkButton;
-    },
-    goToUpdateInfoPage() {
-      console.log('정보수정페이지로 이동')
-      this.$router.push('/update-information');
-    },
-    goToUpdatePasswordPage() {
-      console.log('비밀번호수정페이지로 이동')
-      this.$router.push('/update-password');
-    }
-  },
   mounted() {
     const AfterKeywordList = this.keywordList.toString().split(',');
     this.keywordList = AfterKeywordList;
   },
   created() {
     // TODO : 글 작성 후 출력양식 맞추기
-    const cursorId = 0
-    const size = 20
-    getArticleList(cursorId, size)
-    .then((response) => {
-      console.log(response)
-    })
-    .catch(err => {
-      console.log(err.response)
-    })
+    window.addEventListener('scroll', this.handleScroll);
+    this.loadData()
+    // const cursorId = 0
+    // const size = 20
+    // getArticleList(cursorId, size)
+    // .then((response) => {
+    //   console.log(response)
+    // })
+    // .catch(err => {
+    //   console.log(err.response)
+    // })
     getBookmarkedContents() 
     .then((response) => {
       console.log(response)
@@ -241,7 +231,42 @@ export default {
         this.profile_image = characterList[a]
       }
     }
-  }
+  },
+  methods: {
+    selectButton() {
+      this.postButton = !this.postButton;
+      this.bookmarkButton = !this.bookmarkButton;
+    },
+    goToUpdateInfoPage() {
+      console.log('정보수정페이지로 이동')
+      this.$router.push('/update-information');
+    },
+    goToUpdatePasswordPage() {
+      console.log('비밀번호수정페이지로 이동')
+      this.$router.push('/update-password');
+    },
+    loadData() {
+      this.$q.loading.show();
+      getArticleList(this.pagingCursorId, this.pagingSize)
+      .then(res => {
+        const newData = res.data.articleResponses
+        this.isLast = res.data.isLast 
+        this.articleList.push(...newData)
+        this.pagingCursorId = newData[newData.length - 1].articleId
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
+        this.$q.loading.hide();
+      })
+    },
+    handleScroll() {
+      if (!this.$q.loading.isActive && Math.round(document.documentElement.scrollTop) + window.innerHeight > document.documentElement.scrollHeight - 10 && !this.isLast) {
+        this.loadData()
+      }
+    }
+  },
 }
 </script>
 

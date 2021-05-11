@@ -16,7 +16,7 @@
       style="top: 17vh; left: 50%; transform: translateX(-50%);"
     >
       <q-img
-        :src="require(`@/assets/images/character/${ profile_image.image }`)"
+        :src="require(`@/assets/images/character/${ profile_image.name }.png`)"
         class="relative"
         spinner-color="white"
         width="6rem"
@@ -59,9 +59,9 @@
         >
           <q-img 
             :src="
-              selectedCharacter.image
-              ? require(`@/assets/images/character/${ selectedCharacter.image }`)
-              : require('@/assets/images/character/unnamed.png')
+              selectedCharacter.name
+              ? require(`@/assets/images/character/${ selectedCharacter.name }.png`)
+              : require('@/assets/images/character/RABBIT.png')
             "
           >
           </q-img>
@@ -78,12 +78,11 @@
             @click="selectCharacter(character)"
           >
             <q-img 
-              :src="require(`@/assets/images/character/${ character.image }`)"
+              :src="require(`@/assets/images/character/${ character.name }.png`)"
               width="6rem"
               height="6rem"
               style="border-radius: 10px; background-color: #000;">
             </q-img>
-            <!-- <p class="q-mt-md text-weight-bold text-h6">{{ character.name }}</p> -->
           </div>
         </article-carousel>
         <!-- 프로필 이미지 or 캐릭터 선택 완료 버튼 -->
@@ -171,7 +170,6 @@ export default {
       nickname: '',
       profile_image: {
         id: 1,
-        image: 'unnamed.png',
         name: 'RABBIT',
       },
       characterList: characterList,
@@ -185,7 +183,6 @@ export default {
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
           this.selectedKeyword.push(keyword.keyword)
-          // console.log(this.selectedKeyword)
         } else {
           for (let i = 0; i < this.selectedKeyword.length; i++) {
             if (this.selectedKeyword[i] === keyword.keyword) {
@@ -262,7 +259,6 @@ export default {
   },
   created() {
     const myCharacter = this.$store.state.profileImage
-    console.log(myCharacter)
     for (var a = 0; a < characterList.length; a++) {
       if (characterList[a].name === myCharacter) {
         this.profile_image = characterList[a]
@@ -272,7 +268,6 @@ export default {
     const BeforeKeywordList = this.$store.state.keyword;
     const AfterKeywordList = BeforeKeywordList.toString().split(',');
     this.selectedKeyword = AfterKeywordList;
-    console.log(this.selectedKeyword)
     for (var i = 0; i < this.keywordList.length; i++ ){
       for (var j = 0; j < this.selectedKeyword.length; j++ ) {
         if (this.keywordList[i].keyword === this.selectedKeyword[j]) {
