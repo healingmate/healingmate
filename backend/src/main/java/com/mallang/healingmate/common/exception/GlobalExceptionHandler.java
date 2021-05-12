@@ -22,6 +22,12 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(IllegalArgumentException.class)
+    protected ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e){
+        ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE,
@@ -53,7 +59,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException e) {
         log.warn(e.getMessage(), e);
-        ErrorResponse response = ErrorResponse.of(ErrorCode.AUTH_ERROR);
+        ErrorResponse response = ErrorResponse.of(ErrorCode.AUTHENTICATION_ERROR);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

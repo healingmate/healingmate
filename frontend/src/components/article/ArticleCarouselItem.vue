@@ -5,12 +5,12 @@
   >
     <div 
       v-if="deletable" 
-      style="border-radius: 10px; right: 5px; top: 5px; padding: 6px; line-height: 0;"
+      style="border-radius: 6px; right: 5px; top: 5px; padding: 0px; line-height: 0;"
     >
       <q-btn 
         icon="remove"
         flat push padding="0"
-        style="font-size: 0.7em;"
+        style="font-size: 0.5em;"
         @click="onClick" 
       />
     </div>
@@ -33,7 +33,8 @@ export default {
     deletable: {
       type: Boolean,
       default: false
-    }
+    },
+    index: Number,
   },
 	// data() {
 	//   return {		}
@@ -45,12 +46,14 @@ export default {
 	// updated() {},
 	methods: {
     onClick() {
-
+      this.$emit("onDeleteItemIndex", this.index)
     }
   },
 }
 </script>
 
 <style>
-
+.q-btn__wrapper {
+  padding: 4px 4px 4px 4px !important;
+}
 </style>

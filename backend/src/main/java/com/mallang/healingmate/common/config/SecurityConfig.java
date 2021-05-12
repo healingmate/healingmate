@@ -20,9 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * com.mallang.healingmate.common.config
  * SecurityConfig.java
- * @date    2021-05-01 오후 8:40
- * @author  이아영
  *
+ * @author 이아영
+ * @date 2021-05-01 오후 8:40
  * @변경이력
  **/
 
@@ -67,9 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(new RestAccessDeniedHandler())
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/accounts/login", "/accounts").permitAll()
+                .antMatchers(HttpMethod.POST, "/accounts/login", "/accounts/refresh-token", "/accounts").permitAll()
                 .antMatchers(HttpMethod.GET, "/accounts/{nickname}/exists").permitAll()
-                .antMatchers("/articles/**").hasRole("USER")
+                .antMatchers(HttpMethod.PATCH,"/accounts/**").hasRole("USER")
+                .antMatchers("/articles/**", "/healing-content/content/**").hasRole("USER")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

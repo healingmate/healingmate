@@ -1,15 +1,22 @@
 package com.mallang.healingmate.account.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mallang.healingmate.article.domain.AccountArticles;
+import com.mallang.healingmate.article.domain.Article;
+import com.mallang.healingmate.healingcontent.domain.AccountHealingContent;
 import com.mallang.healingmate.healingcontent.domain.AccountHealingContents;
+import com.mallang.healingmate.healingcontent.domain.HealingContent;
 import com.mallang.healingmate.image.domain.Image;
+import com.mallang.healingmate.keyword.domain.AccountKeyword;
 import com.mallang.healingmate.keyword.domain.AccountKeywords;
+import com.mallang.healingmate.keyword.domain.Keyword;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * com.mallang.healingmate.account.domain
@@ -17,7 +24,7 @@ import java.time.LocalDateTime;
  *
  * @author 서범석, 이아영
  * @date 2021-04-21 오후 2:19
- * @변경이력
+ * @변경이력 21-05-04 프로필 이미지를 Image 테이블이 아닌 Enum값으로 관리하도록 결정됨에 따라 변경
  **/
 
 @Getter
@@ -42,9 +49,8 @@ public class Account {
 
     private Integer birthYear;
 
-    @OneToOne
-    @JoinColumn(name = "image_id")
-    private Image image;
+    @Enumerated(EnumType.STRING)
+    private ProfileImage profileImage;
 
     private Integer score;
 
@@ -55,23 +61,56 @@ public class Account {
     private LocalDateTime updatedDate;
 
     @Embedded
-    private AccountKeywords accountKeywords;
+    private AccountKeywords accountKeywords = AccountKeywords.empty();
 
     @Embedded
-    private AccountHealingContents accountHealingContents;
+    private AccountHealingContents accountHealingContents = AccountHealingContents.empty();
+
+    @Embedded
+    private AccountArticles accountArticles;
 
     @Builder
-    public Account(UserRole role, String userId, String password, String nickname, Image image, Integer birthYear, Integer score) {
+    public Account(UserRole role, String userId, String password, String nickname, ProfileImage profileImage, Integer birthYear, Integer score) {
         this.role = role;
         this.userId = userId;
         this.password = password;
         this.nickname = nickname;
-        this.image = image;
+        this.profileImage = profileImage;
         this.birthYear = birthYear;
         this.score = score;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void update(Account requestAccount, List<Keyword> keywords) {
+        updateAccountKeywords(keywords);
+
+        this.nickname = requestAccount.nickname;
+        this.profileImage = requestAccount.profileImage;
+    }
+
+    public void evaluate() {
+        this.score++;
+    }
+
+    public void updateAccountKeywords(List<Keyword> keywords) {
+        this.accountKeywords.clear();
+        for (Keyword keyword : keywords) {
+            this.accountKeywords.add(AccountKeyword.associate(this, keyword));
+        }
+    }
+
+    public void addAccountHealingContents(HealingContent healingContent) {
+        this.accountHealingContents.add(AccountHealingContent.associate(this, healingContent));
+    }
+
+    public List<String> getKeywords() {
+        return accountKeywords.getKeywords();
+    }
+
+    public List<Long> getHealingContents() {
+        return accountHealingContents.getHealingContents();
     }
 }

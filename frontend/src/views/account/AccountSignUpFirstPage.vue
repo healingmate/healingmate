@@ -2,6 +2,8 @@
   <div>
 		<TheImageHeader :background-image="isNight ? 'night_16x9.jpg' : 'day_16x9.jpg'"/>
 
+		<TheGoBackButton />
+
 		<div class="p-y-28">
 			<BaseTextInput 
 				color="#545FD6" 
@@ -35,6 +37,7 @@
 
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader'
+import TheGoBackButton from "@/components/common/TheGoBackButton"
 import BaseButton from "@/components/common/BaseButton"
 import BaseTextInput from "@/components/common/BaseTextInput"
 import { nicknameCheck } from "@/api/account"
@@ -46,6 +49,7 @@ export default {
 	name: 'AccountSignUpFirstPage',
 	components: {
 		TheImageHeader,
+		TheGoBackButton,
 		BaseButton,
 		BaseTextInput,
 	},
@@ -82,8 +86,6 @@ export default {
           message: this.birthYearReference.computedErrorMessage,
         })
 			} 
-			// TODO: 동기식으로 서버에 요청을 보내 닉네임이 중복인지 확인 해야함
-			// else if() {}  
 			else {
 				// 현재 페이지의 데이터가 다음 회원가입 페이지에 넘어가야 함으로 쿠키에 이 정보를 저장한다. (페이스북 참고)
 				nicknameCheck(this.nickname)

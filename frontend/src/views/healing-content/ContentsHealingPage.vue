@@ -6,7 +6,10 @@
       label="Contents"
       :brightness="50"
     ></the-image-header>
-    <!-- TODO : 이전 페이지 이동 버튼 넣기-->
+    <!-- 이전 페이지 이동 -->
+    <the-go-back-button
+      :size="1.2"
+    ></the-go-back-button>
     <!-- 콘텐츠 카테고리 버튼 배치 -->
     <q-btn 
       flat 
@@ -15,28 +18,28 @@
       icon="tune" 
       :label="this.contentsCategory" 
     >
-      <q-menu
-        transition-show="flip-right"
-        transition-hide="flip-left"
-        auto-close
-      >
-        <q-list style="min-width: 100px">
-          <q-item clickable @click="selectCategory(1)">
-            <q-item-section>
-              <q-icon name="apps" class="text-caption"> 전체</q-icon>
-            </q-item-section>
-          </q-item>
-          <q-item clickable @click="selectCategory(2)">
-            <q-item-section>
-              <q-icon name="videocam" class="text-caption"> 유튜브</q-icon>
-            </q-item-section>
-          </q-item>
-          <q-item clickable @click="selectCategory(3)">
-            <q-item-section>
-              <q-icon name="insert_photo" class="text-caption"> GIF</q-icon>
-            </q-item-section>
-          </q-item>
-        </q-list>
+      <q-menu auto-close>
+        <base-menu 
+          @click.native="selectCategory(1)" 
+          v-if="true" 
+          icon="apps"
+          text="전체"
+          style="width: 120px;"
+        ></base-menu>
+        <base-menu 
+          @click.native="selectCategory(2)" 
+          v-if="true"
+          icon="videocam" 
+          text="유튜브"
+          style="width: 120px;"
+        ></base-menu>
+        <base-menu 
+          @click.native="selectCategory(3)" 
+          v-if="true"
+          icon="insert_photo" 
+          text="GIF"
+          style="width: 120px;"
+        ></base-menu>
       </q-menu>
     </q-btn>
     <div class="q-pa-lg flex justify-between q-mt-lg">
@@ -44,6 +47,7 @@
         v-for="(contents, index) in contentsList" 
         :key="index" 
         :entity="contents"
+        :bookmarkedList="bookmarkedList"
         :contentsCategory="contentsCategory"
       >
       </contents-card>
@@ -54,17 +58,23 @@
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsCard from '@/components/healing-content/ContentsCard';
+import TheGoBackButton from '@/components/common/TheGoBackButton';
+import BaseMenu from '@/components/common/BaseMenu';
 import { data } from '@/assets/data/HealingContents.js';
+import { getBookmarkedContents } from '@/api/healing-content';
 
 export default {
   components: {
     TheImageHeader,
     ContentsCard,
+    TheGoBackButton,
+    BaseMenu,
   },
   data() {
     return {
       contentsCategory: '전체',
       contents: data,
+      bookmarkedList: [],
     }
   },
   computed: {
@@ -86,6 +96,21 @@ export default {
         this.contentsCategory = 'GIF'
       }
     }
+  },
+  created() {
+    getBookmarkedContents() 
+    .then((response) => {
+      for (var i = 0; i < response.data.length; i++) {
+        for (var j = 0; j < this.contents.length; j++) {
+          if (this.contents[j].id === response.data[i]) {
+            this.contents[j].bookmarked = true;
+          }
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
   }
 }
 </script>

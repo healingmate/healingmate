@@ -1,6 +1,7 @@
 package com.mallang.healingmate.account.dto.request;
 
 import com.mallang.healingmate.account.domain.Account;
+import com.mallang.healingmate.account.domain.ProfileImage;
 import com.mallang.healingmate.account.domain.UserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
+import java.util.Random;
 
 /**
  * com.mallang.healingmate.account.dto.request
@@ -54,7 +56,7 @@ public class SignupRequest {
                 .password(password)
                 .birthYear(birthYear)
                 .role(UserRole.ROLE_USER)
-                //TODO: 처음 회원가입 시 디폴트 이미지를 넣을 것인지?
+                .profileImage(ProfileImage.values()[new Random().nextInt(ProfileImage.values().length)])
                 .score(0)
                 .build();
     }

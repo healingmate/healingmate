@@ -1,6 +1,9 @@
 package com.mallang.healingmate.account.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mallang.healingmate.account.domain.Account;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,16 +20,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AuthResponse {
     private String accessToken;
-    private Long expireTime;
     private String refreshToken;
+    @JsonProperty("user")
+    private AccountResponse accountResponse;
 
-    public AuthResponse(String accessToken) {
+    @Builder
+    public AuthResponse(String accessToken, String refreshToken, AccountResponse accountResponse) {
         this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.accountResponse = accountResponse;
     }
-
-    //        @Builder
-////    public AuthResponse(String accessToken, String refreshToken) {
-////        this.accessToken = accessToken;
-////        this.refreshToken = refreshToken;
-////    }
 }
