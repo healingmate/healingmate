@@ -25,6 +25,7 @@ function getInstence( validateRequired = true, isMultiPart = false ) {
     mimeType: `${isMultiPart} ? 'multipart/form-data' : ''`,
     contentType: `${isMultiPart} ? ${ false } : ${ true }`,
     processData: `${isMultiPart} ? ${ false } : ${ true }`,
+    withCredentials: false,
     headers: {
       "Content-Type": 'application/json',
       "Authorization": `Bearer ${token}`,

@@ -120,8 +120,12 @@ public class AccountService {
     public void updateAccount(AccountUpdateRequest accountUpdateRequest, Account account) {
         // 영속성 유지를 위한 호출
         account = findAccount(account.getUserId());
-
         Account requestAccount = accountUpdateRequest.toAccount();
+
+        if (!account.getNickname().equals(requestAccount.getNickname()) && accountRepository.existsByNickname(requestAccount.getNickname())) {
+            throw new AuthException(ErrorCode.DUPLICATED_NICKNAME);
+        }
+
         if (accountUpdateRequest.getKeywords().size() > 3) {
             throw new InputValueException(ErrorCode.INCORRECT_KEYWORD_LENGTH);
         }
