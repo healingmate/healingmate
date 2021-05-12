@@ -30,6 +30,13 @@
         text="비밀번호변경"
         style="width: 140px;"
       ></base-menu>
+      <base-menu 
+        @click.native="logout" 
+        v-if="true && this.$store.state.accessToken"
+        icon="logout" 
+        text="로그아웃"
+        style="width: 140px;"
+      ></base-menu>
     </base-kebab-button>
     <!-- 프로필(아바타) 이미지 -->
     <q-img
@@ -244,6 +251,9 @@ export default {
     },
     goToUpdatePasswordPage() {
       this.$router.push('/update-password');
+    },
+    logout() {
+      this.$store.dispatch('removeToken')
     },
     loadData() {
       this.$q.loading.show();
