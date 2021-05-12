@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- TODO : font-size 조절 -->
     <the-image-header 
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
@@ -12,7 +11,6 @@
       :size="1.2"
     ></the-go-back-button>
     <!-- 수정 버튼 -->
-    <!-- TODO : 프로필 사용자 본인만 해당 버튼을 확인할 수 있다. -->
     <base-kebab-button
       class="absolute"
       :size="0.8"
@@ -32,21 +30,27 @@
         text="비밀번호변경"
         style="width: 140px;"
       ></base-menu>
+      <base-menu 
+        @click.native="logout" 
+        v-if="true && this.$store.state.accessToken"
+        icon="logout" 
+        text="로그아웃"
+        style="width: 140px;"
+      ></base-menu>
     </base-kebab-button>
     <!-- 프로필(아바타) 이미지 -->
     <q-img
-      :src="user.avatar"
+      :src="require(`@/assets/images/character/${ profile_image.name }.png`)"
       class="absolute"
       spinner-color="white"
       width="6rem"
       height="6rem"
-      style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px;"
+      style="top: 17vh; left: 50%; transform: translateX(-50%); border-radius: 10px; background-color: #000;"
     />
     <div
       class="text-subtitle2 text-weight-bold q-pt-lg q-mt-sm text-center"
     >
-      <!-- TODO : vuex에 저장된 이름으로 변경 -->
-      {{ $store.state.nickname }}
+      {{ nickname }}
     </div>
     <!-- 키워드 -->
     <div 
@@ -76,9 +80,11 @@
         :label="'# ' + keyword"
       />
     </div>
+    <!-- 말랑이 추천 수 확인하기 -->
+    <!-- <user-recommend></user-recommend> -->
     <!-- 버튼 -->
     <div 
-      class="flex justify-center q-pt-lg q-mt-md"
+      class="flex justify-center q-pt-lg q-mt-sm"
     >
       <q-btn 
         v-if="postButton"
@@ -130,6 +136,7 @@
           v-for="(contents, index) in bookmarkedList" 
           :key="index" 
           :entity="contents"
+          @checkBookmarkList="checkBookmark"
         >
         </contents-card>
     </div>  
@@ -140,7 +147,6 @@
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ArticleCard from '@/components/article/ArticleCard.vue';
-import articleListPage from "@/assets/data/articleListDummy.json"
 import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseKebabButton from '@/components/common/BaseKebabButton';
@@ -148,6 +154,8 @@ import BaseMenu from '@/components/common/BaseMenu';
 import { getBookmarkedContents } from '@/api/healing-content';
 import { getArticleList } from '@/api/user';
 import { data } from '@/assets/data/HealingContents.js';
+import { characterList } from '@/assets/data/CharacterList.js';
+// import UserRecommend from '@/components/user/UserRecommend';
 
 export default {
   components: {
@@ -157,66 +165,61 @@ export default {
     TheGoBackButton,
     BaseKebabButton,
     BaseMenu,
+    // UserRecommend
   },
   props: {
+    
     isNight:{
       isNight: Boolean
     }
   },
   data() {
     return {
-      // TODO : 백엔드 api 연결
-      cookies: '',
-      keywordList: this.$store.state.keywords,
-      user: {
-        avatar: "https://www.gannett-cdn.com/-mm-/767d79353012d41372e77e6d13373453b5f6cd8d/c=0-111-4256-2511/local/-/media/USATODAY/USATODAY/2014/05/01//1398973646000-EMMA-STONE-252.JPG",
-        username: '말랑말랑',
+      nickname: this.$store.state.nickname,
+      keywordList: '',
+      profile_image: {
+        id: 1,
+        name: 'RABBIT',
       },
       noKeyword: {
         keyword: '선택한 키워드가 없어요',
         click: false,
       },
       postButton: true,
-      bookmarkButton: false,
-      articleList: articleListPage.content,
       contentList: data,
-      bookmarkedList: []
+      bookmarkButton: false,
+      bookmarkedList: [],
+      newBookmarkList: [],
+      articleList: [],
+      pagingSize: 5,
+      pagingCursorId: 0,
+      isLast: false,
+      value: 70,
     }
   },
-  // watch: {
-  //   bookmarkedList() {
-  //     console.log('변화')
-  //     // window.location.reload();
-  //   }
-  // },
-  methods: {
-    selectButton() {
-      this.postButton = !this.postButton;
-      this.bookmarkButton = !this.bookmarkButton;
-    },
-    goToUpdateInfoPage() {
-      console.log('정보수정페이지로 이동')
-      this.$router.push('/update-information');
-    },
-    goToUpdatePasswordPage() {
-      console.log('비밀번호수정페이지로 이동')
-      this.$router.push('/update-password');
+  watch: {
+    newBookmarkList() {
+      // 사용자가 북마크를 해제하여 리스트에 변화가 생겼을 경우
+      this.bookmarkedList = [];
+      for (var i = 0; i < this.newBookmarkList.length; i++) {
+        for (var j = 0; j < this.contentList.length; j++) {
+          if (this.contentList[j].id === this.newBookmarkList[i]) {
+            this.contentList[j].bookmarked = true;
+            this.bookmarkedList.push(this.contentList[j]);
+          }
+        }
+      }
     }
+  },
+  mounted() {
+    const AfterKeywordList = this.keywordList.toString().split(',');
+    this.keywordList = AfterKeywordList;
   },
   created() {
-    // TODO : 글 작성 후 출력양식 맞추기
-    const cursorId = 0
-    const size = 20
-    getArticleList(cursorId, size)
-    .then((response) => {
-      console.log(response)
-    })
-    .catch(err => {
-      console.log(err.response)
-    })
+    window.addEventListener('scroll', this.handleScroll);
+    this.loadData()
     getBookmarkedContents() 
     .then((response) => {
-      console.log(response)
       for (var i = 0; i < response.data.length; i++) {
         for (var j = 0; j < this.contentList.length; j++) {
           if (this.contentList[j].id === response.data[i]) {
@@ -229,7 +232,54 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
-  }
+    this.keywordList = this.$store.state.keyword;
+    const myCharacter = this.$store.state.profileImage
+    // console.log(myCharacter)
+    for (var a = 0; a < characterList.length; a++) {
+      if (characterList[a].name === myCharacter) {
+        this.profile_image = characterList[a]
+      }
+    }
+  },
+  methods: {
+    selectButton() {
+      this.postButton = !this.postButton;
+      this.bookmarkButton = !this.bookmarkButton;
+    },
+    goToUpdateInfoPage() {
+      this.$router.push('/update-information');
+    },
+    goToUpdatePasswordPage() {
+      this.$router.push('/update-password');
+    },
+    logout() {
+      this.$store.dispatch('removeToken')
+    },
+    loadData() {
+      this.$q.loading.show();
+      getArticleList(this.pagingCursorId, this.pagingSize)
+      .then(response => {
+        const newData = response.data.articleResponses
+        this.isLast = response.data.isLast 
+        this.articleList.push(...newData)
+        this.pagingCursorId = newData[newData.length - 1].articleId
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
+        this.$q.loading.hide();
+      })
+    },
+    handleScroll() {
+      if (!this.$q.loading.isActive && Math.round(document.documentElement.scrollTop) + window.innerHeight > document.documentElement.scrollHeight - 2 && !this.isLast) {
+        this.loadData()
+      }
+    },
+    checkBookmark(bookmark) {
+      this.newBookmarkList = bookmark;
+    }
+  },
 }
 </script>
 

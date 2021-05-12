@@ -16,7 +16,7 @@
       style="top: 17vh; left: 50%; transform: translateX(-50%);"
     >
       <q-img
-        :src="require(`@/assets/images/character/${ user.avatar.image }`)"
+        :src="require(`@/assets/images/character/${ profile_image.name }.png`)"
         class="relative"
         spinner-color="white"
         width="6rem"
@@ -55,22 +55,22 @@
         </q-img>
         <q-card-section 
           class="absolute text-center" 
-          style="width: 70vw; height: 50vh; top: 23vh; left: 50%; transform: translateX(-50%);"
+          style="width: 70vw; height: 50vh; top: 22vh; left: 50%; transform: translateX(-50%);"
         >
           <q-img 
             :src="
-              selectedCharacter.image
-              ? require(`@/assets/images/character/${ selectedCharacter.image }`)
-              : require('@/assets/images/character/unnamed.png')
+              selectedCharacter.name
+              ? require(`@/assets/images/character/${ selectedCharacter.name }.png`)
+              : require('@/assets/images/character/RABBIT.png')
             "
           >
           </q-img>
         </q-card-section>
-        <!-- TODO : nav or dots 표시 필요 -->
         <article-carousel 
           :number="3" 
+          :dots="true"
           class="q-y-28 absolute q-mb-xl"
-          style="width: 87vw; height: 60vh; top: 67vh; left: 50%; transform: translateX(-50%);"
+          style="width: 87vw; height: 60vh; top: 64vh; left: 50%; transform: translateX(-50%);"
         >
           <div 
             v-for="(character, index) in characterList" 
@@ -78,12 +78,11 @@
             @click="selectCharacter(character)"
           >
             <q-img 
-              :src="require(`@/assets/images/character/${ character.image }`)"
+              :src="require(`@/assets/images/character/${ character.name }.png`)"
               width="6rem"
               height="6rem"
               style="border-radius: 10px; background-color: #000;">
             </q-img>
-            <!-- <p class="q-mt-md text-weight-bold text-h6">{{ character.name }}</p> -->
           </div>
         </article-carousel>
         <!-- 프로필 이미지 or 캐릭터 선택 완료 버튼 -->
@@ -101,8 +100,8 @@
       class="p-y-28 q-mt-xl" 
       color="#244684" 
       label="닉네임" 
-      :entity="user.username"
-      @onInputValue="text => user.username = text"
+      :entity="nickname"
+      @onInputValue="text => nickname = text"
       @onValidate="reference => nicknameReference = reference"
       :rules="[required(), minLength(2), maxLength(10), korean()]"
     >
@@ -137,9 +136,7 @@ import BaseButton from '@/components/common/BaseButton';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
-import { nicknameCheck, modifyAccount } from '@/api/account';
-import { Notify } from 'quasar'
-// import { saveUserNicknameToCookie, saveUserKeywordsToCookie } from '@/utils/cookies';
+import { nicknameCheck } from '@/api/account';
 import { keywordList } from '@/assets/data/KeywordList.js';
 import { characterList } from '@/assets/data/CharacterList.js';
 
@@ -170,12 +167,10 @@ export default {
       selectedKeyword: [],
       selectedCharacter: [],
       keywordList: keywordList,
-      user: {
-        avatar: {
-          id: 0,
-          image: 'unnamed.png'
-        },
-        username: '',
+      nickname: '',
+      profile_image: {
+        id: 1,
+        name: 'RABBIT',
       },
       characterList: characterList,
     }
@@ -183,8 +178,6 @@ export default {
   methods: {
     toggleKeyword(keyword) {
       keyword.click = !keyword.click;
-      console.log(this.selectedKeyword)
-      console.log(keyword.keyword)
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
           this.selectedKeyword.push(keyword.keyword)
@@ -229,58 +222,60 @@ export default {
         })
         return
       } 
-      nicknameCheck(this.user.username)
-      .then((res) => {
-        if (res.data) {
-          this.$q.notify({
-            position: 'top',
-            color: 'negative',
-            message: '이미 사용중인 닉네임입니다.'
-          }) 
-        } else {
-          const param = {
-            'nickname': this.user.username,
-            'profileImage': this.user.avatar.name,
-            'keywords': this.selectedKeyword,
-          }
-          modifyAccount(param) 
-          .then(() => {
-            // TODO : 새로운 cookie 저장 방식에 맞춰서 변경 하기  
-            // saveUserNicknameToCookie(this.user.username);
-            // saveUserKeywordsToCookie(this.selectedKeyword);
-            Notify.create({
-              position: 'top',
-              color: 'primary',
-              message: '프로필이 수정되었습니다.'
-            })
-            location.reload();
-            // this.$router.push('/profile');
-          })
-          .catch(err => {
-            console.log(err.response)
-          })
+      // 사용자가 기존의 닉네임을 그대로 사용할 경우
+      if (this.nickname === this.$store.state.nickname) {
+        const userInformation = {
+          'nickname': this.nickname,
+          'profileImage': this.profile_image.name,
+          'keywords': this.selectedKeyword,
         }
-      })
-      .catch(err => {
-        console.log(err.response)
-      })
+        this.$store.dispatch('updateUser', userInformation)
+      } else {
+        nicknameCheck(this.nickname)
+        .then((res) => {
+          if (res.data) {
+            this.$q.notify({
+              position: 'top',
+              color: 'negative',
+              message: '이미 사용중인 닉네임입니다.'
+            }) 
+          } else {
+            const userInformation = {
+              'nickname': this.nickname,
+              'profileImage': this.profile_image.name,
+              'keywords': this.selectedKeyword,
+            }
+            this.$store.dispatch('updateUser', userInformation)
+          }
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      }
     },
     chooseCharacter() {
       this.open = true;
-      this.selectedCharacter = this.user.avatar
+      this.selectedCharacter = this.profile_image
     },
     selectCharacter(character) {
       this.selectedCharacter = character
     },
     updateCharacter() {
-      this.user.avatar = this.selectedCharacter
+      this.profile_image = this.selectedCharacter
       this.open = false;
     }
   },
   created() {
-    this.user.username = this.$store.state.nickname;
-
-    this.selectedKeyword = this.$store.state.keywords
+    const myCharacter = this.$store.state.profileImage
+    for (var a = 0; a < characterList.length; a++) {
+      if (characterList[a].name === myCharacter) {
+        this.profile_image = characterList[a]
+      }
+    }
+    this.nickname = this.$store.state.nickname;
+    const BeforeKeywordList = this.$store.state.keyword;
+    const AfterKeywordList = BeforeKeywordList.toString().split(',');
+    this.selectedKeyword = AfterKeywordList;
     for (var i = 0; i < this.keywordList.length; i++ ){
       for (var j = 0; j < this.selectedKeyword.length; j++ ) {
         if (this.keywordList[i].keyword === this.selectedKeyword[j]) {

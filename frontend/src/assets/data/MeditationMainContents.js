@@ -1,7 +1,7 @@
 const mainData = [
   {
     id: 1,
-    time: 11,
+    time: 4,
     title: '아침 명상',
     background_img: 'morning.jpg',
     audio: 'wedding.mp3',
@@ -11,7 +11,7 @@ const mainData = [
   },
   {
     id: 2,
-    time: 11,
+    time: 7,
     title: '오후 명상',
     background_img: 'afternoon.jpg',
     audio: 'afternoon.mp3',
@@ -21,7 +21,7 @@ const mainData = [
   },
   {
     id: 3,
-    time: 11,
+    time: 2,
     title: '저녁 명상',
     background_img: 'night.jpg',
     audio: 'the-bluest-star.mp3',
