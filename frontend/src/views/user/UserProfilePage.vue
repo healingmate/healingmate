@@ -227,7 +227,7 @@ export default {
     })
     this.keywordList = this.$store.state.keyword;
     const myCharacter = this.$store.state.profileImage
-    console.log(myCharacter)
+    // console.log(myCharacter)
     for (var a = 0; a < characterList.length; a++) {
       if (characterList[a].name === myCharacter) {
         this.profile_image = characterList[a]

@@ -88,11 +88,9 @@ export default {
   },
   methods: {
     goToProfile() {
-      console.log('프로필로 이동')
       this.$router.push('/profile');
     },
     goToNotification() {
-      console.log('알람창으로 이동')
       this.$router.push('/notification');
     }
   }
