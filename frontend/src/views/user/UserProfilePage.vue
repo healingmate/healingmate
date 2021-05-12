@@ -74,7 +74,7 @@
       />
     </div>
     <!-- 말랑이 추천 수 -->
-    <user-recommend></user-recommend>
+    <!-- <user-recommend></user-recommend> -->
     <!-- 버튼 -->
     <div 
       class="flex justify-center q-pt-lg q-mt-sm"
