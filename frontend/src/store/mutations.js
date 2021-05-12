@@ -9,12 +9,12 @@ export default {
   },
   updateUser(state, userInformation){
     if (userInformation.userId) {
-      Cookies.set('user_id', (userInformation.userId))
+      Cookies.set('user_id', userInformation.userId)
       state.userId = userInformation.userId;
     }
-    Cookies.set('nickname', (userInformation.nickname))
-    Cookies.set('profile_image', (userInformation.profileImage))
-    Cookies.set('keyword', (userInformation.keyword))
+    Cookies.set('nickname', userInformation.nickname)
+    Cookies.set('profile_image', userInformation.profileImage)
+    Cookies.set('keyword', userInformation.keyword.join())
     state.nickname = userInformation.nickname;
     state.profileImage = userInformation.profileImage;
     state.keyword = userInformation.keyword;
