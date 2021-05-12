@@ -1,6 +1,10 @@
 <template>
   <!-- color default는 흰색입니다 -->
-  <q-icon :size="`${size}rem`" name="notifications" @click="onClick" :color="color" />
+  <q-icon 
+    :size="`${size}rem`" 
+    name="notifications" 
+    @click="goToNotification" 
+    :color="color" />
 </template>
 
 <script>
@@ -17,8 +21,9 @@ export default {
     },
   },
   methods: {
-    onClick() {
-    },
+    goToNotification() {
+      this.$router.push('/notification');
+    }
   },
 };
 </script>
