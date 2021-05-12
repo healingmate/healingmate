@@ -17,7 +17,6 @@ import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
 import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
-import Profile from '@/views/user/UserProfilePage.vue';
 
 export default [
   {
