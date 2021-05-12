@@ -12,7 +12,7 @@
     ></the-go-back-button>
     <!-- 기존 비밀번호 입력 -->
     <base-text-input 
-      class="p-y-28 q-mt-xs" 
+      class="p-x-28 q-mt-xs" 
       color="#244684" 
       label="기존 비밀번호" 
       @onInputValue="text => password = text"
@@ -23,7 +23,7 @@
     </base-text-input>
     <!-- 새로운 비밀번호 입력 -->
     <base-text-input 
-      class="p-y-28 q-mt-xs" 
+      class="p-x-28 q-mt-xs" 
       color="#244684" 
       label="새로운 비밀번호" 
       type="password"
@@ -34,7 +34,7 @@
     </base-text-input>
     <!-- 새로운 비밀번호 입력 확인 -->
     <base-text-input 
-      class="p-y-28 q-mt-xs" 
+      class="p-x-28 q-mt-xs" 
       color="#244684" 
       label="비밀번호 확인" 
       type="password"
@@ -44,7 +44,7 @@
     >
     </base-text-input>
     <!-- 제출 버튼 -->
-    <div class="absolute-bottom p-y-28 q-mb-lg"  @click="changePassword">
+    <div class="absolute-bottom p-x-28 q-mb-lg"  @click="changePassword">
       <base-button 
         back-ground-color="#244684" 
         text-color="white" 

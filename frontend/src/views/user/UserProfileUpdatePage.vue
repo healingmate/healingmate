@@ -86,7 +86,7 @@
           </div>
         </article-carousel>
         <!-- 프로필 이미지 or 캐릭터 선택 완료 버튼 -->
-        <div class="absolute-bottom p-y-28 q-mb-lg" @click="updateCharacter">
+        <div class="absolute-bottom p-x-28 q-mb-lg" @click="updateCharacter">
           <base-button 
             back-ground-color="#244684" 
             text-color="white" 
@@ -97,7 +97,7 @@
     </q-dialog>
     <!-- 닉네임 변경 -->
     <base-text-input 
-      class="p-y-28 q-mt-xl" 
+      class="p-x-28 q-mt-xl" 
       color="#244684" 
       label="닉네임" 
       :entity="nickname"
@@ -107,7 +107,7 @@
     >
     </base-text-input>
     <!-- 키워드 선택 -->
-    <div class="p-y-28 q-mt-sm">
+    <div class="p-x-28 q-mt-sm">
       <p style="color: #244684; font-size: 1rem;">키워드</p>
       <base-keyword 
         v-for="(keyword, index) in keywordList" 
@@ -118,7 +118,7 @@
       </base-keyword>
     </div>
     <!-- 제출 버튼 -->
-    <div class="absolute-bottom p-y-28 q-mb-lg"  @click="updateProfile">
+    <div class="absolute-bottom p-x-28 q-mb-lg"  @click="updateProfile">
       <base-button 
         back-ground-color="#244684" 
         text-color="white" 

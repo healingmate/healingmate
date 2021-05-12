@@ -7,7 +7,7 @@
       <p class="q-mb-none">선택해주세요 😊</p>
     </div>
 
-    <div class="p-y-28 row" style="margin-top: 130px;">
+    <div class="p-x-28 row" style="margin-top: 130px;">
       <div
         v-for="(card, index) in categoryCards"
         :key="index"
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
+    <div class="p-x-28 absolute" style="bottom: 0; width: 100%">
       <BaseButton back-ground-color="#244684" text-color="#FFFFFF" label="선택하기" @click.native="onClickSelectButton" />
     </div>
 
@@ -35,13 +35,13 @@ import TheGoBackButton from '@/components/common/TheGoBackButton.vue';
 import BambooCardButton from '@/components/bamboo/BambooCardButton.vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 import { Notify } from 'quasar';
-
 import categoryData from '@/assets/data/bambooCategory.json';
+
 export default {
   name: 'BambooCategoryPage',
   data() {
     return {
-      categoryCards: categoryData.content,
+      categoryCards: null,
       myCategory: [],
     };
   },
@@ -49,6 +49,9 @@ export default {
     BambooCardButton,
     BaseButton,
     TheGoBackButton,
+  },
+  created() {
+    this.categoryCards = categoryData.content
   },
   methods: {
     onSelectCategory(card) {

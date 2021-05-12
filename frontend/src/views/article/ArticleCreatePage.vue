@@ -1,5 +1,5 @@
 <template>
-	<div class="vh-100 p-y-28">
+	<div class="vh-100 p-x-28">
 
 		<!-- 뒤로가기 버튼 -->
 		<TheGoBackButton color="dark"/>

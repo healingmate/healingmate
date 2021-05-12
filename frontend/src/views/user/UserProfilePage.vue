@@ -121,7 +121,7 @@
       <p v-if="articleList.length === 0" class="text-center">작성한 post가 없습니다.</p>
       <article-card
         v-else
-        class="p-y-28 q-py-sm"
+        class="p-x-28 q-py-sm"
         v-for="(article, index) in articleList" 
         :key="index"
         :article="article"
@@ -131,7 +131,7 @@
     <!-- bookmark -->
     <div v-if="bookmarkButton" class="q-mt-lg">
       <p v-if="bookmarkedList.length === 0" class="text-center">저장한 북마크가 없습니다.</p>
-      <div class="p-y-28 flex justify-between q-mt-lg">
+      <div class="p-x-28 flex justify-between q-mt-lg">
         <contents-card
           v-for="(contents, index) in bookmarkedList" 
           :key="index" 

@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="p-y-28 row" style="margin-top: 130px;">
+    <div class="p-x-28 row" style="margin-top: 130px;">
       <div
         v-for="(card, index) in typeCards" 
         :key="index" 
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
+    <div class="p-x-28 absolute" style="bottom: 0; width: 100%">
       <BaseButton back-ground-color="#244684" text-color="#FFFFFF" label="참여하기" @click.native="onClickSelectButton" />
     </div>
   </div>
