@@ -12,7 +12,7 @@
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
       :profile-image-path="this.$store.state.profileImage"
-      @click.native="goToProfile"
+      :go-profile="true"
     ></base-avatar>
 
     <div class="absolute-left text-h6 text-bold text-white q-pa-sm q-ml-lg q-my-xl">
@@ -25,6 +25,7 @@
       :key="index"
       :article="article"
       class="p-y-28"
+      @on-delete="onDeleteArticle"
     />
 
     <div class="floating-action-button">
@@ -126,6 +127,10 @@ export default {
         console.log("지금")
         this.loadData()
       }
+    },
+    onDeleteArticle(article) {
+      const index = this.articleList.indexOf(article)
+      this.articleList.splice(index, 1)
     }
   },
 }

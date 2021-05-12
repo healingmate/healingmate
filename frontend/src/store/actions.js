@@ -45,7 +45,7 @@ export default {
         color: 'primary',
         message: '프로필이 수정되었습니다.'
       })
-      router.push({ name: 'Profile' })
+      router.go(-1)
     })
     .catch(err => {
       console.log(err.response)
