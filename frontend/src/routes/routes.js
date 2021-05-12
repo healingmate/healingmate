@@ -91,25 +91,6 @@ export default [
     meta: { authRequired: true },
   },
   {
-    path: '/bamboo/main',
-    name: 'BambooEnterPage',
-    component: BambooEnterPage,
-    // meta: { authRequired: true },
-  },
-  {
-    path: '/bamboo/category',
-    name: 'BambooCategoryPage',
-    component: BambooCategoryPage,
-    props: true,
-    // meta: { authRequired: true },
-  },
-  {
-    path: '/bamboo/type',
-    name: 'BambooTypeSelectPage',
-    component: BambooTypeSelectPage,
-    // meta: { authRequired: true },
-  },
-  {
     path: '/update-information',
     name: 'UpdateInformation',
     component: UpdateInformation,
@@ -126,6 +107,25 @@ export default [
     name: 'NotificationPage',
     component: NotificationPage,
     meta: {authRequired: true}
+  },
+  {
+    path: '/bamboo/main',
+    name: 'BambooEnterPage',
+    component: BambooEnterPage,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/category',
+    name: 'BambooCategoryPage',
+    component: BambooCategoryPage,
+    props: true,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/type',
+    name: 'BambooTypeSelectPage',
+    component: BambooTypeSelectPage,
+    meta: { authRequired: true },
   },
   {
     path: '*',
