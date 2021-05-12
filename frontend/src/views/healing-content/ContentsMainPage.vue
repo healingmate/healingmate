@@ -10,13 +10,12 @@
     <the-notification 
       class="absolute-right q-pr-md q-mr-xl q-mt-md text-white"
       style="top: 0.7rem;"
-      @click.native="goToNotification"
     ></the-notification>
     <!-- 사용자 프로필 -->
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
       :profileImagePath="this.$store.state.profileImage"
-      @click.native="goToProfile"
+      :go-profile="true"
     ></base-avatar>
     <div class="q-pa-lg">
       <!-- 타이틀 -->
@@ -87,12 +86,6 @@ export default {
     }
   },
   methods: {
-    goToProfile() {
-      this.$router.push('/profile');
-    },
-    goToNotification() {
-      this.$router.push('/notification');
-    }
   }
 }
 </script>

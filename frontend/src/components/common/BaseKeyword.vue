@@ -28,5 +28,7 @@ export default {
 </script>
 
 <style scoped>
-
+.bg-indigo-9 {
+  border: 1px solid currentColor;
+}
 </style>

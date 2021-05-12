@@ -115,6 +115,7 @@ export default {
       }).onOk(() => {
         deleteArticle(this.article.articleId)
         .then(() => {
+          this.$emit('on-delete', this.article)
           this.$q.notify({
             position: 'top',
             color: 'primary',

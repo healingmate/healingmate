@@ -121,7 +121,7 @@ export default {
               color: 'primary',
               message: '비밀번호가 수정되었습니다.'
             })
-            this.$router.push('/profile');
+            this.$router.go(-1);
         })
         .catch(err => {
           console.log(err.response)
