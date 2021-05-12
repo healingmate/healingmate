@@ -61,7 +61,6 @@ export default {
 	
 				formData.append('content', this.text)
 	
-				// TODO: 게시글 또는 사진 둘중 하나라도 있어야 POST 요청을 할수 있게 해야 함
 				postArticle(formData)
 				.then(() => {
 					Notify.create({

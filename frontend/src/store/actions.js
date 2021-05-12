@@ -1,6 +1,6 @@
 import router from '@/routes'
 import jwt_decode from 'jwt-decode'
-import { getCookie } from '@/utils/cookies'
+import { Cookies } from 'quasar'
 import { signIn, refreshToken, modifyAccount } from "@/api/account"
 import { Notify } from 'quasar'
 
@@ -19,7 +19,6 @@ export default {
       commit('updateUser', res.data.user)
       
       // 클라이언트에 토큰저장이 완료되면 아티클 메인 피드로 이동한다.
-      // TODO: 아티클 페이지가 생기면 그쪽으로 이동해야함
       router.push({name: 'ArticleFeedPage'})
     })
     .catch(() => {
@@ -44,7 +43,7 @@ export default {
   },
   async refreshToken({ commit }){
     const param = {
-      'refreshToken': getCookie('refresh_token')
+      'refreshToken': Cookies.get('refresh_token')
     }
 
     const isRefreshed = await refreshToken(param)
@@ -67,7 +66,7 @@ export default {
   async checkTokenValidation(){
     // jwt_decode 에서 이상한 토큰을 받으면 exception을 내버려서 try catch사용
     try {
-      const token = getCookie('access_token')
+      const token = Cookies.get('access_token')
 
       if(token){
         const decoded = jwt_decode(token);

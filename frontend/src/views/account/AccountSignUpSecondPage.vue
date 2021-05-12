@@ -106,8 +106,6 @@ export default {
 					message: this.confirmPasswordReference.computedErrorMessage,
 				})
 			} 
-			// TODO: 동기식으로 서버에 요청을 보내 userID가 중복인지 확인 해야함
-			// else if() {}  
 			else {
 				// const addtionalInformationList = VueCookies.get('addtional-information').split('-')
 				const addtionalInformationList = this.$q.cookies.get('addtional-information').split('-')
