@@ -1,9 +1,9 @@
 <template>
-  <div class="p-y-28 flex flex-center q-mt-md">
-    <!-- <div 
+  <div class="p-y-28 flex flex-center q-mt-lg">
+    <div 
       class="q-py-md q-px-xl"
-      style="border: 2px solid black; border-radius: 10px;"> -->
-      <div class="block text-subtitle2 text-weight-bold">당신의 말랑지수는?</div>
+      style="width: 100%; border: 2px solid black; border-radius: 10px; text-align: center;">
+      <div class="q-pt-xs text-subtitle2 text-weight-bold">당신의 말랑지수는?</div>
       <q-knob
         show-value
         :instant-feedback="true"
@@ -19,7 +19,7 @@
         <q-icon name="favorite" class="q-mr-xs" />
         {{ value }}
       </q-knob>
-    <!-- </div> -->
+    </div>
   </div>  
 </template>
 
