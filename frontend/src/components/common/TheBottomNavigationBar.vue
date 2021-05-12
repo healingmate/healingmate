@@ -5,7 +5,6 @@
     indicator-color="transparent"
     @input="onTabs"
   >
-  <!-- TODO: 활성화 되어있는 아이콘은 active로 하얗게 나오게 default 탭을 지정해줘야함 -->
     <q-tab name="feed" :icon="`img:${require('@/assets/images/bottom-navigation/feed.png')}`"/>
     <q-tab name="bamboo" :icon="`img:${require('@/assets/images/bottom-navigation/bamboo.png')}`" />
     <q-tab name="contents" :icon="`img:${require('@/assets/images/bottom-navigation/contents.png')}`" />

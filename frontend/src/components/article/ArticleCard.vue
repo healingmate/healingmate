@@ -5,7 +5,6 @@
     <BaseProfileCard :user="article.user"/>
 
     <BaseKebabButton :size="0.8">
-    <!-- TODO: 해당 글을 쓴 유저가 자신인지 판단하는 로직 추가해야함 -->
       <BaseMenu v-if="article.user.userId === this.$store.state.userId" icon="delete_outline" text="삭제" @click.native="onPostDelete" />
       <BaseMenu v-else icon="remove_circle_outline" text="차단" @click.native="onPostBanUser" />
     </BaseKebabButton>
