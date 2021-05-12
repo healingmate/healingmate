@@ -73,7 +73,7 @@
         :label="'# ' + keyword"
       />
     </div>
-    <!-- 말랑이 추천 수 -->
+    <!-- 말랑이 추천 수 확인하기 -->
     <!-- <user-recommend></user-recommend> -->
     <!-- 버튼 -->
     <div 
@@ -129,6 +129,7 @@
           v-for="(contents, index) in bookmarkedList" 
           :key="index" 
           :entity="contents"
+          @checkBookmarkList="checkBookmark"
         >
         </contents-card>
     </div>  
@@ -147,7 +148,7 @@ import { getBookmarkedContents } from '@/api/healing-content';
 import { getArticleList } from '@/api/user';
 import { data } from '@/assets/data/HealingContents.js';
 import { characterList } from '@/assets/data/CharacterList.js';
-import UserRecommend from '@/components/user/UserRecommend';
+// import UserRecommend from '@/components/user/UserRecommend';
 
 export default {
   components: {
@@ -157,7 +158,7 @@ export default {
     TheGoBackButton,
     BaseKebabButton,
     BaseMenu,
-    UserRecommend
+    // UserRecommend
   },
   props: {
     
@@ -181,11 +182,26 @@ export default {
       contentList: data,
       bookmarkButton: false,
       bookmarkedList: [],
+      newBookmarkList: [],
       articleList: [],
       pagingSize: 5,
       pagingCursorId: 0,
       isLast: false,
       value: 70,
+    }
+  },
+  watch: {
+    newBookmarkList() {
+      // 사용자가 북마크를 해제하여 리스트에 변화가 생겼을 경우
+      this.bookmarkedList = [];
+      for (var i = 0; i < this.newBookmarkList.length; i++) {
+        for (var j = 0; j < this.contentList.length; j++) {
+          if (this.contentList[j].id === this.newBookmarkList[i]) {
+            this.contentList[j].bookmarked = true;
+            this.bookmarkedList.push(this.contentList[j]);
+          }
+        }
+      }
     }
   },
   mounted() {
@@ -197,7 +213,6 @@ export default {
     this.loadData()
     getBookmarkedContents() 
     .then((response) => {
-      console.log(response)
       for (var i = 0; i < response.data.length; i++) {
         for (var j = 0; j < this.contentList.length; j++) {
           if (this.contentList[j].id === response.data[i]) {
@@ -225,11 +240,9 @@ export default {
       this.bookmarkButton = !this.bookmarkButton;
     },
     goToUpdateInfoPage() {
-      console.log('정보수정페이지로 이동')
       this.$router.push('/update-information');
     },
     goToUpdatePasswordPage() {
-      console.log('비밀번호수정페이지로 이동')
       this.$router.push('/update-password');
     },
     loadData() {
@@ -249,9 +262,12 @@ export default {
       })
     },
     handleScroll() {
-      if (!this.$q.loading.isActive && Math.round(document.documentElement.scrollTop) + window.innerHeight > document.documentElement.scrollHeight - 10 && !this.isLast) {
+      if (!this.$q.loading.isActive && Math.round(document.documentElement.scrollTop) + window.innerHeight > document.documentElement.scrollHeight - 2 && !this.isLast) {
         this.loadData()
       }
+    },
+    checkBookmark(bookmark) {
+      this.newBookmarkList = bookmark;
     }
   },
 }

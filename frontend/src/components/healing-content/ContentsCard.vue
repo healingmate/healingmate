@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { bookmarkContent, deleteBookmarkContent } from '@/api/healing-content';
+import { bookmarkContent, deleteBookmarkContent, getBookmarkedContents } from '@/api/healing-content';
 
 export default {
   props: {
@@ -101,6 +101,14 @@ export default {
         deleteBookmarkContent(contentId)
         .then(() => {
           this.entity.bookmarked = false;
+          // 사용자가 프로필 페이지에서 북마크를 해제했을 경우
+          getBookmarkedContents()
+          .then((response) => {
+            this.$emit('checkBookmarkList', response.data);
+          })
+          .catch(err => {
+            console.log(err.response)
+          })
         })
         .catch(err => {
           console.log(err.response)

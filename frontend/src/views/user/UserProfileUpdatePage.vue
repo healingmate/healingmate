@@ -55,7 +55,7 @@
         </q-img>
         <q-card-section 
           class="absolute text-center" 
-          style="width: 70vw; height: 50vh; top: 23vh; left: 50%; transform: translateX(-50%);"
+          style="width: 70vw; height: 50vh; top: 22vh; left: 50%; transform: translateX(-50%);"
         >
           <q-img 
             :src="
@@ -66,11 +66,11 @@
           >
           </q-img>
         </q-card-section>
-        <!-- TODO : nav or dots 표시 필요 -->
         <article-carousel 
           :number="3" 
+          :dots="true"
           class="q-y-28 absolute q-mb-xl"
-          style="width: 87vw; height: 60vh; top: 67vh; left: 50%; transform: translateX(-50%);"
+          style="width: 87vw; height: 60vh; top: 64vh; left: 50%; transform: translateX(-50%);"
         >
           <div 
             v-for="(character, index) in characterList" 
@@ -178,8 +178,6 @@ export default {
   methods: {
     toggleKeyword(keyword) {
       keyword.click = !keyword.click;
-      console.log(this.selectedKeyword)
-      console.log(keyword.keyword)
       if (this.selectedKeyword.length < 3) {
         if (keyword.click) {
           this.selectedKeyword.push(keyword.keyword)
@@ -224,6 +222,7 @@ export default {
         })
         return
       } 
+      // 사용자가 기존의 닉네임을 그대로 사용할 경우
       if (this.nickname === this.$store.state.nickname) {
         const userInformation = {
           'nickname': this.nickname,
@@ -235,8 +234,6 @@ export default {
         nicknameCheck(this.nickname)
         .then((res) => {
           if (res.data) {
-            console.log('닉네임 중복여부 체크 결과')
-            console.log(res.data)
             this.$q.notify({
               position: 'top',
               color: 'negative',
