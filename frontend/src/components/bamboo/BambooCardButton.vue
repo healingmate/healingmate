@@ -2,7 +2,7 @@
   <!-- 기본 버튼 -->
   <q-btn
     :size="entity.size"
-    class="q-px-xl q-py-sm"
+    class=""
     :text-color="entity.textColor"
     :style="{
       width: entity.width,

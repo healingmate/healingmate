@@ -63,7 +63,7 @@
      <BaseButton label="작성하기" />
     </div> -->
 
-    <div class="p-y-28" style="position:absolute; left:0; bottom: 20px; width: 100%;">
+    <div class="p-x-28" style="position:absolute; left:0; bottom: 20px; width: 100%;">
 			<BaseButton label="작성하기" @click.native="onClickPost"/>
 		</div>
 

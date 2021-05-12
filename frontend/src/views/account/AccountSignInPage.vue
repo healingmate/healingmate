@@ -9,7 +9,7 @@
 
 		<TheGoBackButton />
 		
-		<div class="p-y-28 absolute" style="bottom: 130px; width: 100%">
+		<div class="p-x-28 absolute" style="bottom: 130px; width: 100%">
 			<BaseTextInput 
 				:color="isNight ? '#ffffff' : '#000000'" 
 				label="아이디" 
@@ -25,7 +25,7 @@
 			/>
 		</div>
 
-		<div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
+		<div class="p-x-28 absolute" style="bottom: 20px; width: 100%">
 			<BaseButton back-ground-color="#545FD6" label="다음" @click.native="onSignInButton()"/>
 		</div>
 
