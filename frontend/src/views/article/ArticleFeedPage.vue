@@ -118,7 +118,12 @@ export default {
     },
     handleScroll() {
       // 아직 페이징을 받아올 데이터가 남아있고 로딩중이 아닌 상태로 스크롤을 맨 밑에 가깝게 내렸을 때
-      if (!this.$q.loading.isActive && Math.round(document.documentElement.scrollTop) + window.innerHeight > document.documentElement.scrollHeight - 10 && !this.isLast) {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      
+      if (!this.$q.loading.isActive && scrollTop + clientHeight >= scrollHeight - 1 && !this.isLast) {
+        console.log("지금")
         this.loadData()
       }
     }

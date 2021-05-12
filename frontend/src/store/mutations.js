@@ -1,31 +1,31 @@
-import { setCookie, deleteCookie } from '@/utils/cookies'
+import { Cookies } from 'quasar'
 
 export default {
   updateToken(state, tokenInformation){
-    setCookie('access_token', tokenInformation.accessToken),
-    setCookie('refresh_token', tokenInformation.refreshToken),
-    state.accessToken = tokenInformation.accessToken;
-    state.refreshToken = tokenInformation.refreshToken;
+    Cookies.set('access_token', tokenInformation.accessToken)
+    Cookies.set('refresh_token', tokenInformation.refreshToken)
+    state.accessToken = tokenInformation.accessToken
+    state.refreshToken = tokenInformation.refreshToken
   },
   updateUser(state, userInformation){
     if (userInformation.userId) {
-      setCookie('user_id', (userInformation.userId)),
+      Cookies.set('user_id', (userInformation.userId))
       state.userId = userInformation.userId;
     }
-    setCookie('nickname', (userInformation.nickname)),
-    setCookie('profile_image', (userInformation.profileImage)),
-    setCookie('keyword', (userInformation.keyword)),
+    Cookies.set('nickname', (userInformation.nickname))
+    Cookies.set('profile_image', (userInformation.profileImage))
+    Cookies.set('keyword', (userInformation.keyword))
     state.nickname = userInformation.nickname;
     state.profileImage = userInformation.profileImage;
     state.keyword = userInformation.keyword;
   },
   removeToken(state){
-    deleteCookie('access_token'),
-    deleteCookie('refresh_token'),
-    deleteCookie('user_id'),
-    deleteCookie('nickname'),
-    deleteCookie('profile_image'),
-    deleteCookie('keyword'),
+    Cookies.remove('access_token'),
+    Cookies.remove('refresh_token'),
+    Cookies.remove('user_id'),
+    Cookies.remove('nickname'),
+    Cookies.remove('profile_image'),
+    Cookies.remove('keyword'),
     state.accessToken = null;
     state.refreshToken = null;
     state.userId = null;
@@ -34,7 +34,7 @@ export default {
     state.keyword = null;
   },
   refreshToken(state, accessToken){
-    setCookie('access_token', accessToken),
+    Cookies.set('access_token', accessToken)
     state.accessToken = accessToken;
   }
 }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import { Cookies } from 'quasar'
 import { getCookie } from '@/utils/cookies'
 import mutations from '@/store/mutations'
 import actions from '@/store/actions'

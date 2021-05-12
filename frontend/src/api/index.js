@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '@/store/index'
-import { getCookie } from '@/utils/cookies'
+import { Cookies } from 'quasar'
 
 // base url 설정
 const BASE_URL = process.env.VUE_APP_SERVER_URL
@@ -17,7 +17,7 @@ function getInstence( validateRequired = true, isMultiPart = false ) {
   }
   
   // 세션쿠키에서 accessToken을 꺼내온다.
-  const token = getCookie('access_token')
+  const token = Cookies.get('access_token')
 
   // axios 인스턴스를 생성한다.
   return axios.create({
@@ -25,7 +25,6 @@ function getInstence( validateRequired = true, isMultiPart = false ) {
     mimeType: `${isMultiPart} ? 'multipart/form-data' : ''`,
     contentType: `${isMultiPart} ? ${ false } : ${ true }`,
     processData: `${isMultiPart} ? ${ false } : ${ true }`,
-    withCredentials: false,
     headers: {
       "Content-Type": 'application/json',
       "Authorization": `Bearer ${token}`,
