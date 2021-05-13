@@ -1,6 +1,6 @@
 <template>
   <!-- 콘텐츠 card -->
-  <div style="width: 42vw; relative-position">
+  <div style="width: 41vw; relative-position">
     <div>
       <!-- Youtube -->
       <q-img 
@@ -21,7 +21,7 @@
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
-          @click="checkbookmarked"
+          @click="checkbookmarked(entity.id)"
         ></q-icon>
       </q-img>
       <!-- GIPHY 이미지 -->
@@ -35,7 +35,7 @@
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
-          @click="checkbookmarked"
+          @click="checkbookmarked(entity.id)"
         ></q-icon>
       </q-img>
     </div>
@@ -75,9 +75,12 @@
 </template>
 
 <script>
+import { bookmarkContent, deleteBookmarkContent, getBookmarkedContents } from '@/api/healing-content';
+
 export default {
   props: {
     entity: Object,
+    bookmarkedList: Array,
   },
   data() {
     return {
@@ -85,13 +88,37 @@ export default {
     }
   },
   methods: {
-    checkbookmarked() {
-      this.entity.bookmarked = !this.entity.bookmarked;
+    checkbookmarked(contentId) {
+      if (this.entity.bookmarked === false) {
+        bookmarkContent(contentId)
+        .then(() => {
+          this.entity.bookmarked = true;
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      } else {
+        deleteBookmarkContent(contentId)
+        .then(() => {
+          this.entity.bookmarked = false;
+          // 사용자가 프로필 페이지에서 북마크를 해제했을 경우
+          getBookmarkedContents()
+          .then((response) => {
+            this.$emit('checkBookmarkList', response.data);
+          })
+          .catch(err => {
+            console.log(err.response)
+          })
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      }
     },
     showVideo() {
       this.open = true;
     }
-  }
+  },
 }
 </script>
 

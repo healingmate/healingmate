@@ -1,6 +1,6 @@
 <template>
   <div>
-		<p :style="`color: ${color}; font-size: 1rem;`">{{label}}</p>
+		<p :style="`color: ${ color }; font-size: 1rem;`">{{ label }}</p>
     <q-input
 			v-model="text"
 			ref="input"
@@ -46,6 +46,7 @@ export default {
 	// components: {},
 	// filters: {},
 	props: {
+		entity: String,
 		color: {
 			type: String,
 			default: null
@@ -69,13 +70,15 @@ export default {
 	},
 	data() {
 		return {
-			text: '',
+			text: this.entity ? this.entity : '',
 		}
 	},
 	// computed: {},
 	// watch: {},
 	// created() {},
-	// mounted() {},
+	mounted() {
+		this.$emit('onValidate', this.$refs.input)
+	},
 	// updated() {},
 	methods: {
 		// 달력 선택시 연도를 선택하자 마자 캘린더를 꺼버리는 함수
@@ -92,24 +95,21 @@ export default {
 }
 </script>
 
-<style>
-.q-field__control {
-  border-radius: 14px !important;
-}
-
-.q-field__control:before {
-  border: 1px solid #545FD6 !important;
-}
-
-.q-field__control {
-	height: 44px !important;
-}
-
+<style scoped>
 .q-field {
 	font-size: 1rem !important;
 }
 
-.q-field__append {
+.q-field >>> .q-field__control {
+  border-radius: 14px !important;
+	height: 44px !important;
+}
+
+.q-field >>> .q-field__control:before {
+  border: 1px solid #545FD6 !important;
+}
+
+.q-field >>> .q-field__append {
 	padding-top: 3px;
 }
 </style>

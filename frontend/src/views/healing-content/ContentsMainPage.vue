@@ -1,14 +1,21 @@
 <template>
   <div>
     <!-- 상단 뒷배경 -->
-    <the-image-header class="relative" background-image="contents-main.png"></the-image-header>
+    <the-image-header 
+      class="relative" 
+      :background-image="isNight ? 'night.jpg' : 'day.jpg'"
+      :brightness="60"
+    ></the-image-header>
     <!-- 알람-->
-    <!-- TODO : 사이즈 조절  -->
-    <the-notification class="absolute-right q-mr-xl q-mt-md text-white"></the-notification>
+    <the-notification 
+      class="absolute-right q-pr-md q-mr-xl q-mt-md text-white"
+      style="top: 0.7rem;"
+    ></the-notification>
     <!-- 사용자 프로필 -->
     <base-avatar 
       class="absolute-right q-mr-lg q-mt-lg"
-      @click.native="goToProfile"
+      :profileImagePath="this.$store.state.profileImage"
+      :go-profile="true"
     ></base-avatar>
     <div class="q-pa-lg">
       <!-- 타이틀 -->
@@ -23,6 +30,10 @@
         :entity="category"
       ></contents-category>
     </div>
+    <!-- 내비게이션 바 -->
+    <the-bottom-navigation-bar 
+      style="position: absolute" 
+    ></the-bottom-navigation-bar>
   </div>
 </template>
 
@@ -31,12 +42,20 @@ import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsCategory from '@/components/healing-content/ContentsCategory';
 import BaseAvatar from '@/components/common/BaseAvatar';
 import TheNotification from '@/components/common/TheNotification';
+import TheBottomNavigationBar from '@/components/common/TheBottomNavigationBar';
+
 export default {
   components: {
     TheImageHeader,
     ContentsCategory,
     BaseAvatar,
     TheNotification,
+    TheBottomNavigationBar
+  },
+  props: {
+    isNight:{
+      isNight: Boolean
+    }
   },
   data() {
     return {
@@ -67,10 +86,6 @@ export default {
     }
   },
   methods: {
-    goToProfile() {
-      console.log('프로필로 이동')
-      this.$router.push('/profile');
-    }
   }
 }
 </script>

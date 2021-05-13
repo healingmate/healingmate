@@ -1,24 +1,31 @@
 <template>
-  <div>
-    <q-btn class="back" round icon="notifications_none" @click="onClick" />
-  </div>
+  <!-- color default는 흰색입니다 -->
+  <q-icon 
+    :size="`${size}rem`" 
+    name="notifications" 
+    @click="goToNotification" 
+    :color="color" />
 </template>
 
 <script>
 export default {
-  methods: {
-    onClick() {
-      console.log('clicked');
+  name: 'TheNotification',
+  props: {
+    size: {
+      type: Number,
+      default: 1.5,
     },
+    color: {
+      type: String,
+      default: 'white',
+    },
+  },
+  methods: {
+    goToNotification() {
+      this.$router.push('/notification');
+    }
   },
 };
 </script>
 
-<style>
-.back {
-  background-color: transparent;
-
-  margin: auto;
-  /* backface-visibility: visible; */
-}
-</style>
+<style></style>

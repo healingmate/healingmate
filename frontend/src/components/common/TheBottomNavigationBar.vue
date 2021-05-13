@@ -1,37 +1,69 @@
 <template>
-  <div class="q-pa-md">
-    <!-- <q-layout view="lHh lpr lFf" container style="height: 400px" class="shadow-2 rounded-borders">
-      <div class="nav">
-        <q-footer bordered class="bg-white text-primary">
-          <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
-            <q-tab name="feeds" label="Feeds" icon="chat" />
-            <q-tab name="matching" label="Matching" icon="pets" />
-            <q-tab name="contents" label="Contents" icon="dynamic_feed" />
-          </q-tabs>
-        </q-footer>
-      </div>
-    </q-layout> -->
-
-    <q-tabs bordered no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
-      <q-tab name="feeds" label="Feeds" icon="chat" />
-      <q-tab name="matching" label="Matching" icon="pets" />
-      <q-tab name="contents" label="Contents" icon="dynamic_feed" />
-    </q-tabs>
-  </div>
+  <q-tabs
+    id="nav"
+    v-model="tab"
+    indicator-color="transparent"
+    @input="onTabs"
+  >
+    <q-tab name="feed" :icon="`img:${require('@/assets/images/bottom-navigation/feed.png')}`"/>
+    <q-tab name="bamboo" :icon="`img:${require('@/assets/images/bottom-navigation/bamboo.png')}`" />
+    <q-tab name="contents" :icon="`img:${require('@/assets/images/bottom-navigation/contents.png')}`" />
+  </q-tabs>
 </template>
 
 <script>
 export default {
-  data() {
+	name: 'TheBottomNavigationBar',
+	// components: {},
+	// filters: {},
+  // mixins: [],
+	data() {
     return {
-      tab: 'images',
+      tab: null,
     };
   },
-};
+	// computed: {},
+	// watch: {},
+	created() {
+    if (this.$route.name === 'ArticleFeedPage') {
+      this.tab = 'feed'
+    } else if (this.$route.name === 'BambooEnterPage') {
+      this.tab = 'bamboo'
+    } else if (this.$route.name === 'Healing-content') {
+      this.tab = 'contents'
+    }
+  },
+	// mounted() {},
+	// updated() {},
+	methods: {
+    onTabs(tabName) {
+      if (tabName === 'feed' && this.$route.name !== 'ArticleFeedPage') {
+        this.$router.push({name: 'ArticleFeedPage'})
+      } else if (tabName === 'bamboo' && this.$route.name !== 'BambooEnterPage') {
+        this.$router.push({name: 'BambooEnterPage'})
+      } else if (tabName === 'contents' && this.$route.name !== 'Healing-content') {
+        this.$router.push({name: 'Healing-content'})
+      }
+    }
+  },
+}
 </script>
 
-<style>
-.nav {
-  position: absolute;
+<style >
+#nav {
+  position: sticky;
+  width: 100%;
+  background-color: #244684;
+  bottom: 0;
+  z-index: 2;
+}
+
+.q-tab__icon {
+  height: 32px !important;
+  width: 32px !important;
+}
+
+.q-tab--active {
+  filter: brightness(100);
 }
 </style>

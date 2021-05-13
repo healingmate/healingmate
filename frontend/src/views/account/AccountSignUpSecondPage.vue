@@ -2,7 +2,9 @@
   <div>
 		<TheImageHeader :background-image="isNight ? 'night_16x9.jpg' : 'day_16x9.jpg'"/>
 
-		<div class="p-y-28">
+		<TheGoBackButton />
+
+		<div class="p-x-28">
 			<BaseTextInput 
 				color="#545FD6" 
 				label="아이디 *" 
@@ -28,7 +30,7 @@
 			/>
 		</div>
 
-		<div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
+		<div class="p-x-28 absolute" style="bottom: 20px; width: 100%">
 			<BaseButton 
 				back-ground-color="#545FD6" 
 				label="회원가입" 
@@ -46,6 +48,7 @@
 
 <script>
 import TheImageHeader from '@/components/common/TheImageHeader'
+import TheGoBackButton from "@/components/common/TheGoBackButton"
 import BaseButton from "@/components/common/BaseButton"
 import BaseTextInput from "@/components/common/BaseTextInput"
 import { signUp } from "@/api/account"
@@ -57,6 +60,7 @@ export default {
 	name: 'AccountSignUpSecondPage',
 	components: {
 		TheImageHeader,
+		TheGoBackButton,
 		BaseButton,
 		BaseTextInput,
 	},
@@ -102,8 +106,6 @@ export default {
 					message: this.confirmPasswordReference.computedErrorMessage,
 				})
 			} 
-			// TODO: 동기식으로 서버에 요청을 보내 userID가 중복인지 확인 해야함
-			// else if() {}  
 			else {
 				// const addtionalInformationList = VueCookies.get('addtional-information').split('-')
 				const addtionalInformationList = this.$q.cookies.get('addtional-information').split('-')

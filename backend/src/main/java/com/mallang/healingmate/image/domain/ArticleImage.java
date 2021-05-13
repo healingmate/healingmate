@@ -2,6 +2,7 @@ package com.mallang.healingmate.image.domain;
 
 import com.mallang.healingmate.article.domain.Article;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,9 +11,9 @@ import javax.persistence.*;
 /**
  * com.mallang.healingmate.image.domain
  * ArticleImage.java
- * @date    2021-04-22 오후 2:24
- * @author  서범석, 이아영
  *
+ * @author 서범석, 이아영
+ * @date 2021-04-22 오후 2:24
  * @변경이력
  **/
 
@@ -24,11 +25,21 @@ public class ArticleImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")
     private Image image;
+
+    @Builder
+    public ArticleImage(Article article, Image image) {
+        this.article = article;
+        this.image = image;
+    }
+
+    public static ArticleImage associate(Article article, Image image) {
+        return ArticleImage.builder().article(article).image(image).build();
+    }
 }
