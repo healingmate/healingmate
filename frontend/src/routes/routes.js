@@ -17,6 +17,7 @@ import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
 import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
+import Test from '@/views/bamboo/TestWebRTCPage.vue';
 
 export default [
   {
@@ -126,6 +127,12 @@ export default [
     name: 'BambooTypeSelectPage',
     component: BambooTypeSelectPage,
     meta: { authRequired: true },
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: Test,
+    // meta: { authRequired: true },
   },
   {
     path: '*',
