@@ -238,17 +238,13 @@ export default {
       turn = -turn;
       if (forward > 0.3) {
         if (this.player.action != 'Walking' && this.player.action != 'Running') {
-          console.log(this.action, '바뀌기전');
-
           this.action = 'Walking';
-          console.log(this.action, '후');
         }
       } else if (forward < -0.3) {
         if (this.player.action != 'Walking Backwards') {
           this.action = 'Walking Backwards';
         }
       } else {
-        console.log('여기?');
         forward = 0;
         if (Math.abs(turn) > 0.1) {
           if (this.player.action != 'Turn') this.action = 'Turn';
@@ -364,7 +360,6 @@ export default {
   computed: {
     action: {
       get: function() {
-        console.log(this.player.action, 'get');
         return this.player.action;
       },
       set: function(name) {
@@ -377,7 +372,7 @@ export default {
         this.player.action = name;
         this.player.actionTime = Date.now();
 
-        // _action.fadeIn(0.2);
+        // _action.fadeIn(0.5);
         _action.play();
       },
     },
