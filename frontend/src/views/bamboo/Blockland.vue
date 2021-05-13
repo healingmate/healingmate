@@ -84,7 +84,11 @@ export default {
         object.mixer = new THREE.AnimationMixer(object);
         game.player.mixer = object.mixer;
         // game.player.root = object.mixer.getRoot();
+
+        // player.animations이 undefined기 때문에
+        // game.player.animations.Idle = {값} 으로 선언할수없음
         game.player.animations = { Idle: object.animations[0] };
+
         object.name = 'FireFighter';
 
         object.traverse(function(child) {
@@ -109,7 +113,10 @@ export default {
         game.scene.add(game.player.object);
 
         // game.player.mixer.clipAction(object.animations[0]).play();
+
+        // 둘다 같다
         game.animations.Idle = object.animations[0];
+        // game.animations['Idle'] = object.animations[0];
 
         game.joystick = new JoyStick({
           onMove: game.playerControl,
@@ -141,7 +148,7 @@ export default {
       let anim = this.anims.pop();
       const game = this;
       loader.load(`${this.assetsPath}fbx/anims/${anim}.fbx`, function(object) {
-        game.player.animations[anim] = object.animations[0];
+        game.animations[anim] = object.animations[0];
         if (game.anims.length > 0) {
           game.loadNextAnim(loader);
         } else {
@@ -230,10 +237,18 @@ export default {
     playerControl(forward, turn) {
       turn = -turn;
       if (forward > 0.3) {
-        if (this.player.action != 'Walking' && this.player.action != 'Running') this.action = 'Walking';
+        if (this.player.action != 'Walking' && this.player.action != 'Running') {
+          console.log(this.action, '바뀌기전');
+
+          this.action = 'Walking';
+          console.log(this.action, '후');
+        }
       } else if (forward < -0.3) {
-        if (this.player.action != 'Walking Backwards') this.action = 'Walking Backwards';
+        if (this.player.action != 'Walking Backwards') {
+          this.action = 'Walking Backwards';
+        }
       } else {
+        console.log('여기?');
         forward = 0;
         if (Math.abs(turn) > 0.1) {
           if (this.player.action != 'Turn') this.action = 'Turn';
@@ -309,7 +324,6 @@ export default {
     animate() {
       const game = this;
       const dt = this.clock.getDelta();
-
       requestAnimationFrame(function() {
         game.animate();
       });
@@ -355,14 +369,15 @@ export default {
       },
       set: function(name) {
         if (this.player.action == name) return;
-        const _action = this.player.mixer.clipAction(this.player.animations[name]);
-        console.log(_action, 'a무슨동작');
+
+        const _action = this.player.mixer.clipAction(this.animations[name]);
         _action.time = 0;
+
         this.player.mixer.stopAllAction();
         this.player.action = name;
         this.player.actionTime = Date.now();
-        console.log(name, 'set');
-        _action.fadeIn(0.5);
+
+        // _action.fadeIn(0.2);
         _action.play();
       },
     },
