@@ -22,37 +22,15 @@ export default {
       player: {},
       scene: null,
       camera: null,
+      cameras: null,
       controls: null,
       renderer: null,
       stats: null,
       raycaster: null,
       assetsPath: '../three-assets/',
-      anims: ['Walking', 'Walking Backwards', 'Turn', 'Running', 'Pointing Gesture'],
+      anims: ['Walking', 'Walking Backwards', 'Turn', 'Running'],
       animations: {},
       sun: null,
-      activeCamera: {
-        set activeCamera(object) {
-          this.player.cameras.active = object;
-        },
-      },
-      action: {
-        set action(name) {
-          const action = this.player.mixer.clipAction(this.animations[name]);
-          action.time = 0;
-          this.player.mixer.stopAllAction();
-          this.player.action = name;
-          this.player.actionTime = Date.now();
-          this.player.actionName = name;
-
-          action.fadeIn(0.5);
-          action.play();
-        },
-
-        get action() {
-          if (this.player === undefined || this.player.actionName === undefined) return '';
-          return this.player.actionName;
-        },
-      },
     };
   },
   components: {},
@@ -62,8 +40,8 @@ export default {
       this.clock = new THREE.Clock();
       // create scene
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color(0xa0a0a);
-      this.scene.fog = new THREE.Fog(0xa0a0a, 700, 4000);
+      this.scene.background = new THREE.Color(0xa0a0a0);
+      this.scene.fog = new THREE.Fog(0xa0a0a0, 700, 4000);
 
       this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
       this.camera.position.set(112, 100, 600);
@@ -72,20 +50,20 @@ export default {
       light.position.set(0, 200, 0);
       this.scene.add(light);
 
-      const shadowSize = 200;
+      // const shadowSize = 200;
       light = new THREE.DirectionalLight(0xffffff);
       light.position.set(0, 200, 100);
-      light.castShadow = true;
-      light.shadow.camera.top = shadowSize;
-      light.shadow.camera.bottom = -shadowSize;
-      light.shadow.camera.left = -shadowSize;
-      light.shadow.camera.right = shadowSize;
+      // light.castShadow = true;
+      // light.shadow.camera.top = shadowSize;
+      // light.shadow.camera.bottom = -shadowSize;
+      // light.shadow.camera.left = -shadowSize;
+      // light.shadow.camera.right = shadowSize;
       this.sun = light;
       this.scene.add(light);
 
       // ground
-      var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(10000, 10000), new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false }));
-      mesh.rotation.x = -Math.PI / 2;
+      var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(10000, 10000), new THREE.MeshLambertMaterial({ color: 0x999999, depthWrite: false }));
+      // mesh.rotation.x = -Math.PI / 2;
       //mesh.position.y = -100;
       mesh.receiveShadow = true;
       this.scene.add(mesh);
@@ -98,18 +76,19 @@ export default {
 
       // Model
       const loader = new FBXLoader();
+
       const game = this;
 
       loader.load(`${this.assetsPath}fbx/people/FireFighter.fbx`, function(object) {
+        // object.rotate.x = Math.PI / 2;
         object.mixer = new THREE.AnimationMixer(object);
         game.player.mixer = object.mixer;
-        game.player.root = object.mixer.getRoot();
-
+        // game.player.root = object.mixer.getRoot();
+        game.player.animations = { Idle: object.animations[0] };
         object.name = 'FireFighter';
 
         object.traverse(function(child) {
           if (child.isMesh) {
-            // child.material.map = null;
             child.castShadow = true;
             child.receiveShadow = false;
           }
@@ -125,13 +104,20 @@ export default {
         });
 
         game.player.object = new THREE.Object3D();
-        game.scene.add(game.player.object);
+
         game.player.object.add(object);
+        game.scene.add(game.player.object);
+
         // game.player.mixer.clipAction(object.animations[0]).play();
         game.animations.Idle = object.animations[0];
-        game.loadNextAnim(loader);
 
-        // game.animate();
+        game.joystick = new JoyStick({
+          onMove: game.playerControl,
+          game: game,
+        });
+
+        game.createCameras();
+        game.loadNextAnim(loader);
       });
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -155,32 +141,91 @@ export default {
       let anim = this.anims.pop();
       const game = this;
       loader.load(`${this.assetsPath}fbx/anims/${anim}.fbx`, function(object) {
-        game.animations[anim] = object.animations[0];
-        console.log(game, 'loadnextanim');
+        game.player.animations[anim] = object.animations[0];
         if (game.anims.length > 0) {
           game.loadNextAnim(loader);
         } else {
-          console.log('else', game);
-          game.createCameras();
-          game.joystick = new JoyStick({
-            onMove: game.playerControl,
-            game: game,
-          });
           delete game.anims;
-          game.actions = 'Idle';
+          game.action = 'Idle';
+          // game.action('Idle');
           game.animate();
-          console.log('animate');
         }
       });
     },
     movePlayer(dt) {
-      if (this.player.move.forward > 0) {
-        const speed = this.player.action == 'Running' ? 400 : 150;
-        this.player.object.translateZ(dt * speed);
-      } else {
-        this.player.object.translateZ(-dt * 30);
+      const pos = this.player.object.position.clone();
+      pos.y += 60;
+      let dir = new THREE.Vector3();
+      this.player.object.getWorldDirection(dir);
+      if (this.player.move.forward < 0) dir.negate();
+      let raycaster = new THREE.Raycaster(pos, dir);
+      let blocked = false;
+      const colliders = this.colliders;
+
+      if (colliders !== undefined) {
+        const intersect = raycaster.intersectObjects(colliders);
+        if (intersect.length > 0) {
+          if (intersect[0].distance < 50) blocked = true;
+        }
       }
-      this.player.object.rotateY(this.player.move.turn * dt);
+
+      if (!blocked) {
+        if (this.player.move.forward > 0) {
+          const speed = this.player.action == 'Running' ? 400 : 150;
+          this.player.object.translateZ(dt * speed);
+        } else {
+          this.player.object.translateZ(-dt * 30);
+        }
+      }
+
+      if (colliders !== undefined) {
+        //cast left
+        dir.set(-1, 0, 0);
+        dir.applyMatrix4(this.player.object.matrix);
+        dir.normalize();
+        raycaster = new THREE.Raycaster(pos, dir);
+
+        let intersect = raycaster.intersectObjects(colliders);
+        if (intersect.length > 0) {
+          if (intersect[0].distance < 50) this.player.object.translateX(100 - intersect[0].distance);
+        }
+
+        //cast right
+        dir.set(1, 0, 0);
+        dir.applyMatrix4(this.player.object.matrix);
+        dir.normalize();
+        raycaster = new THREE.Raycaster(pos, dir);
+
+        intersect = raycaster.intersectObjects(colliders);
+        if (intersect.length > 0) {
+          if (intersect[0].distance < 50) this.player.object.translateX(intersect[0].distance - 100);
+        }
+
+        //cast down
+        dir.set(0, -1, 0);
+        pos.y += 200;
+        raycaster = new THREE.Raycaster(pos, dir);
+        const gravity = 30;
+
+        intersect = raycaster.intersectObjects(colliders);
+        if (intersect.length > 0) {
+          const targetY = pos.y - intersect[0].distance;
+          if (targetY > this.player.object.position.y) {
+            //Going up
+            this.player.object.position.y = 0.8 * this.player.object.position.y + 0.2 * targetY;
+            this.player.velocityY = 0;
+          } else if (targetY < this.player.object.position.y) {
+            //Falling
+            if (this.player.velocityY == undefined) this.player.velocityY = 0;
+            this.player.velocityY += dt * gravity;
+            this.player.object.position.y -= this.player.velocityY;
+            if (this.player.object.position.y < targetY) {
+              this.player.velocityY = 0;
+              this.player.object.position.y = targetY;
+            }
+          }
+        }
+      }
     },
     playerControl(forward, turn) {
       turn = -turn;
@@ -202,32 +247,64 @@ export default {
         this.player.move = { forward, turn };
       }
     },
+    getMousePosition(clientX, clientY) {
+      const pos = new THREE.Vector2();
+      pos.x = (clientX / this.renderer.domElement.clientWidth) * 2 - 1;
+      pos.y = -(clientY / this.renderer.domElement.clientHeight) * 2 + 1;
+      return pos;
+    },
+    tap(evt) {
+      if (!this.interactive) return;
+
+      let clientX = evt.targetTouches ? evt.targetTouches[0].pageX : evt.clientX;
+      let clientY = evt.targetTouches ? evt.targetTouches[0].pageY : evt.clientY;
+
+      this.mouse = this.getMousePosition(clientX, clientY);
+    },
     createCameras() {
       // const offset = new THREE.Vector3(0, 80, 0);
       const front = new THREE.Object3D();
       front.position.set(112, 100, 600);
       front.parent = this.player.object;
+
       const back = new THREE.Object3D();
       back.position.set(0, 300, -600);
       back.parent = this.player.object;
+
       const wide = new THREE.Object3D();
       wide.position.set(178, 139, 1665);
       wide.parent = this.player.object;
+
       const overhead = new THREE.Object3D();
       overhead.position.set(0, 400, 0);
       overhead.parent = this.player.object;
+
       const collect = new THREE.Object3D();
       collect.position.set(40, 82, 94);
       collect.parent = this.player.object;
+
       this.player.cameras = { front, back, wide, overhead, collect };
-      this.activeCamera = this.player.cameras.back;
+      this.player.cameras.active = this.player.cameras.back;
     },
+
     onWindowResize() {
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
 
       this.renderer.setSize(window.innerWidth, window.innerHeight);
     },
+    // action(name) {
+    //   if (this.player.action == name) return;
+    //   const _action = this.player.mixer.clipAction(this.player.animations[name]);
+
+    //   _action.time = 0;
+    //   this.player.mixer.stopAllAction();
+    //   this.player.action = name;
+    //   this.player.actionTime = Date.now();
+
+    //   _action.fadeIn(0.5);
+    //   _action.play();
+    // },
 
     animate() {
       const game = this;
@@ -245,12 +322,14 @@ export default {
         }
       }
 
-      if (this.player.move !== undefined) this.movePlayer(dt);
-
+      if (this.player.move !== undefined) {
+        this.movePlayer(dt);
+        this.player.object.rotateY(this.player.move.turn * dt);
+      }
       if (this.player.cameras != undefined && this.player.cameras.active != undefined) {
         this.camera.position.lerp(this.player.cameras.active.getWorldPosition(new THREE.Vector3()), 0.05);
         const pos = this.player.object.position.clone();
-        pos.y += 200;
+        pos.y += 300;
         this.camera.lookAt(pos);
       }
 
@@ -261,13 +340,33 @@ export default {
       //   this.sun.target = this.player.object;
       // }
       this.renderer.render(this.scene, this.camera);
+      // if (this.stats != undefined) this.stats.update();
     },
   },
   mounted() {
     this.init();
     this.animate();
   },
-  computed: {},
+  computed: {
+    action: {
+      get: function() {
+        console.log(this.player.action, 'get');
+        return this.player.action;
+      },
+      set: function(name) {
+        if (this.player.action == name) return;
+        const _action = this.player.mixer.clipAction(this.player.animations[name]);
+        console.log(_action, 'a무슨동작');
+        _action.time = 0;
+        this.player.mixer.stopAllAction();
+        this.player.action = name;
+        this.player.actionTime = Date.now();
+        console.log(name, 'set');
+        _action.fadeIn(0.5);
+        _action.play();
+      },
+    },
+  },
   created() {
     window.addEventListener('resize', this.onWindowResize);
   },
