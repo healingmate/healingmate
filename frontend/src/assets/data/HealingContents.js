@@ -83,5 +83,33 @@ const data = [
     contents: 'https://media.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif',
     bookmarked: false,
   },
+  {
+    id: 13,
+    category: '유튜브',
+    title: '슈앤트리',
+    contents: "ZX6JZKP6w9I",
+    bookmarked: false,
+  },
+  {
+    id: 14,
+    category: '유튜브',
+    title: '묘한힐링',
+    contents: 'LmjMj6k0tBw',
+    bookmarked: false,
+  },
+  {
+    id: 15,
+    category: 'GIF',
+    title: "'SUP?",
+    contents: 'https://media.giphy.com/media/sr8jYZVVsCmxddga8w/giphy.gif',
+    bookmarked: false,
+  },
+  {
+    id: 16,
+    category: 'GIF',
+    title: 'Birthday',
+    contents: 'https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif',
+    bookmarked: false,
+  },
 ];
 export { data };
