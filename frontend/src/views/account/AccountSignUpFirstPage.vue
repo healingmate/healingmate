@@ -4,7 +4,7 @@
 
 		<TheGoBackButton />
 
-		<div class="p-y-28">
+		<div class="p-x-28">
 			<BaseTextInput 
 				color="#545FD6" 
 				label="닉네임 *"
@@ -23,7 +23,7 @@
 			/>
 		</div>
 
-		<div class="p-y-28 absolute" style="bottom: 20px; width: 100%">
+		<div class="p-x-28 absolute" style="bottom: 20px; width: 100%">
 			<BaseButton 
 				back-ground-color="#545FD6" 
 				label="다음" 

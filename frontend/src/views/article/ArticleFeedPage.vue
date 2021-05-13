@@ -24,7 +24,7 @@
       v-for="(article, index) in articleList" 
       :key="index"
       :article="article"
-      class="p-y-28"
+      class="p-x-28"
       @on-delete="onDeleteArticle"
     />
 
@@ -124,6 +124,7 @@ export default {
       const clientHeight = document.documentElement.clientHeight;
       
       if (!this.$q.loading.isActive && scrollTop + clientHeight >= scrollHeight - 1 && !this.isLast) {
+        this.$q.loading.show();
         console.log("지금")
         this.loadData()
       }

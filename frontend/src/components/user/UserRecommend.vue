@@ -1,5 +1,5 @@
 <template>
-  <div class="p-y-28 flex flex-center q-mt-lg">
+  <div class="p-x-28 flex flex-center q-mt-lg">
     <div 
       class="q-py-md q-px-xl"
       style="width: 100%; border: 2px solid black; border-radius: 10px; text-align: center;">

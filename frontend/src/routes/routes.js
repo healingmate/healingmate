@@ -16,6 +16,7 @@ import NotificationPage from '@/views/user/UserNotificationPage.vue';
 import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
+import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
 
 export default [
   {
@@ -93,13 +94,20 @@ export default [
     path: '/bamboo/main',
     name: 'BambooEnterPage',
     component: BambooEnterPage,
-    meta: { authRequired: true },
+    // meta: { authRequired: true },
   },
   {
     path: '/bamboo/category',
     name: 'BambooCategoryPage',
     component: BambooCategoryPage,
-    meta: { authRequired: true },
+    props: true,
+    // meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/type',
+    name: 'BambooTypeSelectPage',
+    component: BambooTypeSelectPage,
+    // meta: { authRequired: true },
   },
   {
     path: '/update-information',
