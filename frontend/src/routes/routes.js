@@ -17,6 +17,7 @@ import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
 import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
+import Test from '@/views/bamboo/TestWebRTCPage.vue';
 
 export default [
   {
@@ -91,25 +92,6 @@ export default [
     meta: { authRequired: true },
   },
   {
-    path: '/bamboo/main',
-    name: 'BambooEnterPage',
-    component: BambooEnterPage,
-    // meta: { authRequired: true },
-  },
-  {
-    path: '/bamboo/category',
-    name: 'BambooCategoryPage',
-    component: BambooCategoryPage,
-    props: true,
-    // meta: { authRequired: true },
-  },
-  {
-    path: '/bamboo/type',
-    name: 'BambooTypeSelectPage',
-    component: BambooTypeSelectPage,
-    // meta: { authRequired: true },
-  },
-  {
     path: '/update-information',
     name: 'UpdateInformation',
     component: UpdateInformation,
@@ -126,6 +108,31 @@ export default [
     name: 'NotificationPage',
     component: NotificationPage,
     meta: {authRequired: true}
+  },
+  {
+    path: '/bamboo/main',
+    name: 'BambooEnterPage',
+    component: BambooEnterPage,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/category',
+    name: 'BambooCategoryPage',
+    component: BambooCategoryPage,
+    props: true,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/type',
+    name: 'BambooTypeSelectPage',
+    component: BambooTypeSelectPage,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: Test,
+    // meta: { authRequired: true },
   },
   {
     path: '*',
