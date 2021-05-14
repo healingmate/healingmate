@@ -111,5 +111,33 @@ const data = [
     contents: 'https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif',
     bookmarked: false,
   },
+  {
+    id: 17,
+    category: 'GIF',
+    title: "뚱이",
+    contents: 'https://media.giphy.com/media/UVk5yzljef0kGiayL1/giphy.gif',
+    bookmarked: false,
+  },
+  {
+    id: 18,
+    category: 'GIF',
+    title: '펭귄',
+    contents: 'https://media.giphy.com/media/otnqsqqzmsw7K/giphy.gif',
+    bookmarked: false,
+  },
+  {
+    id: 19,
+    category: 'GIF',
+    title: '헬로우',
+    contents: "https://media.giphy.com/media/Cmr1OMJ2FN0B2/giphy.gif",
+    bookmarked: false,
+  },
+  {
+    id: 20,
+    category: 'GIF',
+    title: 'Teddy Bear?',
+    contents: 'https://media.giphy.com/media/OI8TsOa9KFAPu/giphy.gif',
+    bookmarked: false,
+  },
 ];
 export { data };
