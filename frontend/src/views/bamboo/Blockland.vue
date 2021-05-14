@@ -79,8 +79,11 @@ export default {
 
       const game = this;
 
-      loader.load(`${this.assetsPath}fbx/people/FireFighter.fbx`, function(object) {
+      loader.load(`${this.assetsPath}fbx/animals/Penguin.fbx`, function(object) {
         // object.rotate.x = Math.PI / 2;
+
+        console.log(object);
+
         object.mixer = new THREE.AnimationMixer(object);
         game.player.mixer = object.mixer;
         // game.player.root = object.mixer.getRoot();
@@ -89,7 +92,7 @@ export default {
         // game.player.animations.Idle = {값} 으로 선언할수없음
         game.player.animations = { Idle: object.animations[0] };
 
-        object.name = 'FireFighter';
+        object.name = 'Penguin';
 
         object.traverse(function(child) {
           if (child.isMesh) {
@@ -98,14 +101,14 @@ export default {
           }
         });
 
-        const tLoader = new THREE.TextureLoader();
-        tLoader.load(`${game.assetsPath}images/SimplePeople_FireFighter_Brown.png`, function(texture) {
-          object.traverse(function(child) {
-            if (child.isMesh) {
-              child.material.map = texture;
-            }
-          });
-        });
+        // const tLoader = new THREE.TextureLoader();
+        // tLoader.load(`${game.assetsPath}images/SimplePeople_FireFighter_Brown.png`, function(texture) {
+        //   object.traverse(function(child) {
+        //     if (child.isMesh) {
+        //       child.material.map = texture;
+        //     }
+        //   });
+        // });
 
         game.player.object = new THREE.Object3D();
 
