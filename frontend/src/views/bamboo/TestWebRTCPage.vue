@@ -1,9 +1,8 @@
 <template>
   <div class="make-center">
     <input type="text" id="room-id" value="abcdef" autocorrect=off autocapitalize=off size=20>
-    <button id="open-room">Open Room</button>
-    <button id="join-room">Join Room</button>
     <button id="open-or-join-room">Auto Open Or Join Room</button>
+    <q-btn color="primary" label="떠나기" @click="onLeave" />
 
     <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
 
@@ -11,7 +10,7 @@
   </div>
 </template>
 
-<script src="https://rtcmulticonnection.herokuapp.com/dev/getHTMLMediaElement.js"></script>
+<script src="https://socket.healingmate.kr/dev/getHTMLMediaElement.js"></script>
 <script>
 
 export default {
@@ -19,24 +18,26 @@ export default {
 	// components: {},
 	// filters: {},
   // mixins: [],
-	// props: {},
 	data() {
     return {
+      connection: null,
     }
 	},
 	// computed: {},
 	// watch: {},
   created() {
+    this.connection = new RTCMultiConnection();
   },
 	mounted() {
     const nickname = this.$store.state.nickname
     
-    var connection = new RTCMultiConnection();
+    var connection = this.connection
 
     // socketIo를 가지고 있는 서버 주소
-    connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+    connection.socketURL = 'https://socket.healingmate.kr/';
+    // connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 
-    connection.socketMessageEvent = 'audio-conference-demo';
+    connection.socketMessageEvent = 'bamboo-forest';
 
     connection.session = {
       audio: true,
@@ -63,25 +64,31 @@ export default {
         ]
     }];
 
+    connection.userid = nickname
+
+    // 채팅에 몇명이나 허용 할것인지
+    connection.maxParticipantsAllowed = 3;
+    // connection.maxParticipantsAllowed = 4;
+
+    connection.publicRoomIdentifier = 'bamboo-healing-contents-12333'
+
     connection.audiosContainer = document.getElementById('audios-container');
+
     connection.onstream = function(event) {
       var width = parseInt(connection.audiosContainer.clientWidth / 2) - 20;
-        console.log(event, "1")
-        var mediaElement = getHTMLMediaElement(event.mediaElement, {
-          title: nickname,
-          buttons: ['full-screen'],
-          width: width,
-          showOnMouseEnter: false
-        });
-        console.log(connection.socketURL,"?>???")
-        console.log('????')
-        connection.audiosContainer.appendChild(mediaElement);
+      var mediaElement = getHTMLMediaElement(event.mediaElement, {
+        title: event.userid,
+        buttons: ['full-screen'],
+        width: width,
+        showOnMouseEnter: false
+      });
+      connection.audiosContainer.appendChild(mediaElement);
 
-        setTimeout(function() {
-          mediaElement.media.play();
-        }, 5000);
+      setTimeout(function() {
+        mediaElement.media.play();
+      }, 5000);
 
-        mediaElement.id = event.streamid;
+      mediaElement.id = event.streamid;
     };
 
     connection.onstreamended = function(event) {
@@ -93,9 +100,7 @@ export default {
 
     function disableInputButtons() {
       document.getElementById('open-or-join-room').disabled = true;
-        document.getElementById('open-room').disabled = true;
-        document.getElementById('join-room').disabled = true;
-        document.getElementById('room-id').disabled = true;
+      document.getElementById('room-id').disabled = true;
     }
 
     // ......................................................
@@ -155,55 +160,66 @@ export default {
 
     if (roomid && roomid.length) {
       document.getElementById('room-id').value = roomid;
-        localStorage.setItem(connection.socketMessageEvent, roomid);
+      localStorage.setItem(connection.socketMessageEvent, roomid);
 
-        // auto-join-room
-        (function reCheckRoomPresence() {
-          connection.checkPresence(roomid, function(isRoomExist) {
-            if (isRoomExist) {
-              connection.join(roomid);
-                    return;
-                }
+      // auto-join-room
+      (function reCheckRoomPresence() {
+        connection.checkPresence(roomid, function(isRoomExist) {
+          if (isRoomExist) {
+            connection.join(roomid);
+                  return;
+              }
 
-                setTimeout(reCheckRoomPresence, 5000);
-            });
-        })();
+              setTimeout(reCheckRoomPresence, 5000);
+          });
+      })();
 
-        disableInputButtons();
+      disableInputButtons();
     }
 
     // ......................................................
     // .......................UI Code........................
     // ......................................................
-    document.getElementById('open-room').onclick = function() {
-      disableInputButtons();
-        connection.open(document.getElementById('room-id').value, function() {
-          // showRoomURL(connection.sessionid);
-        });
-    };
-
-    document.getElementById('join-room').onclick = function() {
-      disableInputButtons();
-        connection.join(document.getElementById('room-id').value);
-    };
 
     document.getElementById('open-or-join-room').onclick = function() {
-      disableInputButtons();
-        connection.openOrJoin(document.getElementById('room-id').value, function(isRoomExist, roomid) {
-          if (!isRoomExist) {
-            // showRoomURL(roomid);
+      connection.connectSocket(function(socket) {
+        socket.emit('get-public-rooms', connection.publicRoomIdentifier, function(listOfRooms) {
+          if (listOfRooms.length) {
+            for (const room of listOfRooms) {
+              if (room.maxParticipantsAllowed > room.participants.length) {
+                connection.openOrJoin(room.sessionid)
+                return
+              }
             }
+            // 현재 존재하는 방을 다 순회했는데 들어갈 방이 없다? 그러면 내가 새로 판다
+            connection.openOrJoin(document.getElementById('room-id').value)
+          } else {
+            // 현재 방이 아무것도 존재하지 않으면 첫 번째 방을 판다
+            connection.openOrJoin(document.getElementById('room-id').value)
+          }
         });
+      });
     };
   },
 	// updated() {},
-	// methods: {},
+	methods: {
+    onLeave() {
+      this.connection.closeSocket();
+      this.$router.push({name: 'ArticleFeedPage'})
+    },
+    getUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      })
+    },
+  },
 }
 </script>
 
 
 <style scoped>
-@import url("https://rtcmulticonnection.herokuapp.com/dev/getHTMLMediaElement.css");
+@import url("https://socket.healingmate.kr/dev/getHTMLMediaElement.css");
 
 #audios-container >>> audio{
   display: none;
