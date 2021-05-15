@@ -277,7 +277,7 @@ httpApp = httpApp.listen(process.env.PORT || PORT, process.env.IP || "0.0.0.0", 
 
 var ioOptions = {
     cors: {
-      origin: '*',
+      origin: ['http://localhost:8080','https://dev.healingmate.kr','https://healingmate.kr'],
       credentials: true
     }
 };
