@@ -10,7 +10,7 @@ const ioServer = require('socket.io');
 const RTCMultiConnectionServer = require('rtcmulticonnection-server');
 
 var PORT = 9001;
-var isUseHTTPs = false;
+var isUseHTTPs = true;
 
 const jsonPath = {
     config: 'config.json',
@@ -51,7 +51,7 @@ function serverHandler(request, response) {
 
             uri = url.parse(request.url).pathname;
             filename = path.join(config.dirPath ? resolveURL(config.dirPath) : process.cwd(), uri);
-        } catch (e) {
+	} catch (e) {
             pushLogs(config, 'url.parse', e);
         }
 
@@ -238,12 +238,14 @@ if (isUseHTTPs) {
     } else {
         pfx = config.sslKey.indexOf('.pfx') !== -1;
         options.key = fs.readFileSync(config.sslKey);
+	console.log(options.key);
     }
 
     if (!fs.existsSync(config.sslCert)) {
         console.log(BASH_COLORS_HELPER.getRedFG(), 'sslCert:\t ' + config.sslCert + ' does not exist.');
     } else {
         options.cert = fs.readFileSync(config.sslCert);
+        console.log(options.cert);
     }
 
     if (config.sslCabundle) {
@@ -273,7 +275,14 @@ httpApp = httpApp.listen(process.env.PORT || PORT, process.env.IP || "0.0.0.0", 
 // --------------------------
 // socket.io codes goes below
 
-ioServer(httpApp).on('connection', function(socket) {
+var ioOptions = {
+    cors: {
+      origin: '*',
+      credentials: true
+    }
+};
+
+ioServer(httpApp,ioOptions).on('connection', function(socket) {
     RTCMultiConnectionServer.addSocket(socket, config);
 
     // ----------------------
