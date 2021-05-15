@@ -95,7 +95,7 @@ export default {
       }
     },
     onClickSelectButton() {
-      console.log(this.typeCards[this.myType]);
+      this.$router.push({name: 'BambooForestPage', params: {roomType: this.myType ? 'multi' : 'single'}})
     },
   },
 };

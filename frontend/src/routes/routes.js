@@ -17,7 +17,7 @@ import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue';
 import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
 import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
-import Test from '@/views/bamboo/TestWebRTCPage.vue';
+import BambooForestPage from '@/views/bamboo/BambooForestPage.vue';
 import Bamboo from '@/views/bamboo/Bamboo.vue';
 import Blockland from '@/views/bamboo/Blockland.vue';
 
@@ -143,10 +143,11 @@ export default [
     meta: { authRequired: true },
   },
   {
-    path: '/test',
-    name: 'Test',
-    component: Test,
-    // meta: { authRequired: true },
+    path: '/bamboo/:roomType',
+    name: 'BambooForestPage',
+    component: BambooForestPage,
+    meta: { authRequired: true },
+    props: true,
   },
   {
     path: '*',
