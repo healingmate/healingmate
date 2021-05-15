@@ -1,25 +1,25 @@
-import Home from '../views/Home.vue';
-import ProjectComponentsPage from '../views/ProjectComponentsPage.vue';
-import AccountSignUpFirstPage from '@/views/account/AccountSignUpFirstPage';
-import AccountSignUpSecondPage from '@/views/account/AccountSignUpSecondPage';
-import AccountSignInPage from '@/views/account/AccountSignInPage';
-import ArticleFeedPage from '@/views/article/ArticleFeedPage';
-import ArticleCreatePage from '@/views/article/ArticleCreatePage';
-import HealingContent from '@/views/healing-content/ContentsMainPage.vue';
-import Contents from '@/views/healing-content/ContentsHealingPage.vue';
-import Asmr from '@/views/healing-content/ContentsAsmrPage.vue';
-import Meditation from '@/views/healing-content/ContentsMeditationPage.vue';
-import PageNotFoundPage from '@/views/common/PageNotFoundPage';
-import Profile from '@/views/user/UserProfilePage.vue';
-import UpdateInformation from '@/views/user/UserProfileUpdatePage.vue';
-import NotificationPage from '@/views/user/UserNotificationPage.vue';
-import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue';
-import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
-import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
-import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
-import BambooForestPage from '@/views/bamboo/BambooForestPage.vue';
-import Bamboo from '@/views/bamboo/Bamboo.vue';
-import Blockland from '@/views/bamboo/Blockland.vue';
+import Home from '../views/Home.vue'
+import ProjectComponentsPage from '../views/ProjectComponentsPage.vue'
+import AccountSignUpFirstPage from '@/views/account/AccountSignUpFirstPage'
+import AccountSignUpSecondPage from '@/views/account/AccountSignUpSecondPage'
+import AccountSignInPage from '@/views/account/AccountSignInPage'
+import ArticleFeedPage from '@/views/article/ArticleFeedPage'
+import ArticleCreatePage from '@/views/article/ArticleCreatePage'
+import HealingContent from '@/views/healing-content/ContentsMainPage.vue'
+import Contents from '@/views/healing-content/ContentsHealingPage.vue'
+import Asmr from '@/views/healing-content/ContentsAsmrPage.vue'
+import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
+import PageNotFoundPage from '@/views/common/PageNotFoundPage'
+import Profile from '@/views/user/UserProfilePage.vue'
+import UpdateInformation from '@/views/user/UserProfileUpdatePage.vue'
+import NotificationPage from '@/views/user/UserNotificationPage.vue'
+import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
+import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue'
+import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue'
+import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue'
+import BambooForestPage from '@/views/bamboo/BambooForestPage.vue'
+import Bamboo from '@/views/bamboo/Bamboo.vue'
+import Blockland from '@/views/bamboo/Blockland.vue'
 
 export default [
   {
@@ -32,18 +32,6 @@ export default [
     path: '/about',
     name: 'About',
     component: ProjectComponentsPage,
-  },
-  {
-    path: '/bamboo',
-    name: 'Bamboo',
-    component: Bamboo,
-    // meta: { authRequired: true },
-  },
-  {
-    path: '/blockland',
-    name: 'Blockland',
-    component: Blockland,
-    // meta: { authRequired: true },
   },
   {
     path: '/account/sign-up/first',
@@ -67,13 +55,13 @@ export default [
     path: '/articles',
     name: 'ArticleFeedPage',
     component: ArticleFeedPage,
-    meta: { authRequired: true },
+    meta: {authRequired: true}
   },
   {
     path: '/article/create',
     name: 'ArticleCreatePage',
     component: ArticleCreatePage,
-    meta: { authRequired: true },
+    meta: {authRequired: true}
   },
   {
     path: '/healing-content/main',
@@ -109,19 +97,19 @@ export default [
     path: '/update-information',
     name: 'UpdateInformation',
     component: UpdateInformation,
-    meta: { authRequired: true },
+    meta: {authRequired: true}
   },
   {
     path: '/update-password',
     name: 'UpdatePassword',
     component: UpdatePassword,
-    meta: { authRequired: true },
+    meta: {authRequired: true}
   },
   {
     path: '/notification',
     name: 'NotificationPage',
     component: NotificationPage,
-    meta: { authRequired: true },
+    meta: {authRequired: true}
   },
   {
     path: '/bamboo/main',
@@ -148,6 +136,18 @@ export default [
     component: BambooForestPage,
     meta: { authRequired: true },
     props: true,
+  },
+  {
+    path: '/bamboo',
+    name: 'Bamboo',
+    component: Bamboo,
+    // meta: { authRequired: true },
+  },
+  {
+    path: '/blockland',
+    name: 'Blockland',
+    component: Blockland,
+    // meta: { authRequired: true },
   },
   {
     path: '*',
