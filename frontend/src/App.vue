@@ -43,16 +43,4 @@ export default {
 
 <style>
 @import url('./assets/styles/global.css');
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  margin: 0px;
-}
-#app {
-  height: 100%;
-}
 </style>
