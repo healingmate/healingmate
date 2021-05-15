@@ -12,12 +12,14 @@ import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
 import PageNotFoundPage from '@/views/common/PageNotFoundPage'
 import Profile from '@/views/user/UserProfilePage.vue'
 import UpdateInformation from '@/views/user/UserProfileUpdatePage.vue'
-import NotificationPage from '@/views/user/UserNotificationPage.vue';
+import NotificationPage from '@/views/user/UserNotificationPage.vue'
 import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
-import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
-import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
-import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
-import Test from '@/views/bamboo/TestWebRTCPage.vue';
+import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue'
+import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue'
+import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue'
+import BambooForestPage from '@/views/bamboo/BambooForestPage.vue'
+import Bamboo from '@/views/bamboo/Bamboo.vue'
+import Blockland from '@/views/bamboo/Blockland.vue'
 
 export default [
   {
@@ -129,9 +131,22 @@ export default [
     meta: { authRequired: true },
   },
   {
-    path: '/test',
-    name: 'Test',
-    component: Test,
+    path: '/bamboo/:roomType',
+    name: 'BambooForestPage',
+    component: BambooForestPage,
+    meta: { authRequired: true },
+    props: true,
+  },
+  {
+    path: '/bamboo',
+    name: 'Bamboo',
+    component: Bamboo,
+    // meta: { authRequired: true },
+  },
+  {
+    path: '/blockland',
+    name: 'Blockland',
+    component: Blockland,
     // meta: { authRequired: true },
   },
   {
