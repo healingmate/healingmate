@@ -269,9 +269,11 @@ export default {
       this.mouse = this.getMousePosition(clientX, clientY);
     },
     onWindowResize() {
-      this.camera.aspect = window.innerWidth / window.innerHeight;
+      var container = document.getElementById('scene-container');
+      this.camera.aspect = container.clientWidth / container.clientHeight;
       this.camera.updateProjectionMatrix();
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+      this.renderer.setSize(container.clientWidth, container.clientHeight);
     },
     movePlayer(dt) {
       const pos = this.player.object.position.clone();
@@ -416,29 +418,16 @@ export default {
     },
   },
   created() {
-    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('DOMContentLoaded', this.onWindowResize);
   },
   destroyed() {
-    window.removeEventListener('resize', this.onWindowResize);
+    // window.removeEventListener('resize', this.onWindowResize);
   },
 };
 </script>
+
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 #scene-container {
   height: 100%;
 }
-</style>
+</style>>
