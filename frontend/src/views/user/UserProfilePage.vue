@@ -194,6 +194,7 @@ export default {
       pagingSize: 5,
       pagingCursorId: 0,
       isLast: false,
+      isLoading: false,
       value: 70,
     }
   },
@@ -256,7 +257,9 @@ export default {
       this.$store.dispatch('removeToken')
     },
     loadData() {
+      this.isLoading = !this.isLoading
       this.$q.loading.show();
+
       getArticleList(this.pagingCursorId, this.pagingSize)
       .then(response => {
         const newData = response.data.articleResponses
@@ -269,10 +272,13 @@ export default {
       })
       .finally(() => {
         this.$q.loading.hide();
+        this.isLoading = !this.isLoading
       })
     },
     handleScroll() {
-      if (!this.$q.loading.isActive && Math.round(document.documentElement.scrollTop) + window.innerHeight > document.documentElement.scrollHeight - 2 && !this.isLast) {
+      var scrollDepth = ((window.scrollY + window.innerHeight)/document.body.scrollHeight)
+      
+      if (!this.isLoading && scrollDepth > 0.99 && !this.isLast) {
         this.loadData()
       }
     },
