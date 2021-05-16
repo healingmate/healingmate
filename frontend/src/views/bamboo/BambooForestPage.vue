@@ -98,10 +98,15 @@ export default {
           title: event.userid,
           buttons: ['full-screen'],
           width: width,
-          showOnMouseEnter: false
+          showOnMouseEnter: false,
+          volum: event.userid === nickname ? 0 : 1
         })
-
+        
         connection.audiosContainer.appendChild(mediaElement);
+
+        if (event.userid === nickname) {
+          mediaElement.removeChild(mediaElement.firstChild);
+        }
 
         setTimeout(function() {
           mediaElement.media.play();
