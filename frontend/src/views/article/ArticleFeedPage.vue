@@ -122,6 +122,10 @@ export default {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
+
+      console.log('스크롤 하이', scrollHeight)
+      console.log('스크롤 탑', scrollHeight)
+      console.log('클라이언트 하이', scrollHeight)
       
       if (!this.$q.loading.isActive && scrollTop + clientHeight >= scrollHeight - 1 && !this.isLast) {
         this.$q.loading.show();
