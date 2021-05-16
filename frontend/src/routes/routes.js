@@ -12,11 +12,14 @@ import Meditation from '@/views/healing-content/ContentsMeditationPage.vue'
 import PageNotFoundPage from '@/views/common/PageNotFoundPage'
 import Profile from '@/views/user/UserProfilePage.vue'
 import UpdateInformation from '@/views/user/UserProfileUpdatePage.vue'
-import NotificationPage from '@/views/user/UserNotificationPage.vue';
+import NotificationPage from '@/views/user/UserNotificationPage.vue'
 import UpdatePassword from '@/views/account/AccountUpdatePasswordPage.vue'
-import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue';
-import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue';
-import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue';
+import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue'
+import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue'
+import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue'
+import BambooForestPage from '@/views/bamboo/BambooForestPage.vue'
+import Bamboo from '@/views/bamboo/Bamboo.vue'
+import Blockland from '@/views/bamboo/Blockland.vue'
 
 export default [
   {
@@ -91,25 +94,6 @@ export default [
     meta: { authRequired: true },
   },
   {
-    path: '/bamboo/main',
-    name: 'BambooEnterPage',
-    component: BambooEnterPage,
-    // meta: { authRequired: true },
-  },
-  {
-    path: '/bamboo/category',
-    name: 'BambooCategoryPage',
-    component: BambooCategoryPage,
-    props: true,
-    // meta: { authRequired: true },
-  },
-  {
-    path: '/bamboo/type',
-    name: 'BambooTypeSelectPage',
-    component: BambooTypeSelectPage,
-    // meta: { authRequired: true },
-  },
-  {
     path: '/update-information',
     name: 'UpdateInformation',
     component: UpdateInformation,
@@ -126,6 +110,44 @@ export default [
     name: 'NotificationPage',
     component: NotificationPage,
     meta: {authRequired: true}
+  },
+  {
+    path: '/bamboo/main',
+    name: 'BambooEnterPage',
+    component: BambooEnterPage,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/category',
+    name: 'BambooCategoryPage',
+    component: BambooCategoryPage,
+    props: true,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/type',
+    name: 'BambooTypeSelectPage',
+    component: BambooTypeSelectPage,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/bamboo/:roomType',
+    name: 'BambooForestPage',
+    component: BambooForestPage,
+    meta: { authRequired: true },
+    props: true,
+  },
+  {
+    path: '/bamboo',
+    name: 'Bamboo',
+    component: Bamboo,
+    // meta: { authRequired: true },
+  },
+  {
+    path: '/blockland',
+    name: 'Blockland',
+    component: Blockland,
+    // meta: { authRequired: true },
   },
   {
     path: '*',
