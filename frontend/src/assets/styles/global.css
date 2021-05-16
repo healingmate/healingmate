@@ -1,3 +1,73 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap');
+#app {
+  font-family: 'Nanum Myeongjo', serif;
+} */
+
+/* @font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+#app {
+  font-family: 'NEXON Lv1 Gothic OTF';
+} */
+
+/* @font-face {
+  font-family: 'GyeonggiBatang';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#app {
+  font-family: 'GyeonggiBatang';
+} */
+
+/* @font-face {
+  font-family: 'MapoFlowerIsland';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoFlowerIslandA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#app {
+  font-family: 'MapoFlowerIsland';
+}  */
+
+/* @font-face {
+  font-family: 'KyoboHand';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#app {
+  font-family: 'KyoboHand';
+} */
+
+/* @font-face {
+  font-family: 'Amsterdam';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_01@1.0/Amsterdam.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#app {
+  font-family: 'Amsterdam';
+} */
+
+@font-face {
+  font-family: 'GmarketSansLight';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#app {
+  font-family: 'GmarketSansLight';
+}
+
 div p {
   margin-bottom: 10px;
 }

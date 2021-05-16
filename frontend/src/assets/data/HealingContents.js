@@ -167,5 +167,33 @@ const data = [
     contents: 'https://media.giphy.com/media/10FwycrnAkpshW/giphy.gif',
     bookmarked: false,
   },
+  {
+    id: 25,
+    category: 'GIF',
+    title: "HUG",
+    contents: 'https://media.giphy.com/media/VIPdgcooFJHtC/giphy.gif',
+    bookmarked: false,
+  },
+  {
+    id: 26,
+    category: '유튜브',
+    title: '힐링타임즈',
+    contents: 'Gc33OE3FGds',
+    bookmarked: false,
+  },
+  {
+    id: 27,
+    category: '유튜브',
+    title: '힐링타임즈3',
+    contents: "LcTW_mtUTgA",
+    bookmarked: false,
+  },
+  {
+    id: 28,
+    category: 'GIF',
+    title: 'Happy!',
+    contents: 'https://media.giphy.com/media/UkhHIZ37IDRGo/giphy.gif',
+    bookmarked: false,
+  },
 ];
 export { data };
