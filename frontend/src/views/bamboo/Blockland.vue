@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="scene-container" ref="sceneContainer">blockland</div>
+    <div id="scene-container" ref="sceneContainer"></div>
   </div>
 </template>
 
@@ -302,10 +302,11 @@ export default {
     },
 
     onWindowResize() {
-      this.camera.aspect = window.innerWidth / window.innerHeight;
+      var container = document.getElementById('scene-container');
+      this.camera.aspect = container.clientWidth / container.clientHeight;
       this.camera.updateProjectionMatrix();
 
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.setSize(container.clientWidth, container.clientHeight);
     },
     // action(name) {
     //   if (this.player.action == name) return;
@@ -356,9 +357,16 @@ export default {
       // if (this.stats != undefined) this.stats.update();
     },
   },
+  created() {
+    // window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('DOMContentLoaded', this.onWindowResize);
+  },
   mounted() {
     this.init();
     this.animate();
+  },
+  destroyed() {
+    // window.removeEventListener('resize', this.onWindowResize);
   },
   computed: {
     action: {
@@ -380,44 +388,10 @@ export default {
       },
     },
   },
-  created() {
-    window.addEventListener('resize', this.onWindowResize);
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.onWindowResize);
-  },
 };
 </script>
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 #scene-container {
-  height: 100%;
-}
-</style>
-<style>
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  margin: 0px;
-}
-#app {
   height: 100%;
 }
 </style>
