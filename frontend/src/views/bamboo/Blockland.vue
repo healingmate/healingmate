@@ -79,19 +79,22 @@ export default {
 
       const game = this;
 
-      loader.load(`${this.assetsPath}fbx/people/FireFighter.fbx`, function(object) {
+      loader.load(`${this.assetsPath}fbx/Penguin.fbx`, function(object) {
         // object.rotate.x = Math.PI / 2;
 
         console.log(object);
 
         object.mixer = new THREE.AnimationMixer(object);
+        console.log(object.mixer, 'obj mixer');
         game.player.mixer = object.mixer;
         // game.player.root = object.mixer.getRoot();
 
         // player.animations이 undefined기 때문에
         // game.player.animations.Idle = {값} 으로 선언할수없음
         game.player.animations = { Idle: object.animations[0] };
-
+        game.player.animations['Penguin_Walk'] = object.animations[2]
+        game.player.animations['Running'] = object.animations[4]
+        console.log(game.player.animations, 'game.player')
         object.name = 'FireFighter';
 
         object.traverse(function(child) {
@@ -119,6 +122,8 @@ export default {
 
         // 둘다 같다
         game.animations.Idle = object.animations[0];
+        game.animations.Walking = object.animations[2];
+        game.animations.Running = object.animations[4];
         // game.animations['Idle'] = object.animations[0];
 
         game.joystick = new JoyStick({
@@ -127,7 +132,9 @@ export default {
         });
 
         game.createCameras();
-        game.loadNextAnim(loader);
+        // game.loadNextAnim(loader);
+        game.action = 'Idle'
+        game.animate()
       });
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -367,8 +374,9 @@ export default {
       },
       set: function(name) {
         if (this.player.action == name) return;
-
+        console.log(this.animations[name], 'this.animations[name]')
         const _action = this.player.mixer.clipAction(this.animations[name]);
+        console.log(_action, 'setter의 _action')
         _action.time = 0;
 
         this.player.mixer.stopAllAction();
@@ -404,20 +412,6 @@ a {
   color: #42b983;
 }
 #scene-container {
-  height: 100%;
-}
-</style>
-<style>
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  margin: 0px;
-}
-#app {
   height: 100%;
 }
 </style>

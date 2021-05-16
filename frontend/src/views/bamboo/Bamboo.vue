@@ -11,12 +11,14 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { JoyStick } from './toon3d.js';
 // import Stats from 'stats.js';
-// import * as dat from 'dat.gui';
+import * as dat from 'dat.gui';
 
 export default {
   name: 'Bamboo',
   data() {
     return {
+      action: Object,
+
       joystick: null,
       container: null,
       player: {},
@@ -55,17 +57,20 @@ export default {
       // create scene
 
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color(0x00a0f0);
+      this.scene.background = new THREE.Color(0x244684);
       // this.scene.fog = new THREE.Fog(0xa0a0a0, 700, 4000);
 
       this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
       // this.camera.position.set(112, 100, 600);
 
-      const ambient = new THREE.AmbientLight(0xaaaaaa);
+      const ambient = new THREE.AmbientLightProbe(0xffffff, 0.1);
       this.scene.add(ambient);
-
-      const light = new THREE.DirectionalLight(0xaaaaaa);
-      light.position.set(30, 100, 40);
+      const gui = new dat.GUI()
+      gui.add(ambient, 'intensity', 0, 2)
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      const helper = new THREE.DirectionalLightHelper(light, 5)
+      this.scene.add(helper)
+      light.position.set(-0.8, 18, -6);
       light.target.position.set(0, 0, 0);
 
       light.castShadow = true;
@@ -82,6 +87,8 @@ export default {
 
       this.sun = light;
       this.scene.add(light);
+      gui.add(light, 'intensity', 0, 2)
+      
 
       // Model
 
@@ -95,7 +102,7 @@ export default {
 
         object.mixer = new THREE.AnimationMixer(game.player.root);
         game.player.mixer = object.mixer;
-        game.player.animations = { Idle: object.animations[0] };
+        game.player.animations = { 'Idle': object.animations[0] };
 
         object.name = 'Person';
 
@@ -134,6 +141,7 @@ export default {
 
         game.createCameras();
         game.loadEnvironment(loader);
+        // game.loadNextAnim(loader);
       });
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -155,7 +163,7 @@ export default {
     },
     loadEnvironment(loader) {
       const game = this;
-      loader.load(`${this.assetsPath}fbx/town.fbx`, function(object) {
+      loader.load(`${game.assetsPath}fbx/healingmate.fbx`, function(object) {
         game.environment = object;
         game.colliders = [];
         game.scene.add(object);
@@ -171,6 +179,14 @@ export default {
           }
         });
 
+        // const textureLoader = new THREE.TextureLoader()
+        // textureLoader.load(`${game.assetsPath}fbx/NaturePackLite_Texture_01.png`, function(texture) {
+        //   object.traverse(function(child) {
+        //     if (child.isMesh) {
+        //       child.material.map = texture;
+        //     }
+        //   });
+        // });
         const tloader = new THREE.CubeTextureLoader();
         tloader.setPath(`${game.assetsPath}images/`);
 
@@ -190,7 +206,7 @@ export default {
           game.loadNextAnim(loader);
         } else {
           delete game.anims;
-          game.action = 'Idle';
+          game.changeAction = 'Idle';
           // game.mode = game.modes.ACTIVE;
           game.animate();
         }
@@ -200,15 +216,15 @@ export default {
       turn = -turn;
 
       if (forward > 0.3) {
-        if (this.player.action != 'Walking' && this.player.action != 'Running') this.action = 'Walking';
+        if (this.player.action != 'Walking' && this.player.action != 'Running') this.changeAction = 'Walking';
       } else if (forward < -0.3) {
-        if (this.player.action != 'Walking Backwards') this.action = 'Walking Backwards';
+        if (this.player.action != 'Walking Backwards') this.changeAction = 'Walking Backwards';
       } else {
         forward = 0;
         if (Math.abs(turn) > 0.1) {
-          if (this.player.action != 'Turn') this.action = 'Turn';
+          if (this.player.action != 'Turn') this.changeAction = 'Turn';
         } else if (this.player.action != 'Idle') {
-          this.action = 'Idle';
+          this.changeAction = 'Idle';
         }
       }
 
@@ -345,7 +361,7 @@ export default {
       if (this.player.action == 'Walking') {
         const elapsedTime = Date.now() - this.player.actionTime;
         if (elapsedTime > 1000 && this.player.move.forward > 0) {
-          this.action = 'Running';
+          this.changeAction = 'Running';
         }
       }
 
@@ -378,14 +394,15 @@ export default {
     this.animate();
   },
   computed: {
-    action: {
+    changeAction: {
+      
       get: function() {
         return this.player.action;
       },
       set: function(name) {
         if (this.player.action == name) return;
 
-        const _action = this.player.mixer.clipAction(this.animations[name]);
+        const _action = this.player.mixer.clipAction(this.player.animations[name]);
         _action.time = 0;
 
         this.player.mixer.stopAllAction();
@@ -393,6 +410,7 @@ export default {
         this.player.actionTime = Date.now();
 
         // _action.fadeIn(0.5);
+        console.log('set 작동')
         _action.play();
       },
     },
@@ -421,20 +439,6 @@ a {
   color: #42b983;
 }
 #scene-container {
-  height: 100%;
-}
-</style>
-<style>
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  margin: 0px;
-}
-#app {
   height: 100%;
 }
 </style>
