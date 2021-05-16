@@ -75,6 +75,7 @@ export default {
 			pagingCursorId: 0,
       // 더 받아올 게시글이 있는지에 대한 유무
       isLast: false,
+      isLoading: false,
     }
 	},
 	// computed: {},
@@ -95,6 +96,7 @@ export default {
     loadData() {      
       // 페이징된 데이터를 받아오는 함수
       // axios 요청을 하는 동안은 로딩창을 띄울 것임
+      this.isLoading = !this.isLoading
       this.$q.loading.show();
 
       // axios로 데이터 요청
@@ -115,6 +117,7 @@ export default {
       .finally(() => {
         // 로딩 끝!
         this.$q.loading.hide();
+        this.isLoading = !this.isLoading
       })
     },
     handleScroll() {
@@ -124,11 +127,10 @@ export default {
       const clientHeight = document.documentElement.clientHeight;
 
       console.log('스크롤 하이', scrollHeight)
-      console.log('스크롤 탑', scrollHeight)
-      console.log('클라이언트 하이', scrollHeight)
+      console.log('스크롤 탑', scrollTop)
+      console.log('클라이언트 하이', clientHeight)
       
-      if (!this.$q.loading.isActive && scrollTop + clientHeight >= scrollHeight - 1 && !this.isLast) {
-        this.$q.loading.show();
+      if (!this.isLoading && scrollTop + clientHeight >= scrollHeight - 1 && !this.isLast) {
         console.log("지금")
         this.loadData()
       }
