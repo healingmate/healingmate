@@ -139,5 +139,33 @@ const data = [
     contents: 'https://media.giphy.com/media/OI8TsOa9KFAPu/giphy.gif',
     bookmarked: false,
   },
+  {
+    id: 21,
+    category: '유튜브',
+    title: "묘한 힐링",
+    contents: 'mIumpCMzOQM',
+    bookmarked: false,
+  },
+  {
+    id: 22,
+    category: '유튜브',
+    title: '고양이❣',
+    contents: '5ay0kuEZq84',
+    bookmarked: false,
+  },
+  {
+    id: 23,
+    category: 'GIF',
+    title: 'MWah',
+    contents: "https://media.giphy.com/media/VNo2uNMv7w9MI/giphy.gif",
+    bookmarked: false,
+  },
+  {
+    id: 24,
+    category: 'GIF',
+    title: 'Sunglass',
+    contents: 'https://media.giphy.com/media/10FwycrnAkpshW/giphy.gif',
+    bookmarked: false,
+  },
 ];
 export { data };
