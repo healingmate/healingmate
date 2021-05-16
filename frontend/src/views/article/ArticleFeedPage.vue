@@ -122,15 +122,26 @@ export default {
     },
     handleScroll() {
       // 아직 페이징을 받아올 데이터가 남아있고 로딩중이 아닌 상태로 스크롤을 맨 밑에 가깝게 내렸을 때
-      const scrollHeight = document.documentElement.scrollHeight;
-      const scrollTop = document.documentElement.scrollTop;
-      const clientHeight = document.documentElement.clientHeight;
 
-      console.log('스크롤 하이', scrollHeight)
-      console.log('스크롤 탑', scrollTop)
-      console.log('클라이언트 하이', clientHeight)
-      
-      if (!this.isLoading && scrollTop + clientHeight >= scrollHeight - 1 && !this.isLast) {
+      // const scrollHeight = document.documentElement.scrollHeight;
+      // const scrollTop = document.documentElement.scrollTop;
+      // const clientHeight = document.documentElement.clientHeight;
+      // const scrollY = window.scrollY
+      // const pageYoffset = window.pageYOffset
+      // const innerHeight = window.innerHeight
+
+      // console.log('스크롤 하이', scrollHeight)
+      // console.log('스크롤 탑', scrollTop)
+      // console.log('클라이언트 하이', clientHeight)
+      // console.log('윈도우즈 이너하이', innerHeight)
+      // console.log('스크롤 와이', scrollY)
+      // console.log('페이지 와이 오프셋', pageYoffset)
+
+      var scrollDepth = ((window.scrollY + window.innerHeight)/document.body.scrollHeight)
+
+      console.log(scrollDepth)
+
+      if (!this.isLoading && scrollDepth >= 1 && !this.isLast) {
         console.log("지금")
         this.loadData()
       }
