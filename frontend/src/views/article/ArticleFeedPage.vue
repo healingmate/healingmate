@@ -121,17 +121,9 @@ export default {
       })
     },
     handleScroll() {
-      // 아직 페이징을 받아올 데이터가 남아있고 로딩중이 아닌 상태로 스크롤을 맨 밑에 가깝게 내렸을 때
-      const scrollHeight = document.documentElement.scrollHeight;
-      const scrollTop = document.documentElement.scrollTop;
-      const clientHeight = document.documentElement.clientHeight;
-
-      console.log('스크롤 하이', scrollHeight)
-      console.log('스크롤 탑', scrollTop)
-      console.log('클라이언트 하이', clientHeight)
+      var scrollDepth = ((window.scrollY + window.innerHeight)/document.body.scrollHeight)
       
-      if (!this.isLoading && scrollTop + clientHeight >= scrollHeight - 1 && !this.isLast) {
-        console.log("지금")
+      if (!this.isLoading && scrollDepth > 0.99 && !this.isLast) {
         this.loadData()
       }
     },
