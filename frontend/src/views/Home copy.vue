@@ -56,32 +56,11 @@ export default {
 }
 
 .home_saying {
-	margin: auto;
 	text-align: center; 
 	font-size: 24px;
 	font-weight: 300;
-	animation: cursorblink 0.95s infinite normal, typing 2s steps(15) 1s normal;
-  overflow: hidden;
-  white-space: nowrap;
-	border-right: 2px solid black;
-  width: 19ch;
 }
-@keyframes cursorblink{
-	from{
-			border-right-color: rgb(39, 39, 39);
-	}
-	to{
-			border-right-color: transparent;
-	}
-}
-@keyframes typing {
-  0% {
-    width: 0ch;
-  }
-  100% {
-    width: 19ch;
-  }
-}
+
 .home--night-backgound-color {
 	background-color: #000934;
 }

@@ -4,7 +4,7 @@
 } */
 
 
-/* @font-face {
+@font-face {
   font-family: 'GyeonggiBatang';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
   font-weight: normal;
@@ -13,7 +13,7 @@
 
 #app {
   font-family: 'GyeonggiBatang';
-} */
+}
 
 /* @font-face {
   font-family: 'MapoFlowerIsland';
@@ -26,7 +26,7 @@
   font-family: 'MapoFlowerIsland';
 }  */
 
-@font-face {
+/* @font-face {
   font-family: 'Cafe24Oneprettynight';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
   font-weight: normal;
@@ -35,7 +35,7 @@
 
 #app {
   font-family: 'Cafe24Oneprettynight';
-}
+} */
 
 /* @font-face {
   font-family: 'Hankc';
