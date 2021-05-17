@@ -3,7 +3,7 @@
     <the-image-header 
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
-      label="profile setting"
+      label="프로필 설정"
       :brightness="60"
     ></the-image-header>
     <!-- 뒤로 가기 버튼 -->

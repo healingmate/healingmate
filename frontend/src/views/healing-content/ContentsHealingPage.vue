@@ -3,7 +3,7 @@
     <the-image-header 
       style="background-color: #F2BAB7;" 
       background-image="healing-contents-header.png" 
-      label="Contents"
+      label="콘텐츠"
       :brightness="50"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->

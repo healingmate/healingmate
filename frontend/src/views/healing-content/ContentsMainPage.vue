@@ -62,7 +62,7 @@ export default {
       categoryList: [
         {
           address: 'contents',
-          title: 'Contents',
+          title: '콘텐츠',
           img: 'contents.png',
           color: '#F2BAB7',
           font_color: 'black'
@@ -77,7 +77,7 @@ export default {
         },
         {
           address: 'meditation',
-          title: 'Meditaion',
+          title: '명상',
           img: 'meditation.png',
           color: '#5A3272',
           font_color: 'white'

@@ -3,7 +3,7 @@
     <the-image-header 
       style="background-color: #5A3272;" 
       background-image="meditation-contents-header.png" 
-      label="Meditation"
+      label="명상"
       :brightness="50"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->
