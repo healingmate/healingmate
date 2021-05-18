@@ -64,7 +64,7 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 	border-right: 2px solid black;
-  width: 19ch;
+  width: 20ch;
 }
 @keyframes cursorblink{
 	from{
@@ -79,7 +79,7 @@ export default {
     width: 0ch;
   }
   100% {
-    width: 19ch;
+    width: 20ch;
   }
 }
 .home--night-backgound-color {
