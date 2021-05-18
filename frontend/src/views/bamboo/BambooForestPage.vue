@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script src="https://socket.healingmate.kr:9001/dev/getHTMLMediaElement.js"></script>
+<script src="https://socket.healingmate.kr:8282/dev/getHTMLMediaElement.js"></script>
 <script>
 const SOCKET_URL = process.env.VUE_APP_SOCKET_SERVER_URL
 
@@ -204,7 +204,7 @@ export default {
 
 
 <style scoped>
-@import url("https://socket.healingmate.kr:9001/dev/getHTMLMediaElement.css");
+@import url("https://socket.healingmate.kr:8282/dev/getHTMLMediaElement.css");
 
 #audios-container >>> audio{
   display: none;
