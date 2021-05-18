@@ -1,0 +1,17 @@
+{
+  "socketURL": "/",
+  "dirPath": "",
+  "homePage": "/demos/index.html",
+  "socketMessageEvent": "RTCMultiConnection-Message",
+  "socketCustomEvent": "RTCMultiConnection-Custom-Message",
+  "port": "8282",
+  "enableLogs": "false",
+  "autoRebootServerOnFailure": "false",
+  "isUseHTTPs": "false",
+  "sslKey": "./keys/socket.healingmate.kr/privkey1.pem",
+  "sslCert": "./keys/socket.healingmate.kr/fullchain1.pem",
+  "sslCabundle": "",
+  "enableAdmin": "true",
+  "adminUserName": "username",
+  "adminPassword": "password"
+}
