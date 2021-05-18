@@ -10,7 +10,7 @@
     {
       "id": 2,
       "category": "유튜브",
-      "title": "힐링 콘텐츠1",
+      "title": "힐링 콘텐츠",
       "contents": "77jy6yVLSH8",
       "bookmarked": false
     },
@@ -45,8 +45,8 @@
     {
       "id": 7,
       "category": "GIF",
-      "title": "힐링 콘텐츠",
-      "contents": "https://media.giphy.com/media/idJXOU0SWNCPEsa5EL/giphy.gif",
+      "title": "Dance",
+      "contents": "https://media.giphy.com/media/DhstvI3zZ598Nb1rFf/giphy.gif",
       "bookmarked": false
     },
     {
@@ -193,7 +193,7 @@
       "id": 28,
       "category": "GIF",
       "title": "Happy!",
-      "contents": "https://media.giphy.com/media/UkhHIZ37idRGo/giphy.gif",
+      "contents": "https://media.giphy.com/media/UkhHIZ37IDRGo/giphy.gif",
       "bookmarked": false
     },
     {
