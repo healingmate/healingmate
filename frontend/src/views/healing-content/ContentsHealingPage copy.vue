@@ -69,7 +69,7 @@ import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsCard from '@/components/healing-content/ContentsCard';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
 import BaseMenu from '@/components/common/BaseMenu';
-import { data } from '@/assets/data/HealingContents.js';
+import { data } from '@/assets/data/HealingContents.json';
 import { getBookmarkedContents } from '@/api/healing-content';
 
 export default {

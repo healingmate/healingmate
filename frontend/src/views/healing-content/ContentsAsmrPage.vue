@@ -27,7 +27,7 @@
 import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsAsmr from '@/components/healing-content/ContentsAsmr';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
-import { data } from '@/assets/data/AsmrContents.js';
+import { data } from '@/assets/data/AsmrContents.json';
 
 export default {
   components: {

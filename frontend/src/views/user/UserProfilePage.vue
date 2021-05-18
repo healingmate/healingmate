@@ -153,8 +153,8 @@ import BaseKebabButton from '@/components/common/BaseKebabButton';
 import BaseMenu from '@/components/common/BaseMenu';
 import { getBookmarkedContents } from '@/api/healing-content';
 import { getArticleList } from '@/api/user';
-import { data } from '@/assets/data/HealingContents.js';
-import { characterList } from '@/assets/data/CharacterList.js';
+import { data } from '@/assets/data/HealingContents.json';
+import { characterList } from '@/assets/data/CharacterList.json';
 // import UserRecommend from '@/components/user/UserRecommend';
 
 export default {

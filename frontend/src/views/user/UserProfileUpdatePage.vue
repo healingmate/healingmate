@@ -137,8 +137,8 @@ import TheGoBackButton from '@/components/common/TheGoBackButton';
 import ArticleCarousel from '@/components/article/ArticleCarousel';
 import { validation } from '@/mixins/validation'
 import { nicknameCheck } from '@/api/account';
-import { keywordList } from '@/assets/data/KeywordList.js';
-import { characterList } from '@/assets/data/CharacterList.js';
+import { keywordList } from '@/assets/data/KeywordList.json';
+import { characterList } from '@/assets/data/CharacterList.json';
 
 export default {
   components: {
