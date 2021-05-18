@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="scene-container" ref="sceneContainer">bamboo</div>
+    <div id="scene-container" ref="sceneContainer"></div>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import * as THREE from 'three';
 // import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { JoyStick } from './toon3d.js';
+import { JoyStick } from '../../utils/toon3d.js';
 // import Stats from 'stats.js';
 import * as dat from 'dat.gui';
 
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       action: Object,
+      colliders: Array,
 
       joystick: null,
       container: null,
@@ -94,7 +95,8 @@ export default {
 
       const loader = new FBXLoader();
       const game = this;
-      const people = ['BeachBabe', 'BusinessMan', 'Doctor', 'FireFighter', 'Housewife', 'Policeman', 'Prostitute', 'Punk', 'RiotCop', 'Roadworker', 'Robber', 'Sheriff', 'Streetman', 'Waitress'];
+      // const people = ['BeachBabe', 'BusinessMan', 'Doctor', 'FireFighter', 'Housewife', 'Policeman', 'Prostitute', 'Punk', 'RiotCop', 'Roadworker', 'Robber', 'Sheriff', 'Streetman', 'Waitress'];
+      const people = ['Doozy', 'Mousey'];
       const model = people[Math.floor(Math.random() * people.length)];
 
       loader.load(`${this.assetsPath}fbx/people/${model}.fbx`, function(object) {
@@ -112,22 +114,25 @@ export default {
             child.receiveShadow = true;
           }
         });
-        game.player.index = Math.random() > 0.5 ? 0 : 2; //Math.floor(Math.random() * object.children.length);
+        // game.player.index = Math.random() > 0.5 ? 0 : 2; //Math.floor(Math.random() * object.children.length);
 
-        const name = model; //object.children[game.player.index].name.substring(3);
-        const colors = ['Black', 'Brown', 'White'];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const textureLoader = new THREE.TextureLoader();
+        // const name = model; //object.children[game.player.index].name.substring(3);
+        // const colors = ['Black', 'Brown', 'White'];
+        // const color = colors[Math.floor(Math.random() * colors.length)];
+        // const textureLoader = new THREE.TextureLoader();
 
-        textureLoader.load(`${game.assetsPath}images/SimplePeople_${name}_${color}.png`, function(texture) {
-          object.traverse(function(child) {
-            if (child.isMesh) {
-              child.material.map = texture;
-            }
-          });
-        });
+        // textureLoader.load(`${game.assetsPath}images/SimplePeople_${name}_${color}.png`, function(texture) {
+        //   object.traverse(function(child) {
+        //     if (child.isMesh) {
+        //       child.material.map = texture;
+        //     }
+        //   });
+        // });
         game.player.object = new THREE.Object3D();
-        game.player.object.position.set(3122, 0, -173);
+        game.player.object.position.set(2090, 140, 1650);
+        gui.add(game.player.object.position, 'x').min(-5000).max(5000).step(10)
+        gui.add(game.player.object.position, 'y').min(-5000).max(5000).step(10)
+        gui.add(game.player.object.position, 'z').min(-5000).max(5000).step(10)
         game.player.object.rotation.set(0, 2.6, 0);
         game.sun.target = game.player.object;
 
@@ -163,7 +168,7 @@ export default {
     },
     loadEnvironment(loader) {
       const game = this;
-      loader.load(`${game.assetsPath}fbx/healingmate.fbx`, function(object) {
+      loader.load(`${game.assetsPath}fbx/background.fbx`, function(object) {
         game.environment = object;
         game.colliders = [];
         game.scene.add(object);
@@ -178,25 +183,16 @@ export default {
             }
           }
         });
-
-        // const textureLoader = new THREE.TextureLoader()
-        // textureLoader.load(`${game.assetsPath}fbx/NaturePackLite_Texture_01.png`, function(texture) {
-        //   object.traverse(function(child) {
-        //     if (child.isMesh) {
-        //       child.material.map = texture;
-        //     }
-        //   });
-        // });
         const tloader = new THREE.CubeTextureLoader();
         tloader.setPath(`${game.assetsPath}images/`);
 
         var textureCube = tloader.load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
 
         game.scene.background = textureCube;
-
         game.loadNextAnim(loader);
       });
     },
+  
     loadNextAnim(loader) {
       let anim = this.anims.pop();
       const game = this;
@@ -206,7 +202,7 @@ export default {
           game.loadNextAnim(loader);
         } else {
           delete game.anims;
-          game.changeAction = 'Idle';
+          game.changeAction = 'Walking';
           // game.mode = game.modes.ACTIVE;
           game.animate();
         }

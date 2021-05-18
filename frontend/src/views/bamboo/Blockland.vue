@@ -9,7 +9,7 @@ import * as THREE from 'three';
 // import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { JoyStick } from './toon3d.js';
+import { JoyStick } from '../../utils/toon3d.js';
 // import Stats from 'stats.js';
 // import * as dat from 'dat.gui';
 
@@ -79,7 +79,7 @@ export default {
 
       const game = this;
 
-      loader.load(`${this.assetsPath}fbx/Penguin.fbx`, function(object) {
+      loader.load(`${this.assetsPath}fbx/Penguin_1.fbx`, function(object) {
         // object.rotate.x = Math.PI / 2;
 
         console.log(object);
@@ -91,9 +91,9 @@ export default {
 
         // player.animations이 undefined기 때문에
         // game.player.animations.Idle = {값} 으로 선언할수없음
-        game.player.animations = { Idle: object.animations[0] };
-        game.player.animations['Penguin_Walk'] = object.animations[2]
-        game.player.animations['Running'] = object.animations[4]
+        game.player.animations = { 'Idle': object.animations[0] };
+        game.player.animations['Runnig'] = object.animations[1]
+        game.player.animations['Walking'] = object.animations[2]
         console.log(game.player.animations, 'game.player')
         object.name = 'FireFighter';
 
@@ -122,8 +122,8 @@ export default {
 
         // 둘다 같다
         game.animations.Idle = object.animations[0];
+        game.animations.Running = object.animations[1];
         game.animations.Walking = object.animations[2];
-        game.animations.Running = object.animations[4];
         // game.animations['Idle'] = object.animations[0];
 
         game.joystick = new JoyStick({
