@@ -1,6 +1,6 @@
 ## ![healingmate-logo](README.assets/healingmate-logo.png)HealingMate란?
 
-##### 공통의 관심사를 나누거나 속 깊은 고민을 이야기 할 힐링메이트(Healing Mate)를 찾아주는 모바일 웹 서비스
+##### 공통의 관심사를 나누거나 속 깊은 고민을 이야기 할 힐링메이트를 찾아주는 모바일 웹 서비스
 
 ## 🚢팀 소개
 
@@ -18,6 +18,8 @@
 - [Wireframe](#wireframe)
 
 ## 📌Architecture
+
+![architecture](README.assets/architecture.png)
 
 ## 📌Tech Stack
 
@@ -78,7 +80,7 @@
 
 #### Back-End
 
-1. 다음 형식으로 application.yaml 작성
+1. 다음 형식으로 ./backend/build/resources/application.yaml 경로로 application.yaml 파일 작성
 
    ```yaml
       server:
@@ -177,3 +179,5 @@
 <iframe height='600' scrolling='no' title='Fancy Animated SVG Menu' src='https://www.figma.com/embed?embed_host=astra&url=
        https://www.figma.com/file/01wdPw8RgH4z8GYIRU4pDY/HealingMate?node-id=0%3A1' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>
 </iframe>
+[*힐링메이트 와이어 프레임 바로가기*](https://www.figma.com/file/01wdPw8RgH4z8GYIRU4pDY/HealingMate?node-id=0%3A1)
+
