@@ -11,8 +11,10 @@ function formatDate(value) {
 
   hours = hours > 9 ? hours : `0${hours}`;
 
-  const minutes = date.getMinutes();
+  let minutes = date.getMinutes();
 
+  minutes = minutes > 9 ? minutes : `0${minutes}`;
+  
   return `${year}-${month}-${day} ${hours}:${minutes}`;
   
 }
