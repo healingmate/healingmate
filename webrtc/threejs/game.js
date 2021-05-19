@@ -1,5 +1,5 @@
 class Game {
-  constructor() {
+  constructor(roomid) {
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
     this.modes = Object.freeze({
@@ -12,6 +12,7 @@ class Game {
     });
     this.mode = this.modes.NONE;
 
+    this.roomid = roomid
     this.container;
     this.player;
     this.cameras;
@@ -484,7 +485,9 @@ class PlayerLocal extends Player {
     const connection = new RTCMultiConnection();
 
     // 이 부분을 vue에서 roomid 전달받아 {roomid}-threejs-room 이런 형식으로 변경해야함
-    const roomid = connection.token();
+    const roomid = game.roomid + '-threejs-room';
+
+    console.log(roomid,'되냐 진짜냐!!!!?')
 
     connection.socketURL = "https://socket.healingmate.kr:8282/";
 
