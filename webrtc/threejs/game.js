@@ -507,7 +507,7 @@ class PlayerLocal extends Player {
     };
 
     connection.sdpConstraints.mandatory = {
-      OfferToReceiveAudio: false,
+      OfferToReceiveAudio: true,
       OfferToReceiveVideo: false
     };
 
