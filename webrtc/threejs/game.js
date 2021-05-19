@@ -33,7 +33,11 @@ class Game {
 
     this.container = document.createElement("div");
     this.container.style.height = "100%";
-    document.body.appendChild(this.container);
+    this.container.style.position = "absolute";
+    this.container.style.top = "0";
+    this.container.style.width = "100%";
+
+    document.getElementById('root').appendChild(this.container)
 
     const sfxExt = SFX.supportsAudioType("mp3") ? "mp3" : "ogg";
 
@@ -479,22 +483,26 @@ class Player {
 class PlayerLocal extends Player {
   constructor(game, model) {
     super(game, model);
+    const nickname = this.getCookie('nickname')
 
     const player = this;
     // const socket = io.connect("http://socket.healingmate.kr:9001");
     const connection = new RTCMultiConnection();
+
+    const roomid = connection.token();
+
     connection.socketURL = "https://socket.healingmate.kr:8282/";
 
     connection.socketMessageEvent = 'bamboo-forest';
 
     connection.session = {
-       audio: false,
-        video: false,
-        data: true,
+      audio: true,
+      video: false,
+      data: true,
     };
 
     connection.mediaConstraints = {
-      audio: false,
+      audio: true,
       video: false
     };
 
@@ -507,12 +515,14 @@ class PlayerLocal extends Player {
     // use your own TURN-server here!
     connection.iceServers = [{
       'urls': [
-          'stun:stun1.l.google.com:19302',
-          'stun:stun2.l.google.com:19302',
-        ]
+        'stun:stun.l.google.com:19302',
+        'stun:stun1.l.google.com:19302',
+        'stun:stun2.l.google.com:19302',
+        'stun:stun.l.google.com:19302?transport=udp',
+      ]
     }];
 
-    connection.userid = Math.random().toString(36).substr(2,11);
+    connection.userid = nickname
 
     // 채팅에 몇명이나 허용 할것인지
     connection.maxParticipantsAllowed = this.roomType==='single' ? 2 : 4;
@@ -520,23 +530,6 @@ class PlayerLocal extends Player {
     connection.publicRoomIdentifier = 'bamboo-forest'
 
     connection.audiosContainer = document.getElementById('audios-container');
-
-    connection.onstream = function(event) {
-      var width = parseInt(connection.audiosContainer.clientWidth / 2) - 20;
-      var mediaElement = getHTMLMediaElement(event.mediaElement, {
-        title: event.userid,
-        buttons: ['full-screen'],
-        width: width,
-        showOnMouseEnter: false
-      });
-      connection.audiosContainer.appendChild(mediaElement);
-
-      setTimeout(function() {
-        mediaElement.media.play();
-      }, 5000);
-
-      mediaElement.id = event.streamid;
-    };
 
     connection.onstreamended = function(event) {
       var mediaElement = document.getElementById(event.streamid);
@@ -551,23 +544,24 @@ class PlayerLocal extends Player {
       }
       connection.acceptParticipationRequest(participantId, userPreferences);
     };
-
-    var roomid = connection.token();
+    
     connection.connectSocket(function (socket) {
       socket.emit("get-public-rooms", connection.publicRoomIdentifier, function (listOfRooms) {
         if (listOfRooms.length) {
           for (const room of listOfRooms) {
             console.log(room, "의 방이 존재합니다");
-            if (!room.isRoomFull) {
-              connection.openOrJoin(room.sessionid);
+            if (!room.isRoomFull && room.maxParticipantsAllowed === connection.maxParticipantsAllowed) {
+              connection.join(room.sessionid);
               return;
             }
           }
           // 현재 존재하는 방을 다 순회했는데 들어갈 방이 없다? 그러면 내가 새로 판다
-          connection.openOrJoin(roomid);
+          console.log("내가 판다")
+          connection.open(roomid);
         } else {
           // 현재 방이 아무것도 존재하지 않으면 첫 번째 방을 판다
-          connection.openOrJoin(roomid);
+          console.log("내가 판다")
+          connection.open(roomid);
         }
       });
 
@@ -575,19 +569,19 @@ class PlayerLocal extends Player {
 
       socket.on("deletePlayer", function (data) {
         const players = game.remotePlayers.filter(function (player) {
-          if (player.id == data.id) {
+          if (player.id === data.id) {
             return player;
           }
         });
         if (players.length > 0) {
           let index = game.remotePlayers.indexOf(players[0]);
-          if (index != -1) {
+          if (index !== -1) {
             game.remotePlayers.splice(index, 1);
             game.scene.remove(players[0].object);
           }
         } else {
           index = game.initialisingPlayers.indexOf(data.id);
-          if (index != -1) {
+          if (index !== -1) {
             const player = game.initialisingPlayers[index];
             player.deleted = true;
             game.initialisingPlayers.splice(index, 1);
@@ -595,6 +589,33 @@ class PlayerLocal extends Player {
         }
       });
     });
+
+    connection.onstream = function(event) {
+      console.log(event.userid)
+      var width = parseInt(connection.audiosContainer.clientWidth / 2) - 20;
+
+      var mediaElement = getHTMLMediaElement(event.mediaElement, {
+        title: event.userid,
+        buttons: ['full-screen'],
+        width: width,
+        showOnMouseEnter: false,
+        volum: event.userid === nickname ? 0 : 1
+      });
+
+      connection.audiosContainer.appendChild(mediaElement);
+
+      // 본인은 미디어 엘리먼트를 붙이지 않는다 > 음소거 버튼 x
+      if (event.userid === nickname) {
+        mediaElement.removeChild(mediaElement.firstChild);
+      }
+
+      setTimeout(function() {
+        mediaElement.media.play();
+      }, 5000);
+
+      mediaElement.id = event.streamid;
+    };
+
     setInterval(function(){
       let data = [];
       connection.getAllParticipants().forEach(function(participantId) {
@@ -630,6 +651,11 @@ class PlayerLocal extends Player {
       pb: this.object.rotation.x,
       action : "Idle"
     };
+  }
+
+  getCookie = function(name) {
+    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value? value[2] : null;
   }
 
   updateSocket() {
