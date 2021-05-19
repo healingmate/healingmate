@@ -66,6 +66,10 @@ Documentation - github.com/muaz-khan/WebRTC-Experiment/tree/master/getMediaEleme
     background-color: rgba(255, 255, 255, 0.74);
 }
 
+.media-controls .control:active, .media-container .selected, .volume-control .control:active {
+    background-color: rgba(255, 255, 255, 0.44)!important;
+}
+
 .mute-audio {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAACsUlEQVRYR92Xu2siURTGp0hnJRgVGVNtEcHOiI2taWIa3Vgpgu4qiKBoCpOgxgdofD8QTFYUXMRSRLstt9xyy/0Tttxyi9kz17mXq7majFED+8EH+p2Zub+5j4NygiC8q/8PDQaDn9LHw6rf739Sq9UCthQfRk9PT2Rg7Ha7/U0q71erA2OXy+X9AgQ/B3KsgbFZADc3N25clyL5SiaTKnqgdW40Gs8A4vE4ARD9+Pj4XSq9Ts1m8xf9gE0uFosIYDwezyaTCXnjVqvVpq+T4oWur6/5UChEiuFweOkinL/GeAnoDD0ENJ1Of7ByTqFQ8HQB+/7+vi3WWbV1fnh4eAYgWsxEQb8gWSQS+YjCk5MTJkA2m5UNUK1WyR4olUq/cW6z2cJidn5+foSz09PTBYBer2cCpNNp2QC1Wm1pE9I1WIIz8BGAoe+xWEwYjUY8p9PpmAB3d3dbLwEWvOUHXHO73WdiZjAYrDiDE8JzWq2WCZBKpWQDwNstAXg8HgJgtVoRgN1uJwAul2v9DGwDsDoD0D8IALw5AnA6nQTg8vKS5zQazc72QKVSWQIIBAIEwGw2IwCHw0EALi4ueE6lUjEB8vn8m2fAYrEQgKurKwRgMpkIgN/v58UBmAC5XE42wOopgGeQGswOAlAqlQggGAwKnU6H546Pj5kA8DZvApjP56QPGI1G1Aeg65I+AHtv0QfWnQLo67IBYNkQQK/Xm9H5bDZDANBzCACs/wIApoIJgIogVm2dWa0Yms1X9CAQnUvRy6JvesmFQoEsgfhd+ohEXxeNRstS/DrRN29yt9td2oRY9DVer1fe7wEsn89npx/Ecr1e3wiQSCT+StH2ogdcdSaTYQLsXMPh8A8LgPWTbG+CM29cBZBKh9Xt7e0XOPfvM/hOxPrHekgzw8NZ4P4BtGizy4jmqy8AAAAASUVORK5CYII=');
 }
@@ -157,68 +161,3 @@ input[type="range"]::-webkit-slider-thumb {
     width: 10px;
     height: 26px;
 }
-
-audio{
-    display: none;
-  }
-  
-  .media-container{
-    border: none;
-    width: 100% !important;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .media-controls{
-    margin: 0 !important;
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .media-box{
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    margin: 0;
-    height: auto !important;
-  }
-  
-  .volume-slider{
-    display: none;
-    align-items: center;
-  }
-  
-  .mute-audio{
-    background-color: transparent !important;
-    background-image: url('/assets/voice-chat/unmute.svg');
-  }
-  
-  .unmute-audio{
-    background-color: transparent !important;
-    background-image: url('/assets/voice-chat/mute.svg');
-  }
-  
-  .stop {
-    display: none;
-  }
-  
-  
-  h2 {
-    color: #ffffff !important;
-    font-size: 16px !important;
-    line-height: 1.5;
-    padding: 0 4px !important;
-    position: relative !important;
-    width: auto !important;
-    height: auto !important;
-    filter: drop-shadow(1px 0px 2px black);
-    z-index: 1;
-  }
-  
-  input {
-    width: 100% !important;
-    margin-top: 0 !important;
-    height: 3px;
-  }

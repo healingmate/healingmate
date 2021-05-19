@@ -32,12 +32,6 @@ class Game {
     };
 
     this.container = document.createElement("div");
-    this.container.style.height = "100%";
-    this.container.style.position = "absolute";
-    this.container.style.top = "0";
-    this.container.style.width = "100%";
-
-    document.getElementById('root').appendChild(this.container)
 
     const sfxExt = SFX.supportsAudioType("mp3") ? "mp3" : "ogg";
 
@@ -483,12 +477,12 @@ class Player {
 class PlayerLocal extends Player {
   constructor(game, model) {
     super(game, model);
-    const nickname = this.getCookie('nickname')
 
     const player = this;
-    // const socket = io.connect("http://socket.healingmate.kr:9001");
+
     const connection = new RTCMultiConnection();
 
+    // 이 부분을 vue에서 roomid 전달받아 {roomid}-threejs-room 이런 형식으로 변경해야함
     const roomid = connection.token();
 
     connection.socketURL = "https://socket.healingmate.kr:8282/";
@@ -496,18 +490,18 @@ class PlayerLocal extends Player {
     connection.socketMessageEvent = 'bamboo-forest';
 
     connection.session = {
-      audio: true,
+      audio: false,
       video: false,
       data: true,
     };
 
     connection.mediaConstraints = {
-      audio: true,
+      audio: false,
       video: false
     };
 
     connection.sdpConstraints.mandatory = {
-      OfferToReceiveAudio: true,
+      OfferToReceiveAudio: false,
       OfferToReceiveVideo: false
     };
 
@@ -522,49 +516,12 @@ class PlayerLocal extends Player {
       ]
     }];
 
-    connection.userid = nickname
-
     // 채팅에 몇명이나 허용 할것인지
-    connection.maxParticipantsAllowed = this.roomType==='single' ? 2 : 4;
-
     connection.publicRoomIdentifier = 'bamboo-forest'
-
-    connection.audiosContainer = document.getElementById('audios-container');
-
-    connection.onstreamended = function(event) {
-      var mediaElement = document.getElementById(event.streamid);
-        if (mediaElement) {
-          mediaElement.parentNode.removeChild(mediaElement);
-        }
-    };
-
-    connection.onNewParticipant = function(participantId, userPreferences) {
-      if (connection.enableLogs) {
-        console.log(`${participantId}님께서 입장하셨습니다.`);
-      }
-      connection.acceptParticipationRequest(participantId, userPreferences);
-    };
     
-    connection.connectSocket(function (socket) {
-      socket.emit("get-public-rooms", connection.publicRoomIdentifier, function (listOfRooms) {
-        if (listOfRooms.length) {
-          for (const room of listOfRooms) {
-            console.log(room, "의 방이 존재합니다");
-            if (!room.isRoomFull && room.maxParticipantsAllowed === connection.maxParticipantsAllowed) {
-              connection.join(room.sessionid);
-              return;
-            }
-          }
-          // 현재 존재하는 방을 다 순회했는데 들어갈 방이 없다? 그러면 내가 새로 판다
-          console.log("내가 판다")
-          connection.open(roomid);
-        } else {
-          // 현재 방이 아무것도 존재하지 않으면 첫 번째 방을 판다
-          console.log("내가 판다")
-          connection.open(roomid);
-        }
-      });
+    connection.join(roomid)
 
+    connection.connectSocket(function (socket) {
       player.id = connection.userid;
 
       socket.on("deletePlayer", function (data) {
@@ -589,32 +546,6 @@ class PlayerLocal extends Player {
         }
       });
     });
-
-    connection.onstream = function(event) {
-      console.log(event.userid)
-      var width = parseInt(connection.audiosContainer.clientWidth / 2) - 20;
-
-      var mediaElement = getHTMLMediaElement(event.mediaElement, {
-        title: event.userid,
-        buttons: ['full-screen'],
-        width: width,
-        showOnMouseEnter: false,
-        volum: event.userid === nickname ? 0 : 1
-      });
-
-      connection.audiosContainer.appendChild(mediaElement);
-
-      // 본인은 미디어 엘리먼트를 붙이지 않는다 > 음소거 버튼 x
-      if (event.userid === nickname) {
-        mediaElement.removeChild(mediaElement.firstChild);
-      }
-
-      setTimeout(function() {
-        mediaElement.media.play();
-      }, 5000);
-
-      mediaElement.id = event.streamid;
-    };
 
     setInterval(function(){
       let data = [];
@@ -651,11 +582,6 @@ class PlayerLocal extends Player {
       pb: this.object.rotation.x,
       action : "Idle"
     };
-  }
-
-  getCookie = function(name) {
-    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return value? value[2] : null;
   }
 
   updateSocket() {
