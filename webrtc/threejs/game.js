@@ -32,6 +32,7 @@ class Game {
     };
 
     this.container = document.createElement("div");
+    document.body.appendChild(this.container)
 
     const sfxExt = SFX.supportsAudioType("mp3") ? "mp3" : "ogg";
 
