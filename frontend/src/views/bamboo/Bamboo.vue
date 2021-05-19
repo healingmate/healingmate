@@ -101,11 +101,11 @@ export default {
 
       loader.load(`${this.assetsPath}fbx/people/${model}.fbx`, function(object) {
         game.player.root = object;
-
+        console.log(object, 'doozy obj')
         object.mixer = new THREE.AnimationMixer(game.player.root);
         game.player.mixer = object.mixer;
         game.player.animations = { 'Idle': object.animations[0] };
-
+        console.log(game.player.animations, 'game.player.animations')
         object.name = 'Person';
 
         object.traverse(function(child) {

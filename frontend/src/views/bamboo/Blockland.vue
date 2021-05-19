@@ -6,8 +6,10 @@
 
 <script>
 import * as THREE from 'three';
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+// import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { JoyStick } from '../../utils/toon3d.js';
 // import Stats from 'stats.js';
@@ -28,7 +30,7 @@ export default {
       stats: null,
       raycaster: null,
       assetsPath: '../three-assets/',
-      anims: ['Walking', 'Walking Backwards', 'Turn', 'Running'],
+      anims: ['Turn', 'Walking', 'Walking Backwards', 'Running'],
       animations: {},
       sun: null,
     };
@@ -38,10 +40,59 @@ export default {
     init() {
       this.container = this.$refs.sceneContainer;
       this.clock = new THREE.Clock();
+      
       // create scene
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color(0xa0a0a0);
       this.scene.fog = new THREE.Fog(0xa0a0a0, 700, 4000);
+      
+      const game = this;
+      
+      const gltfLoader = new GLTFLoader()
+      const dracoLoader = new DRACOLoader()
+      // const objLoader = new OBJLoader()
+      const loader = new FBXLoader();
+      const tLoader = new THREE.TextureLoader();
+
+      gltfLoader.setDRACOLoader(dracoLoader)
+      gltfLoader.load(`${game.assetsPath}gltf/bambooMap.glb`, function(gltf) {
+        console.log(gltf, 'gltf')
+        const object = gltf.scene
+        object.name = "scene"
+        object.userData.name = "asset"
+        object.position.set(0, 0, 0)
+        tLoader.load(`${game.assetsPath}gltf/PolygonNature_01.png`, async function(texture) {
+          // console.log('22222222222')
+          await object.traverse(function(child) {
+            // console.log('333333333333')
+            if (child.isMesh) {
+              child.material.map = texture;
+            }
+          });
+        });
+        tLoader.load(`${game.assetsPath}gltf/Tree_Dead_Branch.png`, async function(texture) {
+          // console.log('22222222222')
+          await object.traverse(function(child) {
+            // console.log('333333333333')
+            if (child.isMesh) {
+              child.material.map = texture;
+            }
+          });
+        });
+        tLoader.load(`${game.assetsPath}gltf/Moss.png`, async function(texture) {
+          // console.log('22222222222')
+          await object.traverse(function(child) {
+            // console.log('333333333333')
+            if (child.isMesh) {
+              child.material.map = texture;
+            }
+          });
+        });
+        object.scale.set(100, 100, 100)
+
+        
+        game.scene.add(object)
+      })
 
       this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
       this.camera.position.set(112, 100, 600);
@@ -61,41 +112,49 @@ export default {
       this.sun = light;
       this.scene.add(light);
 
+      
       // ground
-      var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(10000, 10000), new THREE.MeshLambertMaterial({ color: 0x999999, depthWrite: false }));
-      // mesh.rotation.x = -Math.PI / 2;
-      //mesh.position.y = -100;
-      mesh.receiveShadow = true;
-      this.scene.add(mesh);
 
-      var grid = new THREE.GridHelper(5000, 40, 0x000000, 0x000000);
-      //grid.position.y = -100;
-      grid.material.opacity = 0.2;
-      grid.material.transparent = true;
-      this.scene.add(grid);
+      // var grid = new THREE.GridHelper(5000, 40, 0x000000, 0x000000);
+      // //grid.position.y = -100;
+      // grid.material.opacity = 0.2;
+      // grid.material.transparent = true;
+      // this.scene.add(grid);
 
       // Model
-      const loader = new FBXLoader();
+      
 
-      const game = this;
+      // const game = this;
 
-      loader.load(`${this.assetsPath}fbx/Penguin_1.fbx`, function(object) {
-        // object.rotate.x = Math.PI / 2;
+      loader.load(`${this.assetsPath}fbx/people/Penguin.fbx`,  function(object) {
+        // console.log('111111111111')
+        // console.log('63456')
 
-        console.log(object);
+        tLoader.load(`${game.assetsPath}images/Penguin_COL_1k.png`, async function(texture) {
+          // console.log('22222222222')
+          await object.traverse(function(child) {
+            // console.log('333333333333')
+            if (child.isMesh) {
+              child.material.map = texture;
+            }
+          });
+        });
+
+        console.log(object, 'load model', '4444444444444');
 
         object.mixer = new THREE.AnimationMixer(object);
-        console.log(object.mixer, 'obj mixer');
         game.player.mixer = object.mixer;
         // game.player.root = object.mixer.getRoot();
 
         // player.animations이 undefined기 때문에
         // game.player.animations.Idle = {값} 으로 선언할수없음
+        // object.animations
         game.player.animations = { 'Idle': object.animations[0] };
-        game.player.animations['Runnig'] = object.animations[1]
-        game.player.animations['Walking'] = object.animations[2]
-        console.log(game.player.animations, 'game.player')
-        object.name = 'FireFighter';
+        // game.player.animations['Runnig'] = object.animations[1]
+        // game.player.animations['Walking'] = object.animations[2]
+        // console.log(game.player.animations, 'game.player.animations')
+        console.log(object.animatons, 'obj animations')
+        object.name = 'People';
 
         object.traverse(function(child) {
           if (child.isMesh) {
@@ -104,14 +163,7 @@ export default {
           }
         });
 
-        const tLoader = new THREE.TextureLoader();
-        tLoader.load(`${game.assetsPath}images/SimplePeople_FireFighter_Brown.png`, function(texture) {
-          object.traverse(function(child) {
-            if (child.isMesh) {
-              child.material.map = texture;
-            }
-          });
-        });
+        
 
         game.player.object = new THREE.Object3D();
 
@@ -122,19 +174,21 @@ export default {
 
         // 둘다 같다
         game.animations.Idle = object.animations[0];
-        game.animations.Running = object.animations[1];
-        game.animations.Walking = object.animations[2];
+        // game.animations.Running = object.animations[1];
+        // game.animations.Walking = object.animations[2];
         // game.animations['Idle'] = object.animations[0];
 
         game.joystick = new JoyStick({
           onMove: game.playerControl,
           game: game,
         });
-
+        // const objectLoader = new THREE.ObjectLoader()
+        
         game.createCameras();
+        game.loadEnvironment(loader)
         // game.loadNextAnim(loader);
-        game.action = 'Idle'
-        game.animate()
+        // game.action = 'Idle'
+        // game.animate()
       });
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -154,20 +208,48 @@ export default {
         false
       );
     },
+    loadEnvironment(loader) {
+      const game = this;
+      loader.load(`${game.assetsPath}fbx/background.fbx`, function(object) {
+        game.environment = object;
+        game.colliders = [];
+        game.scene.add(object);
+        object.traverse(function(child) {
+          if (child.isMesh) {
+            if (child.name.startsWith('proxy')) {
+              game.colliders.push(child);
+              child.material.visible = false;
+            } else {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          }
+        });
+        const tloader = new THREE.CubeTextureLoader();
+        tloader.setPath(`${game.assetsPath}images/`);
+
+        var textureCube = tloader.load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
+
+        game.scene.background = textureCube;
+        game.loadNextAnim(loader);
+      });
+    },
     loadNextAnim(loader) {
       let anim = this.anims.pop();
       const game = this;
-      loader.load(`${this.assetsPath}fbx/anims/${anim}.fbx`, function(object) {
+      loader.load(`${this.assetsPath}anims/${anim}.fbx`, function(object) {
+        console.log(object, 'animation fbx의 obj')
         game.animations[anim] = object.animations[0];
         if (game.anims.length > 0) {
           game.loadNextAnim(loader);
         } else {
           delete game.anims;
           game.action = 'Idle';
-          // game.action('Idle');
+          
           game.animate();
         }
       });
+      
     },
     movePlayer(dt) {
       const pos = this.player.object.position.clone();
@@ -315,18 +397,6 @@ export default {
 
       this.renderer.setSize(container.clientWidth, container.clientHeight);
     },
-    // action(name) {
-    //   if (this.player.action == name) return;
-    //   const _action = this.player.mixer.clipAction(this.player.animations[name]);
-
-    //   _action.time = 0;
-    //   this.player.mixer.stopAllAction();
-    //   this.player.action = name;
-    //   this.player.actionTime = Date.now();
-
-    //   _action.fadeIn(0.5);
-    //   _action.play();
-    // },
 
     animate() {
       const game = this;
@@ -360,6 +430,7 @@ export default {
       //   this.sun.position.z = this.player.object.position.z + 100;
       //   this.sun.target = this.player.object;
       // }
+      
       this.renderer.render(this.scene, this.camera);
       // if (this.stats != undefined) this.stats.update();
     },
@@ -391,7 +462,7 @@ export default {
         this.player.action = name;
         this.player.actionTime = Date.now();
 
-        // _action.fadeIn(0.5);
+        // _action.fadeIn(.5);
         _action.play();
       },
     },
