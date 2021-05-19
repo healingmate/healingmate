@@ -85,7 +85,7 @@ function serverHandler(request, response) {
     }
 
     var matched = false;
-    ["/threejs/","/demos/", "/dev/", "/dist/", "/socket.io/", "/node_modules/canvas-designer/", "/admin/"].forEach(function (item) {
+    ["/demos/", "/dev/", "/dist/", "/socket.io/", "/node_modules/canvas-designer/", "/admin/"].forEach(function (item) {
       if (filename.indexOf(resolveURL(item)) !== -1) {
         matched = true;
       }
