@@ -1,33 +1,10 @@
 <template>
   <div class="relative" style="height: 100%;">
-    <div class="row justify-end">
-      <q-btn 
-        flat 
-        round 
-        color="white" 
-        :icon="isMute ? 'mic_off' : 'mic'" 
-        style="z-index: 1; filter: drop-shadow(2px 4px 6px black);"
-        @click="onMute"
-      />
-      <q-btn 
-        flat 
-        round 
-        color="white" 
-        icon="logout" 
-        style="z-index: 1; filter: drop-shadow(2px 4px 6px black);"
-        @click="onLeave"
-      />
-    </div>
-
-    <div id="audios-container"></div>
-
-    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://socket.healingmate.kr:8282/threejs/bamboo-forest.html" frameborder="0"></iframe>
+    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://socket.healingmate.kr/bamboo-forest.html" frameborder="0"></iframe>
   </div>
 </template>
 
-<script src="https://socket.healingmate.kr:8282/dev/getHTMLMediaElement.js"></script>
 <script>
-const SOCKET_URL = process.env.VUE_APP_SOCKET_SERVER_URL
 
 export default {
 	name: 'BambooForestPage',
@@ -39,26 +16,26 @@ export default {
   },
 	data() {
     return {
-      // 대문자로 선언하면 const 형태로 선언됨!
-      CONNECTION: null,
-      // 본인 음성을 끌지 안끌지 지정할 isMute
-      isMute: false,
+      // // 대문자로 선언하면 const 형태로 선언됨!
+      // CONNECTION: null,
+      // // 본인 음성을 끌지 안끌지 지정할 isMute
+      // isMute: false,
     }
 	},
 	// computed: {},
 	// watch: {},
   created() {
     // 소켓을 연결 할 webRTC 인스턴스를 만든다. 
-    this.CONNECTION = new RTCMultiConnection();
+    // this.CONNECTION = new RTCMultiConnection();
   },
 	mounted() {
     // webRTC 각종 설정 및 소켓 연결(=채팅 연결)
-    this.initVoiceChating(this.CONNECTION);
+    // this.initVoiceChating(this.CONNECTION);
   },
 	// updated() {},
   destroyed() {
     // webRTC 소켓 연결 끊기
-    this.exitVoiceChating(this.CONNECTION)
+    // this.exitVoiceChating(this.CONNECTION)
   },
 	methods: {
     // webRTC 각종 설정 및 소켓 연결(=채팅 연결)
