@@ -18,7 +18,6 @@ import BambooEnterPage from '@/views/bamboo/BambooEnterPage.vue'
 import BambooCategoryPage from '@/views/bamboo/BambooCategoryPage.vue'
 import BambooTypeSelectPage from '@/views/bamboo/BambooTypeSelectPage.vue'
 import BambooForestPage from '@/views/bamboo/BambooForestPage.vue'
-import Blockland from '@/views/bamboo/Blockland.vue'
 
 export default [
   {
@@ -135,12 +134,6 @@ export default [
     component: BambooForestPage,
     meta: { authRequired: true },
     props: true,
-  },
-  {
-    path: '/blockland',
-    name: 'Blockland',
-    component: Blockland,
-    // meta: { authRequired: true },
   },
   {
     path: '*',

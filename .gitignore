@@ -225,3 +225,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+#three.js
+_notes/
