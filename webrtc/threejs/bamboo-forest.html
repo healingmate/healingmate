@@ -17,8 +17,14 @@
 		<script src="libs/toon3d.js"></script>
 		<script src="game.js"></script>
 		<script>
-			var game;
-			document.addEventListener("DOMContentLoaded", function(){ game = new Game(); });
+			window.addEventListener( 'message', receiveMsgFromParent );
+			// 부모로부터 메시지 수신
+			function receiveMsgFromParent( e ) {
+				// e.data가 전달받은 메시지
+				console.log('부모로 부터 받은 메시지 ', e.data );
+				var game;
+				document.addEventListener("DOMContentLoaded", function(){ game = new Game(); });
+			}
 		</script>
 	</body>
 </html>
