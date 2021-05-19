@@ -38,7 +38,7 @@ class Game {
     const sfxExt = SFX.supportsAudioType("mp3") ? "mp3" : "ogg";
 
     const game = this;
-    this.anims = ["Walking", "Walking Backwards", "Turn", "Running", "Talking"];
+    this.anims = ["Walking", "Walking-Backwards", "Turn", "Running", "Pointing", "Talking", "Pointing-Gesture"];
 
     const options = {
       assets: [
@@ -191,7 +191,7 @@ class Game {
     if (forward > 0.3) {
       if (this.player.action != "Walking" && this.player.action != "Running") this.player.action = "Walking";
     } else if (forward < -0.3) {
-      if (this.player.action != "Walking Backwards") this.player.action = "Walking Backwards";
+      if (this.player.action != "Walking-Backwards") this.player.action = "Walking-Backwards";
     } else {
       forward = 0;
       if (Math.abs(turn) > 0.1) {
