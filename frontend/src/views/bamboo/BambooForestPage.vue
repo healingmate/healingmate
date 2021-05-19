@@ -1,11 +1,27 @@
 <template>
-  <div>
+  <div class="relative" style="height: 100%;">
     <div class="row justify-end">
-      <q-btn flat round color="healing-navy" :icon="isMute ? 'mic_off' : 'mic'" @click="onMute"/>
-      <q-btn flat round color="healing-navy" icon="logout" @click="onLeave"/>
+      <q-btn 
+        flat 
+        round 
+        color="white" 
+        :icon="isMute ? 'mic_off' : 'mic'" 
+        style="z-index: 1; filter: drop-shadow(2px 4px 6px black);"
+        @click="onMute"
+      />
+      <q-btn 
+        flat 
+        round 
+        color="white" 
+        icon="logout" 
+        style="z-index: 1; filter: drop-shadow(2px 4px 6px black);"
+        @click="onLeave"
+      />
     </div>
 
     <div id="audios-container"></div>
+
+    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="http://niksgames.com/blockland/index.html" frameborder="0"></iframe>
   </div>
 </template>
 
@@ -239,15 +255,14 @@ export default {
 }
 
 #audios-container >>> .mute-audio{
-  background-color: transparent;
+  background-color: transparent !important;
   background-image: url('~@/assets/images/voice-chat/unmute.svg');
 }
 
 #audios-container >>> .unmute-audio{
-  background-color: transparent;
+  background-color: transparent !important;
   background-image: url('~@/assets/images/voice-chat/mute.svg');
 }
-
 
 #audios-container >>> .stop {
   display: none;
@@ -255,13 +270,15 @@ export default {
 
 
 #audios-container >>> h2 {
-  color: #000000 !important;
+  color: #ffffff !important;
   font-size: 16px !important;
   line-height: 1.5;
   padding: 0 4px !important;
   position: relative !important;
   width: auto !important;
   height: auto !important;
+  filter: drop-shadow(1px 0px 2px black);
+  z-index: 1;
 }
 
 #audios-container >>> input {
