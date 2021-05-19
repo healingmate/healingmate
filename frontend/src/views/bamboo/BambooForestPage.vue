@@ -21,7 +21,7 @@
 
     <div id="audios-container"></div>
 
-    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="http://niksgames.com/blockland/index.html" frameborder="0"></iframe>
+    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://socket.healingmate.kr:8282/threejs/bamboo-forest.html" frameborder="0"></iframe>
   </div>
 </template>
 

@@ -38,7 +38,7 @@ class Game {
     const sfxExt = SFX.supportsAudioType("mp3") ? "mp3" : "ogg";
 
     const game = this;
-    this.anims = ["Walking", "Walking Backwards", "Turn", "Running", "Pointing", "Talking", "Pointing Gesture"];
+    this.anims = ["Walking", "Walking Backwards", "Turn", "Running", "Talking"];
 
     const options = {
       assets: [
