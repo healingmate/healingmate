@@ -3,7 +3,7 @@
     <the-image-header 
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
-      label="profile"
+      label="프로필"
       :brightness="60"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->
@@ -90,7 +90,7 @@
         v-if="postButton"
         class="text-caption text-weight-bold"
         style="width: 42vw; border-radius: 10px; background: #244684; color: white;" 
-        label="Post" 
+        label="게시글" 
         @click="selectButton"
       />
       <q-btn 
@@ -98,13 +98,13 @@
         flat 
         class="text-caption text-weight-bold"
         style="width: 42vw; color: #244684" 
-        label="Post" 
+        label="게시글" 
         @click="selectButton"
       /><q-btn 
         v-if="bookmarkButton"
         class="text-caption text-weight-bold"
         style="width: 42vw; border-radius: 10px; background: #244684; color: white;" 
-        label="Bookmark" 
+        label="북마크" 
         @click="selectButton"
       />
       <q-btn 
@@ -112,7 +112,7 @@
         flat 
         class="text-caption text-weight-bold"
         style="width: 42vw; color: #244684" 
-        label="Bookmark" 
+        label="북마크" 
         @click="selectButton"
       />
     </div>
@@ -153,8 +153,8 @@ import BaseKebabButton from '@/components/common/BaseKebabButton';
 import BaseMenu from '@/components/common/BaseMenu';
 import { getBookmarkedContents } from '@/api/healing-content';
 import { getArticleList } from '@/api/user';
-import { data } from '@/assets/data/HealingContents.js';
-import { characterList } from '@/assets/data/CharacterList.js';
+import { data } from '@/assets/data/HealingContents.json';
+import { characterList } from '@/assets/data/CharacterList.json';
 // import UserRecommend from '@/components/user/UserRecommend';
 
 export default {

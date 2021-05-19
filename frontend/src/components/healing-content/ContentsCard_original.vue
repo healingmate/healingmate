@@ -1,7 +1,8 @@
 <template>
   <!-- 콘텐츠 card -->
-  <div style="width: 41vw; relative-position">
-    <div>
+  <div>
+  <!-- <div style="width: 41vw; relative-position"> -->
+    <div class="q-ma-sm">
       <!-- Youtube -->
       <q-img 
         v-if="entity.category === '유튜브'"
@@ -17,7 +18,7 @@
           ></q-icon>
         </div>
         <q-icon 
-          class="cursor-pointer float-left q-ma-xs bookmark" 
+          class="cursor-pointer float-left q-ma-xs" 
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
@@ -31,7 +32,7 @@
         :src="entity.contents"
       >
         <q-icon 
-          class="cursor-pointer float-left q-ma-xs bookmark" 
+          class="cursor-pointer float-left q-ma-xs" 
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
@@ -123,17 +124,4 @@ export default {
 </script>
 
 <style scoped>
-.bookmark {
-  transform-origin: 20% 0;
-  animation: vibrate 1.5s linear 0.5s infinite;
-}
-
-@keyframes vibrate
-{
-  0%   {transform: rotate(3deg)}
-  25%  {transform: rotate(-3deg)}
-  50%  {transform: rotate(1deg)}
-  75%  {transform: rotate(3deg)}
-  100% {transform: rotate(0)}
-}
 </style>

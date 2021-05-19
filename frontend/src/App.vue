@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-center">
+  <div class="row justify-center" id="app">
     <div class="col-xs-12 col-sm-6 col-md-4" style="height: 100vh; position: relative;">
 			<!-- 테스트용 로그아웃 버튼 시작 -->
 			<!-- <div v-if="this.$store.state.accessToken" style="position: absolute; left: 100px; z-index: 3;">

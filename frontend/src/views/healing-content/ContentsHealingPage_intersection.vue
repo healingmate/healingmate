@@ -3,7 +3,7 @@
     <the-image-header 
       style="background-color: #F2BAB7;" 
       background-image="healing-contents-header.png" 
-      label="콘텐츠"
+      label="Contents"
       :brightness="50"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->
@@ -42,15 +42,24 @@
         ></base-menu>
       </q-menu>
     </q-btn>
-    <div class="q-pa-lg flex justify-between q-mt-lg">
-      <contents-card
-        v-for="(contents, index) in contentsList" 
-        :key="index" 
-        :entity="contents"
-        :bookmarkedList="bookmarkedList"
-        :contentsCategory="contentsCategory"
-      >
-      </contents-card>
+    <div class="q-pa-lg q-mt-lg">
+      <div ref="myList" class="row flex justify-center">
+        <q-intersection
+          v-for="(contents, index) in contentsList" 
+          :key="index" 
+          transition="scale"
+          style="width: 41vw;"
+          transition-show="jump-down"
+          :root="listEl"
+        >
+          <contents-card
+            :entity="contents"
+            :bookmarkedList="bookmarkedList"
+            :contentsCategory="contentsCategory"
+          >
+          </contents-card>
+        </q-intersection>
+      </div>
     </div>  
   </div>
 </template>
@@ -84,6 +93,9 @@ export default {
         if (this.contentsCategory === contents.category) return true;
         return false;
       });
+    },
+    listEl () {
+      return this.$refs.myList ? this.$refs.myList.$el : null
     }
   },
   methods: {

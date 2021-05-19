@@ -17,7 +17,7 @@
           ></q-icon>
         </div>
         <q-icon 
-          class="cursor-pointer float-left q-ma-xs bookmark" 
+          class="cursor-pointer float-left q-ma-xs vibrate" 
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
@@ -31,7 +31,7 @@
         :src="entity.contents"
       >
         <q-icon 
-          class="cursor-pointer float-left q-ma-xs bookmark" 
+          class="cursor-pointer float-left q-ma-xs vibrate" 
           :name="entity.bookmarked ? 'bookmark' : 'bookmark_border'"
           size="sm" 
           color="white"
@@ -123,17 +123,26 @@ export default {
 </script>
 
 <style scoped>
-.bookmark {
-  transform-origin: 20% 0;
-  animation: vibrate 1.5s linear 0.5s infinite;
+.vibrate {
+  animation: vbr 0.5s infinite alternate;
 }
 
-@keyframes vibrate
-{
-  0%   {transform: rotate(3deg)}
-  25%  {transform: rotate(-3deg)}
-  50%  {transform: rotate(1deg)}
-  75%  {transform: rotate(3deg)}
-  100% {transform: rotate(0)}
+@keyframes vbr {
+  from {
+    margin-left:0.1px;
+    animation-timing-function: cubic-bezier(0.25, 0.01, 0.55, 0.16);
+  }
+  10% {
+    margin-left:0.1px;
+    animation-timing-function: cubic-bezier(0.52, 0.44, 0.47, 0.44);
+  }
+  20% {
+    margin-left:-0.1px;
+    animation-timing-function: cubic-bezier(0.53, 0.56, 0.48, 0.56);
+  }
+  30% {
+    margin-left:0px;
+    animation-timing-function: cubic-bezier(0.45, 0.84, 0.75, 0.99);
+  }
 }
 </style>

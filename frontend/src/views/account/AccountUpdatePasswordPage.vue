@@ -3,7 +3,7 @@
     <the-image-header 
       class="relative" 
       :background-image="isNight ? 'night.jpg' : 'day.jpg'"
-      label="Change Password"
+      label="비밀번호 변경"
       :brightness="60"
     ></the-image-header>
     <!-- 뒤로 가기 버튼 -->

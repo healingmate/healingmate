@@ -3,7 +3,7 @@
     <the-image-header 
       style="background-color: #5A3272;" 
       background-image="meditation-contents-header.png" 
-      label="Meditation"
+      label="명상"
       :brightness="50"
     ></the-image-header>
     <!-- 이전 페이지 이동 -->
@@ -59,9 +59,9 @@ import TheImageHeader from '@/components/common/TheImageHeader';
 import ContentsMeditation from '@/components/healing-content/ContentsMeditation';
 import ArticleCarousel from '@/components/article/ArticleCarousel.vue';
 import TheGoBackButton from '@/components/common/TheGoBackButton';
-import { mainData } from '@/assets/data/MeditationMainContents.js';
-import { subOneData } from '@/assets/data/MeditationSubOneContents.js';
-import { subTwoData } from '@/assets/data/MeditationSubTwoContents.js';
+import { mainData } from '@/assets/data/MeditationMainContents.json';
+import { subOneData } from '@/assets/data/MeditationSubOneContents.json';
+import { subTwoData } from '@/assets/data/MeditationSubTwoContents.json';
 
 export default {
   components: {
