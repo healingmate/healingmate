@@ -1,6 +1,6 @@
 <template>
   <div class="relative" style="height: 100%;">
-    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://socket.healingmate.kr/bamboo-forest.html" frameborder="0"></iframe>
+    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://socket.healingmate.kr/bamboo-forest.html" frameborder="0" allow="microphone https://socket.healingmate.kr/bamboo-forest.html"></iframe>
   </div>
 </template>
 
