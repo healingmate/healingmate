@@ -197,7 +197,7 @@ export default {
 
 
 <style scoped>
-@import url("https://socket.healingmate.kr:8282/dev/getHTMLMediaElement.css");
+/* @import url("https://socket.healingmate.kr:8282/dev/getHTMLMediaElement.css"); */
 
 #audios-container >>> audio{
   display: none;
