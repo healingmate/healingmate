@@ -70,6 +70,7 @@ export default {
     initVoiceChating(connection) {
       const nickname = this.$store.state.nickname
       const notify = this.$q.notify
+      const child = document.getElementById('child').contentWindow
 
       // socketIo를 가지고 있는 서버 주소
       connection.socketURL = SOCKET_URL
@@ -167,17 +168,20 @@ export default {
               console.log(room, '의 방이 존재합니다' )
               // TODO: 현재 선택한 대숲 모드에 맞춰서 인원에 맞는 방에 들어가야함
               if (!room.isRoomFull && room.maxParticipantsAllowed === connection.maxParticipantsAllowed ) {
-                child.contentWindow.postMessage( msg, room.sessionid );
+                console.log(">>>>>>1")
+                console.log(child.postMessage({'rooid': room.sessionid}, '*'))
                 connection.join(room.sessionid)
                 return
               }
             }
             // 현재 존재하는 방을 다 순회했는데 들어갈 방이 없다? 그러면 내가 새로 판다
-            child.contentWindow.postMessage( msg, roomid );
+                console.log(">>>>>>2")
+            console.log(child.postMessage({roomid}, '*'))
             connection.open(roomid)
           } else {
             // 현재 방이 아무것도 존재하지 않으면 첫 번째 방을 판다
-            child.contentWindow.postMessage( msg, roomid );
+            console.log(">>>>>>3")
+            console.log(child.postMessage({roomid}, '*'))
             connection.open(roomid)
           }
         })
