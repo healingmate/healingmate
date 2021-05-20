@@ -49,7 +49,7 @@
     </q-dialog>
 
     <!-- 등록할 이미지를 미리 볼 수 있는 캐러셀 -->
-    <div style="margin-top: 20px;">
+    <div style="padding: 20px 0;">
       <ArticleCarousel v-if="articleImages" :key="rerenderTriggerIndex" :number="5">
         <ArticleCarouselItem
           v-for="(articleImage, index) in articleImages" :key="index" 
@@ -65,7 +65,7 @@
      <BaseButton label="작성하기" />
     </div> -->
 
-    <div class="p-x-28" style="position:absolute; left:0; bottom: 20px; width: 100%;">
+    <div style="width: 100%;">
 			<BaseButton label="작성하기" @click.native="onClickPost"/>
 		</div>
 
