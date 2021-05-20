@@ -21,7 +21,7 @@
 
     <div id="audios-container"></div>
 
-    <iframe 
+    <iframe
       id="child"
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
       src="https://socket.healingmate.kr/bamboo-forest.html" 
@@ -48,6 +48,7 @@ export default {
       CONNECTION: null,
       // 본인 음성을 끌지 안끌지 지정할 isMute
       isMute: false,
+      roomid: null,
     }
 	},
 	// computed: {},
@@ -59,6 +60,7 @@ export default {
 	mounted() {
     // webRTC 각종 설정 및 소켓 연결(=채팅 연결)
     this.initVoiceChating(this.CONNECTION);
+    window.addEventListener( 'message', this.messageFromChild )
   },
 	// updated() {},
   destroyed() {
@@ -70,7 +72,7 @@ export default {
     initVoiceChating(connection) {
       const nickname = this.$store.state.nickname
       const notify = this.$q.notify
-      const child = document.getElementById('child').contentWindow
+      const self = this
 
       // socketIo를 가지고 있는 서버 주소
       connection.socketURL = SOCKET_URL
@@ -159,33 +161,31 @@ export default {
       };
 
       // room id 만들기
-      var roomid = connection.token();
 
       // 참가자가 어떻게 참여할지 정의함
       // 1. 전체 방을 뒤져서 내가 선택한 room type에 맞는 방이 있고 해당 방이 꽉 차지 않았으면 그 방에 들어가고
       // 2. 조건에 맞는 방이 없으면 방을 내가 오픈한다.
-      connection.connectSocket(function(socket) {
+      connection.connectSocket(async function(socket) {
         socket.emit('get-public-rooms', connection.publicRoomIdentifier, function(listOfRooms) {
+          self.roomid = connection.token();
           if (listOfRooms.length) {
             for (const room of listOfRooms) {
               console.log(room, '의 방이 존재합니다' )
               // TODO: 현재 선택한 대숲 모드에 맞춰서 인원에 맞는 방에 들어가야함
               if (!room.isRoomFull && room.maxParticipantsAllowed === connection.maxParticipantsAllowed ) {
-                console.log(">>>>>>1");
-                child.postMessage({'roomid': room.sessionid}, '*');
-                connection.join(room.sessionid);
+                self.roomid = room.sessionid
+                // child.postMessage({'roomid': this.roomid}, '*');
+                connection.join(self.roomid);
                 return
               }
             }
             // 현재 존재하는 방을 다 순회했는데 들어갈 방이 없다? 그러면 내가 새로 판다
-            console.log(">>>>>>2");
-            child.postMessage({roomid}, '*');
-            connection.open(roomid);
+            // child.postMessage({'roomid': this.roomid}, '*');
+            connection.open(self.roomid);
           } else {
             // 현재 방이 아무것도 존재하지 않으면 첫 번째 방을 판다
-            console.log(">>>>>>3");
-            child.postMessage({roomid}, '*');
-            connection.open(roomid);
+            // child.postMessage({'roomid': this.roomid}, '*');
+            connection.open(self.roomid);
           }
         })
       })
@@ -225,6 +225,15 @@ export default {
       }
 
       this.isMute = !this.isMute
+    },
+    messageFromChild(e) {
+      console.log(e)
+      document.getElementById('child').contentWindow
+      .postMessage(
+        {
+          'roomid': this.roomid,
+          'profileImage': this.$store.state.profileImage
+        }, '*')
     }
   },
 }
