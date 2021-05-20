@@ -24,7 +24,7 @@
     <iframe 
       id="child"
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-      src="http://localhost:8081/threejs/bamboo-forest.html" 
+      src="https://socket.healingmate.kr/bamboo-forest.html" 
       frameborder="0">
     </iframe>
   </div>
@@ -178,7 +178,7 @@ export default {
               }
             }
             // 현재 존재하는 방을 다 순회했는데 들어갈 방이 없다? 그러면 내가 새로 판다
-                console.log(">>>>>>2");
+            console.log(">>>>>>2");
             child.postMessage({roomid}, '*');
             connection.open(roomid);
           } else {
@@ -194,6 +194,7 @@ export default {
     exitVoiceChating(connection) {
       // iframe message 지워졌다!
       document.getElementById('child').contentWindow.postMessage("exit", '*');
+      
       connection.attachStreams.forEach(function(localStream) {
           localStream.stop()
       })
