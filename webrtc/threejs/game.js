@@ -35,6 +35,8 @@ class Game {
     };
 
     this.container = document.createElement("div");
+    this.container.style.height = '100%'
+    this.container.style.width = '100%'
     document.body.appendChild(this.container)
 
     const game = this;

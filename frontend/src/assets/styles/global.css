@@ -11,8 +11,8 @@
   font-style: normal;
 }
 
-#app {
-  font-family: 'GyeonggiBatang';
+body {
+  font-family: 'GyeonggiBatang' !important;
 }
 
 /* @font-face {
@@ -22,7 +22,7 @@
   font-style: normal;
 }
 
-#app {
+body {
   font-family: 'MapoFlowerIsland';
 }  */
 
@@ -33,7 +33,7 @@
   font-style: normal;
 }
 
-#app {
+body {
   font-family: 'Cafe24Oneprettynight';
 } */
 
@@ -44,7 +44,7 @@
   src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/hani/Hankc/Hankc.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/hani/Hankc/Hankc.woff') format('woff');
 }
 
-#app {
+body {
   font-family: 'Hankc', serif;
 } */
 

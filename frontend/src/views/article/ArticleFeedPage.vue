@@ -123,7 +123,7 @@ export default {
     handleScroll() {
       var scrollDepth = ((window.scrollY + window.innerHeight)/document.body.scrollHeight)
       
-      if (!this.isLoading && scrollDepth > 0.99 && !this.isLast) {
+      if (!this.isLoading && scrollDepth > 0.97 && !this.isLast) {
         this.loadData()
       }
     },
