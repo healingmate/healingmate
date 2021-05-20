@@ -1,0 +1,100 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "icon": "🌂",
+      "title": "취업",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#55A822",
+      "selectedCategory": false
+    },
+    {
+      "id": 2,
+      "icon": "🌂",
+      "title": "학업/진로",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#C34159",
+      "selectedCategory": false
+    },
+    {
+      "id": 3,
+      "icon": "🌂",
+      "title": "가족",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#DC972F",
+      "selectedCategory": false
+    },
+    {
+      "id": 4,
+      "icon": "🌂",
+      "title": "대인관계",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#242E90",
+      "selectedCategory": false
+    },
+    {
+      "id": 5,
+      "icon": "🌂",
+      "title": "생활정보",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#E7899A",
+      "selectedCategory": false
+    },
+    {
+      "id": 6,
+      "icon": "🌂",
+      "title": "성격",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#565768",
+      "selectedCategory": false
+    },
+    {
+      "id": 7,
+      "icon": "🌂",
+      "title": "직장",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#287FAF",
+      "selectedCategory": false
+    },
+    {
+      "id": 8,
+      "icon": "🌂",
+      "title": "학교",
+      "size": "3",
+      "width": "139px",
+      "height": "95px",
+      "borderColor": "white",
+      "textColor": "white",
+      "color": "#8B31C1",
+      "selectedCategory": false
+    }
+  ]
+}

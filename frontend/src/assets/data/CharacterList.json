@@ -1,0 +1,36 @@
+{
+  "characterList": [
+    {
+      "id": 1,
+      "name": "BEAR"
+    },
+    {
+      "id": 2,
+      "name": "CAT"
+    },
+    {
+      "id": 3,
+      "name": "COW"
+    },
+    {
+      "id": 4,
+      "name": "DOG"
+    },
+    {
+      "id": 5,
+      "name": "PENGUIN"
+    },
+    {
+      "id": 6,
+      "name": "RABBIT"
+    },
+    {
+      "id": 7,
+      "name": "WOLF"
+    },
+    {
+      "id": 8,
+      "name": "DOG"
+    }
+  ]
+}
