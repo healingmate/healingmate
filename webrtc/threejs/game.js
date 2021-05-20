@@ -452,8 +452,6 @@ class PlayerLocal extends Player {
     // 이 부분을 vue에서 roomid 전달받아 {roomid}-threejs-room 이런 형식으로 변경해야함
     const roomid = game.roomid + '-threejs-room';
 
-    console.log(roomid,'되냐 진짜냐!!!!?')
-
     connection.socketURL = "https://socket.healingmate.kr:8282/";
 
     connection.socketMessageEvent = 'bamboo-forest';
