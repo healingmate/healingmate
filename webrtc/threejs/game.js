@@ -30,17 +30,15 @@ class Game {
     this.remoteData = [];
 
     this.messages = {
-      text: ["Welcome to Blockland", "GOOD LUCK!"],
+      text: ["Welcome to Healing Mate Bamboo Forest", "GOOD LUCK!"],
       index: 0,
     };
 
     this.container = document.createElement("div");
     document.body.appendChild(this.container)
 
-    const sfxExt = SFX.supportsAudioType("mp3") ? "mp3" : "ogg";
-
     const game = this;
-    this.anims = ["Walking", "Walking-Backwards", "Turn", "Running", "Pointing", "Talking", "Pointing-Gesture"];
+    this.anims = ["Walking", "Turn", "Running"];
 
     const options = {
       assets: [
@@ -57,7 +55,7 @@ class Game {
     };
 
     this.anims.forEach(function (anim) {
-      options.assets.push(`${game.assetsPath}fbx/anims/${anim}.fbx`);
+      options.assets.push(`${game.assetsPath}fbx/anims/${game.profileImage}_${anim}.fbx`);
     });
     options.assets.push(`${game.assetsPath}fbx/town.fbx`);
 
@@ -70,17 +68,6 @@ class Game {
     window.onError = function (error) {
       console.error(JSON.stringify(error));
     };
-  }
-
-  initSfx() {
-    this.sfx = {};
-    this.sfx.context = new (window.AudioContext || window.webkitAudioContext)();
-    this.sfx.gliss = new SFX({
-      context: this.sfx.context,
-      src: { mp3: `${this.assetsPath}sfx/gliss.mp3`, ogg: `${this.assetsPath}sfx/gliss.ogg` },
-      loop: false,
-      volume: 0.3,
-    });
   }
 
   set activeCamera(object) {
@@ -124,9 +111,6 @@ class Game {
     this.player = new PlayerLocal(this);
 
     this.loadEnvironment(loader);
-
-    this.speechBubble = new SpeechBubble(this, "", 150);
-    this.speechBubble.mesh.position.set(0, 350, 0);
 
     this.joystick = new JoyStick({
       onMove: this.playerControl,
@@ -174,7 +158,7 @@ class Game {
   loadNextAnim(loader) {
     let anim = this.anims.pop();
     const game = this;
-    loader.load(`${this.assetsPath}fbx/anims/${anim}.fbx`, function (object) {
+    loader.load(`${this.assetsPath}fbx/anims/${this.profileImage}_${anim}.fbx`, function (object) {
       game.player.animations[anim] = object.animations[0];
       if (game.anims.length > 0) {
         game.loadNextAnim(loader);
@@ -193,7 +177,7 @@ class Game {
     if (forward > 0.3) {
       if (this.player.action != "Walking" && this.player.action != "Running") this.player.action = "Walking";
     } else if (forward < -0.3) {
-      if (this.player.action != "Walking-Backwards") this.player.action = "Walking-Backwards";
+      if (this.player.action != "Walking") this.player.action = "Walking";
     } else {
       forward = 0;
       if (Math.abs(turn) > 0.1) {
@@ -231,26 +215,6 @@ class Game {
     collect.parent = this.player.object;
     this.cameras = { front, back, wide, overhead, collect };
     this.activeCamera = this.cameras.back;
-  }
-
-  showMessage(msg, fontSize = 20, onOK = null) {
-    const txt = document.getElementById("message_text");
-    txt.innerHTML = msg;
-    txt.style.fontSize = fontSize + "px";
-    const btn = document.getElementById("message_ok");
-    const panel = document.getElementById("message");
-    const game = this;
-    if (onOK != null) {
-      btn.onclick = function () {
-        panel.style.display = "none";
-        onOK.call(game);
-      };
-    } else {
-      btn.onclick = function () {
-        panel.style.display = "none";
-      };
-    }
-    panel.style.display = "flex";
   }
 
   onWindowResize() {
@@ -353,23 +317,20 @@ class Game {
       this.sun.position.y += 10;
     }
 
-    if (this.speechBubble !== undefined) this.speechBubble.show(this.camera.position);
-
     this.renderer.render(this.scene, this.camera);
   }
 }
-
 class Player {
   constructor(game, options) {
     this.local = true;
     let model, colour;
 
-    const colours = ["Black", "Brown", "White"];
-    colour = colours[Math.floor(Math.random() * colours.length)];
+    // const colours = fs.readdir(`${game.assetsPath}images/${game.profileImage}`);
+    // console.log("colours",colours);
+    // colour = colours[Math.floor(Math.random() * colours.length)];
 
     if (options === undefined) {
-      const people = ["BeachBabe", "BusinessMan", "Doctor", "FireFighter", "Housewife", "Policeman", "Prostitute", "Punk", "RiotCop", "Roadworker", "Robber", "Sheriff", "Streetman", "Waitress"];
-      model = people[Math.floor(Math.random() * people.length)];
+      model = game.profileImage;
     } else if (typeof options == "object") {
       this.local = false;
       this.options = options;
@@ -387,12 +348,12 @@ class Player {
     const loader = new THREE.FBXLoader();
     const player = this;
 
-    loader.load(`${game.assetsPath}fbx/people/${model}.fbx`, function (object) {
+    loader.load(`${game.assetsPath}fbx/animal/${model}.fbx`, function (object) {
       object.mixer = new THREE.AnimationMixer(object);
       player.root = object;
       player.mixer = object.mixer;
 
-      object.name = "Person";
+      object.name = "Animal";
 
       object.traverse(function (child) {
         if (child.isMesh) {
@@ -403,7 +364,7 @@ class Player {
 
       const textureLoader = new THREE.TextureLoader();
 
-      textureLoader.load(`${game.assetsPath}images/SimplePeople_${model}_${colour}.png`, function (texture) {
+      textureLoader.load(`${game.assetsPath}images/${model}/${model}.png`, function (texture) {
         object.traverse(function (child) {
           if (child.isMesh) {
             child.material.map = texture;
@@ -692,107 +653,5 @@ class PlayerLocal extends Player {
     this.object.rotateY(this.motion.turn * dt);
 
     this.updateSocket();
-  }
-}
-
-class SpeechBubble {
-  constructor(game, msg, size = 1) {
-    this.config = { font: "Calibri", size: 24, padding: 10, colour: "#222", width: 256, height: 256 };
-
-    const planeGeometry = new THREE.PlaneGeometry(size, size);
-    const planeMaterial = new THREE.MeshBasicMaterial();
-    this.mesh = new THREE.Mesh(planeGeometry, planeMaterial);
-    game.scene.add(this.mesh);
-
-    const self = this;
-    const loader = new THREE.TextureLoader();
-    loader.load(
-      // resource URL
-      `${game.assetsPath}images/speech.png`,
-
-      // onLoad callback
-      function (texture) {
-        // in this example we create the material when the texture is loaded
-        self.img = texture.image;
-        self.mesh.material.map = texture;
-        self.mesh.material.transparent = true;
-        self.mesh.material.needsUpdate = true;
-        if (msg !== undefined) self.update(msg);
-      },
-
-      // onProgress callback currently not supported
-      undefined,
-
-      // onError callback
-      function (err) {
-        console.error("An error happened.");
-      }
-    );
-  }
-
-  update(msg) {
-    if (this.mesh === undefined) return;
-
-    let context = this.context;
-
-    if (this.mesh.userData.context === undefined) {
-      const canvas = this.createOffscreenCanvas(this.config.width, this.config.height);
-      this.context = canvas.getContext("2d");
-      context = this.context;
-      context.font = `${this.config.size}pt ${this.config.font}`;
-      context.fillStyle = this.config.colour;
-      context.textAlign = "center";
-      this.mesh.material.map = new THREE.CanvasTexture(canvas);
-    }
-
-    const bg = this.img;
-    context.clearRect(0, 0, this.config.width, this.config.height);
-    context.drawImage(bg, 0, 0, bg.width, bg.height, 0, 0, this.config.width, this.config.height);
-    this.wrapText(msg, context);
-
-    this.mesh.material.map.needsUpdate = true;
-  }
-
-  createOffscreenCanvas(w, h) {
-    const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    return canvas;
-  }
-
-  wrapText(text, context) {
-    const words = text.split(" ");
-    let line = "";
-    const lines = [];
-    const maxWidth = this.config.width - 2 * this.config.padding;
-    const lineHeight = this.config.size + 8;
-
-    words.forEach(function (word) {
-      const testLine = `${line}${word} `;
-      const metrics = context.measureText(testLine);
-      const testWidth = metrics.width;
-      if (testWidth > maxWidth) {
-        lines.push(line);
-        line = `${word} `;
-      } else {
-        line = testLine;
-      }
-    });
-
-    if (line != "") lines.push(line);
-
-    let y = (this.config.height - lines.length * lineHeight) / 2;
-
-    lines.forEach(function (line) {
-      context.fillText(line, 128, y);
-      y += lineHeight;
-    });
-  }
-
-  show(pos) {
-    if (this.mesh !== undefined && this.player !== undefined) {
-      this.mesh.position.set(this.player.object.position.x, this.player.object.position.y + 380, this.player.object.position.z);
-      this.mesh.lookAt(pos);
-    }
   }
 }
