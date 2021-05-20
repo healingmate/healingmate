@@ -4,7 +4,7 @@
     style="box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)!important;"
     @click="goToProfile"
   >
-    <img :src="profileImageUrl">
+    <img :src="require(`@/assets/images/character/${this.profileImagePath}.png`)">
   </q-avatar>
 </template>
 
@@ -30,16 +30,12 @@ props: {
     default: false,
   }
 },
-data() {
-  return {
-    profileImageUrl: require(`@/assets/images/character/${this.profileImagePath}.png`)
-  }
-},
+// data() {
+//   return {}
+// },
 // computed: {},
 // watch: {},
-created() {
-  console.log(require(`@/assets/images/character/${this.profileImagePath}.png`))
-},
+// created() {},
 // mounted() {},
 // updated() {},
   methods: {

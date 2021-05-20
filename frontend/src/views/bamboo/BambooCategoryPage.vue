@@ -51,7 +51,9 @@ export default {
     TheGoBackButton,
   },
   created() {
-    this.categoryCards = categoryData.content
+    // 카테고리 선택하고 방 규모 선택하는 곳에서 뒤로가기하면 기존에 선택했던 카테고리가 남아있던 이유
+    // deepcopy가 안되서! 그래서 JSON 함수를 이용해 deepcopy를 해준다
+    this.categoryCards = JSON.parse(JSON.stringify(categoryData)).content
   },
   methods: {
     onSelectCategory(card) {
