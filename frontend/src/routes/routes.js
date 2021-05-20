@@ -1,5 +1,4 @@
 import Home from '../views/Home.vue'
-import ProjectComponentsPage from '../views/ProjectComponentsPage.vue'
 import AccountSignUpFirstPage from '@/views/account/AccountSignUpFirstPage'
 import AccountSignUpSecondPage from '@/views/account/AccountSignUpSecondPage'
 import AccountSignInPage from '@/views/account/AccountSignInPage'
@@ -25,11 +24,6 @@ export default [
     name: 'Home',
     component: Home,
     meta: { anonymRequired: true },
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: ProjectComponentsPage,
   },
   {
     path: '/account/sign-up/first',
