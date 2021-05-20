@@ -23,7 +23,7 @@
 			/>
 		</div>
 
-		<div class="p-x-28 absolute" style="bottom: 20px; width: 100%">
+		<div class="p-x-28 absolute" style="top: 80vh; width: 100%">
 			<BaseButton 
 				back-ground-color="#545FD6" 
 				label="다음" 
