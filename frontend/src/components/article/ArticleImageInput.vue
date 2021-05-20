@@ -39,6 +39,8 @@
           />
         </q-card>
 
+        <span style="font-size: 10px; color: #ffffff;">사진을 확대/축소할 수 있습니다.</span>
+
         <div class="row justify-around" style="margin-top: 50px;">
             <BaseButton width="40%" text-color="#c10015" back-ground-color="#ffffff" icon="close" @click.native="closeDialog"/>
             <BaseButton width="40%" text-color="#545FD6" back-ground-color="#ffffff" icon="check" @click.native="onClickSelect"/>

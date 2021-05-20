@@ -278,11 +278,17 @@ export default {
 #audios-container >>> .mute-audio{
   background-color: transparent !important;
   background-image: url('~@/assets/images/voice-chat/unmute.svg');
+  width: 24px;
+  height: 24px;
+  z-index: 1;
 }
 
 #audios-container >>> .unmute-audio{
   background-color: transparent !important;
   background-image: url('~@/assets/images/voice-chat/mute.svg');
+    width: 24px;
+  height: 24px;
+  z-index: 1;
 }
 
 #audios-container >>> .stop {
