@@ -44,7 +44,7 @@ created() {
 // updated() {},
   methods: {
     goToProfile() {
-      if (this.goToProfile) {
+      if (this.goProfile) {
         this.$router.push('/profile');
       }
     },

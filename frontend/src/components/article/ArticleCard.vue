@@ -18,7 +18,7 @@
     :number="article.articleImages.length > 1 ? 2 : 1">
     <ArticleCarouselItem 
       v-for="(articleImage, index) in article.articleImages" :key="index" 
-      :article-image="'https://dev.healingmate.kr/healingmate-image/' + articleImage"
+      :article-image="baseUrl+'healingmate-image/' + articleImage"
     />
   </ArticleCarousel>
   
@@ -53,6 +53,7 @@ import { deleteArticle } from '@/api/article'
 import { banUser } from '@/api/user'
 import { formatDate } from '@/utils/filters'
 
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 export default {
 	name: 'ArticleCard',
@@ -74,7 +75,8 @@ export default {
 	props: {
     article: {
 			type: Object,
-			default: null
+			default: null,
+      baseUrl: null,
 		},
   },
 	data() {
@@ -85,7 +87,9 @@ export default {
   },
 	// computed: {},
 	// watch: {},
-	// created() {},
+	created() {
+    this.baseUrl = BASE_URL
+  },
 	// mounted() {},
 	// updated() {},
 	methods: {
