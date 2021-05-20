@@ -191,12 +191,12 @@ export default {
       })
     },
     // webRTC 소켓 연결 끊기
-    exitVoiceChating(connection) {
+    async exitVoiceChating(connection) {
       // iframe message 지워졌다!
-      document.getElementById('child').contentWindow.postMessage("exit", '*');
-      
+      // 닫기 전에 요청을 보내야 하는 데.. 요청보내기 전에 닫혀버림..!
+      //await document.getElementById('child').contentWindow.postMessage("exit", '*');
       connection.attachStreams.forEach(function(localStream) {
-          localStream.stop()
+        localStream.stop();
       })
 
       connection.closeSocket();
