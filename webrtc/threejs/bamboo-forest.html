@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	</head>
 	<body topmargin="0"  leftmargin="0" marginwidth="0" marginheight="0">
-
+		<h1 id="loading">로딩중...</h1>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js"></script>
 		<script src="https://socket.healingmate.kr:8282/node_modules/webrtc-adapter/out/adapter.js"></script>
 		<script src="https://socket.healingmate.kr:8282/socket.io/socket.io.js"></script>
@@ -22,6 +22,7 @@
 			function receiveMsgFromParent( e ) {
 				// e.data가 전달받은 메시지
 				console.log('부모로 부터 받은 메시지 ', e.data );
+				document.getElementById('loading').style.display = 'none';
 				new Game(e.data.roomid);
 			}
 		</script>

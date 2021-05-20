@@ -523,32 +523,10 @@ class PlayerLocal extends Player {
     // 채팅에 몇명이나 허용 할것인지
     connection.publicRoomIdentifier = 'bamboo-forest'
     
-    connection.join(roomid)
+    connection.openOrJoin(roomid)
 
     connection.connectSocket(function (socket) {
       player.id = connection.userid;
-
-      socket.on("deletePlayer", function (data) {
-        const players = game.remotePlayers.filter(function (player) {
-          if (player.id === data.id) {
-            return player;
-          }
-        });
-        if (players.length > 0) {
-          let index = game.remotePlayers.indexOf(players[0]);
-          if (index !== -1) {
-            game.remotePlayers.splice(index, 1);
-            game.scene.remove(players[0].object);
-          }
-        } else {
-          index = game.initialisingPlayers.indexOf(data.id);
-          if (index !== -1) {
-            const player = game.initialisingPlayers[index];
-            player.deleted = true;
-            game.initialisingPlayers.splice(index, 1);
-          }
-        }
-      });
     });
 
     setInterval(function(){
@@ -571,7 +549,35 @@ class PlayerLocal extends Player {
       });
       game.remoteData = data;
     }, 40);
-      
+
+    window.addEventListener( 'message', e =>{
+      if(e.data==="exit"){
+        const players = game.remotePlayers.filter(function (player) {
+          if (player.id === data.id) {
+            return player;
+          }
+        });
+        if (players.length > 0) {
+          let index = game.remotePlayers.indexOf(players[0]);
+          if (index !== -1) {
+            game.remotePlayers.splice(index, 1);
+            game.scene.remove(players[0].object);
+          }
+        } else {
+          index = game.initialisingPlayers.indexOf(data.id);
+          if (index !== -1) {
+            const player = game.initialisingPlayers[index];
+            player.deleted = true;
+            game.initialisingPlayers.splice(index, 1);
+          }
+        }
+        connection.attachStreams.forEach(function(localStream) {
+        localStream.stop()
+        })
+
+        connection.closeSocket();
+      }
+    });
     this.connection = connection;
   }
 

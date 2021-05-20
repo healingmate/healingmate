@@ -24,7 +24,7 @@
     <iframe 
       id="child"
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-      src="https://socket.healingmate.kr/bamboo-forest.html" 
+      src="http://localhost:8081/threejs/bamboo-forest.html" 
       frameborder="0">
     </iframe>
   </div>
@@ -63,7 +63,7 @@ export default {
 	// updated() {},
   destroyed() {
     // webRTC 소켓 연결 끊기
-    this.exitVoiceChating(this.CONNECTION)
+    this.exitVoiceChating(this.CONNECTION);
   },
 	methods: {
     // webRTC 각종 설정 및 소켓 연결(=채팅 연결)
@@ -158,6 +158,9 @@ export default {
         connection.acceptParticipationRequest(participantId, userPreferences);
       };
 
+      // room id 만들기
+      var roomid = connection.token();
+
       // 참가자가 어떻게 참여할지 정의함
       // 1. 전체 방을 뒤져서 내가 선택한 room type에 맞는 방이 있고 해당 방이 꽉 차지 않았으면 그 방에 들어가고
       // 2. 조건에 맞는 방이 없으면 방을 내가 오픈한다.
@@ -168,37 +171,29 @@ export default {
               console.log(room, '의 방이 존재합니다' )
               // TODO: 현재 선택한 대숲 모드에 맞춰서 인원에 맞는 방에 들어가야함
               if (!room.isRoomFull && room.maxParticipantsAllowed === connection.maxParticipantsAllowed ) {
-                console.log(">>>>>>1")
-                console.log(child.postMessage({'rooid': room.sessionid}, '*'))
-                connection.join(room.sessionid)
+                console.log(">>>>>>1");
+                child.postMessage({'roomid': room.sessionid}, '*');
+                connection.join(room.sessionid);
                 return
               }
             }
             // 현재 존재하는 방을 다 순회했는데 들어갈 방이 없다? 그러면 내가 새로 판다
-                console.log(">>>>>>2")
-            console.log(child.postMessage({roomid}, '*'))
-            connection.open(roomid)
+                console.log(">>>>>>2");
+            child.postMessage({roomid}, '*');
+            connection.open(roomid);
           } else {
             // 현재 방이 아무것도 존재하지 않으면 첫 번째 방을 판다
-            console.log(">>>>>>3")
-            console.log(child.postMessage({roomid}, '*'))
-            connection.open(roomid)
+            console.log(">>>>>>3");
+            child.postMessage({roomid}, '*');
+            connection.open(roomid);
           }
         })
       })
-
-    // room id 만들기
-    var roomid = connection.token();
-
-    //   // ......................................................
-    //   // .......................UI Code........................
-    //   // ......................................................
-
     },
     // webRTC 소켓 연결 끊기
     exitVoiceChating(connection) {
       // iframe message 지워졌다!
-
+      document.getElementById('child').contentWindow.postMessage("exit", '*');
       connection.attachStreams.forEach(function(localStream) {
           localStream.stop()
       })
@@ -213,6 +208,7 @@ export default {
         persistent: true,
         position: 'bottom',
       }).onOk(() => {
+        this.exitVoiceChating(this.CONNECTION)
         this.$router.push({name: 'ArticleFeedPage'})
       }).onCancel(() => {
       }).onDismiss(() => {
