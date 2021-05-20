@@ -234,7 +234,7 @@ export default {
     .catch(err => {
       console.log(err.response)
     })
-    this.keywordList = this.$store.state.keyword;
+    this.keywordList = this.$store.state.keyword ? this.$store.state.keyword : '';
     const myCharacter = this.$store.state.profileImage
     // console.log(myCharacter)
     for (var a = 0; a < characterList.length; a++) {
