@@ -196,6 +196,7 @@ export default {
       isLast: false,
       isLoading: false,
       value: 70,
+      characterList: characterList,
     }
   },
   watch: {
