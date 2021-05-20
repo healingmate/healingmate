@@ -5,7 +5,6 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	</head>
 	<body topmargin="0"  leftmargin="0" marginwidth="0" marginheight="0">
-		<h1 id="loading">로딩중...</h1>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js"></script>
 		<script src="https://socket.healingmate.kr:8282/node_modules/webrtc-adapter/out/adapter.js"></script>
 		<script src="https://socket.healingmate.kr:8282/socket.io/socket.io.js"></script>
@@ -17,14 +16,16 @@
 		<script src="libs/toon3d.js"></script>
 		<script src="game.js"></script>
 		<script>
-			window.addEventListener( 'message', receiveMsgFromParent );
-			// 부모로부터 메시지 수신
-			function receiveMsgFromParent( e ) {
-				// e.data가 전달받은 메시지
-				console.log('부모로 부터 받은 메시지 ', e.data );
-				document.getElementById('loading').style.display = 'none';
-				new Game(e.data.roomid);
-			}
+		window.addEventListener('load', function () {
+			window.parent.postMessage('three.js 로드 준비 완료', '*');
+		})
+		
+		window.addEventListener( 'message', messageFromParent )
+
+		function messageFromParent( event ) {
+			console.log('부모로 부터 받은 메시지 ', event.data );
+			new Game(event.data);
+		}
 		</script>
 	</body>
 </html>

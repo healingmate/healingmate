@@ -1,5 +1,5 @@
 class Game {
-  constructor(roomid) {
+  constructor(localInformation) {
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
     this.modes = Object.freeze({
@@ -11,8 +11,10 @@ class Game {
       GAMEOVER: Symbol("gameover"),
     });
     this.mode = this.modes.NONE;
-
-    this.roomid = roomid
+    
+    this.profileImage = localInformation.profileImage
+    console.log(this.profileImage)
+    this.roomid = localInformation.roomid
     this.container;
     this.player;
     this.cameras;
