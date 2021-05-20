@@ -2,31 +2,31 @@
   "characterList": [
     {
       "id": 1,
-      "name": "RABBIT"
+      "name": "BEAR"
     },
     {
       "id": 2,
-      "name": "FOX"
+      "name": "CAT"
     },
     {
       "id": 3,
-      "name": "PENGUIN"
+      "name": "COW"
     },
     {
       "id": 4,
-      "name": "LION"
+      "name": "DOG"
     },
     {
       "id": 5,
-      "name": "WOLF"
+      "name": "PENGUIN"
     },
     {
       "id": 6,
-      "name": "KANGAROO"
+      "name": "RABBIT"
     },
     {
       "id": 7,
-      "name": "CAT"
+      "name": "WOLF"
     },
     {
       "id": 8,
