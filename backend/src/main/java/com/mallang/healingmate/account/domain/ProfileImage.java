@@ -12,8 +12,9 @@ import java.util.List;
  * @author 이아영
  * @date 2021-05-04 오전 9:56
  * @변경이력
+ * 21-05-20 대나무숲에서 사용될 동물 asset 결정에 따른 값 변경
  **/
 
 public enum ProfileImage {
-    RABBIT, PENGUIN, LION, WOLF, FOX, KANGAROO, CAT, DOG
+    BEAR, CAT, COW, DOG, PENGUIN, RABBIT, WOLF
 }
