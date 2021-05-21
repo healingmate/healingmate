@@ -89,6 +89,9 @@ export default {
   },
 	// mounted() {},
 	// updated() {},
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 	methods: {
     onPostButton() {
       this.$router.push({name: 'ArticleCreatePage'})
@@ -130,6 +133,7 @@ export default {
     onDeleteArticle(article) {
       const index = this.articleList.indexOf(article)
       this.articleList.splice(index, 1)
+      this.$router.go(0)
     }
   },
 }
