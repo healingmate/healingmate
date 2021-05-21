@@ -49,7 +49,7 @@
 
 #### 기술스택
 
-![vue](https://img.shields.io/badge/Vue.js-2.6.11-4FC08D?Style=flat&logo=Vue-dot-js&logoColor=4FC08D)
+#### ![vue](https://img.shields.io/badge/Vue.js-2.6.11-4FC08D?Style=flat&logo=Vue-dot-js&logoColor=4FC08D)
 
 
 #### 사용된 라이브러리
@@ -199,21 +199,27 @@
 
 ### 주요기능
 
-#### 회원관리
+#### 힐링방식 공유
 
-- TODO
+> 자신만의 힐링 방법을 타인들과 공유
 
-#### 게시글 CRUD
+#### 익명 대나무 숲
 
-- TODO
+> 익명으로 참여하여 1:1 또는 단체 규모로 메타버스를 통해 원하는 주제에 대한 자신의 고민을 공유할 수 있습니다.
 
-#### 메타버스
+##### 	메타버스
 
-- TODO
+- 3D 가상공간 구현을 모바일 웹에서 구현하기 위해 Three.js 사용
 
-#### 유저 매칭
+- Socket.io 통신으로 다수의 유저 접속
 
-- TODO
+  ##### 음성채팅
+
+- WebRTC와 Socket.io 통한 음성채팅
+
+#### 힐링 콘텐츠
+
+> 힐링과 관련된 유튜브 및 GIF, ASMR, 명상 음악 제공
 
 
 
