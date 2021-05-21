@@ -30,7 +30,7 @@
 			/>
 		</div>
 
-		<div class="p-x-28 absolute" style="bottom: 20px; width: 100%">
+		<div class="p-x-28" style="padding-top: 24px; width: 100%">
 			<BaseButton 
 				back-ground-color="#545FD6" 
 				label="회원가입" 

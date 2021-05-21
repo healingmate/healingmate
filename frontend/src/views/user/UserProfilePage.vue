@@ -243,6 +243,9 @@ export default {
       }
     }
   },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   methods: {
     selectButton() {
       this.postButton = !this.postButton;

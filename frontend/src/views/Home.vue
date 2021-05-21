@@ -10,7 +10,7 @@
 		<p v-if="isNight" class="home_saying home--night-font-color">오늘 하루도 고생했어요.</p>
 		<p v-else class="home_saying home--day-font-color">오늘 하루도 힘내세요.</p>
 
-		<div class="absolute p-x-28" style="bottom: 20px; width: 100%;">
+		<div class="p-x-28" style="padding-top: 20px; width: 100%;">
 			<BaseButton back-ground-color="#545FD6" label="로그인" @click.native="onSignInButton"/>
 			<BaseButton back-ground-color="#ffffff" text-color="#545FD6" label="회원가입" @click.native="onSignUpButton"/>
 		</div>

@@ -118,7 +118,7 @@
       </base-keyword>
     </div>
     <!-- 제출 버튼 -->
-    <div class="absolute-bottom p-x-28 q-mb-lg"  @click="updateProfile">
+    <div class="p-x-28 q-mb-lg"  style="padding-top: 28px;" @click="updateProfile">
       <base-button 
         back-ground-color="#244684" 
         text-color="white" 

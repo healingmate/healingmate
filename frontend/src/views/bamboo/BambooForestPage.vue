@@ -66,6 +66,7 @@ export default {
   destroyed() {
     // webRTC 소켓 연결 끊기
     this.exitVoiceChating(this.CONNECTION);
+    window.removeEventListener( 'message', this.messageFromChild )
   },
 	methods: {
     // webRTC 각종 설정 및 소켓 연결(=채팅 연결)
@@ -117,7 +118,6 @@ export default {
 
       // 소켓이 연결 되면 mediaElement를 준비해서 audios-container에 달아준다.
       connection.onstream = function(event) {
-
         var width = parseInt(connection.audiosContainer.clientWidth / 2) - 20
         var mediaElement = getHTMLMediaElement(event.mediaElement, {
           title: event.userid,
@@ -228,12 +228,12 @@ export default {
     },
     messageFromChild(e) {
       console.log(e)
-      document.getElementById('child').contentWindow
+      setTimeout(document.getElementById('child').contentWindow
       .postMessage(
-        {
-          'roomid': this.roomid,
-          'profileImage': this.$store.state.profileImage
-        }, '*')
+      {
+        'roomid': this.roomid,
+        'profileImage': this.$store.state.profileImage
+      }, '*'), 500)
     }
   },
 }

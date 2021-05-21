@@ -16,16 +16,19 @@
 		<script src="libs/toon3d.js"></script>
 		<script src="game.js"></script>
 		<script>
-		window.addEventListener('load', function () {
-			window.parent.postMessage('three.js 로드 준비 완료', '*');
-		})
-		
 		window.addEventListener( 'message', messageFromParent )
 
 		function messageFromParent( event ) {
-			console.log('부모로 부터 받은 메시지 ', event.data );
-			new Game(event.data);
+			console.log(event.data)
+			if (event.data !== "exit") {
+				window.removeEventListener( 'message', messageFromParent )
+				new Game(event.data);
+			}
 		}
+
+		window.addEventListener('load', function () {
+			window.parent.postMessage('three.js 로드 준비 완료', '*');
+		})
 		</script>
 	</body>
 </html>

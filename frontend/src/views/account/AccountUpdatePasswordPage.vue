@@ -44,7 +44,7 @@
     >
     </base-text-input>
     <!-- 제출 버튼 -->
-    <div class="absolute-bottom p-x-28 q-mb-lg"  @click="changePassword">
+    <div class="p-x-28 q-mb-lg" style="padding-top: 24px;"  @click="changePassword">
       <base-button 
         back-ground-color="#244684" 
         text-color="white" 
